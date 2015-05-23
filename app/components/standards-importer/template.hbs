@@ -81,24 +81,11 @@
     <div class="grid__column__scroller">
       {{#if standards}}
         <h4>{{standardsSet.title}}</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>ASN Id</th>
-              <th>Notation</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each standards as |standard|}}
-            <tr>
-              <td>{{standard.asnIdentifier}}</td>
-              <td>{{standard.statementNotation}}</td>
-              <td>{{{standard.description}}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        <div class="importable-standards">
+        {{#each standards as |standard|}}
+          <importable-standard standard={{standard}} class="standard depth-{{standard.depth}}"/>
+        {{/each}}
+        </div>
       {{/if}}
     </div>
   </div>

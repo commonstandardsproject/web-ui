@@ -1,0 +1,41 @@
+.standard{
+  display: block;
+}
+
+.standard{
+  padding-top: 5px;
+  border-bottom: 1px solid $dividers;
+  margin-bottom: 5px;
+
+  &.depth-1{
+    margin-left: 20px;
+  }
+  &.depth-2{
+    margin-left: 40px;
+  }
+  &.depth-3{
+    margin-left: 60px;
+  }
+
+}
+
+.standard__guid{
+  display: block;
+  font-size: 10px;
+  color: $hint;
+}
+
+.standard__asn-identifier{
+  color: $hint;
+  font-size: 10px;
+}
+
+.standard__statement-notation{
+  // font-weight: 700;
+  // color: $secondary-text;
+  // display: block;
+}
+
+.standard__description{
+  color: $secondary-text;
+}
