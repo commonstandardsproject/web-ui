@@ -15,10 +15,6 @@ export default Ember.Component.extend({
     viewStandardsSet(query){
       this.sendAction("viewStandardsSet", query)
     },
-
-    update(){
-      this.sendAction('update')
-    }
   }
 
 

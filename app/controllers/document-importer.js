@@ -79,11 +79,6 @@ export default Ember.Controller.extend({
     },
     viewStandardsSet(query){
       this.set('standardsSetQuery', query)
-    },
-    update(){
-      var doc = this.get('standardsDocument')
-      this.set('standardsDocument', '')
-      this.set('standardsDocument', doc)
     }
   }
 

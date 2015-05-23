@@ -6,3 +6,11 @@
 @import "labels";
 @import "selectable-list";
 @import "form-rows";
+
+
+.json-pretty{
+  width: 100%;
+  pre{
+    outline: 0 !important;
+  }
+}

@@ -24,7 +24,6 @@
   {{#if standardsDocument}}
   <div class="grid__column grid__column--standards-document">
     <div class="grid__column__scroller">
-      <button {{action "update"}}>Update</button>
       <div class="form-rows">
         <div class="form-rows__row">
           <label>ID</label>
@@ -68,6 +67,11 @@
             </ul>
           </div>
         </div>
+        {{#if standardsSetQuery}}
+        <div class="form-rows__row">
+          {{json-pretty obj=standardsSetQuery}}
+        </div>
+        {{/if}}
       </div>
     </div>
   </div>
@@ -76,8 +80,7 @@
   <div class="grid__column grid__column--standards-set">
     <div class="grid__column__scroller">
       {{#if standards}}
-        <h2>{{standardsSet.title}}</h2>
-        {{json-pretty obj=standardsSetQuery}}
+        <h4>{{standardsSet.title}}</h4>
         <table>
           <thead>
             <tr>
