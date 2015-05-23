@@ -1,0 +1,55 @@
+.grid{
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0px;
+  // justify-content: center;
+  // align-items: stretch;
+  // flex-direction: column;
+}
+
+.grid__column{
+  // padding: 0 10px;
+  width: 90%;
+  overflow-y: scroll;
+  // min-height: 0;
+  // height: 100%;
+  // flex-grow: 1;
+  border-right: 1px solid $dividers;
+  position: relative;
+  min-height: -webkit-min-content;
+}
+
+
+.grid__column--jurisdiction{
+  max-width: 100px;
+  min-width: 100px;
+}
+
+.grid__column--standards-set{
+
+}
+
+.grid__column--standards-set{
+  flex-grow: 2;
+  width: 200%;
+}
+
+.grid__column__scroller{
+  position: absolute;
+  // padding: 0 10px;
+  top: 0;
+  left: 0; right: 0;
+  // left: 10px;
+  // right: 10px;
+  bottom: 0;
+  overflow: auto;
+}
+
+
+.grid__column__header{
+  font-size: 2rem;
+
+}

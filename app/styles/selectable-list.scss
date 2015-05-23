@@ -1,0 +1,22 @@
+.selectable-list{
+  margin-left: 0;
+}
+
+.selectable-list__item{
+  display: block;
+  font-size: 12px;
+  line-height: 1.2;
+  margin-top: 0;
+  color: $text;
+  text-decoration: none;
+  padding: 10px 10px 10px;
+  margin-bottom: 0;
+  border-bottom: 1px solid $dividers;
+  cursor: pointer;
+  &:hover{
+    background-color: $dividers;
+  }
+  &.active{
+    background-color: $dividers;
+  }
+}

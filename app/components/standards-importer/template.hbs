@@ -1,0 +1,102 @@
+<div class="grid">
+  <div class="grid__column grid__column--jurisdiction">
+    <div class="grid__column__scroller">
+      {{ember-selectize
+        content=jurisdictions
+        optionValuePath="id"
+        optionLabelPath="title"
+        placeholder=jurisdiction.title
+        select-item="viewJurisdiction"
+        multiple=false
+        id="jurisdiction-select"
+      }}
+      {{#if jurisdiction}}
+      <ul class="selectable-list">
+        {{#each jurisdiction.documents as |document|}}
+          {{#link-to (query-params standardsDocumentId=document.id) tagName="li" class="selectable-list__item"}}
+          {{document.title}}
+          {{/link-to}}
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+  {{#if standardsDocument}}
+  <div class="grid__column grid__column--standards-document">
+    <div class="grid__column__scroller">
+      <button {{action "update"}}>Update</button>
+      <div class="form-rows">
+        <div class="form-rows__row">
+          <label>ID</label>
+          <div class="form-rows__row__values">
+            {{standardsDocument.id}}
+          </div>
+        </div>
+        <div class="form-rows__row">
+          <label>Title</label>
+          <div class="form-rows__row__values">
+            {{input value=standardsDocument.document.title}}
+          </div>
+        </div>
+        <div class="form-rows__row">
+          <label>Subject</label>
+          <div class="form-rows__row__values">
+            {{input value=standardsDocument.document.subject}}
+          </div>
+        </div>
+        <div class="form-rows__row">
+          <label>Source</label>
+          <div class="form-rows__row__values">
+            <a href={{standardsDocument.document.source}} target="_blank" class="form-rows__row__url">{{standardsDocument.document.source}}</a>
+          </div>
+        </div>
+        <div class="form-rows__row">
+          <label>ASN Link</label>
+          <div class="form-rows__row__values">
+            <a href={{standardsDocument.documentMeta.attributionURL}} target="_blank" class="form-rows__row__url">{{standardsDocument.documentMeta.attributionURL}}</a>
+          </div>
+        </div>
+        <div class="form-rows__row">
+          <label>Standard Set Queries</label>
+          <div class="form-rows__row__values">
+            <ul class="label-list">
+              {{#each standardsDocument.standardSetQueries as |query|}}
+                <li class="label-list__item" {{action "viewStandardsSet" query}}>
+                  {{query.title}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="grid__column grid__column--standards-set">
+    <div class="grid__column__scroller">
+      {{#if standards}}
+        <h2>{{standardsSet.title}}</h2>
+        {{json-pretty obj=standardsSetQuery}}
+        <table>
+          <thead>
+            <tr>
+              <th>ASN Id</th>
+              <th>Notation</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each standards as |standard|}}
+            <tr>
+              <td>{{standard.asnIdentifier}}</td>
+              <td>{{standard.statementNotation}}</td>
+              <td>{{{standard.description}}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/if}}
+    </div>
+  </div>
+</div>

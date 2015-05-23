@@ -1,0 +1,50 @@
+.form-rows{
+  margin: 0 10px;
+}
+
+.form-rows__row{
+  display: flex;
+  border-bottom: 1px solid $dividers;
+  padding-bottom: 1px;
+  vertical-align: center;
+  align-items: center;
+  label{
+    width: 20%;
+    min-width: 50px;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 0;
+    align-self: center;
+    vertical-align: center;
+  }
+}
+
+.form-rows__row__values{
+  width: 90%;
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 28px;
+  margin: 0;
+  background-color: none;
+  font-family: "Source Sans Pro";
+  border-color: transparent;
+  .form-rows__row__url,
+  input{
+    width: 100%;
+    font-size: 14px;
+    line-height: 28px;
+    font-family: "Source Sans Pro";
+    border-color: transparent;
+    background-color: none;
+    height: 28px;
+    margin-bottom: 0;
+  }
+  input{margin-left: -10px; }
+}
+
+// input.minimal-input{
+//   border: none;
+//   padding: 0;
+//   outline: 0;
+//   font-family: "Source Sans Pro";
+// }

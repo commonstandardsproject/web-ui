@@ -10,6 +10,9 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+        'ember-routing-htmlbars-improved-actions': true,
+        'ember-views-component-block-info': true,
+        'ember-htmlbars-component-generation': true
       }
     },
 
@@ -20,6 +23,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
