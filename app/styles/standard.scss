@@ -6,6 +6,11 @@
   padding-top: 5px;
   border-bottom: 1px solid $dividers;
   margin-bottom: 5px;
+  // display: none;
+
+  &.depth-0{
+    display: block;
+  }
 
   &.depth-1{
     margin-left: 20px;
@@ -15,6 +20,12 @@
   }
   &.depth-3{
     margin-left: 60px;
+  }
+  &.depth-4{
+    margin-left: 80px;
+  }
+  &.depth-5{
+    margin-left: 100px;
   }
 
 }

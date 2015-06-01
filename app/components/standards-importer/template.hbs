@@ -34,13 +34,13 @@
         <div class="form-rows__row">
           <label>Title</label>
           <div class="form-rows__row__values">
-            {{input value=standardsDocument.document.title}}
+            {{standardsDocument.document.title}}
           </div>
         </div>
         <div class="form-rows__row">
           <label>Subject</label>
           <div class="form-rows__row__values">
-            {{input value=standardsDocument.document.subject}}
+            {{standardsDocument.document.subject}}
           </div>
         </div>
         <div class="form-rows__row">
@@ -59,9 +59,9 @@
           <label>Standard Set Queries</label>
           <div class="form-rows__row__values">
             <ul class="label-list">
-              {{#each standardsDocument.standardSetQueries as |query|}}
+              {{#each standardsDocument.standardsSetQueries as |query|}}
                 <li class="label-list__item" {{action "viewStandardsSet" query}}>
-                  {{query.title}}
+                  {{{query.title}}}
                 </li>
               {{/each}}
             </ul>
