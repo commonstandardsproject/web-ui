@@ -6,7 +6,11 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('home', {path: '/'})
+  this.route('search')
+  this.route('api-info')
   this.route('document-importer');
+  this.route('standards-editor');
 });
 
 export default Router;

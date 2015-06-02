@@ -1,0 +1,53 @@
+.home-menu{
+  padding: 0;
+  margin: 0 80px;
+}
+
+.home-menu__item{
+  border-bottom: 1px solid $dividers;
+  padding-top: 20px;
+  clear: both;
+  // display: flex;
+  // flex-direction: column;
+  a {
+    text-decoration: none;
+  }
+}
+
+.home-menu__item__icon{
+  svg {
+    width: 60px;
+    height: 60px;
+    path, polygon, rect {
+      fill: $hint;
+    }
+  }
+  width: 80px;
+  height: 70px;
+  // align-self: left;
+  float: left;
+  // display: inline-block;
+}
+
+.home-menu__item__title{
+  font-family: "aw-conqueror-carved-one";
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  cursor: pointer;
+  transition: all .3s;
+  color: #D96758;
+  &:hover{
+    transition: all .3s;
+    font-family: "aw-conqueror-carved-two";
+  }
+}
+
+.home-menu__item__subtitle{
+  // font-family: "le-monde-courrier-std-2";
+  font-weight: 300;
+  color: $hint;
+  font-size: 2.5rem;
+  line-height: 1;
+}

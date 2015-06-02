@@ -1,0 +1,31 @@
+.masthead{
+  margin: 40px 80px 0;
+  padding: 40px 0px;
+  background-color: white;
+  // border-top: 1px solid $hint;
+  border-bottom: 1px solid $hint;
+
+}
+.masthead__title {
+
+  font-family: "aw-conqueror-carved";
+  font-size: 9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .5s;
+  color: #00C6CC;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  &:hover{
+    color: #EAE3A0;
+    transition: color .5s;
+  }
+}
+
+.masthead__subtitle {
+  margin-top: 1.5rem;
+  font-size: 3rem;
+  margin-bottom: 0;
+  padding-bottom: 0px;
+  color: $secondary-text;
+}
