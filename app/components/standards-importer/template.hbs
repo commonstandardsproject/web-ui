@@ -80,7 +80,10 @@
   <div class="grid__column grid__column--standards-set">
     <div class="grid__column__scroller">
       {{#if standards}}
-        <h4>{{standardsSet.title}}</h4>
+        <h4>
+          <button class="button button-primary u-pull-right" {{action "importStandards" standardsSetQuery}}>Import</button>
+          {{standardsSet.title}}
+        </h4>
         <div class="importable-standards">
         {{#each standards as |standard|}}
           <importable-standard standard={{standard}} class="standard depth-{{standard.depth}}"/>

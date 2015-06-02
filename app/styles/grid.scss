@@ -24,9 +24,8 @@
 
 
 .grid__column--jurisdiction{
-  margin-top: 10px;
-  max-width: 100px;
-  min-width: 100px;
+  max-width: 150px;
+  min-width: 150px;
 }
 
 .grid__column--standards-set{
@@ -36,6 +35,11 @@
 .grid__column--standards-set{
   flex-grow: 2;
   width: 200%;
+  .grid__column__scroller{
+    padding-top: 5px;
+    padding-right: 5px;
+
+  }
 }
 
 .grid__column__scroller{

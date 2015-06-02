@@ -67,6 +67,8 @@ export default Ember.Controller.extend({
       return acc
     }
 
+    console.log(standardsHash, rootStandard)
+
     return fetchNext([], standardsHash, rootStandard.id)
   }),
 
@@ -79,6 +81,24 @@ export default Ember.Controller.extend({
     },
     viewStandardsSet(query){
       this.set('standardsSetQuery', query)
+    },
+    importStandards(query){
+      var data = {
+        query:               query,
+        standardsDocumentId: this.get('standardsDocument.id')
+      }
+      $.ajax({
+        url: config.APP.apiBaseUrl + 'standards_set_import/',
+        data: data,
+        dataType: "json",
+        type: "POST",
+        success: function(data){
+          window.alert('Success!')
+        }.bind(this),
+        error: function(data){
+          window.alert(JSON.stringify(data))
+        }.bind(this)
+      })
     }
   }
 
