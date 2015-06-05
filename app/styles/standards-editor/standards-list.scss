@@ -11,6 +11,10 @@
     }
   }
   text-decoration: none;
+  &.active{
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
 
 .standard-set-list__subject{
