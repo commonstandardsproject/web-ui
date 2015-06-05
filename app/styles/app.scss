@@ -8,6 +8,12 @@
 @import "form-rows";
 @import "standard";
 @import "home/index";
+@import "navbar";
+@import "standards-editor/main";
+
+body{
+  margin: 0;
+}
 
 
 .json-pretty{

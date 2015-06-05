@@ -1,0 +1,71 @@
+.editor-grid{
+  margin: 0;
+  padding-top: 50px;
+  display: flex;
+  height: 95vh;
+  box-sizing: border-box;
+}
+
+.editor-grid__column{
+  width: 100%;
+  padding: 30px 0px 0;
+  border-right: 1px solid $dividers;
+  &:last-child{ border: none;}
+  height: 100%;
+  flex: 1;
+}
+
+.editor-grid__column--standards{
+  flex-grow: 2;
+}
+
+.editor-grid__column__header{
+  padding: 0 20px;
+}
+
+.editor-grid__column__title{
+  font-size: 2.5rem;
+  line-height: 1;
+  width: 100%;
+  text-align: center;
+  font-family: $font-headings;
+  color: $color-headings;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  border-top: 1px solid $dividers;
+  border-bottom: 1px solid $dividers;
+}
+
+.editor-grid__column__body{
+  padding: 0 20px;
+  overflow-y: scroll;
+  height: calc(100vh - 150px);
+}
+
+
+.editor__jurisdiction-list{
+
+}
+
+.editor__jurisdiction-list__item{
+  border-bottom: 1px solid $dividers;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-left: 10px;
+  display: block;
+  color: $text;
+  text-decoration: none;
+  line-height: 1.2;
+  // transition: background-color .2s;
+  cursor: pointer;
+  &:hover{
+    color: white;
+    background-color: $bg-hover;
+    // transition: background-color .2s;
+  }
+  &.active{
+    font-weight: bold;
+    // text-decoration: underline;
+  }
+}

@@ -41,6 +41,7 @@
     "lodash": "3.8.0"
   },
   "dependencies": {
-    "ember-cli": "^0.2.7"
+    "ember-cli": "^0.2.7",
+    "immutable": "^3.7.3"
   }
 }

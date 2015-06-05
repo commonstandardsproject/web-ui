@@ -1,0 +1,29 @@
+.standard-set-list__item{
+  padding: 7px 0 7px 7px;
+  border-bottom: 1px solid $dividers;
+  cursor: pointer;
+  display: block;
+  &:hover{
+    background-color: $bg-hover;
+    .standard-set-list__subject,
+    .standard-set-list__title{
+      color: white;
+    }
+  }
+  text-decoration: none;
+}
+
+.standard-set-list__subject{
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: $teal;
+  color: $text;
+}
+
+.standard-set-list__title{
+  line-height: 1;
+  font-size: 1.25rem;
+  display: block;
+  color: $secondary-text;
+}
