@@ -15,6 +15,51 @@
   flex: 1;
 }
 
+.editor-grid__column--with-panes{
+  overflow: hidden;
+}
+
+.editor-grid__column__pane-container{
+  width: 200%;
+  display: flex;
+  transition: transform .2s;
+  &.show-jurisdictions{
+    transform: translateX(0%);
+  }
+  &.show-standard-sets{
+    transform: translateX(-50%);
+  }
+}
+
+.editor-grid__column__pane{
+  width: 100%;
+  flex: 1;
+  &.is-active{
+
+  }
+}
+
+.editor-grid__column--jurisdictions{
+  flex-grow: 1;
+  max-width: 0;
+  transition: max-width .2s;
+  overflow: hidden;
+  &.is-visible{
+    max-width: 100%;
+    transition: max-width .2s;
+  }
+}
+
+.editor-grid__column--standard-sets{
+  flex-grow: 1;
+  max-width: 0;
+  transition: max-width .2s;
+  overflow: hidden;
+  &.is-visible{
+    max-width: 100%;
+    transition: max-width .2s;
+  }
+}
 .editor-grid__column--standards{
   flex-grow: 2;
 }
@@ -57,6 +102,7 @@
   color: $text;
   text-decoration: none;
   line-height: 1.2;
+  font-size: 12px;
   // transition: background-color .2s;
   cursor: pointer;
   &:hover{

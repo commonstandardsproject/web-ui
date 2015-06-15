@@ -6,3 +6,10 @@ export var jurisdiction = {
 }
 
 registerModel('jurisdiction')
+
+
+export var standardsSet = {
+  url: config.APP.apiBaseUrl + 'standard_sets'
+}
+
+registerModel('standardsSet')

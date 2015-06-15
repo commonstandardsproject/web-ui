@@ -1,0 +1,10 @@
+<div class="editable-standards-list">
+{{#each standardsList as |standard|}}
+    <div class="editable-standard depth-{{i-g standard 'depth'}}">
+      {{!-- <div class="editable-standard__listId">{{input value=(i-g standard "listId")}}</div> --}}
+      <div class="editable-standard__listId">{{i-g standard "listId"}}</div>
+      <div class="editable-standard__description">{{i-g standard "description"}}</div>
+      <div class="editable-standard__notation">{{i-g standard "statementNotation"}}</div>
+    </div>
+{{/each}}
+</div>

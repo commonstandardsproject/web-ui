@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import Fetcher from "../lib/fetcher";
+import Immutable from "npm:immutable";
 
 export default Ember.Controller.extend({
 
@@ -22,13 +23,14 @@ export default Ember.Controller.extend({
 
   models(){
     this.set('jurisdiction', Fetcher.find('jurisdiction', this.get('jurisdictionId')))
+    this.set('standardsSet', Fetcher.find('standardsSet', this.get('standardsSetId')))
   },
 
   onStart: Ember.on('init', function(){
     Fetcher.on('storeUpdated', this.models.bind(this))
   }),
 
-  watcher: Ember.observer('jurisdictionId', function(){
+  watcher: Ember.observer('jurisdictionId', 'standardsSetId', function(){
     this.models()
   }),
 
@@ -47,17 +49,17 @@ export default Ember.Controller.extend({
   //   })
   // }),
 
-  fetchStandardsSet: Ember.observer('standardsSetId', function(){
-    $.ajax({
-      url: config.urls.getStandardsSet + '/' + this.get('standardsSetId'),
-      dataType: "json",
-      type: "get",
-      success: function(res){
-        this.set('standardsSet', Ember.Object.create(res.data))
-        window.ss = this.get('standardsSet')
-      }.bind(this)
-    })
-  }),
+  // fetchStandardsSet: Ember.observer('standardsSetId', function(){
+  //   $.ajax({
+  //     url: config.urls.getStandardsSet + '/' + this.get('standardsSetId'),
+  //     dataType: "json",
+  //     type: "get",
+  //     success: function(res){
+  //       this.set('standardsSet', Immutable.Map(res.data))
+  //       window.ss = this.get('standardsSet')
+  //     }.bind(this)
+  //   })
+  // }),
 
 
 

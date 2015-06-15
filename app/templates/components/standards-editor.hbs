@@ -5,32 +5,40 @@
 </div>
 
 <div class="editor-grid">
-  <div class="editor-grid__column editor-grid__column--jurisdictions">
-    <div class="editor-grid__column__header">
-      <h1 class="editor-grid__column__title"> Jurisdictions & Organizations </h1>
-    </div>
-    <div class="editor-grid__column__body">
-      <div class="editor__jurisdiction-list">
-        {{#each controller.jurisdictions as |jurisdiction|}}
-          {{#link-to (query-params jurisdictionId=jurisdiction.id) class="editor__jurisdiction-list__item"}}
-            {{jurisdiction.title}}
-          {{/link-to}}
-        {{/each}}
+  <div class="editor-grid__column editor-grid__column--with-panes">
+    <div class="editor-grid__column__pane-container {{showPane}}">
+      <div class="editor-grid__column__pane">
+        <div class="editor-grid__column__header">
+          <h1 class="editor-grid__column__title"> Jurisdictions & Organizations </h1>
+        </div>
+        <div class="editor-grid__column__body">
+          <div class="editor__jurisdiction-list">
+            {{#each controller.jurisdictions as |jurisdiction|}}
+              <span {{action "clickJurisdiction"}}>
+              {{#link-to (query-params jurisdictionId=jurisdiction.id) class="editor__jurisdiction-list__item" }}
+                {{jurisdiction.title}}
+              {{/link-to}}
+              </span>
+            {{/each}}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="editor-grid__column editor-grid__column--standard-sets">
-    <div class="editor-grid__column__header">
-      <h1 class="editor-grid__column__title">{{i-g jurisdiction "title"}}</h1>
-    </div>
-    <div class="editor-grid__column__body">
-      <div class="standard-set-list">
-      {{#each standardSets as |set|}}
-        {{#link-to (query-params standardsSetId=(i-g set "id")) class="standard-set-list__item"}}
-          <div class="standard-set-list__subject">{{i-g set "subject"}}</div>
-          <div class="standard-set-list__title">{{i-g set "title"}}</div>
-        {{/link-to}}
-      {{/each}}
+
+      <div class="editor-grid__column__pane">
+        <div class="editor-grid__column__header">
+          <a class="btn btn-default" {{action "showJurisdictions"}} href="#">&larr; Back to Jurisdictions</a>
+          <h1 class="editor-grid__column__title">{{i-g jurisdiction "title"}}</h1>
+        </div>
+        <div class="editor-grid__column__body">
+          <div class="standard-set-list">
+          {{#each standardSets as |set|}}
+            {{#link-to (query-params standardsSetId=(i-g set "id")) class="standard-set-list__item"}}
+              <div class="standard-set-list__subject">{{i-g set "subject"}}</div>
+              <div class="standard-set-list__title">{{i-g set "title"}}</div>
+            {{/link-to}}
+          {{/each}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,8 +46,11 @@
     <div class="editor-grid__column__header">
       <h1 class="editor-grid__column__title">Standards</h1>
       <label for="title">Title</label>
-      <input id="title" value={{standardsSet.title}}>
+      <input id="title" value={{i-g standardsSet "title"}}>
     </div>
 
+    <div class="editor-grid__column__body">
+      {{editable-standards-list standardsHash=(i-g standardsSet "standards")}}
+    </div>
   </div>
 </div>

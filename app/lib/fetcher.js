@@ -19,7 +19,6 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
       dataType: "json",
       type: "get",
       success: function(data){
-        console.log('Imm', Immutable.fromJS(data.data))
         store.update(store.store().setIn(['models', modelName, id], Immutable.fromJS(data.data)))
         _.pull(requests, modelName+id)
         this.trigger('storeUpdated')
