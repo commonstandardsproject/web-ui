@@ -22,6 +22,10 @@ var _update = function(state){
 }
 
 var local = {
+  index(modelName){
+    return store().getIn(['localModels', 'index', modelName])
+  },
+
   find(modelName, id){
     return store().getIn(['localModels', modelName, id])
   },

@@ -10,7 +10,7 @@ Router.map(function() {
   this.route('search')
   this.route('api-info')
   this.route('document-importer');
-  this.route('standards-editor');
+  this.route('editor');
 });
 
 export default Router;

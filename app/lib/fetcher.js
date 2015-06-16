@@ -7,6 +7,7 @@ import _ from "npm:lodash";
 var requests = []
 
 var Fetcher = Ember.Object.extend(Ember.Evented, {
+
   find(modelName, id){
     var model = store.local.find(modelName, id)
     if (model) return model;
@@ -14,7 +15,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
     requests.push(modelName+id)
 
     $.ajax({
-      url: models[modelName].url + '/' + id,
+      url: models[modelName].url + '/' + id.replace('index', ''),
       dataType: "json",
       type: "get",
       success: function(data){

@@ -8,6 +8,8 @@
   left: 0; right: 0;
   box-shadow: 0 2px 20px hsla(0,0,20%, .2);
   background-color: white;
+  transform: translateZ(0);
+  z-index: 999999;
 }
 
 .navbar__title{
@@ -16,7 +18,10 @@
   line-height: 95px;
   white-space: nowrap;
   text-align: center;
-  color: $color-navbar-title;
+  a{
+    color: $color-navbar-title !important;
+    text-decoration: none;
+  }
   transition: all .4s;
   cursor: pointer;
   &:hover{

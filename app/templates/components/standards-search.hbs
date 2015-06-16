@@ -1,0 +1,19 @@
+<div class="navbar">
+  <div class="navbar__title">
+    {{#link-to 'home'}}Common Standards Project{{/link-to}}
+  </div>
+</div>
+
+<div class="search-interface">
+
+  <div class="search-bar">
+    Input: {{input value=query}}
+  </div>
+
+  <div class="search-panes">
+    {{#each standardSetIds as |id|}}
+      {{standard-set id=id selectSet="selectSet" class="standard-set"}}
+    {{/each}}
+    <div class="add-search-pane" {{action 'addPane'}}>+</div>
+  </div>
+</div>

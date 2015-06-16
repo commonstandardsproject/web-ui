@@ -1,0 +1,52 @@
+.search-interface{
+  margin-top: 50px;
+  background-color: hsl(0,0,96%);
+}
+
+.search-panes{
+  display: flex;
+  display: -webkit-flex;
+  margin: 10px;
+}
+
+
+.standard-set {
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 10px 10px 0;
+  // padding: 10px;
+  border-right: 1px solid $dividers;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.standard-set__inner--show-jurisdictions{
+  transform: translateX(0);
+}
+.standard-set__inner--show-subjects{
+  transform: translateX(-25%);
+}
+
+.standard-set__inner--show-grade-levels{
+  transform: translateX(-50%);
+}
+
+.standard-set__inner--show-standards{
+  transform: translateX(-75%);
+}
+
+.standard-set__inner{
+  display: flex;
+  display: -webkit-flex;
+  transition: transform .2s;
+}
+
+.standard-set__inner--four-panes {
+  width: 400%;
+}
+
+.standard-set-pane{
+  width: 100%;
+  flex-grow: 1;
+}
+// standard-set-panes--four {{pane}}

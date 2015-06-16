@@ -53,3 +53,81 @@
 .standard__description{
   color: $secondary-text;
 }
+
+
+
+/**
+ Searchable standards
+ */
+
+.searchable-standard-list{
+
+}
+
+$standard-indent: 10px;
+
+.searchable-standard{
+  // border-bottom: 1px solid $dividers;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchable-standard--depth-0{
+  color: $teal;
+  padding-left: $standard-indent;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.searchable-standard--depth-1{
+  padding-left: $standard-indent * 1;
+  color: $text;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.searchable-standard--depth-2{
+  font-weight: 400;
+  color: $secondary-text;
+  font-size: 1rem;
+  padding-left: $standard-indent * 2;
+}
+
+.searchable-standard--depth-3{
+  padding-left: $standard-indent * 3;
+  color: $hint;
+
+}
+.searchable-standard--depth-4{
+  padding-left: $standard-indent * 4;
+  padding-left: 40px;
+}
+
+.searchable-standard__list-id{
+  color: $teal;
+  &:not(:empty){
+    padding-right: 3px;
+    &:after{ content: "."; }
+  }
+  font-weight: bold;
+  display: inline;
+}
+
+.searchable-standard__description{
+  width: 100%;
+  display: inline;
+}
+
+.searchable-standard__statement-notation{
+  color: $hint;
+  max-width: 150px;
+  display: inline;
+  font-size: 1rem;
+  align-self: flex-start;
+  text-align: right;
+  font-weight: 400;
+  width: 100%;
+}

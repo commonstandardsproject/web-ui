@@ -1,0 +1,35 @@
+<div class="standard-set__inner standard-set__inner--four-panes standard-set__inner--show-{{pane}}">
+  <div class="standard-set-pane standard-set-pane--jurisdictions">
+    Jurisdictions
+    {{#each jurisdictions as |jurisdiction|}}
+      <div {{action 'selectJurisdiction' jurisdiction}}>{{jurisdiction.title}}</div>
+    {{/each}}
+  </div>
+  <div class="standard-set-pane standard-set-pane--subjects">
+    <div {{action 'backToPane' 'jurisdictions'}}>&larr; Back</div>
+    Subjects
+    {{#each subjects as |subject|}}
+      <div {{action 'selectSubject' subject}}>{{subject}}</div>
+    {{/each}}
+  </div>
+  <div class="standard-set-pane standard-set-pane--grade-levels">
+    <div {{action 'backToPane' 'subjects'}}>&larr; Back</div>
+    GradeLevels
+    {{#each gradeLevels as |set|}}
+      <div {{action 'selectSet' set}}>{{set.title}}</div>
+    {{/each}}
+  </div>
+  <div class="standard-set-pane standard-set-pane--standards">
+    <div {{action 'backToPane' 'grade-levels'}}>&larr; Back</div>
+    {{standardSet.title}}
+    <div class="searchable-standard-list">
+    {{#each standards as |standard|}}
+      <div class="searchable-standard searchable-standard--depth-{{standard.depth}}">
+        <div class="searchable-standard__list-id">{{standard.listId}}</div>
+        <div class="searchable-standard__description">{{standard.description}}</div>
+        <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
+      </div>
+    {{/each}}
+    </div>
+  </div>
+</div>
