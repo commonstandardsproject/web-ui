@@ -22,6 +22,15 @@ export default Ember.Controller.extend({
   }),
 
   models(){
+    // var jurisdiction = Fetcher.find('jurisdiction', this.get('jurisdictionId'))
+    // if (jurisdiction !== this.get('jurisdiction')) {
+    //   this.set('jurisdiction', jurisdiction)
+    // }
+    //
+    // var standardsSet = Fetcher.find('standardsSet', this.get('standardsSetId'))
+    // if (standardsSet !== this.get('standardsSet')){
+    //   this.set('standardsSet', standardsSet)
+    // }
     this.set('jurisdiction', Fetcher.find('jurisdiction', this.get('jurisdictionId')))
     this.set('standardsSet', Fetcher.find('standardsSet', this.get('standardsSetId')))
   },
@@ -33,35 +42,6 @@ export default Ember.Controller.extend({
   watcher: Ember.observer('jurisdictionId', 'standardsSetId', function(){
     this.models()
   }),
-
-  // jurisdiction: Ember.computed('jurisdictionId', function(){
-  //   return store.Fetcher.find('jurisdiction', this.get('jurisdictionId'))
-  // }),
-
-  // fetchStandardsSets: Ember.observer('jurisdictionId', function(){
-  //   $.ajax({
-  //     url: config.urls.getJurisdictions + '/' + this.get('jurisdictionId'),
-  //     dataType: "json",
-  //     type: "get",
-  //     success: function(res){
-  //       this.set('jurisdiction', res.data)
-  //     }.bind(this)
-  //   })
-  // }),
-
-  // fetchStandardsSet: Ember.observer('standardsSetId', function(){
-  //   $.ajax({
-  //     url: config.urls.getStandardsSet + '/' + this.get('standardsSetId'),
-  //     dataType: "json",
-  //     type: "get",
-  //     success: function(res){
-  //       this.set('standardsSet', Immutable.Map(res.data))
-  //       window.ss = this.get('standardsSet')
-  //     }.bind(this)
-  //   })
-  // }),
-
-
 
 
 

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import _ from "npm:lodash";
 import Immutable from "npm:immutable";
+import updater from "../lib/updater"
+import Standards from "../models/standards"
 
 export default Ember.Component.extend({
 
@@ -18,6 +20,12 @@ export default Ember.Component.extend({
       return acc
     }
     return getNext([], sHash, first)
-  })
+  }),
+
+  actions: {
+    update(value, object, field, e){
+      Standards.update(this.get('standardsSet'), object, field, value)
+    }
+  }
 
 })

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import _ from "npm:lodash";
 import Immutable from "npm:immutable";
 
-export default Ember.Component.extend({
+  export default Ember.Component.extend({
 
   showJurisdictions: false,
 

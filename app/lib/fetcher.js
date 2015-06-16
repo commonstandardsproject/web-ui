@@ -8,8 +8,7 @@ var requests = []
 
 var Fetcher = Ember.Object.extend(Ember.Evented, {
   find(modelName, id){
-    var model = store.store().getIn(['models', modelName, id])
-
+    var model = store.local.find(modelName, id)
     if (model) return model;
     if (_.contains(requests, modelName+id)) return Immutable.Map();
     requests.push(modelName+id)
@@ -19,7 +18,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
       dataType: "json",
       type: "get",
       success: function(data){
-        store.update(store.store().setIn(['models', modelName, id], Immutable.fromJS(data.data)))
+        store.serverCache.add(modelName, id, Immutable.fromJS(data.data))
         _.pull(requests, modelName+id)
         this.trigger('storeUpdated')
       }.bind(this)

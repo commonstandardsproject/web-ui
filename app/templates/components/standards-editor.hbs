@@ -45,12 +45,11 @@
   <div class="editor-grid__column editor-grid__column--standards">
     <div class="editor-grid__column__header">
       <h1 class="editor-grid__column__title">Standards</h1>
+    </div>
+    <div class="editor-grid__column__body">
       <label for="title">Title</label>
       <input id="title" value={{i-g standardsSet "title"}}>
-    </div>
-
-    <div class="editor-grid__column__body">
-      {{editable-standards-list standardsHash=(i-g standardsSet "standards")}}
+      {{editable-standards-list standardsSet=standardsSet standardsHash=(i-g standardsSet "standards") }}
     </div>
   </div>
 </div>
