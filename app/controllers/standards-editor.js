@@ -22,17 +22,19 @@ export default Ember.Controller.extend({
   }),
 
   models(){
-    // var jurisdiction = Fetcher.find('jurisdiction', this.get('jurisdictionId'))
-    // if (jurisdiction !== this.get('jurisdiction')) {
-    //   this.set('jurisdiction', jurisdiction)
-    // }
-    //
-    // var standardsSet = Fetcher.find('standardsSet', this.get('standardsSetId'))
-    // if (standardsSet !== this.get('standardsSet')){
-    //   this.set('standardsSet', standardsSet)
-    // }
-    this.set('jurisdiction', Fetcher.find('jurisdiction', this.get('jurisdictionId')))
-    this.set('standardsSet', Fetcher.find('standardsSet', this.get('standardsSetId')))
+    var jurisdiction = Fetcher.find('jurisdiction', this.get('jurisdictionId'))
+    if (jurisdiction !== this.get('jurisdiction')) {
+      // console.log('update jurisdiction')
+      this.set('jurisdiction', jurisdiction)
+    }
+
+    var standardsSet = Fetcher.find('standardsSet', this.get('standardsSetId'))
+    if (standardsSet !== this.get('standardsSet')){
+      // console.log('update standards set')
+      this.set('standardsSet', standardsSet)
+    }
+    // this.set('jurisdiction', Fetcher.find('jurisdiction', this.get('jurisdictionId')))
+    // this.set('standardsSet', Fetcher.find('standardsSet', this.get('standardsSetId')))
   },
 
   onStart: Ember.on('init', function(){

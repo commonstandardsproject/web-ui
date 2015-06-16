@@ -29,8 +29,6 @@ var local = {
   add(modelName, id, doc){
     var state = _update(store().setIn(['localModels', modelName, id], doc))
     _update(state)
-    // var s = doc.getIn(['standards', "D45BAC3CF12547D09B0A42C63B7277D9"])
-    // if (s) console.log('s', s.toJS())
     Fetcher.trigger('storeUpdated')
     return state
   }
@@ -53,7 +51,6 @@ var serverCache = {
 
 var deltas = {
   add(modelName, id, hash){
-    console.log('hash', hash.toJS())
     var state = store().mergeDeepIn(['deltas', modelName, id], hash)
     _update(state)
     return store().getIn(['deltas', modelName, id])

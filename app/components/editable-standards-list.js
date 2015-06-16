@@ -13,7 +13,7 @@ export default Ember.Component.extend({
       return v.get('firstStandard') == true
     })
     var getNext = function(acc, hash, standard){
-      acc.push(standard)
+      acc.push(standard.toJS())
       if (standard.get('nextStandard')) {
         getNext(acc, hash, hash.get(standard.get('nextStandard')))
       }
