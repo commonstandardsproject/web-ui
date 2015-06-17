@@ -12,7 +12,7 @@
 
   <div class="search-panes">
     {{#each standardSetIds as |id|}}
-      {{standard-set id=id selectSet="selectSet" class="standard-set"}}
+      {{standard-set id=id selectSet="selectSet" class="standard-set" removeSet="removeSet"}}
     {{/each}}
     <div class="add-search-pane" {{action 'addPane'}}>+</div>
   </div>

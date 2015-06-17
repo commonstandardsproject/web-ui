@@ -25,11 +25,17 @@ export default Ember.Component.extend({
 
     if (this.get('id').match(/blank/) == null){
       var set = Fetcher.find('standardsSet', this.get('id'))
-      if (set){ this.set('standardSet', set.toJS()) }
+      if (set && set.get('id') === this.get('id')){
+        this.set('standardSet', set.toJS())
+        // this.set('subject', this.get('standardSet.subject'))
+        this.set('jurisdictionId', this.get('standardSet.jurisdictionId'))
+      }
+    } else {
+      this.set('standardSet', null)
     }
   },
 
-  subjects: Ember.computed('jurisdiction', 'jurisdictionId', function(){
+  subjects: Ember.computed('jurisdiction', function(){
     var sets = this.get('jurisdiction.standardSets') || {}
     return _.chain(sets).pluck('subject').uniq().value().sort()
   }),
@@ -48,12 +54,13 @@ export default Ember.Component.extend({
     this.models()
   }),
 
-  observeSet: Ember.observer('standardSet', function(){
-    if (!this.get('standardSet')) return;
 
-    this.set('subject', this.get('standardSet.subject'))
-    this.set('jurisdictionId', this.get('standardSet.jurisdictionId'))
+  currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
+    return this.get('standardSet.jurisdiction') || this.get('jurisdiction.title')
+  }),
 
+  currentSubject: Ember.computed('standardSet.subject', 'subject', function(){
+    return this.get('standardSet.subject') || this.get('subject')
   }),
 
 
@@ -63,6 +70,7 @@ export default Ember.Component.extend({
 
   actions: {
     selectJurisdiction(jurisdiction){
+      this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('jurisdictionId', jurisdiction.id)
       this.set('pane', 'subjects')
     },
@@ -78,7 +86,12 @@ export default Ember.Component.extend({
     },
 
     backToPane(pane){
+      this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('pane', pane)
+    },
+
+    removeSet(){
+      this.sendAction('removeSet', this.get('id'))
     }
   }
 

@@ -9,6 +9,9 @@ export default Ember.Component.extend({
     },
     selectSet(id, oldId){
       this.sendAction('selectSet', id, oldId)
+    },
+    removeSet(id){
+      this.sendAction('removeSet', id)
     }
   }
 

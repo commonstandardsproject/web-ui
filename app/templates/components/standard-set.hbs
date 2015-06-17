@@ -1,32 +1,81 @@
+<div class="standard-set__inner standard-set__inner--four-panes standard-set__inner--show-{{pane}} standard-set__inner--drop-transition">
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane-header">
+      <div class="standard-set-pane__remove" {{action 'removeSet'}}>&times;</div>
+      <h2 class="standard-set-pane-header__choose-jurisdiction">Select a State or Organization</h2>
+    </div>
+  </div>
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane-header">
+      <div class="standard-set-pane__remove" {{action 'removeSet'}}>&times;</div>
+      <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
+      <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
+      <div class="standard-set-header__subject standard-set-header__select">Select a Subject</div>
+    </div>
+  </div>
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane-header">
+      <div class="standard-set-pane__remove" {{action 'removeSet'}}>&times;</div>
+      <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
+      <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
+      <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}}</div>
+      <div class="standard-set-header__title standard-set-header__select">Select a grade level</div>
+    </div>
+  </div>
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane-header">
+      <div class="standard-set-pane__remove" {{action 'removeSet'}}>&times;</div>
+      <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
+      <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
+      <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}}</div>
+      <div class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</div>
+      <a class="standard-set-header__document-title" href={{standardSet.source}} target="_blank">
+        {{standardSet.documentTitle}}
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <div class="standard-set__inner standard-set__inner--four-panes standard-set__inner--show-{{pane}}">
-  <div class="standard-set-pane standard-set-pane--jurisdictions">
-    Jurisdictions
-    {{#each jurisdictions as |jurisdiction|}}
-      <div {{action 'selectJurisdiction' jurisdiction}}>{{jurisdiction.title}}</div>
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane__selectable-list">
+    {{#each jurisdictions as |jur|}}
+      <div class="standard-set-pane__selectable-list__item" {{action 'selectJurisdiction' jur}}>{{jur.title}}</div>
     {{/each}}
+    </div>
   </div>
-  <div class="standard-set-pane standard-set-pane--subjects">
-    <div {{action 'backToPane' 'jurisdictions'}}>&larr; Back</div>
-    Subjects
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane__selectable-list">
     {{#each subjects as |subject|}}
-      <div {{action 'selectSubject' subject}}>{{subject}}</div>
+      <div class="standard-set-pane__selectable-list__item" {{action 'selectSubject' subject}}>{{subject}}</div>
     {{/each}}
+    </div>
   </div>
-  <div class="standard-set-pane standard-set-pane--grade-levels">
-    <div {{action 'backToPane' 'subjects'}}>&larr; Back</div>
-    GradeLevels
+
+  <div class="standard-set-pane">
+    <div class="standard-set-pane__selectable-list">
     {{#each gradeLevels as |set|}}
-      <div {{action 'selectSet' set}}>{{set.title}}</div>
+      <div class="standard-set-pane__selectable-list__item" {{action 'selectSet' set}}>{{set.title}}</div>
     {{/each}}
+    </div>
   </div>
-  <div class="standard-set-pane standard-set-pane--standards">
-    <div {{action 'backToPane' 'grade-levels'}}>&larr; Back</div>
-    {{standardSet.title}}
+
+  <div class="standard-set-pane">
     <div class="searchable-standard-list">
     {{#each standards as |standard|}}
       <div class="searchable-standard searchable-standard--depth-{{standard.depth}}">
         <div class="searchable-standard__list-id">{{standard.listId}}</div>
-        <div class="searchable-standard__description">{{standard.description}}</div>
+        <div class="searchable-standard__description">{{{standard.description}}}</div>
         <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
       </div>
     {{/each}}
