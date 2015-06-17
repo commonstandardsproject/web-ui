@@ -13,6 +13,7 @@ export default Ember.Component.extend({
   }),
 
   models: function(){
+    if (this.isDestroyed || this.isDestroying) return;
     var jurisdictions = Fetcher.find('jurisdiction', 'index')
     if (jurisdictions){ this.set('jurisdictions', jurisdictions.toJS()) }
 
@@ -27,7 +28,6 @@ export default Ember.Component.extend({
       var set = Fetcher.find('standardsSet', this.get('id'))
       if (set && set.get('id') === this.get('id')){
         this.set('standardSet', set.toJS())
-        // this.set('subject', this.get('standardSet.subject'))
         this.set('jurisdictionId', this.get('standardSet.jurisdictionId'))
       }
     } else {
@@ -48,11 +48,16 @@ export default Ember.Component.extend({
   onStart: Ember.on('init', function(){
     this.models()
     Fetcher.on('storeUpdated', this.models.bind(this))
+    Ember.addObserver(this, 'jurisdictionId', this, "models")
+    Ember.addObserver(this, 'standardsSetId', this, "models")
+    Ember.addObserver(this, 'id', this, "models")
   }),
 
-  watcher: Ember.observer('jurisdictionId', 'standardsSetId', 'id', function(){
-    this.models()
-  }),
+  willDestroyElement(){
+    Ember.removeObserver(this, 'jurisdictionId', this, "models")
+    Ember.removeObserver(this, 'standardsSetId', this, "models")
+    Ember.removeObserver(this, 'id', this, "models")
+  },
 
 
   currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
