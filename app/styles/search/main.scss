@@ -1,5 +1,6 @@
 .search-interface{
-  margin-top: 70px;
+  margin-top: 50px;
+  padding-top: 40px;
   background-color: hsl(0,0,96%);
   height: 100%;
 }
@@ -8,11 +9,11 @@ input.search-bar__input{
   width: calc(100% - 40px);
   margin: 10px;
   border: none;
-  border-bottom: 1px solid $dividers;
+  border: 1px solid $dividers;
   font-size: 1.25rem;
   padding-top: .25rem;
   padding-bottom: .25rem;
-  height: 3rem;
+  height: 4rem;
   font-family: $font-family;
 }
 
@@ -44,9 +45,16 @@ input.search-bar__input{
 .standard-set-pane__remove{
   color: $hint;
   position: absolute;
-  right: 10px;
-  top: 5px;
+  right: 12px;
+  top: 10px;
   cursor: pointer;
+  svg{
+    fill: $dividers;
+    width: 20px; height: 20px;
+  }
+  &:hover svg{
+    fill: $secondary-text;
+  }
 }
 
 .standard-set__inner--show-jurisdictions{
@@ -122,6 +130,7 @@ input.search-bar__input{
 }
 
 .standard-set-pane__selectable-list{
+  clear: both;
   padding: 0;
 }
 
@@ -221,6 +230,9 @@ input.search-bar__input{
   line-height: 1.1;
   padding: .25rem 0 0 0;
   text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
 }
 
 
