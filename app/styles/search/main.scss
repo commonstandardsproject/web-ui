@@ -3,10 +3,11 @@
   padding-top: 40px;
   background-color: hsl(0,0,96%);
   height: 100%;
+  padding: 40px 20px;
 }
 
 input.search-bar__input{
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   margin: 10px;
   border: none;
   border: 1px solid $dividers;
@@ -15,6 +16,21 @@ input.search-bar__input{
   padding-bottom: .25rem;
   height: 4rem;
   font-family: $font-family;
+}
+
+.add-search-pane{
+  text-align: center;
+  svg{
+    width: 1rem; height: 1rem;
+    fill: $teal;
+    margin-bottom: -1px;
+  }
+  font-size: 1rem;
+  color: $teal;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
 }
 
 .search-panes{
@@ -35,6 +51,9 @@ input.search-bar__input{
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 40px;
+  &:last-child{
+    margin-right: 0;
+  }
 }
 
 .standard-set-pane{
@@ -154,14 +173,14 @@ input.search-bar__input{
   display: block;
   // color: $hint;
   // text-transform: uppercase;
-  line-height: 1;
+  // line-height: 1;
   margin: 0; padding: 0;
   cursor: pointer;
   display: block;
   float: left;
   // display: inline;
   // font-size: 1rem;
-  line-height: 1.6rem;
+  // line-height: 1.6rem;
   // color: $text;
   padding-right: 0;
   &:after{ content: " ⟩ "; color: $hint; font-weight: 400; padding-right: 3px; }
@@ -190,7 +209,7 @@ input.search-bar__input{
   display: block;
   float: left;
   // font-size: 1rem;
-  line-height: 1.6rem;
+  // line-height: 1.6rem;
   // color: $text;
   cursor: pointer;
   &:after{ content: " ⟩ ";  color: $hint; font-weight: 400; padding-right: 3px;}
@@ -209,7 +228,7 @@ input.search-bar__input{
   display: block;
   float: left;
   margin: 0; padding: 0;
-  line-height: 1.6rem;
+  // line-height: 1.6rem;
   // line-height: 2rem;
   // display: inline;
   // color: black;
