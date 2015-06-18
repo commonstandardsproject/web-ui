@@ -69,7 +69,7 @@ $standard-indent: 14px;
 .searchable-standard{
   // border-bottom: 1px solid $dividers;
   font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1.22;
   width: 100%;
   box-sizing: border-box;
   padding-right: 10px;
@@ -78,15 +78,16 @@ $standard-indent: 14px;
 .searchable-standard--depth-0{
   color: $teal;
   padding-left: $standard-indent;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.25rem;
   padding-top: 2rem;
   padding-bottom: 0;
+  line-height: 1.1;
   .searchable-standard__list-id{
     color: $teal;
   }
   + .searchable-standard--depth-1{
-    padding-top: 0.5rem;
+    padding-top: 0.75rem;
   }
 }
 
@@ -132,17 +133,19 @@ $standard-indent: 14px;
 
 .searchable-standard__list-id{
   color: $teal;
+  float: left;
   &:not(:empty){
     padding-right: 3px;
     // &:after{ content: "."; }
   }
+  // &:empty{ &:before{ content: "-"; } }
   font-weight: bold;
-  display: inline;
+  // display: inline;
 }
 
 .searchable-standard__description{
   width: 100%;
-  display: inline;
+  display: block;
 }
 
 .searchable-standard__statement-notation{

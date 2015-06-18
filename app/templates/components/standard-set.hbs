@@ -3,7 +3,7 @@
   <div class="standard-set-pane">
     <div class="standard-set-pane-header">
       <div class="standard-set-pane__remove" {{action 'removeSet'}}>&times;</div>
-      <h2 class="standard-set-pane-header__choose-jurisdiction">Select a State or Organization</h2>
+      <div class="standard-set-pane-header__choose-jurisdiction">Select a State or Organization</div>
     </div>
   </div>
 
@@ -75,8 +75,9 @@
     {{#each standards as |standard|}}
       <div class="searchable-standard searchable-standard--depth-{{standard.depth}}">
         <div class="searchable-standard__list-id">{{standard.listId}}</div>
-        <div class="searchable-standard__description">{{{standard.description}}}</div>
-        <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
+        <div class="searchable-standard__description">{{{standard.description}}}
+          <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
+        </div>
       </div>
     {{/each}}
     </div>

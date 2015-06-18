@@ -1,7 +1,19 @@
 .search-interface{
-  margin-top: 50px;
+  margin-top: 70px;
   background-color: hsl(0,0,96%);
   height: 100%;
+}
+
+input.search-bar__input{
+  width: calc(100% - 40px);
+  margin: 10px;
+  border: none;
+  border-bottom: 1px solid $dividers;
+  font-size: 1.25rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  height: 3rem;
+  font-family: $font-family;
 }
 
 .search-panes{
@@ -14,9 +26,11 @@
 .standard-set {
   width: 100%;
   overflow: hidden;
-  margin: 10px 10px 10px 0;
-  border-right: 2px solid $dividers;
+  margin: 10px 20px 10px 0;
+  border-right: 1px solid $dividers;
   border-bottom: 2px solid $dividers;
+  border-top: 1px solid $dividers;
+  border-left: 1px solid $dividers;
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 40px;
@@ -100,16 +114,11 @@
 
 .standard-set-pane-header{
   border-bottom: 1px solid $dividers;
-  padding: 15px 10px;
+  padding: 15px;
   line-height: 1.2;
-}
-
-.standard-set-pane-header__choose-jurisdiction{
-  font-size: 2rem;
-  color: $red;
-  font-weight: 700;
-  margin-bottom: 0;
-  line-height: 1;
+  font-size: 1.7rem;
+  color: $teal;
+  font-weight: 400;
 }
 
 .standard-set-pane__selectable-list{
@@ -121,29 +130,46 @@
   padding: 5px 10px;
   border-bottom: 1px solid $dividers;
   cursor: pointer;
+  color: $secondary-text;
   &:hover{
     background-color: $yellow;
   }
 }
 
 
-
+.standard-set-header__jurisdiction{
+  font-weight: 700;
+}
+.standard-set-pane-header__choose-jurisdiction,
 .standard-set-header__jurisdiction{
   display: block;
   // color: $hint;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   line-height: 1;
   margin: 0; padding: 0;
   cursor: pointer;
-  font-weight: 400;
   display: block;
-  font-size: 1rem;
+  float: left;
+  // display: inline;
+  // font-size: 1rem;
   line-height: 1.6rem;
-  color: $red;
+  // color: $text;
   padding-right: 0;
-  // &:after{ content: " ⟩ "; color: $dividers; font-weight: 200;}
+  &:after{ content: " ⟩ "; color: $hint; font-weight: 400; padding-right: 3px; }
   &:hover{
+    color: $teal;
     text-decoration: underline;
+  }
+}
+
+.standard-set-pane-header__choose-jurisdiction{
+  // font-size: 1.2rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: $teal;
+  // font-size: 1.2rem;
+  &:hover{
+    text-decoration: none;
   }
 }
 
@@ -151,15 +177,16 @@
 
 .standard-set-header__subject{
   // font-size: 1.75rem;
-  font-weight: 400;
   margin: 0; padding: 0;
   display: block;
+  float: left;
+  // font-size: 1rem;
   line-height: 1.6rem;
-  font-size: 1.4rem;
-  color: $secondary-text;
+  // color: $text;
   cursor: pointer;
-  // &:after{ content: " ⟩ ";  color: $dividers; font-weight: 400;}
+  &:after{ content: " ⟩ ";  color: $hint; font-weight: 400; padding-right: 3px;}
   &:hover{
+    color: $teal;
     text-decoration: underline;
   }
 }
@@ -167,26 +194,33 @@
 .standard-set-header__title{
   // font-weight: 700;
   // font-size: 1.75rem;
-  font-size: 1.4rem;
-  // color: $teal;
+  // font-size: 1.5rem;
+  // font-size: 1rem;
+  // color: $secondary-text;
+  display: block;
+  float: left;
   margin: 0; padding: 0;
   line-height: 1.6rem;
+  // line-height: 2rem;
   // display: inline;
-  color: black;
+  // color: black;
   cursor: pointer;
   &:hover{
+    color: $teal;
     text-decoration: underline;
   }
 }
 
 .standard-set-header__document-title{
   display: block;
+  clear: both;
   font-size: 0.8rem;
   color: $hint;
   &:before{ content: "Source: ";}
   margin: 0; padding: 0;
-  line-height: 1.3;
+  line-height: 1.1;
   padding: .25rem 0 0 0;
+  text-decoration: none;
 }
 
 
@@ -194,5 +228,6 @@
   // color: $secondary-text;
   // font-weight: 400;
   // &:after{ content: ""; }
+  color: $teal;
   &:hover{ text-decoration: none;}
 }
