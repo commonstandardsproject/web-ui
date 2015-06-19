@@ -73,6 +73,15 @@ $standard-indent: 14px;
   width: 100%;
   box-sizing: border-box;
   padding-right: 10px;
+  svg{
+    height: 14px; width: 20px;
+    path{ fill: $dividers; }
+    rect{ stroke: $dividers; }
+    &:hover{
+      fill: $hint;
+      stroke: $hint;
+    }
+  }
 }
 
 .searchable-standard--depth-0{
