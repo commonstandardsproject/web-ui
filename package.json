@@ -38,7 +38,8 @@
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
     "jsoneditor": "^4.2.0",
-    "lodash": "3.8.0"
+    "lodash": "3.8.0",
+    "torii": "0.4.0"
   },
   "dependencies": {
     "ember-cli": "^0.2.7",

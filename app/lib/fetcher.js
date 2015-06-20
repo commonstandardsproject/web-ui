@@ -18,6 +18,9 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
       url: models[modelName].url + '/' + id.replace('index', ''),
       dataType: "json",
       type: "get",
+      headers: {
+        "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
+      },
       success: function(data){
         store.serverCache.add(modelName, id, Immutable.fromJS(data.data))
         _.pull(requests, modelName+id)

@@ -91,7 +91,7 @@ export default Ember.Controller.extend({
         url: config.APP.apiBaseUrl + 'standards_set_import/',
         data: data,
         dataType: "json",
-        type: "POST",
+        method: "POST",
         success: function(data){
           window.alert('Success!')
         }.bind(this),

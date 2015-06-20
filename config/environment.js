@@ -15,7 +15,6 @@ module.exports = function(environment) {
         'ember-htmlbars-component-generation': true
       }
     },
-
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
@@ -27,6 +26,7 @@ module.exports = function(environment) {
     ENV.urls = {
       getJurisdictions: ENV.APP.apiBaseUrl + 'jurisdictions',
       getStandardsSet: ENV.APP.apiBaseUrl + 'standard_sets',
+      postUserSignedIn: ENV.APP.apiBaseUrl + 'users/signed_in',
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
