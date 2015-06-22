@@ -1,11 +1,13 @@
 import config from '../config/environment';
-import {registerModel, foo} from './store';
+import {registerModel} from './store';
+import {registerModel as registerModel2} from './store2';
 
 export var jurisdiction = {
   url: config.APP.apiBaseUrl + 'jurisdictions'
 }
 
 registerModel('jurisdiction')
+registerModel2('jurisdiction')
 
 
 export var standardsSet = {
@@ -13,3 +15,4 @@ export var standardsSet = {
 }
 
 registerModel('standardsSet')
+registerModel2('standardsSet')

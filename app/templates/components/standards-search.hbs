@@ -7,20 +7,23 @@
 <div class="search-interface">
 
   <div class="search-bar {{if isSearchVisible 'show'}}">
-    {{input value=query class="search-bar__input" placeholder="What would you like to search for?"}}
     <div class="search-bar__icons">
-      <div class="show-link" {{action 'showLink'}}>
-        {{partial "icons/ios7-link"}} Link to this page
-      </div>
-      <div class="add-search-pane" {{action 'addPane'}}>
+      {{!-- <div class="add-search-pane" {{action 'addPane'}}>
         {{partial "icons/ios7-plus-outline"}} Add another set of standards to search within
-      </div>
+      </div> --}}
+    </div>
+    {{input value=query class="search-bar__input" placeholder="What would you like to search for?"}}
+    <div class="show-link" {{action 'showLink'}}>
+      {{partial "icons/ios7-link"}}
     </div>
   </div>
 
   <div class="search-panes">
     {{#each standardSetIds as |id|}}
-      {{standard-set id=id selectSet="selectSet" class="standard-set" removeSet="removeSet"}}
+      {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet"}}
     {{/each}}
+    <div class="add-search-pane-button" {{action 'addPane'}}>
+      {{partial "icons/ios7-browser-outline"}}
+    </div>
   </div>
 </div>

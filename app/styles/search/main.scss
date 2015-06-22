@@ -8,20 +8,19 @@
 
 .search-bar{
   overflow: hidden;
-  max-height: 0;
-  transition: height .2s;
-  input{
-    display: none;
-  }
+  max-height: 0px;
+  transition: max-height 1s .2s;
+  display: flex;
+  display: -webkit-flex;
   &.show{
-    transition: height .2s;
+    transition: max-height 1s .2s;
     max-height: 1000px;
-    input {display: block; }
   }
 }
 
 input.search-bar__input{
   width: calc(100% - 20px);
+  float: left;
   margin: 10px;
   border: none;
   border: 1px solid $dividers;
@@ -34,7 +33,8 @@ input.search-bar__input{
 }
 
 .search-bar__icons{
-  text-align: center;
+  // text-align: center;
+  // float:right;
 }
 
 .show-link,
@@ -54,7 +54,12 @@ input.search-bar__input{
 }
 
 .show-link{
+  display: none;
+  width: 45px;
+  align-self: center;
   svg{
+    width: 20px;
+    height: 20px;
     stroke: $teal;
     path: transparent;
   }
@@ -64,6 +69,43 @@ input.search-bar__input{
   display: flex;
   display: -webkit-flex;
   margin: 10px;
+}
+
+.add-search-pane-button{
+  padding: 10px 10px 0 0 ;
+  margin-left: -10px;
+  cursor: pointer;
+  position: relative;
+  svg{
+    fill: $teal;
+    height: 24px;
+    width: 24px;
+  }
+  &:hover svg{
+    fill: $secondary-text;
+  }
+  &:hover:after{
+    // content: "Add Search Pane to See Multiple Groups of Standards";
+    content: "More Standards!";
+    transform: rotate(90deg);
+    transform-origin: left top;
+    left: 27px;
+    top: 30px;
+    width: 700px;
+    text-align: left;
+
+    // box-shadow: 0 2px 14px hsla(0,0,20%, .3);
+    // width: 100px;
+    display: block;
+    // max-width: 50px;
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+    color: $teal;
+    // background-color: hsla(0,0,100%, .7);
+    // color: white;
+    padding: 10px;
+    position: absolute;
+  }
 }
 
 
@@ -78,6 +120,7 @@ input.search-bar__input{
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 40px;
+  transition: width 1s;
   &:last-child{
     margin-right: 0;
   }

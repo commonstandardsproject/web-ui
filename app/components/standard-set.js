@@ -1,5 +1,5 @@
 import Ember from "ember";
-import Fetcher from "../lib/fetcher";
+import Fetcher from "../lib/fetcher2";
 import _ from "npm:lodash";
 import Standards from "../models/standards";
 import Immutable from "npm:immutable";
@@ -12,52 +12,26 @@ export default Ember.Component.extend({
     if (this.get('id').match(/blank/) !== null) this.set('pane', 'jurisdictions')
   }),
 
-  models: function(){
-    if (this.isDestroyed || this.isDestroying) return;
-    var jurisdictions = Fetcher.find('jurisdiction', 'index')
-    if (jurisdictions){ this.set('jurisdictions', jurisdictions.toJS()) }
+  standardSet: Ember.computed('id', function(){
+    if (this.get('id').match(/blank/) !== null) return;
+    return Fetcher.find('standardsSet', this.get('id'))
+  }),
 
-    if (this.get('jurisdictionId')){
-      var jurisdiction = Fetcher.find('jurisdiction', this.get('jurisdictionId'))
-      if (jurisdiction){
-        this.set('jurisdiction', jurisdiction.toJS())
-      }
-    }
+  jurisdiction: Ember.computed('standardSet.jurisdictionId', 'jurisdictionId', function(){
+    var id = this.get('jurisdictionId') || this.get('standardSet.jurisdictionId')
+    return Fetcher.find('jurisdiction', id)
+  }),
 
-    if (this.get('id').match(/blank/) == null){
-      var set = Fetcher.find('standardsSet', this.get('id'))
-      if (set && set.get('id') === this.get('id')){
-        this.set('standardSet', set.toJS())
-        this.set('jurisdictionId', this.get('standardSet.jurisdictionId'))
-      }
-    } else {
-      this.set('standardSet', null)
-    }
-  },
-
-  subjects: Ember.computed('jurisdiction', function(){
+  subjects: Ember.computed('jurisdiction.standardSets', function(){
     var sets = this.get('jurisdiction.standardSets') || {}
     return _.chain(sets).pluck('subject').uniq().value().sort()
   }),
 
-  gradeLevels: Ember.computed('subject', 'jurisdiction', function(){
+  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardSets', function(){
     var sets = this.get('jurisdiction.standardSets') || {}
-    return _.chain(sets).filter({subject: this.get('subject')}).sortBy('title').value()
+    var subject = this.get('subject') || this.get('standardSet.subject')
+    return _.chain(sets).filter({subject: subject}).sortBy('title').value()
   }),
-
-  onStart: Ember.on('init', function(){
-    this.models()
-    Fetcher.on('storeUpdated', this.models.bind(this))
-    Ember.addObserver(this, 'jurisdictionId', this, "models")
-    Ember.addObserver(this, 'standardsSetId', this, "models")
-    Ember.addObserver(this, 'id', this, "models")
-  }),
-
-  willDestroyElement(){
-    Ember.removeObserver(this, 'jurisdictionId', this, "models")
-    Ember.removeObserver(this, 'standardsSetId', this, "models")
-    Ember.removeObserver(this, 'id', this, "models")
-  },
 
 
   currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
@@ -69,13 +43,13 @@ export default Ember.Component.extend({
   }),
 
 
-  standards: Ember.computed('standardSet', function(){
+  standards: Ember.computed('standardSet.standards', function(){
     return Standards.linkedListToArray(Immutable.fromJS(this.get('standardSet.standards')))
   }),
 
   actions: {
     selectJurisdiction(jurisdiction){
-      this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
+      // this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('jurisdictionId', jurisdiction.id)
       this.set('pane', 'subjects')
     },
@@ -91,7 +65,7 @@ export default Ember.Component.extend({
     },
 
     backToPane(pane){
-      this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
+      // this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('pane', pane)
     },
 

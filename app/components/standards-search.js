@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 
   isSearchVisible: Ember.computed('standardSetIds', function(){
     return _.chain(this.get('standardSetIds'))
-            .without(s => _.contains(s, 'blank'))
+            .filter(s => !_.contains(s, 'blank'))
             .value().length > 0
   }),
 
