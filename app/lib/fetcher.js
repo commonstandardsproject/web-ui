@@ -16,8 +16,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
 
     $.ajax({
       url: models[modelName].url + '/' + id.replace('index', ''),
-      dataType: "json",
-      type: "get",
+      method: "GET",
       headers: {
         "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
       },

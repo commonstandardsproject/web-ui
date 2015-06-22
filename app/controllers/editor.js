@@ -13,8 +13,10 @@ export default Ember.Controller.extend({
   fetchJurisdictions: Ember.on('init', function(){
     $.ajax({
       url: config.urls.getJurisdictions,
-      dataType: "json",
-      type: "get",
+      method: "get",
+      headers: {
+        "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
+      },
       success: function(res){
         this.set('jurisdictions', res.data)
       }.bind(this)

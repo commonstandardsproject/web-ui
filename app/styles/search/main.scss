@@ -6,6 +6,20 @@
   padding: 40px 20px;
 }
 
+.search-bar{
+  overflow: hidden;
+  max-height: 0;
+  transition: height .2s;
+  input{
+    display: none;
+  }
+  &.show{
+    transition: height .2s;
+    max-height: 1000px;
+    input {display: block; }
+  }
+}
+
 input.search-bar__input{
   width: calc(100% - 20px);
   margin: 10px;
@@ -13,13 +27,19 @@ input.search-bar__input{
   border: 1px solid $dividers;
   font-size: 1.25rem;
   padding-top: .25rem;
-  padding-bottom: .25rem;
+  padding-bottom: 0rem;
+  margin-bottom: 0;
   height: 4rem;
   font-family: $font-family;
 }
 
-.add-search-pane{
+.search-bar__icons{
   text-align: center;
+}
+
+.show-link,
+.add-search-pane{
+  display: inline;
   svg{
     width: 1rem; height: 1rem;
     fill: $teal;
@@ -30,6 +50,13 @@ input.search-bar__input{
   cursor: pointer;
   &:hover{
     text-decoration: underline;
+  }
+}
+
+.show-link{
+  svg{
+    stroke: $teal;
+    path: transparent;
   }
 }
 

@@ -1,0 +1,7 @@
+<h1>API Info</h1>
+<p>Information about using the api</p>
+isAuthenticated: {{session.isAuthenticated}}
+<div {{action "signIn"}}>Sign In</div> to get started
+{{#if isAuthenticated}}
+  Your developer key
+{{/if}}

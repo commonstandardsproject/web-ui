@@ -37,6 +37,7 @@
     "ember-cli-uglify": "^1.0.1",
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
+    "ember-storage": "1.1.0",
     "jsoneditor": "^4.2.0",
     "lodash": "3.8.0",
     "torii": "0.4.0"

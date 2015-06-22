@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
   _getJurisdictions: function(){
     $.ajax({
       url: config.APP.apiBaseUrl + 'jurisdictions',
+      method: "GET",
       success: function(data){
         this.set('jurisdictions', data.data)
       }.bind(this)
@@ -19,6 +20,7 @@ export default Ember.Controller.extend({
   _jurisdiction: Ember.observer('jurisdictionId', function(){
     $.ajax({
       url: config.APP.apiBaseUrl + 'jurisdictions/' + this.get("jurisdictionId"),
+      method: "GET",
       success: function(data){
         this.set('jurisdiction', data.data)
       }.bind(this)

@@ -8,7 +8,8 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('home', {path: '/'})
   this.route('search')
-  this.route('api-info')
+  this.route('developers')
+  this.route('developer-account')
   this.route('document-importer');
   this.route('edit', function(){
     this.route('info')
