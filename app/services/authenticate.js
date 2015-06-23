@@ -72,7 +72,6 @@ export default Ember.Service.extend({
   // Handle events
   _afterSignIn: function(data){
     if(data.err == null) {
-      debugger;
       this.get('session').setProperties({
         profile:         data.profile,
         currentToken:    data.token,

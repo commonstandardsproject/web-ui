@@ -31,7 +31,13 @@
 
   <div class="standard-set-pane">
     <div class="standard-set-pane-header">
-      <div class="standard-set-pane__remove" {{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
+      {{#if showRemoveButton}}
+        <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
+      {{/if}}
+      <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
+      {{#link-to 'editor' (query-params ids=standardSet.id) class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+        {{partial "icons/ios7-compose"}}
+      {{/link-to}}
       <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
       <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
       <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}}</div>
@@ -39,6 +45,11 @@
       <a class="standard-set-header__document-title" href={{standardSet.source}} target="_blank">
         {{standardSet.documentTitle}}
       </a>
+      {{#if showLinkToSet}}
+        <div class="standard-set-header__link-to-set">
+          <a href="{{linkToSet}}" target="_blank">{{linkToSet}}</a>
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>
@@ -80,7 +91,7 @@
         <div class="searchable-standard__list-id">{{standard.listId}}</div>
         <div class="searchable-standard__description">{{{standard.description}}}
           <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
-          {{partial "icons/glyph-link"}}
+          {{partial "icons/ios7-link"}}
         </div>
       </div>
     {{/each}}

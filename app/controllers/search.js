@@ -4,8 +4,8 @@ import Fetcher from "../lib/fetcher2";
 
 export default Ember.Controller.extend({
 
-  queryParams: ['query', 'standardSetIds'],
-  standardSetIds: ["blank"],
+  queryParams: ['query', 'ids'],
+  ids: ["blank"],
 
 
   jurisdictions: Ember.computed(function(){
@@ -15,14 +15,14 @@ export default Ember.Controller.extend({
 
   actions: {
     addPane(){
-      this.get('standardSetIds').pushObject('blank' + Ember.generateGuid())
+      this.get('ids').pushObject('blank' + Ember.generateGuid())
     },
     selectSet(id, oldId){
-      var idx = this.get('standardSetIds').indexOf(oldId)
-      this.get('standardSetIds').replace(idx, 1, id)
+      var idx = this.get('ids').indexOf(oldId)
+      this.get('ids').replace(idx, 1, id)
     },
     removeSet(id){
-      this.get('standardSetIds').removeObject(id)
+      this.get('ids').removeObject(id)
     }
   }
 

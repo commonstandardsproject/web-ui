@@ -5,17 +5,29 @@
   margin-top: 70px;
   h1{
     // font-family: $font-headings;
-    // font-family: "aw-conqueror-carved";
-    color: $teal;
+    font-family: "aw-conqueror-carved-one";
+    letter-spacing: -.1rem;
+    border-top: 1px solid $dividers;
+    border-bottom: 1px solid $dividers;
+    // border-top: 1px solid $teal;
+    // border-bottom: 1px solid $teal;
+    margin-top: 3rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    color: $red;
     font-weight: 400;
     font-size: 3rem;
   }
   p{
     font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
     color: $text;
   }
   h2{
     // text-transform: uppercase;
+    margin-top: 2rem;
+    padding-bottom: .5rem;
     font-size: 2.5rem;
     border-bottom: 1px solid $dividers;
   }
@@ -39,6 +51,8 @@
 }
 
 .api-info__welcome{
+  border-top: 1px solid $dividers;
+  padding-top: 1rem;
   color: $text;
   margin-bottom: .5rem;
 }

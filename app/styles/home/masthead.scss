@@ -17,7 +17,8 @@
   margin-bottom: 0;
   padding-bottom: 0;
   &:hover{
-    color: #EAE3A0;
+    // color: #EAE3A0;
+    color: $red;
     transition: color .5s;
   }
 }
@@ -27,5 +28,7 @@
   font-size: 3rem;
   margin-bottom: 0;
   padding-bottom: 0px;
-  color: black;
+  font-weight: 200;
+  color: $secondary-text;
+  // text-transform: uppercase;
 }

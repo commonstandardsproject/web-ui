@@ -8,6 +8,21 @@ export default Ember.Component.extend({
 
   pane: "standards",
 
+  classNameBindings: ['wasInserted'],
+
+  // addInsertedClass: Ember.on('didInsertElement', function(){
+  //   console.log('did insert')
+  //   Ember.run.later(this, () => {this.set('wasInserted', true)}, 50)
+  // }),
+
+  linkToSet: Ember.computed('standardSetId', function(){
+    return 'http://localhost:4200/search?ids=%5B"' + this.get('id') + '"%5D'
+  }),
+
+  showRemoveButton: Ember.computed('index', function(){
+    return this.get('index') !== 0
+  }),
+
   setPane: Ember.on('init', function(){
     if (this.get('id').match(/blank/) !== null) this.set('pane', 'jurisdictions')
   }),
@@ -71,6 +86,10 @@ export default Ember.Component.extend({
 
     removeSet(){
       this.sendAction('removeSet', this.get('id'))
+    },
+
+    toggleLinkToSet(){
+      this.toggleProperty('showLinkToSet')
     }
   }
 

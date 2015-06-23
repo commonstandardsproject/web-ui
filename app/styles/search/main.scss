@@ -86,8 +86,11 @@ input.search-bar__input{
     fill: $secondary-text;
   }
   &:hover:after{
+    color: $teal;
+  }
+  &:after{
     // content: "Add Search Pane to See Multiple Groups of Standards";
-    content: "More Standards!";
+    content: "Search other standards";
     transform: rotate(90deg);
     transform-origin: left top;
     left: 27px;
@@ -101,7 +104,7 @@ input.search-bar__input{
     // max-width: 50px;
     font-size: 1.2rem;
     line-height: 1.3rem;
-    color: $teal;
+    color: $hint;
     // background-color: hsla(0,0,100%, .7);
     // color: white;
     padding: 10px;
@@ -121,7 +124,6 @@ input.search-bar__input{
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 40px;
-  transition: width 1s;
   &:last-child{
     margin-right: 0;
   }
@@ -132,11 +134,13 @@ input.search-bar__input{
   position: relative;
 }
 
-.standard-set-pane__remove{
+.standard-set-pane__remove,
+.standard-set-pane__edit,
+.standard-set-pane__link {
   color: $hint;
   position: absolute;
   right: 12px;
-  top: 10px;
+  top: 15px;
   cursor: pointer;
   svg{
     fill: $dividers;
@@ -145,6 +149,22 @@ input.search-bar__input{
   &:hover svg{
     fill: $secondary-text;
   }
+}
+.standard-set-pane__link {
+  right: 40px;
+  top: 13px;
+  svg{
+    height: 16px;
+  }
+  .standard-set-pane__button-text{
+    display: none;
+  }
+}
+
+.standard-set-pane__edit{
+  right: 64px;
+  top: 12px;
+  svg{ height: 25px; width: 30px;}
 }
 
 .standard-set__inner--show-jurisdictions{
@@ -323,6 +343,25 @@ input.search-bar__input{
   &:hover{
     text-decoration: underline;
   }
+}
+
+.standard-set-header__link-to-set{
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  background-color: hsl(0,0,98%);
+  border: 1px solid hsl(0,0,90%);
+  padding: 10px;
+  margin: 5px 0;
+  display: block;
+  color: $text;
+  a {
+    text-decoration: none;
+  }
+  // &:before{
+  //   display: block;
+  //   text-decoration: none !important;
+  // }
 }
 
 
