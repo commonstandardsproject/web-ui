@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import User from "../models/user";
+import Fetcher from "../lib/fetcher2";
 
 export default Ember.Service.extend({
   profile:         {},
@@ -9,6 +10,8 @@ export default Ember.Service.extend({
   clientId: "w35Aiy4apjMKVh13hbW0fFL6McHYPZ9D",
   domain:   "commoncurriculum.auth0.com",
 
+  session: Ember.inject.service(),
+
   init: function() {
     var cid    = this.get('clientId');
     var domain = this.get('domain');
@@ -17,6 +20,10 @@ export default Ember.Service.extend({
       return new Auth0Lock(cid, domain);
     });
   },
+
+  user: Ember.computed('session.profile.email', function(){
+    return Fetcher.find('user', this.get('session.profile.email'))
+  }),
 
   options: {
     focusInput: true,
@@ -48,6 +55,9 @@ export default Ember.Service.extend({
       instance._afterReset(err);
     });
   },
+  logout: function() {
+    this._afterLogout()
+  },
 
   // Some helpers
   userLoggedIn: function() {
@@ -62,6 +72,7 @@ export default Ember.Service.extend({
   // Handle events
   _afterSignIn: function(data){
     if(data.err == null) {
+      debugger;
       this.get('session').setProperties({
         profile:         data.profile,
         currentToken:    data.token,
@@ -76,6 +87,11 @@ export default Ember.Service.extend({
     }
   },
   _afterReset: function(err){
+  },
+  _afterLogout(){
+    this.get('session').setProperties({
+      isAuthenticated: false
+    })
   }
 
 });

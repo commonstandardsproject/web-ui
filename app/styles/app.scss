@@ -1,6 +1,7 @@
-@import "lib/skeleton";
-// @import "bootstrap";
+// @import "lib/skeleton";
 @import "variables";
+// @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap";
 @import "grid";
 @import "labels";
 @import "selectable-list";
@@ -8,8 +9,10 @@
 @import "standard";
 @import "home/index";
 @import "navbar";
+@import "sidebar-list";
 @import "standards-editor/main";
 @import "search/main";
+@import "developers";
 
 html{
   font-size: 80%;
@@ -17,6 +20,7 @@ html{
 
 body{
   margin: 0;
+
 }
 
 

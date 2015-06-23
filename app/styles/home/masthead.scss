@@ -1,15 +1,15 @@
 .masthead{
-  margin: 40px 80px 0;
-  padding: 40px 0px;
+  margin: 0 80px 40px;
+  padding: 20px 0px;
   background-color: white;
   // border-top: 1px solid $hint;
-  border-bottom: 1px solid $hint;
+  // border-bottom: 1px solid $hint;
+  text-align: center;
 
 }
 .masthead__title {
-
   font-family: "aw-conqueror-carved";
-  font-size: 9rem;
+  font-size: 8rem;
   line-height: 1;
   cursor: pointer;
   transition: color .5s;
@@ -27,5 +27,5 @@
   font-size: 3rem;
   margin-bottom: 0;
   padding-bottom: 0px;
-  color: $secondary-text;
+  color: black;
 }

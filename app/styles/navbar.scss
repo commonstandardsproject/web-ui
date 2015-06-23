@@ -10,22 +10,67 @@
   background-color: white;
   transform: translateZ(0);
   z-index: 999999;
+  &:hover .navbar__title{
+    // opacity: 0;
+    // font-size: 30px;
+    // line-height: 100px;
+    transform: translateY(80px);
+    // transform: translateX(-100%);
+  }
+  &:hover .navbar__menu{
+    transform: translateY(5px);
+  }
 }
 
 .navbar__title{
   font-family: "aw-conqueror-carved";
   font-size: 60px;
-  line-height: 95px;
+  line-height: 90px;
   white-space: nowrap;
   text-align: center;
+  opacity: .4;
+  position: absolute;
   a{
     color: $color-navbar-title !important;
     text-decoration: none;
   }
-  transition: all .4s;
+  transition: all .2s;
+  transition-timing-function: ease-in;
   cursor: pointer;
+}
+
+
+.navbar__menu{
+  position: absolute;
+  height: 100%;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  transition: all .2s;
+  transition-timing-function: ease-in;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  // display: inline;
+  transform: translateY(60px);
+}
+
+a.navbar__menu__item{
+  color: $hint;
+  margin: 0 40px;
+  font-weight: 200;
   &:hover{
-    line-height: 60px;
-    transition: all .4s;
+    text-decoration: none;
+    color: $text;
+  }
+  &.active{
+    // font-weight: bold;
+    color: $teal;
+    text-decoration: none;
+  }
+  svg{
+    margin-top: 5px;
+    height: 20px; width: 20px;
+    display: inline;
   }
 }

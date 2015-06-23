@@ -15,7 +15,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
         url: models[modelName].url + '/' + id.replace('index', ''),
         method: "GET",
         headers: {
-          "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
+          "Api-Key": "vZKoJwFB1PTJnozKBSANADc3"
         },
         success: function(_data){
           var data = _data.data

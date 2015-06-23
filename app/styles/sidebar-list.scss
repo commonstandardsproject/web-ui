@@ -1,0 +1,20 @@
+.sidebar-list{
+
+}
+
+.sidebar-list__heading,
+.sidebar-list__section{
+  display: block;
+}
+
+.sidebar-list__heading{
+  color: $secondary-text;
+  text-transform: uppercase;
+  margin-top: 1.2rem;
+  font-weight: 300;
+}
+
+.sidebar-list__section{
+  color: $teal;
+  line-height: 1.5;
+}

@@ -1,5 +1,6 @@
 import Ember from "ember";
 import config from '../config/environment';
+import {local} from "../lib/store2";
 
 export default {
   afterSignIn(profile){
@@ -13,8 +14,9 @@ export default {
       headers: {
         "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
       },
-      success(){
-        console.log('updated successfully')
+      success(data){
+        local.add('users', data.data.email, data)
+        return data
       },
       error(){
 

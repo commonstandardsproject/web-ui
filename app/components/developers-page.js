@@ -10,6 +10,9 @@ export default Ember.Component.extend({
   actions: {
     signIn(){
       this.get('authenticate').showSignin()
+    },
+    showReset(){
+      this.get('authenticate').logout()
     }
   }
 

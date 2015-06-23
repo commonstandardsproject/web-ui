@@ -16,3 +16,10 @@ export var standardsSet = {
 
 registerModel('standardsSet')
 registerModel2('standardsSet')
+
+export var user = {
+  url: config.APP.apiBaseUrl + 'users'
+}
+
+registerModel('user')
+registerModel2('user')
