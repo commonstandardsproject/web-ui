@@ -68,7 +68,7 @@
       Find a list of all the jurisdictions and organizations in the database
     </p>
     <h3>Example Response:</h3>
-    <pre class="code-sample">{
+    <pre class="code-sample"><code class="json">{
   "data": [
     {
       "id": "B838B98D043045748F3814B9E43CAC85",
@@ -91,7 +91,9 @@
       "title": "American Psychological Association",
     }
   ]
-}</pre>
+}
+</code>
+</pre>
 
     <h2 name="jurisdictions-id">jurisdictions/:id</h2>
     <p>
@@ -99,7 +101,7 @@
     </p>
 
     <h3>Example Response:</h3>
-    <pre class="code-sample"> {
+    <pre class="code-sample"><code class="json">{
   "data": {
     "id": "B1339AB05F0347E79200FCA63240F3B2",
     "title": "California",
@@ -144,7 +146,7 @@
        },
     ]
   }
-}</pre>
+}</code></pre>
 
     <h2 name="standards-sets/:id">standard-sets/:id</h2>
     <p>
@@ -152,49 +154,49 @@
     </p>
 
     <h3>Example Response:</h3>
-    <pre class="code-sample"> {
-"data": {
-  "id": "B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-01",
-  "title": "Grade 1",
-  "subject": "Mathematics",
-  "educationLevels": [
-    "01"
-  ],
-  "license": "CC BY 3.0 US",
-  "licenseURL": "http:\/\/creativecommons.org\/licenses\/by\/3.0\/us\/",
-  "attributionURL": "http:\/\/asn.jesandco.org\/resources\/D2513639",
-  "rightsHolder": "Desire2Learn Incorporated",
-  "documentId": "D2513639:2013-09-10T15:37:01-04:00",
-  "documentTitle": "California Common Core State Standards: Mathematics",
-  "jurisdictionId": "B1339AB05F0347E79200FCA63240F3B2",
-  "jurisdiction": "California",
-  "source": null,
-  "standards": {
-    "BED3BFCB945A4C5290571A4339095DF5": {
-      "id": "BED3BFCB945A4C5290571A4339095DF5",
-      "asnIdentifier": "S2513640",
-      "firstStandard": true,
-      "nextStandard": "B6B2267B534748A5BD34F423CFD7E621",
-      "depth": 0,
-      "description": "Standards for Mathematical Practice"
-    },
-    "B6B2267B534748A5BD34F423CFD7E621": {
-      "id": "B6B2267B534748A5BD34F423CFD7E621",
-      "asnIdentifier": "S2513641",
-      "nextStandard": "D908C7DEF36B4F9EBDB7D1568246ED31",
-      "depth": 1,
-      "statementNotation": "MP.1",
-      "statementLabel": "Standard",
-      "listId": "1",
-      "description": "Make sense of problems and persevere in solving them.",
-      "comments": [
-        "Mathematically proficient ..."
-      ],
-      "exactMatch": [
-        "http:\/\/corestandards.org\/Math\/Practice\/MP1"
-      ]
-    }
-  } </pre>
+    <pre class="code-sample"><code class="json">{
+  "data": {
+    "id": "B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-01",
+    "title": "Grade 1",
+    "subject": "Mathematics",
+    "educationLevels": [
+      "01"
+    ],
+    "license": "CC BY 3.0 US",
+    "licenseURL": "http:\/\/creativecommons.org\/licenses\/by\/3.0\/us\/",
+    "attributionURL": "http:\/\/asn.jesandco.org\/resources\/D2513639",
+    "rightsHolder": "Desire2Learn Incorporated",
+    "documentId": "D2513639:2013-09-10T15:37:01-04:00",
+    "documentTitle": "California Common Core State Standards: Mathematics",
+    "jurisdictionId": "B1339AB05F0347E79200FCA63240F3B2",
+    "jurisdiction": "California",
+    "source": null,
+    "standards": {
+      "BED3BFCB945A4C5290571A4339095DF5": {
+        "id": "BED3BFCB945A4C5290571A4339095DF5",
+        "asnIdentifier": "S2513640",
+        "firstStandard": true,
+        "nextStandard": "B6B2267B534748A5BD34F423CFD7E621",
+        "depth": 0,
+        "description": "Standards for Mathematical Practice"
+      },
+      "B6B2267B534748A5BD34F423CFD7E621": {
+        "id": "B6B2267B534748A5BD34F423CFD7E621",
+        "asnIdentifier": "S2513641",
+        "nextStandard": "D908C7DEF36B4F9EBDB7D1568246ED31",
+        "depth": 1,
+        "statementNotation": "MP.1",
+        "statementLabel": "Standard",
+        "listId": "1",
+        "description": "Make sense of problems and persevere in solving them.",
+        "comments": [
+          "Mathematically proficient ..."
+        ],
+        "exactMatch": [
+          "http:\/\/corestandards.org\/Math\/Practice\/MP1"
+        ]
+      }
+    }</code></pre>
 
   </div>
 </div>

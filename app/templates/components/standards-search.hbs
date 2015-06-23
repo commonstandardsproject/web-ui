@@ -18,8 +18,10 @@
     {{#each standardSetIds as |id|}}
       {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet"}}
     {{/each}}
-    <div class="add-search-pane-button" {{action 'addPane'}}>
-      {{partial "icons/ios7-browser-outline"}}
-    </div>
+    {{#if isSearchVisible}}
+      <div class="add-search-pane-button" {{action 'addPane'}}>
+        {{partial "icons/ios7-browser-outline"}}
+      </div>
+    {{/if}}
   </div>
 </div>
