@@ -32,3 +32,16 @@
   color: $secondary-text;
   // text-transform: uppercase;
 }
+
+
+@media (max-width: 500px){
+  .masthead {
+    margin: 0 20px 20px;
+  }
+  .masthead__title{
+    font-size: 4rem;
+  }
+  .masthead__subtitle{
+    font-size: 2rem;
+  }
+}

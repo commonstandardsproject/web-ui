@@ -66,3 +66,18 @@
   font-size: .8rem;
   text-align: center;
 }
+
+@media (max-width: 500px){
+  .home-menu{
+    margin: 0 20px;
+  }
+  .home-menu__item{
+    padding: 20px;
+  }
+  .home-menu__item__title{
+    font-size: 1.5rem;
+  }
+  .home-menu__item__subtitle{
+    font-size: 1.25rem;
+  }
+}

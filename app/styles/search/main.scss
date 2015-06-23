@@ -372,3 +372,34 @@ input.search-bar__input{
   color: $teal;
   &:hover{ text-decoration: none;}
 }
+
+
+@media (max-width: 500px){
+  .search-interface{
+    padding: 20px 0;
+  }
+  .search-panes{
+    flex-wrap: wrap;
+    .standard-set{
+      margin-right: 0;
+    }
+  }
+
+  .add-search-pane-button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    &:after{
+      line-height: 1;
+      margin-top: 0;
+      padding-top: 0;
+      vertical-align: center;
+      display: block;
+      position: relative;
+      width: 100%;
+      text-align: center;
+      left: 0; right: 0; top: 0;
+      transform: rotate(0deg);
+    }
+  }
+}
