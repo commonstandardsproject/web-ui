@@ -24,10 +24,13 @@
 // }
 
 .standards-sets-list__set-list__item{
-  @include bt;
+  @include bb;
   padding: .25rem 0;
   color: $secondary-text;
   cursor: pointer;
+  &:first-child{
+    @include bt;
+  }
   &:hover{
     background-color: $yellow;
   }
