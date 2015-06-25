@@ -8,5 +8,10 @@ body{
   // padding: 20px 40px;
   // margin: 20px;
 }
-@import "masthead";
-@import "home-page-list";
+
+.credits{
+  margin: 40px;
+  color: $secondary-text !important;
+  font-size: .8rem;
+  text-align: center;
+}

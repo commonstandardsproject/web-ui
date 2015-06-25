@@ -25,8 +25,10 @@ module.exports = function(environment) {
     ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
     ENV.urls = {
       getJurisdictions: ENV.APP.apiBaseUrl + 'jurisdictions',
-      getStandardsSet: ENV.APP.apiBaseUrl + 'standard_sets',
+      getStandardsSet:  ENV.APP.apiBaseUrl + 'standard_sets',
       postUserSignedIn: ENV.APP.apiBaseUrl + 'users/signed_in',
+      postJurisdiction: ENV.APP.apiBaseUrl + 'jurisdictions',
+
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

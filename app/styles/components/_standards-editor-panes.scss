@@ -1,0 +1,22 @@
+.standards-editor-panes{
+  width: 100%;
+  overflow: hidden;
+  &.show-jurisdictions .standards-editor-panes__inner{
+    transform: translateX(0);
+  }
+  &.show-jurisdiction .standards-editor-panes__inner{
+    transform: translateX(-20%);
+  }
+  // &.show-standards-set .standards-editor-panes__inner{
+  //   transform: translateX(200%);
+  // }
+}
+.standards-editor-panes__inner{
+  width: 500%;
+  display: flex;
+  display: -webkit-flex;
+  transition: transform .3s;
+}
+.standards-editor-pane{
+  width: 100%;
+}

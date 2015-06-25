@@ -1,0 +1,25 @@
+<form class="add-jurisdiction">
+  {{#if errorMessage}}
+    <div class="alert alert-danger">{{errorMessage}}</div>
+  {{/if}}
+  <div class="form-group">
+    <label for="add-jurisdiction__title">{{humanizedType}} Name</label>
+    {{input id="add-jurisdiction__title" class="form-control" value=title placeholder="Enter name" required=true}}
+  </div>
+  <div class="form-group">
+    <label for="add-jurisdiction__url">{{humanizedType}} Website</label>
+    {{input id="add-jurisdiction__url" class="form-control" value=url placeholder="Enter website" required=true}}
+  </div>
+  <div class="form-group">
+    <label for="add-jurisdiction__submitter">Your Full Name</label>
+    {{input id="add-jurisdiction__submitter-name" class="form-control" value=submitterName placeholder="Enter your full name" required=true}}
+  </div>
+  <div class="form-group">
+    <label for="add-jurisdiction__submitter-email">Your Email</label>
+    {{input id="add-jurisdiction__submitter-email" class="form-control" value=session.profile.email placeholder="Enter your email" required=true}}
+  </div>
+  <div class="form-group">
+    <div class="btn btn-link" {{action this.attrs.toggleForm}}>Cancel</div>
+    <input type="submit" value="Create" class="btn btn-primary" {{action "onSubmit"}}>
+  </div>
+</form>

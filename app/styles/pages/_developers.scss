@@ -2,7 +2,7 @@
 .developers-grid{
   display: flex;
   display: -webkit-flex;
-  margin-top: 70px;
+  margin-top: 90px;
   h1{
     // font-family: $font-headings;
     font-family: "aw-conqueror-carved-one";
@@ -12,11 +12,13 @@
     // border-top: 1px solid $teal;
     // border-bottom: 1px solid $teal;
     margin-top: 3rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    // padding-top: .5rem;
+    // padding-bottom: .5rem;
     color: $red;
     font-weight: 400;
-    font-size: 3rem;
+  }
+  h1:first-child{
+    margin-top: 0;
   }
   p{
     font-size: 1.2rem;
@@ -37,7 +39,11 @@
   min-width: 200px;
   flex-grow: 1;
   // border-right: 1px solid $dividers;
-  padding: 20px;
+  padding: 0 20px;
+  opacity: .8;
+  &:hover{
+    opacity: 1;
+  }
 }
 
 .developers-grid__main{

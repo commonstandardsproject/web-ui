@@ -1,0 +1,20 @@
+@mixin display-flex{
+  display: flex;
+  display: -webkit-flex;
+}
+
+@mixin column-subhead{
+  // color: $secondary-text;
+  color: $red;
+  font-size: 1.5rem;
+  text-align: center;
+  // border-bottom: 1px solid $dividers;
+  margin-top: .5rem;
+  padding-bottom: 1rem;
+  // margin-bottom: 2rem;
+}
+
+@mixin square($dimension){
+  width: $dimension;
+  height: $dimension;
+}

@@ -1,0 +1,52 @@
+
+.standards-edit{
+  margin: 100px 20px;
+}
+
+.standards-edit-description{
+  max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+
+.standards-edit-h1{
+  color: $red;
+  text-align: center;
+  font-family: $font-headings;
+  border-top: 1px solid $dividers;
+  border-bottom: 1px solid $dividers;
+}
+
+.standards-edit-pane__prompt{
+  color: $red;
+  font-size: 2rem;
+  line-height: 2.8rem;
+  text-align: center;
+  font-family: $font-headings;
+  border-top: 1px solid $dividers;
+  border-bottom: 1px solid $dividers;
+  margin-top: 0;
+}
+
+.standards-edit-pane__subhead{
+
+}
+
+.standards-edit-h2{
+  color: $secondary-text;
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 1px solid $dividers;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+.standards-edit p{
+  font-size: 1.2rem;
+}
+
+
+
+
+.add-jurisdiction{
+  padding: 10px;
+  background-color: $yellow;
+}

@@ -1,0 +1,26 @@
+.editor__jurisdiction-list{
+
+}
+
+.editor__jurisdiction-list__item{
+  border-bottom: 1px solid $dividers;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-left: 10px;
+  display: block;
+  color: $text;
+  text-decoration: none;
+  line-height: 1.2;
+  font-size: 12px;
+  // transition: background-color .2s;
+  cursor: pointer;
+  &:hover{
+    color: white;
+    background-color: $bg-hover;
+    // transition: background-color .2s;
+  }
+  &.active{
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}

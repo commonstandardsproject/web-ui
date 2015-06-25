@@ -1,0 +1,16 @@
+.btn svg{
+  @include square(16px);
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+
+.btn.btn-lg svg{
+  @include square(24px);
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.btn.btn-primary svg{
+  fill: white;
+}

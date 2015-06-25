@@ -1,20 +1,32 @@
 // @import "lib/skeleton";
 @import "variables";
-// @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "mixins/main";
 @import "bootstrap";
 @import "lib/hint";
-@import "grid";
-@import "labels";
-@import "selectable-list";
-@import "form-rows";
-@import "standard";
-@import "home/index";
-@import "navbar";
-@import "sidebar-list";
-@import "standards-editor/main";
-@import "search/main";
-@import "developers";
-@import "standards-edit/main";
+
+@import "components/editor-grid";
+@import "components/form-rows";
+@import "components/grid";
+@import "components/home-menu";
+@import "components/labels";
+@import "components/masthead";
+@import "components/navbar";
+@import "components/buttons";
+@import "components/standard";
+@import "components/jurisdiction-columns";
+@import "components/standards-editor-panes";
+@import "components/lists/jurisdiction-list";
+@import "components/lists/editable-standards-list";
+@import "components/lists/editor-jurisdictions-list";
+@import "components/lists/selectable-list";
+@import "components/lists/sidebar-list";
+@import "components/lists/standards-set-list";
+
+@import "pages/developers";
+@import "pages/home";
+@import "pages/search";
+@import "pages/standards-edit";
+
 
 html{
   font-size: 80%;
