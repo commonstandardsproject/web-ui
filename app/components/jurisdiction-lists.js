@@ -32,9 +32,8 @@ export default Ember.Component.extend({
 
     addJurisdiction(data){
       rpc.addJurisdiction(data, function(_data){
-        this.set('jurisdictionId', _data.data.id)
-        this.attrs.setPane('jurisdiction')
-      }, function(err){
+        this.attrs.selectJurisdiction(_data.data.id)
+      }.bind(this), function(err){
 
       })
     }

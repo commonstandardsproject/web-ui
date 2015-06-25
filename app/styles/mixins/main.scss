@@ -1,3 +1,12 @@
+@mixin bb($color:$dividers, $width: 1px){
+  border-bottom: $width solid $color
+}
+
+@mixin bt($color:$dividers, $width: 1px){
+  border-top: $width solid $color
+}
+
+
 @mixin display-flex{
   display: flex;
   display: -webkit-flex;

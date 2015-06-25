@@ -7,6 +7,9 @@
   &.show-jurisdiction .standards-editor-panes__inner{
     transform: translateX(-20%);
   }
+  &.show-standards-set .standards-editor-panes__inner{
+    transform: translateX(-40%);
+  }
   // &.show-standards-set .standards-editor-panes__inner{
   //   transform: translateX(200%);
   // }

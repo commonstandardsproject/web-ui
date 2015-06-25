@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  layoutName: "with-navbar"
+  queryParams:    ['pane', 'standardsSetId', 'jurisdictionId'],
+  pane:           'jurisdictions',
+  standardsSetId: null
 })
