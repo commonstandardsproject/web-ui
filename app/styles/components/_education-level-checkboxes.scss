@@ -1,0 +1,22 @@
+.education-level-checkboxes{
+  padding-left: 10px;
+}
+.education-level-checkboxes__checkbox{
+  float: left;
+  margin-right: 15px;
+  input{
+    display: none;
+  }
+  label{
+    min-width: 30px;
+    text-align: center;
+    border: 1px solid $dividers;
+    border-radius: 5px;
+    padding: .5rem;
+    margin: 0;
+  }
+  &.checked label{
+    background-color: $red;
+    color: white;
+  }
+}

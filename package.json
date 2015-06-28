@@ -34,18 +34,24 @@
     "ember-cli-qunit": "0.3.13",
     "ember-cli-sass": "^4.0.0",
     "ember-cli-selectize": "0.3.3",
+    "ember-cli-sortable": "0.1.10",
     "ember-cli-styles-reloader": "^0.1.4",
     "ember-cli-uglify": "^1.0.1",
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
+    "ember-multiselect-checkboxes": "^0.3.1",
+    "ember-sortable": "1.2.0",
     "ember-storage": "1.1.0",
+    "ember-truth-helpers": "0.0.5",
     "jsoneditor": "^4.2.0",
     "lodash": "3.8.0",
     "torii": "0.4.0"
   },
   "dependencies": {
     "ember-cli": "^0.2.7",
+    "fast-json-patch": "^0.5.2",
     "immutable": "^3.7.3",
-    "lodash-fp": "^0.9.4"
+    "lodash-fp": "^0.9.4",
+    "rus-diff": "^1.1.0"
   }
 }

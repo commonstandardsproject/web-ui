@@ -11,6 +11,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
     var model = store.local.find(modelName, id)
 
     if(shouldFetch(model._status)){
+      model._status.isFetching = true
       $.ajax({
         url: models[modelName].url + '/' + id.replace('index', ''),
         method: "GET",

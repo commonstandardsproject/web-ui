@@ -9,7 +9,10 @@ Ember.MODEL_FACTORY_INJECTIONS = true;
 
 App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
-  Resolver: Resolver
+  Resolver: Resolver,
+  customEvents: {
+    paste: 'paste'
+  }
 });
 
 loadInitializers(App, config.modulePrefix);

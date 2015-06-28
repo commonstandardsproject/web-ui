@@ -17,6 +17,10 @@ export default Ember.Component.extend({
     return Fetcher.find('jurisdiction', this.get('jurisdictionId'))
   }),
 
+  standardsSet: Ember.computed('standardsSetId', function(){
+    return Fetcher.find('standardsSet', this.get('standardsSetId'))
+  }),
+
   actions: {
     signIn(){
       this.get('authenticate').showSignin()
@@ -43,29 +47,38 @@ export default Ember.Component.extend({
         <div class="standards-editor-panes__inner">
           <div class="standards-editor-pane">
             <h1 class="standards-edit-pane__prompt">Choose a State, Organization, or School/District</h1>
-            {{jurisdiction-lists
-              jurisdictions=jurisdictions
-              newOrganization=newOrganization
-              selectJurisdiction=(action 'selectJurisdiction') }}
+            {{#if jurisdictions._status.isFetching}}
+              Loading...
+            {{else}}
+              {{jurisdiction-lists
+                jurisdictions=jurisdictions
+                newOrganization=newOrganization
+                selectJurisdiction=(action 'selectJurisdiction') }}
+            {{/if}}
           </div>
 
           <div class="standards-editor-pane">
             <h1 class="standards-edit-pane__prompt">Choose a Set of Standards</h1>
+            {{#if jurisdiction._status.isFetching}}
+              Loading...
+            {{else}}
             {{standards-sets-list
               standardsSets=jurisdiction.standardSets
               selectStandardsSet=(action 'selectStandardsSet')
             }}
+            {{/if}}
           </div>
 
 
           <div class="standards-editor-pane">
-            <h1>Standard Set</h1>
-            - title
-            - subject
-            - grade levels
-            - source
-            - standards
-            - versions
+            <h1 class="standards-edit-pane__prompt">Standards Editor</h1>
+          {{#if standardsSet._status.isFetching}}
+              Loading...
+            {{else}}
+            {{standards-set-editor
+              standardsSet=standardsSet
+            }}
+            {{/if}}
           </div>
           <div class="standards-editor-pane">
             <h1>Versions</h1>

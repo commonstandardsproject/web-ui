@@ -14,7 +14,8 @@
     "qunit": "~1.17.1",
     "selectize": "~0.12.1",
     "bootstrap-sass": "~3.3.4",
-    "jsoneditor": "~4.2.0"
+    "jsoneditor": "~4.2.0",
+    "Sortable": "~1.2.0"
   },
   "devDependencies": {
     "auth0-lock": "7.5.6"
