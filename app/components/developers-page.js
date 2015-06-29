@@ -29,7 +29,7 @@ export default Ember.Component.extend({
   <div class="developers-grid">
     <div class="developers-grid__sidebar">
       <div class="sidebar-list">
-        <div class="sidebar-list__heading">Overview</div>
+        <div class="sidebar-list__heading">API Overview</div>
         <a class="sidebar-list__section" href="#why">Why?</a>
         <a class="sidebar-list__section" href="#using">Using the API</a>
         <a class="sidebar-list__section" href="#using">Who is behind this?</a>
@@ -38,6 +38,13 @@ export default Ember.Component.extend({
         <a class="sidebar-list__section --code" href="#jurisdictions-index">jurisdictions</a>
         <a class="sidebar-list__section --code" href="#jurisdictions-id">jurisdictions/:id</a>
         <a class="sidebar-list__section --code" href="#standard-sets-id">standard-sets/:id</a>
+
+        <div class="sidebar-list__heading">Search</div>
+        <a class="sidebar-list__section --code" href="#search">Search API</a>
+
+        {{!-- <div class="sidebar-list__heading">Database dump</div>
+        <a class="sidebar-list__section --code" href="#database-dump">Database Dump</a> --}}
+
       </div>
 
       {{#if isAuthenticated}}
@@ -54,8 +61,16 @@ export default Ember.Component.extend({
       {{/if}}
     </div>
     <div class="developers-grid__main">
-      <h1>Overview</h1>
-      <h2>Why this project?</h2>
+      <h1>Welcome, developers!</h1>
+      <p>
+        Standards are hard and we're here to help. There are 50 states (and even more organizations) who produce standards. If you're like us, your customers will start asking to add their own standards. Creating an infrastructure to screen scrape 50 state websites and then updating them is overwhelming. Companies like ASN and Academic Benchmarks charge and arm and a leg for standards in formats that don't conform to conventional JSON or are organized in bizarre, teacher unfriendly ways. Further, you need to update the standards as the states update them. And, of course, let's not forget search. What's a developer to do?
+      </p>
+      <p>
+        Use the Common Standards Project, of course! Here, you can learn more about use our API and how to integrate instant standards search into your website. Reach out to me at scott (at) commoncurriculum dot com if you need more help!
+      </p>
+
+      <h1>API Overview</h1>
+      <h2>Why does edtech need a standards API? (e.g. why are we opensourcing this?)</h2>
       <p>
         If edtech companies are going to reach their potential to change teaching practices and dramatically improve student outcomes, their products need to interop. Standards are a common denominator across vast swaths of the edtech landscape, yet their exists no
         <ul>
@@ -224,7 +239,15 @@ export default Ember.Component.extend({
         }
       }</code></pre>
 
+
+      <h2 name="search">Search</h2>
+      <p>
+        We use <a href="http://algolia.com">Algolia</a> for our search service. Reach out to scott at commoncurriculum dot com to get an API key. While the API is free to use, the standards search has a limit of 5,000 requests a month. If you need to go above that, let us know.
+      </p>
+
+
     </div>
+
   </div>
   `
 
