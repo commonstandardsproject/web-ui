@@ -1,6 +1,25 @@
-<div class="sortable-standard">
-  {{simple-editable value=item.listId class="sortable-standard__list-id" placeholder="List Identifier"}}
-  {{item.listId}}
-  {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation"}}
+<div class="sortable-standard sortable-standard--depth-{{item.depth}}">
+  {{#rl-dropdown-container class="sortable-standard__menu-container"}}
+    {{#rl-dropdown-toggle class="sortable-standard__menu-toggle" tagName="div"}}
+      {{partial "icons/menu-toggle"}}
+    {{/rl-dropdown-toggle}}
+
+    {{#rl-dropdown tagName="ul" class="sortable-standard__menu" closeOnChildClick="a:link"}}
+      <li class="sortable-handle sortable-standard__handle sortable-standard__menu-item">
+        <a>{{partial "icons/ios7-move"}} Move</a>
+      </li>
+      <li class="sortable-standard__indent sortable-standard__menu-item">
+        <a>{{partial "icons/arrow-left"}} Indent</a>
+      </li>
+      <li class="sortable-standard__outdent sortable-standard__menu-item">
+        <a>{{partial "icons/arrow-right"}} Outdent</a>
+      </li>
+      <li class="sortable-standard__delete sortable-standard__menu-item">
+        <a>{{partial "icons/ios7-trash-filled"}} Delete</a>
+      </li>
+    {{/rl-dropdown}}
+  {{/rl-dropdown-container}}
+  {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" data-hint="E.g A or B or 1. or 2" placeholder="List Identifier"}}
   {{simple-editable value=item.description class="sortable-standard__description"}}
+  {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation"}}
 </div>

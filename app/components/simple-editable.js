@@ -13,6 +13,12 @@ export default Ember.Component.extend({
   plaintext:    true,
   placeholder:  '',
 
+  classNameBindings: ['isEmpty'],
+
+  isEmpty: Ember.computed('value', function(){
+    return this.get('value') == "" || this.get('value') == null || this.get('value') == undefined
+  }),
+
   // Properties:
   contenteditable: Ember.computed('editable', function() {
     var editable = this.get('editable');
@@ -24,6 +30,7 @@ export default Ember.Component.extend({
     if (this.get('isUserTyping')) return;
     var value = this.get('value') || "";
     // return this.$().text(this.get('value'));
+
     this.set('_value', value)
   },
 

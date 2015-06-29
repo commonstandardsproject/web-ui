@@ -26,10 +26,9 @@ export default Ember.Component.extend({
 
     {{sortable-items
       itemCollection=standards
-      className="sortable-standards"
+      class="sortable-standards"
       animation=100
-      handle=".item__handle"
-      filter=".item--pinned"
+      handle=".sortable-handle"
       draggable=".sortable-standard"
       ghostClass="sortable-standard--ghost"
       onItemMoveAction="itemMoved"
