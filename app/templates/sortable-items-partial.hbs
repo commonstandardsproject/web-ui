@@ -19,7 +19,13 @@
       </li>
     {{/rl-dropdown}}
   {{/rl-dropdown-container}}
-  {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" data-hint="E.g A or B or 1. or 2" placeholder="List Identifier"}}
-  {{simple-editable value=item.description class="sortable-standard__description"}}
-  {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation"}}
+  <div class="sortable-standard__columns">
+    <div class="sortable-standard__column--list-id">
+      {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" data-hint="E.g A or B or 1. or 2" placeholder="List Identifier"}}
+    </div>
+    <div class="sortable-standard__column--description">
+      {{simple-editable value=item.description class="sortable-standard__description"}}
+      {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation"}}
+    </div>
+  </div>
 </div>

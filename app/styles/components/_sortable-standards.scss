@@ -8,6 +8,7 @@
   padding-bottom: .5rem;
   position: relative;
 
+
   &.sortable-standard--depth-0{
     padding-left: 1rem;
   }
@@ -87,8 +88,14 @@
   }
 }
 
+
+.sortable-standard__columns{
+  display: flex;
+  display: -webkit-flex;
+}
+
+
 .sortable-standard__list-id{
-  display: inline-block;
   min-width: 20px;
   text-align: center;
   // @include bb($dividers);
@@ -98,6 +105,9 @@
   // background-color: hsl(0,0,96%);
   // font-weight: 400;
   border: 1px solid transparent;
+  // float: left;
+  display: inline;
+  // float: left;
   &.is-empty:before{
     content: "•";
     font-size: 1rem;
@@ -108,10 +118,11 @@
 
 .sortable-standard__statement-notation{
   min-width: 50px;
-  display: inline-block;
+  display: inline;
   text-align: center;
   // @include bb($dividers);
   line-height: 1.2rem;
+  // float: left;
   &.is-empty:before{
     content: "Code";
     font-size: 1rem;
@@ -124,4 +135,9 @@
 
 .sortable-standard__description{
   display: inline;
+}
+
+
+.sortable-standard__column--list-id{
+  min-width: 20px;
 }
