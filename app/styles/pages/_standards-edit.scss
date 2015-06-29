@@ -27,6 +27,15 @@
   margin-top: 0;
 }
 
+.standards-set-editor-subhead{
+  color: $red;
+  margin-top: 3rem;
+  color: $hint;
+  font-family: $font-headings;
+  font-size: 1.5rem;
+  @include bb($dividers);
+}
+
 .standards-edit-pane__subhead{
 
 }

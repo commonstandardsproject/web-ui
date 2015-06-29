@@ -3,7 +3,7 @@ import config from '../config/environment';
 import {local} from "../lib/store2";
 
 export default {
-  afterSignIn(profile){
+  afterSignIn(profile, cb){
     $.ajax({
       method:   "POST",
       dataType: "json",
@@ -15,7 +15,8 @@ export default {
         "Auth-Token": "vZKoJwFB1PTJnozKBSANADc3"
       },
       success(data){
-        local.add('users', data.data.email, data)
+        local.add('user', data.data.email, data)
+        cb(data)
         return data
       },
       error(){

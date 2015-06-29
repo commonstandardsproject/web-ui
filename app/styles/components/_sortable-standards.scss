@@ -9,7 +9,7 @@
   position: relative;
 
   &.sortable-standard--depth-0{
-    padding-left: 0rem;
+    padding-left: 1rem;
   }
 
   &.sortable-standard--depth-0 .sortable-standard__outdent{
@@ -17,16 +17,16 @@
   }
 
   &.sortable-standard--depth-1{
-    padding-left: 0rem;
+    padding-left: 3rem;
   }
   &.sortable-standard--depth-2{
-    padding-left: 2rem;
+    padding-left: 5rem;
   }
   &.sortable-standard--depth-3{
-    padding-left: 4rem;
+    padding-left: 7rem;
   }
   &.sortable-standard--depth-4{
-    padding-left: 6rem;
+    padding-left: 9rem;
   }
   &:hover .sortable-standard__list-id{
     // border: 1px solid $dividers;

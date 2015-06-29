@@ -21,9 +21,9 @@ export default Ember.Service.extend({
     });
   },
 
-  user: Ember.computed('session.profile.email', function(){
-    return Fetcher.find('user', this.get('session.profile.email'))
-  }),
+  // user: Ember.computed('session.profile.email', function(){
+  //   return Fetcher.find('user', this.get('session.profile.email'))
+  // }),
 
   options: {
     focusInput: true,
@@ -82,11 +82,15 @@ export default Ember.Service.extend({
           "authorization": data.token
         }
       })
-      User.afterSignIn(data.profile)
+      User.afterSignIn(data.profile, function(data){
+        this.get('session').setProperties({
+          apiKey: data.data.apiKey,
+          id:     data.data._id
+        })
+      }.bind(this))
     }
   },
-  _afterReset: function(err){
-  },
+  _afterReset: function(err){ },
   _afterLogout(){
     this.get('session').setProperties({
       isAuthenticated: false

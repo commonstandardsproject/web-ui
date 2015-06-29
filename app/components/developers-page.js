@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
   isAuthenticated: Ember.computed.alias('session.isAuthenticated'),
 
-  addHighlighting: Ember.on('didInsertElement', function(){
+  addHighlighting: Ember.on('didRender', function(){
     $('pre').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -46,7 +46,7 @@ export default Ember.Component.extend({
             Welcome, {{session.profile.name}}!
           </div>
           <pre class="api-key">API KEY:
-  {{authenticate.user.apiKey}}</pre>
+{{session.apiKey}}</pre>
         </div>
         <div class="btn btn-default btn-block" {{action 'showReset'}}>Sign Out</div>
       {{else}}

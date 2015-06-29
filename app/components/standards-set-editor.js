@@ -8,10 +8,23 @@ export default Ember.Component.extend({
 
 
   layout: hbs`
-    <h2>Standards</h2>
-    {{standards-editor standardsHash=standardsSet.standards}}
 
-    <h2>Description</h2>
+    {{#if standardsSet.submissions}}
+      <h2 class="standards-set-editor-subhead">Changes waiting to be approved</h2>
+      <ul>
+      {{#each standardsSet.submissions as |submission|}}
+        <li>{{submission.title}}</li>
+      {{/each}}
+      </ul>
+    {{/if}}
+
+
+    <h2 class="standards-set-editor-subhead">Directions</h2>
+    <p>
+      First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
+    </p>
+
+    <h2 class="standards-set-editor-subhead">Description</h2>
     <div class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-2">Title</label>
@@ -34,10 +47,21 @@ export default Ember.Component.extend({
       <div class="form-group">
         <label class="control-label col-sm-2">Education Levels</label>
         <div class="col-sm-10">
-          {{education-level-checkboxes value=standardsSet.educationLevels}}
+          {{#if standardsSet.educationLevels}}
+            {{education-level-checkboxes value=standardsSet.educationLevels}}
+          {{/if}}
         </div>
       </div>
     </div>
+
+    <h2 class="standards-set-editor-subhead">Standards</h2>
+    {{standards-editor standardsHash=standardsSet.standards}}
+
+    {{!-- <h2 class="standards-set-editor-subhead">Change the standards</h2> --}}
+    {{standards-set-commit-maker
+      standardsSet=standardsSet
+    }}
+
 
   `
 

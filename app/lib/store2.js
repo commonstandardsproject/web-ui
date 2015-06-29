@@ -25,7 +25,8 @@ var local = {
   },
 
   add(modelName, id, doc){
-    return store.localModels[modelName][id].setProperties(doc)
+    store.localModels[modelName][id] = store.localModels[modelName][id] || Ember.Object.create({})
+    store.localModels[modelName][id].setProperties(doc)
   }
 }
 

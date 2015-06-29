@@ -36,6 +36,8 @@ export default Ember.Component.extend({
       noItemText="<div style='text-align:center'>No items found</div>"
     }}
 
+    <div class="btn btn-default btn-block" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
+
   `
 
 })
