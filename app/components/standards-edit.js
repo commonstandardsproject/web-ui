@@ -21,6 +21,11 @@ export default Ember.Component.extend({
     return Fetcher.find('standardsSet', this.get('standardsSetId'))
   }),
 
+  paneObserver: Ember.observer('pane', function(){
+    $(window).scrollTop(0)
+  }),
+
+
   actions: {
     signIn(){
       this.get('authenticate').showSignin()
@@ -35,6 +40,9 @@ export default Ember.Component.extend({
     selectStandardsSet(id){
       this.set('standardsSetId', id)
       this.set('pane', 'standards-set')
+    },
+    goToPane(pane){
+      this.set('pane', pane)
     }
   },
 
@@ -58,7 +66,9 @@ export default Ember.Component.extend({
           </div>
 
           <div class="standards-editor-pane">
-            <h1 class="standards-edit-pane__prompt">Choose a Set of Standards</h1>
+            <h1 class="standards-edit-pane__prompt">
+              <div class="standards-edit-pane__back" {{action "goToPane" "jurisdictions"}}>&larr; Back</div>
+              Choose a Set of Standards</h1>
             {{#if jurisdiction._status.isFetching}}
               Loading...
             {{else}}
@@ -71,7 +81,9 @@ export default Ember.Component.extend({
 
 
           <div class="standards-editor-pane">
-            <h1 class="standards-edit-pane__prompt">Standards Editor</h1>
+            <h1 class="standards-edit-pane__prompt">
+              <div class="standards-edit-pane__back" {{action "goToPane" "jurisdiction"}}>&larr; Back</div>
+              Standards Editor</h1>
           {{#if standardsSet._status.isFetching}}
               Loading...
             {{else}}

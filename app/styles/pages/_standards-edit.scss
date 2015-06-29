@@ -27,6 +27,19 @@
   margin-top: 0;
 }
 
+.standards-edit-pane__back{
+  color: $hint;
+  font-weight: 300;
+  font-family: $font-family;
+  float: left;
+  cursor: pointer;
+  font-size: 1.2rem;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+
 .standards-set-editor-subhead{
   color: $red;
   margin-top: 3rem;
