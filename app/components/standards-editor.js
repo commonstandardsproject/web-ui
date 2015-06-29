@@ -18,6 +18,12 @@ export default Ember.Component.extend({
   actions: {
     itemMoved(object, oldPosition, newPosition){
       console.log('args', arguments)
+    },
+    indent(standard){
+      Ember.set(standard, 'depth', standard.depth + 1)
+    },
+    outdent(standard){
+      Ember.set(standard, 'depth', standard.depth - 1)
     }
   },
 
@@ -34,6 +40,8 @@ export default Ember.Component.extend({
       onItemMoveAction="itemMoved"
       templateName="sortable-items-partial"
       noItemText="<div style='text-align:center'>No items found</div>"
+      indent="indent"
+      outdent="outdent"
     }}
 
     <div class="btn btn-default btn-block" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>

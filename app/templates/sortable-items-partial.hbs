@@ -5,14 +5,14 @@
     {{/rl-dropdown-toggle}}
 
     {{#rl-dropdown tagName="ul" class="sortable-standard__menu" closeOnChildClick="a:link"}}
-      <li class="sortable-handle sortable-standard__handle sortable-standard__menu-item">
+      <li class="sortable-handle sortable-standard__handle sortable-standard__menu-item" >
         <a>{{partial "icons/ios7-move"}} Move</a>
       </li>
-      <li class="sortable-standard__indent sortable-standard__menu-item">
-        <a>{{partial "icons/arrow-left"}} Indent</a>
+      <li class="sortable-standard__outdent sortable-standard__menu-item" {{action "outdent" item}}>
+        <a>{{partial "icons/arrow-left"}} Outdent</a>
       </li>
-      <li class="sortable-standard__outdent sortable-standard__menu-item">
-        <a>{{partial "icons/arrow-right"}} Outdent</a>
+      <li class="sortable-standard__indent sortable-standard__menu-item" {{action "indent" item}}>
+        <a>{{partial "icons/arrow-right"}} Indent</a>
       </li>
       <li class="sortable-standard__delete sortable-standard__menu-item">
         <a>{{partial "icons/ios7-trash-filled"}} Delete</a>
