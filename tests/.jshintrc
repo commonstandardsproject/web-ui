@@ -23,13 +23,14 @@
     "currentPath",
     "currentRouteName"
   ],
+  "asi": true,
   "node": false,
   "browser": false,
   "boss": true,
-  "curly": false,
+  "curly": true,
   "debug": false,
   "devel": false,
-  "eqeqeq": true,
+  "eqeqeq": false,
   "evil": true,
   "forin": false,
   "immed": false,
@@ -47,5 +48,6 @@
   "strict": false,
   "white": false,
   "eqnull": true,
-  "esnext": true
+  "esnext": true,
+  "unused": false
 }

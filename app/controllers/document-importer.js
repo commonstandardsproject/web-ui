@@ -60,7 +60,7 @@ export default Ember.Controller.extend({
   standards: Ember.computed('standardsSet', function(){
     var standardsHash = this.get('standardsSet.standards')
     if (Ember.isNone(standardsHash)) return [];
-    var rootStandard = _.find(standardsHash, (value, key) => value.firstStandard == true)
+    var rootStandard = _.find(standardsHash, (value, key) => value.firstStandard === true)
 
     function fetchNext(acc, standards, standardId){
       acc.push(standards[standardId])

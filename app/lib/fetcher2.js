@@ -1,3 +1,4 @@
+import Ember from "ember";
 import models from './models';
 import store from './store2';
 import _ from "npm:lodash";

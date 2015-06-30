@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   classNameBindings: ['isEmpty'],
 
   isEmpty: Ember.computed('value', function(){
-    return this.get('value') == "" || this.get('value') == null || this.get('value') == undefined
+    return this.get('value') === "" || this.get('value') == null || this.get('value') === undefined
   }),
 
   // Properties:
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
   },
 
   focusIn: function(){
-    if (this.$() == undefined) return;
+    if (this.$() === undefined) return;
     var text = this.$().text()
 
     var focusInWordCount = 0
@@ -60,9 +60,9 @@ export default Ember.Component.extend({
     var deltaCount = focusOutWordCount - this.get('focusInWordCount')
 
     if (this.get('tracking-name') && deltaCount !== 0){
-      analytics.track(this.get('tracking-name'), {
-        words: deltaCount
-      })
+      // analytics.track(this.get('tracking-name'), {
+      //   words: deltaCount
+      // })
     }
     this.set('isUserTyping', false);
     return true

@@ -2,14 +2,18 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "$",
+    "hljs",
+    "Auth0Lock"
   ],
+  "asi": true,
   "browser": true,
   "boss": true,
-  "curly": true,
+  "curly": false,
   "debug": false,
   "devel": true,
-  "eqeqeq": true,
+  "eqeqeq": false,
   "evil": true,
   "forin": false,
   "immed": false,
@@ -28,5 +32,5 @@
   "white": false,
   "eqnull": true,
   "esnext": true,
-  "unused": true
+  "unused": false
 }
