@@ -13,41 +13,12 @@ var StandardModel = {
     updater.update("standardsSet", standardsSet.get('id'), updateHash)
   },
 
-  /**
-   * Immutable version
-   */
-  linkedListToArray(sHash){
-    if (sHash == undefined) return;
-    var first = sHash.find((v, k) => {
-      return v.get('firstStandard') == true
-    })
-    var getNext = function(acc, hash, standard){
-      acc.push(standard.toJS())
-      if (standard.get('nextStandard')) {
-        getNext(acc, hash, hash.get(standard.get('nextStandard')))
-      }
-      return acc
-    }
-    return getNext([], sHash, first)
+
+  hashToArray(hash){
+    return _(hash).values().sortBy('position').value()
   },
 
-  /**
-   * Normal version
-   */
-  linkedListToArrayNormal(sHash){
-    if (sHash == undefined) return;
-    var first = _.find(sHash, (v, k) => {
-      return v.firstStandard == true
-    })
-    var getNext = function(acc, hash, standard){
-      acc.push(standard)
-      if (standard.nextStandard) {
-        getNext(acc, hash, hash[standard.nextStandard])
-      }
-      return acc
-    }
-    return getNext([], sHash, first)
-  }
+
 }
 
 export default StandardModel;

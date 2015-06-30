@@ -11,7 +11,7 @@ export default Ember.Component.extend({
    * We'll change this to not a linked list soon.
    */
   standards: Ember.computed('standardsHash', function(){
-    return Standards.linkedListToArrayNormal(this.get('standardsHash'))
+    return Standards.hashToArray(this.get('standardsHash'))
   }),
 
 
