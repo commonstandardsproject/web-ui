@@ -34,23 +34,31 @@
     background-color: hsl(0,0,96%);
     // border-bottom: 1px solid $dividers;
   }
-  &:hover .sortable-standard__menu-container{
+  &:hover .sortable-standard__menu-toggle{
     opacity: 1;
   }
 }
 
+.sortable-standard--ghost > .sortable-standard__menu-container{
+  display: none;
+}
+
+
 .sortable-standard__menu-container{
   position: relative;
-  opacity: 0;
   // display: inline-block;
 }
 
 .sortable-standard__menu-toggle{
   // vertical-align: middle;
   // display: inline-block;
-  float: left;
+  float: right;
+  opacity: 0;
   svg{
-    fill: $dividers;
+    path {
+      stroke: $teal;
+      fill: $teal;
+    }
     margin-top: -3px;
     height: 25px; width: 25px;
   }
@@ -60,13 +68,14 @@
   list-style: none;
   padding-left: 0;
   display: inline-block;
-  padding: .5rem 1rem;
+  padding: .5rem .5rem;
   margin: .5rem;
   // @include bb($dividers);
   background-color: hsla(0,0,100%, .95);
   margin-left: 30px;
   position: absolute;
   top: -10px;
+  right: 20px;
   box-shadow: 0 0px 2px hsla(0,0,20%, .4);
 }
 
