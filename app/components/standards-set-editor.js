@@ -2,11 +2,15 @@ import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';
 import store from "../lib/store2";
 import differ from "../lib/differ";
+import Standards from "../models/standards";
 import MultiselectCheckboxesComponent from 'ember-multiselect-checkboxes/components/multiselect-checkboxes';
 
 
 export default Ember.Component.extend({
 
+  standards: Ember.computed('standardsSet.standards', function(){
+    return Standards.hashToArray(this.get('standardsSet.standards'))
+  }),
 
   actions: {
     diff(){
@@ -20,6 +24,11 @@ export default Ember.Component.extend({
 
 
   layout: hbs`
+
+
+    <h2 class="standards-set-editor-subhead">Standards</h2>
+    {{standards-editor standardsHash=standardsSet.standards}}
+
 
     {{#if standardsSet.submissions}}
       <h2 class="standards-set-editor-subhead">Changes waiting to be approved</h2>
@@ -36,6 +45,9 @@ export default Ember.Component.extend({
     <p>
       First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
     </p>
+
+
+
 
     <h2 class="standards-set-editor-subhead">Description</h2>
     <div class="form-horizontal">
@@ -66,9 +78,6 @@ export default Ember.Component.extend({
         </div>
       </div>
     </div>
-
-    <h2 class="standards-set-editor-subhead">Standards</h2>
-    {{standards-editor standardsHash=standardsSet.standards}}
 
     {{!-- <h2 class="standards-set-editor-subhead">Change the standards</h2> --}}
     {{standards-set-commit-maker

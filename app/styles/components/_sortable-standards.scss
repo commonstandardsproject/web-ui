@@ -34,69 +34,33 @@
     background-color: hsl(0,0,96%);
     // border-bottom: 1px solid $dividers;
   }
-  &:hover .sortable-standard__menu-toggle{
+  &:hover .sortable-standard__icons{
     opacity: 1;
   }
 }
 
-.sortable-standard--ghost > .sortable-standard__menu-container{
-  display: none;
-}
 
-
-.sortable-standard__menu-container{
-  position: relative;
-  // display: inline-block;
-}
-
-.sortable-standard__menu-toggle{
-  // vertical-align: middle;
-  // display: inline-block;
-  float: right;
+.sortable-standard__icons{
   opacity: 0;
-  svg{
-    path {
+  display: flex;
+  display: -webkit-flex;
+  float: right;
+  align-items: center;
+  transition: opacity .2s;
+}
+
+.sortable-standard__icon{
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+  &:hover{
+    svg path {
       stroke: $teal;
       fill: $teal;
     }
-    margin-top: -3px;
-    height: 25px; width: 25px;
   }
 }
-
-.sortable-standard__menu{
-  list-style: none;
-  padding-left: 0;
-  display: inline-block;
-  padding: .5rem .5rem;
-  margin: .5rem;
-  // @include bb($dividers);
-  background-color: hsla(0,0,100%, .95);
-  margin-left: 30px;
-  position: absolute;
-  top: -10px;
-  right: 20px;
-  box-shadow: 0 0px 2px hsla(0,0,20%, .4);
-}
-
-.sortable-standard__menu-item{
-  display: inline-block;
-  a{ color: $teal !important; cursor: pointer;}
-  font-size: 1.1rem;
-  font-weight: 400;
-  padding-right: 1rem;
-  // border-right: 1px solid $dividers;
-  line-height: 1.25rem;
-  svg {
-    // display: none;
-    // height: 2rem;
-    width: 1.2rem;
-    height: 1rem;
-    fill: $hint;
-    path: $hint;
-  }
-}
-
 
 .sortable-standard__columns{
   display: flex;
