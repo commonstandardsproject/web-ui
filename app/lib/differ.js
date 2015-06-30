@@ -5,6 +5,9 @@ import _ from "npm:lodash";
 export default function(mirror, obj){
   var patches = {"$set": {}, "$unset": {}, "$push": {}}
   generate(mirror, obj, patches, '')
+  if (_.isEmpty(patches["$set"])) delete patches["$set"];
+  if (_.isEmpty(patches["$unset"])) delete patches["$unset"];
+  if (_.isEmpty(patches["$push"])) delete patches["$push"];
   return patches
 }
 

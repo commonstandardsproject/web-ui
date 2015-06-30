@@ -30,7 +30,8 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
             inLocalStore: true,
             isFetching: false,
           }
-          return store.local.add(modelName, id, data)
+          store.local.add(modelName, id, data)
+          return store.server.add(modelName, id, data)
         }.bind(this)
       })
     }

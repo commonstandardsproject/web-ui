@@ -82,6 +82,7 @@ export default Ember.Component.extend({
   },
 
   keyUp: function(event) {
+    console.log('text', this.$().text())
     return this.set('value', this.$().text());
   },
 
@@ -102,9 +103,7 @@ export default Ember.Component.extend({
     e.preventDefault()
   },
 
-  layout: hbs`
-    {{_value}}
-  `
+  layout: hbs`{{_value}}`
   // render: function(buffer) {
   //   buffer.push(this.get('value') || "")
   // }

@@ -8,7 +8,9 @@ var store = {
 
 
 var registerModel = function(model){
-  return store.localModels[model] = Ember.Object.create()
+  store.localModels[model] = Ember.Object.create()
+  store.serverCache[model] = Ember.Object.create()
+  return store
 }
 
 
@@ -63,22 +65,16 @@ var server = {
   },
 
   add(modelName, id, doc){
-    store.serverCache[modelName][id] = store.localModels[modelName][id] || Ember.Object.create({})
-    store.localModels[modelName][id].setProperties(doc)
+    store.serverCache[modelName][id] = JSON.parse(JSON.stringify(doc))
   }
 
 }
 
 
 var deltas = {
-  add(modelName, id, hash){
-    var state = store().mergeDeepIn(['deltas', modelName, id], hash)
-    // _update(state)
-    return store().getIn(['deltas', modelName, id])
-  }
 }
 
 
 
 
-export {registerModel, local, deltas};
+export {registerModel, local, server, deltas};

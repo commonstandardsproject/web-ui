@@ -14,16 +14,14 @@ test('it exists', function(assert) {
   assert.ok(differ)
 });
 
-test('add to hash', function(assert){
-  var diff = differ({}, {a: 1})
-  assert.deepEqual(diff, {"$set": {"a":   1}, "$push": {}, "$unset": {}})
+test('$set in hash', function(assert){
+  var diff = differ({a: 1}, {a: 1, b:2})
+  assert.deepEqual(diff, {"$set": {"b": 2}})
 })
 
 test('finds differences in array', function(assert){
   var diff = differ({a: [1, 2]}, {a: [1]})
   assert.deepEqual(diff, {
-    "$push": {},
-    "$unset": {},
     "$set": {
       "a": [1]
     }
@@ -34,7 +32,5 @@ test('finds differences in array', function(assert){
 test('$unset', function(assert){
   var diff = differ({a: [1, 2]}, {})
   assert.deepEqual(diff, {
-    "$set": {} ,
-    "$push": {},
     "$unset": { a: true} })
 })
