@@ -27,6 +27,7 @@ module.exports = function(environment) {
       getJurisdictions:   ENV.APP.apiBaseUrl + 'jurisdictions',
       getStandardsSet:    ENV.APP.apiBaseUrl + 'standard_sets',
       postUserSignedIn:   ENV.APP.apiBaseUrl + 'users/signed_in',
+      postUser:           ENV.APP.apiBaseUrl + 'users',
       postJurisdiction:   ENV.APP.apiBaseUrl + 'jurisdictions',
       postCommit:         ENV.APP.apiBaseUrl + 'commits',
       postCommitApproval: ENV.APP.apiBaseUrl + 'commits/approval',

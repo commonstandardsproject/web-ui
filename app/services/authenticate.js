@@ -84,8 +84,10 @@ export default Ember.Service.extend({
       })
       User.afterSignIn(data.profile, function(data){
         this.get('session').setProperties({
-          apiKey: data.data.apiKey,
-          id:     data.data._id
+          apiKey:         data.data.apiKey,
+          algoliaApiKey:  data.data.algoliaApiKey,
+          allowedOrigins: data.data.allowedOrigins,
+          id:             data.data.id
         })
       }.bind(this))
     }

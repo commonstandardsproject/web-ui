@@ -60,7 +60,7 @@ export default Ember.Component.extend({
 
 
   standards: Ember.computed('standardSet.standards', function(){
-    return Standards.linkedListToArray(Immutable.fromJS(this.get('standardSet.standards')))
+    return Standards.hashToArray(this.get('standardSet.standards'))
   }),
 
   actions: {
@@ -132,7 +132,7 @@ export default Ember.Component.extend({
           <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
         {{/if}}
         <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
-        {{#link-to 'editor' (query-params ids=standardSet.id) class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+        {{#link-to 'edit' (query-params ids=standardSet.id) class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
           {{partial "icons/ios7-compose"}}
         {{/link-to}}
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>

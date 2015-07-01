@@ -32,6 +32,18 @@ export default {
       success:  cb,
       error:    cb,
     })
+  },
+
+  "user:updateAllowedOrigins": function(id, origins, cb){
+    $.ajax({
+      url:      config.urls.postUser + '/' + id + '/allowed_origins',
+      dataType: "json",
+      method:   "POST",
+      data:     {data: origins},
+      success:  cb,
+      error:    cb,
+    })
   }
+
 
 }

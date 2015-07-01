@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import rpc from "../lib/rpc";
 import hbs from 'htmlbars-inline-precompile';
 
 export default Ember.Component.extend({
@@ -8,7 +9,7 @@ export default Ember.Component.extend({
 
   isAuthenticated: Ember.computed.alias('session.isAuthenticated'),
 
-  addHighlighting: Ember.on('didRender', function(){
+  addHighlighting: Ember.on('didInsertElement', function(){
     $('pre').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -20,6 +21,14 @@ export default Ember.Component.extend({
     },
     showReset(){
       this.get('authenticate').logout()
+    },
+    updateOrigins(){
+      rpc["user:updateAllowedOrigins"](this.get('session.id'), this.get('session.allowedOrigins'), function(data){
+        this.set('originSuccess', true)
+        Ember.run.later(this, function(){
+          this.set('originSuccess', false)
+        }, 2000)
+      }.bind(this))
     }
   },
 
@@ -52,9 +61,23 @@ export default Ember.Component.extend({
           <div class="api-info__welcome">
             Welcome, {{session.profile.name}}!
           </div>
-          <pre class="api-key">API KEY:
-{{session.apiKey}}</pre>
+<pre class="api-key js">// API KEY:
+{{session.apiKey}}
+</pre>
+<pre class="api-key js">// Algolia Application Id:
+O7L4OQENOZ
+
+// Algolia API Key:
+{{session.algoliaApiKey}}</pre>
         </div>
+        {{#if originSuccess}}
+          <div class="alert alert-success">Origins Updated!</div>
+        {{/if}}
+        <div class="sidebar-list__heading">Allowed Origins</div>
+        {{textarea value=session.allowedOrigins class="form-control"}}
+        <br>
+        <div class="btn btn-default btn-block" {{action "updateOrigins"}}>Update Origins</div>
+        <br>
         <div class="btn btn-default btn-block" {{action 'showReset'}}>Sign Out</div>
       {{else}}
         <div class="btn btn-default api-info__sign-in" {{action 'signIn'}}>Sign In/Up to get started!</div>
@@ -70,7 +93,7 @@ export default Ember.Component.extend({
       </p>
 
       <h1>API Overview</h1>
-      <h2>Why does edtech need a standards API? (e.g. why are we opensourcing this?)</h2>
+      <h2>Why does edtech need a standards API?</h2>
       <p>
         If edtech companies are going to reach their potential to change teaching practices and dramatically improve student outcomes, their products need to interop. Standards are a common denominator across vast swaths of the edtech landscape, yet their exists no
         <ul>
@@ -90,12 +113,7 @@ export default Ember.Component.extend({
 
       <h2>Using these standards</h2>
       <p>
-        Click "Register or Sign In" on the left to get your API key.
-        {{!-- Enter http origins that the request will originate from.  --}}
-        Include the header "Api-Key" or the param "api-key" in all requests.
-      </p>
-      <p>
-        Currently, there is not a limit placed on API requests. If limits are added in the future, they'll only be enacted to better share costs among the users of the API.
+        Click "Register or Sign In" on the left to get your API key. Currently, there is not a limit placed on API requests. If limits are added in the future, they'll only be enacted to better share costs among the users of the API.
       </p>
 
       <h2>Who is behind this?</h2>
@@ -103,36 +121,48 @@ export default Ember.Component.extend({
         The Common Standards Project is produced by <a href="http://commoncurriculum.com" target="_blank">Common Curriculum</a>, a collaborative lesson planner transforming how schools develop and align instruction for their students. This API is in production at Common Curriculum.
       </p>
 
+      <h1>Authentication</h1>
+      <ul>
+        <li>All requests need an <code>api-key</code> query parameter or an <code>Api-Key</code> header. Your api key can be found in the sidebar.</li>
+        <li>
+          All requests need to originate from one of the allowed origins. You can update origins on the sidebar.
+        </li>
+      </ul>
+
       <h1>Endpoints</h1>
-      <h2 name="jurisdictions-index">jurisdictions/</h2>
+      <h2 name="jurisdictions-index">Jurisdictions/</h2>
       <p>
         Find a list of all the jurisdictions and organizations in the database
       </p>
+      <h3>Url</h3>
+      <pre><code class="nohighlight">
+http://commonstandardsproject.com/api/v1/jurisdictions/
+      </code></pre>
       <h3>Example Response:</h3>
       <pre class="code-sample"><code class="json">{
-    "data": [
-      {
-        "id": "B838B98D043045748F3814B9E43CAC85",
-        "title": "Alabama",
-      },
-      {
-        "id": "0DCD3CBE12314408BDBDB97FAF45EEE8",
-        "title": "Alaska",
-      },
-      {
-        "id": "9D65E45961BC46218A6FA75732D733EB",
-        "title": "American Association for the Advancement of Science",
-      },
-      {
-        "id": "6B4D002505FC4175967211744D11C325",
-        "title": "American Association of School Librarians",
-      },
-      {
-        "id": "63CD52A014074BBCACC64A8954A97539",
-        "title": "American Psychological Association",
-      }
-    ]
-  }
+  "data": [
+    {
+      "id": "B838B98D043045748F3814B9E43CAC85",
+      "title": "Alabama",
+    },
+    {
+      "id": "0DCD3CBE12314408BDBDB97FAF45EEE8",
+      "title": "Alaska",
+    },
+    {
+      "id": "9D65E45961BC46218A6FA75732D733EB",
+      "title": "American Association for the Advancement of Science",
+    },
+    {
+      "id": "6B4D002505FC4175967211744D11C325",
+      "title": "American Association of School Librarians",
+    },
+    {
+      "id": "63CD52A014074BBCACC64A8954A97539",
+      "title": "American Psychological Association",
+    }
+  ]
+}
   </code>
   </pre>
 
@@ -140,6 +170,11 @@ export default Ember.Component.extend({
       <p>
         Select a particular jurisdiction
       </p>
+
+      <h3>Url</h3>
+      <pre><code class="nohighlight">
+http://commonstandardsproject.com/api/v1/jurisdictions/:id
+      </code></pre>
 
       <h3>Example Response:</h3>
       <pre class="code-sample"><code class="json">{
@@ -189,10 +224,15 @@ export default Ember.Component.extend({
     }
   }</code></pre>
 
-      <h2 name="standards-sets/:id">standard-sets/:id</h2>
+      <h2 name="standards-sets/:id">standards_sets/:id</h2>
       <p>
         Select a group of standards
       </p>
+
+      <h3>Url</h3>
+      <pre><code class="nohighlight">
+http://commonstandardsproject.com/api/v1/standards_sets/:id
+      </code></pre>
 
       <h3>Example Response:</h3>
       <pre class="code-sample"><code class="json">{
@@ -242,7 +282,10 @@ export default Ember.Component.extend({
 
       <h2 name="search">Search</h2>
       <p>
-        We use <a href="http://algolia.com">Algolia</a> for our search service. Reach out to scott at commoncurriculum dot com to get an API key. While the API is free to use, the standards search has a limit of 5,000 requests a month. If you need to go above that, let us know.
+        We use <a href="http://algolia.com">Algolia</a> for our search service. While the API is free to use, the standards search has a limit of 100 requests per IP per hour due to the costs of hosting search. If you need to go above that, send us an email to become a sponsor of the Common Curriculum Project and we'll raise it for you.
+      </p>
+      <p>
+        To get started with Algolia, go to <a href="https://github.com/algolia/algoliasearch-client-js#quick-start" target="_blank">Algolia's js library</a>. (They have clients for other languages, too). Your Algolia API Key and application id is in the left sidebar.
       </p>
 
 
