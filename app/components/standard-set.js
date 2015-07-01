@@ -33,25 +33,25 @@ export default Ember.Component.extend({
     return Fetcher.find('standardsSet', this.get('id'))
   }),
 
-  jurisdiction: Ember.computed('standardSet.jurisdictionId', 'jurisdictionId', function(){
-    var id = this.get('jurisdictionId') || this.get('standardSet.jurisdictionId')
+  jurisdiction: Ember.computed('standardSet.jurisdiction.id', 'jurisdictionId', function(){
+    var id = this.get('jurisdictionId') || this.get('standardSet.jurisdiction.id')
     return Fetcher.find('jurisdiction', id)
   }),
 
-  subjects: Ember.computed('jurisdiction.standardSets', function(){
-    var sets = this.get('jurisdiction.standardSets') || {}
+  subjects: Ember.computed('jurisdiction.standardsSets', function(){
+    var sets = this.get('jurisdiction.standardsSets') || {}
     return _.chain(sets).pluck('subject').uniq().value().sort()
   }),
 
-  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardSets', function(){
-    var sets = this.get('jurisdiction.standardSets') || {}
+  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardsSets', function(){
+    var sets = this.get('jurisdiction.standardsSets') || {}
     var subject = this.get('subject') || this.get('standardSet.subject')
     return _.chain(sets).filter({subject: subject}).sortBy('title').value()
   }),
 
 
   currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
-    return this.get('standardSet.jurisdiction') || this.get('jurisdiction.title')
+    return this.get('standardSet.jurisdiction.title') || this.get('jurisdiction.title')
   }),
 
   currentSubject: Ember.computed('standardSet.subject', 'subject', function(){

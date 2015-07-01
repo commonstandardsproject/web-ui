@@ -73,7 +73,7 @@ export default Ember.Component.extend({
               Loading...
             {{else}}
             {{standards-sets-list
-              standardsSets=jurisdiction.standardSets
+              standardsSets=jurisdiction.standardsSets
               selectStandardsSet=(action 'selectStandardsSet')
             }}
             {{/if}}

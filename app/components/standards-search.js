@@ -31,11 +31,6 @@ export default Ember.Component.extend({
   <div class="search-interface">
 
     <div class="search-bar {{if isSearchVisible 'show'}}">
-      <div class="search-bar__icons">
-        {{!-- <div class="add-search-pane" {{action 'addPane'}}>
-          {{partial "icons/ios7-plus-outline"}} Add another set of standards to search within
-        </div> --}}
-      </div>
       {{input value=query class="search-bar__input" placeholder="What would you like to search for?"}}
       <div class="show-link" {{action 'showLink'}}>
         {{partial "icons/ios7-link"}}
