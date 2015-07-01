@@ -34,6 +34,10 @@ export default Ember.Component.extend({
         position: Ember.get(_.last(this.get('orderedStandards')), 'position') + 1000
       }
       this.notifyPropertyChange('standardsHash')
+    },
+    removeStandard(standard){
+      delete this.get('standardsHash')[Ember.get(standard, 'id')]
+      this.notifyPropertyChange('standardsHash')
     }
   },
 
@@ -43,7 +47,31 @@ export default Ember.Component.extend({
     {{#sortable-group tagName="div" onChange="reorder" as |group|}}
       {{#each orderedStandards as |item| }}
         {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle"}}
-          {{partial "sortable-items-partial"}}
+          <div class="sortable-standard sortable-standard--depth-{{item.depth}}" data-id={{item.id}} key={{item.id}}>
+            <div class="sortable-standard__icons">
+              <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action "removeStandard" item}}>
+                {{partial "icons/ios7-trash-filled"}}
+              </div>
+              <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action "outdent" item}}>
+                {{partial "icons/arrow-left"}}
+              </div>
+              <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action "indent" item}}>
+                {{partial "icons/arrow-right"}}
+              </div>
+              <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" data-hint="Move">
+                {{partial "icons/arrow-move"}}
+              </div>
+            </div>
+            <div class="sortable-standard__columns">
+              <div class="sortable-standard__column--list-id">
+                {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" data-hint="E.g A or B or 1. or 2" placeholder="List Identifier"}}
+              </div>
+              <div class="sortable-standard__column--description">
+                {{simple-editable value=item.description class="sortable-standard__description"}}
+                {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation"}}
+              </div>
+            </div>
+          </div>
         {{/sortable-item}}
       {{/each}}
     {{/sortable-group}}
