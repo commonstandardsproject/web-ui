@@ -2,14 +2,17 @@
   padding: 0;
   margin: 0 80px;
   text-align: left;
-  border: 1px solid $dividers;
+  // border: 1px solid $dividers;
+  border-top: 2px solid $red;
 }
 
 .home-menu__item{
-  border-bottom: 1px solid $dividers;
+  border-bottom: 2px solid $red;
   padding: 20px 40px;
   clear: both;
   display: block;
+  display: flex;
+  display: -webkit-flex;
   a {
     text-decoration: none;
   }
@@ -21,15 +24,15 @@
 
 .home-menu__item__icon{
   svg {
-    width: 50px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     path, polygon, rect {
       fill: $red;
     }
   }
-  width: 60px;
-  height: 60px;
-  float: left;
+  min-width: 90px;
+  height: 80px;
+  margin-right: 20px;
 }
 
 .home-menu__item__title{
