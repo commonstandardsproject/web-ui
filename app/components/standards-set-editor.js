@@ -17,13 +17,6 @@ export default Ember.Component.extend({
   }),
 
   actions: {
-    diff(){
-      var diff = differ(
-        store.server.find('standardsSet', this.get('standardsSet.id')),
-        store.local.find('standardsSet', this.get('standardsSet.id'))
-      )
-      console.log('diff' , diff)
-    },
     onFormSubmit(attrs){
       var diff = differ(
         store.server.find('standardsSet', this.get('standardsSet.id')),
@@ -61,7 +54,6 @@ export default Ember.Component.extend({
     {{/if}}
 
 
-    <div class="btn btn-block btn-default" {{action "diff"}}>Diff</div>
     <h2 class="standards-set-editor-subhead">Directions</h2>
     <p>
       First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".

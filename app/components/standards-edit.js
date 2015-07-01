@@ -54,7 +54,7 @@ export default Ember.Component.extend({
       <div class="standards-editor-panes show-{{pane}}">
         <div class="standards-editor-panes__inner">
           <div class="standards-editor-pane">
-            <h1 class="standards-edit-pane__prompt">Choose a State, Organization, or School/District</h1>
+            <h1 class="standards-edit-pane__prompt">First, choose/create a State, Organization, or School/District</h1>
             {{#if jurisdictions._status.isFetching}}
               Loading...
             {{else}}
@@ -68,7 +68,7 @@ export default Ember.Component.extend({
           <div class="standards-editor-pane">
             <h1 class="standards-edit-pane__prompt">
               <div class="standards-edit-pane__back" {{action "goToPane" "jurisdictions"}}>&larr; Back</div>
-              Choose a Set of Standards</h1>
+              Now, choose a set of standards</h1>
             {{#if jurisdiction._status.isFetching}}
               Loading...
             {{else}}
