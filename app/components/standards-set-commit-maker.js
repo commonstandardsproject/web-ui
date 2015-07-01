@@ -3,9 +3,38 @@ import hbs from 'htmlbars-inline-precompile';
 
 export default Ember.Component.extend({
 
+  actions: {
+    submit(){
+      if (Ember.isEmpty(Ember.get(this, 'summary')) || Ember.isEmpty(Ember.get(this, 'session.profile.email')) || Ember.isEmpty(Ember.get(this, 'session.profile.name')) ) {
+        this.set('error', "All fields must be filled in.")
+        return
+      } else {
+        this.set('error', false)
+      }
+      this.attrs.onFormSubmit({
+        name:    Ember.get(this, 'session.profile.name'),
+        email:   Ember.get(this, 'session.profile.email'),
+        summary: Ember.get(this, 'summary')
+      })
+    }
+  },
+
+  summary: "",
 
   classNames: ['standards-set-commit-maker'],
   layout: hbs`
+
+    {{#if diffError}}
+      <div class="alert alert-danger">{{diffError}}</div>
+    {{/if}}
+
+    {{#if error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
+
+    {{#if commitSuccess}}
+      <div class="alert alert-success">{{commitSuccess}}</div>
+    {{/if}}
 
     <div class="form-group">
       <label>Summary of Changes</label>
@@ -22,13 +51,13 @@ export default Ember.Component.extend({
       <div class="col-xs-6">
         <div class="form-group">
           <label>Your Email</label>
-          {{input value=session.email class="form-control"}}
+          {{input value=session.profile.email class="form-control"}}
         </div>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="btn btn-primary btn-block form-control">Submit Change</div>
+      <div class="btn btn-primary btn-block form-control" {{action "submit"}}>Submit Change</div>
     </div>
   `
 

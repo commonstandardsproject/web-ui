@@ -28,7 +28,7 @@ module.exports = function(environment) {
       getStandardsSet:  ENV.APP.apiBaseUrl + 'standard_sets',
       postUserSignedIn: ENV.APP.apiBaseUrl + 'users/signed_in',
       postJurisdiction: ENV.APP.apiBaseUrl + 'jurisdictions',
-
+      postCommit:       ENV.APP.apiBaseUrl + 'commits',
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

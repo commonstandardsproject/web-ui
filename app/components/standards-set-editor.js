@@ -2,8 +2,10 @@ import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';
 import store from "../lib/store2";
 import differ from "../lib/differ";
+import rpc from "../lib/rpc";
 import Standards from "../models/standards";
 import MultiselectCheckboxesComponent from 'ember-multiselect-checkboxes/components/multiselect-checkboxes';
+import _ from "npm:lodash";
 
 
 export default Ember.Component.extend({
@@ -19,9 +21,25 @@ export default Ember.Component.extend({
         store.local.find('standardsSet', this.get('standardsSet.id'))
       )
       console.log('diff' , diff)
+    },
+    onFormSubmit(attrs){
+      var diff = differ(
+        store.server.find('standardsSet', this.get('standardsSet.id')),
+        store.local.find('standardsSet', this.get('standardsSet.id'))
+      )
+      if (_.keys(diff).length == 0){
+        this.set('diffError', "You haven't changed anything yet!")
+        return
+      } else {
+        this.set('diffError', "")
+      }
+      rpc["commit:make"](attrs, function(data){
+        this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
+      }.bind(this))
     }
   },
 
+  diffError: "",
 
   layout: hbs`
 
@@ -81,6 +99,9 @@ export default Ember.Component.extend({
     {{!-- <h2 class="standards-set-editor-subhead">Change the standards</h2> --}}
     {{standards-set-commit-maker
       standardsSet=standardsSet
+      onFormSubmit=(action 'onFormSubmit')
+      diffError=diffError
+      commitSuccess=commitSuccess
     }}
 
 
