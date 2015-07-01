@@ -39,6 +39,7 @@
     "ember-cli-uglify": "^1.0.1",
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
+    "ember-moment": "1.2.1",
     "ember-multiselect-checkboxes": "^0.3.1",
     "ember-rl-dropdown": "^0.4.0",
     "ember-sortable": "git://github.com/commoncurriculum/ember-sortable.git",
@@ -53,6 +54,7 @@
     "fast-json-patch": "^0.5.2",
     "immutable": "^3.7.3",
     "lodash-fp": "^0.9.4",
-    "rus-diff": "^1.1.0"
+    "rus-diff": "^1.1.0",
+    "xtypejs": "^0.4.2"
   }
 }

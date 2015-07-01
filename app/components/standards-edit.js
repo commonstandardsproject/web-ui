@@ -89,6 +89,7 @@ export default Ember.Component.extend({
             {{else}}
             {{standards-set-editor
               standardsSet=standardsSet
+              jurisdiction=jurisdiction
             }}
             {{/if}}
           </div>

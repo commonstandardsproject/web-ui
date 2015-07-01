@@ -7,11 +7,11 @@ var requests = []
 
 var Fetcher = Ember.Object.extend(Ember.Evented, {
 
-  find(modelName, id){
+  find(modelName, id, fetch){
     if (Ember.isNone(id)) return null;
     var model = store.local.find(modelName, id)
 
-    if(shouldFetch(model._status)){
+    if(shouldFetch(model._status) || fetch === true){
       model._status.isFetching = true
       $.ajax({
         url: models[modelName].url + '/' + id.replace('index', ''),

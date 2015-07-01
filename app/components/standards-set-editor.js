@@ -7,6 +7,8 @@ import Standards from "../models/standards";
 import MultiselectCheckboxesComponent from 'ember-multiselect-checkboxes/components/multiselect-checkboxes';
 import _ from "npm:lodash";
 
+var get = Ember.get
+
 
 export default Ember.Component.extend({
 
@@ -33,8 +35,11 @@ export default Ember.Component.extend({
       } else {
         this.set('diffError', "")
       }
-      attrs.diff           = diff
-      attrs.standardsSetId = this.get('standardsSet.id')
+      attrs.diff              = diff
+      attrs.jurisdictionTitle = get(this, 'jurisdiction.title')
+      attrs.jurisdictionId    = get(this, 'jurisdiction.id')
+      attrs.standardsSetId    = get(this, 'standardsSet.id')
+      attrs.standardsSetTitle = get(this, 'standardsSet.title')
       rpc["commit:make"](attrs, function(data){
         this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
       }.bind(this))
