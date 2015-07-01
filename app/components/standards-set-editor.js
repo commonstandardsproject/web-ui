@@ -33,6 +33,8 @@ export default Ember.Component.extend({
       } else {
         this.set('diffError', "")
       }
+      attrs.diff           = diff
+      attrs.standardsSetId = this.get('standardsSet.id')
       rpc["commit:make"](attrs, function(data){
         this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
       }.bind(this))

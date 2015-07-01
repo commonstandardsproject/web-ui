@@ -12,9 +12,9 @@ export default Ember.Component.extend({
         this.set('error', false)
       }
       this.attrs.onFormSubmit({
-        name:    Ember.get(this, 'session.profile.name'),
-        email:   Ember.get(this, 'session.profile.email'),
-        summary: Ember.get(this, 'summary')
+        committerName:  Ember.get(this, 'session.profile.name'),
+        committerEmail: Ember.get(this, 'session.profile.email'),
+        commitSummary:  Ember.get(this, 'summary')
       })
     }
   },

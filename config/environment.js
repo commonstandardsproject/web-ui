@@ -24,11 +24,12 @@ module.exports = function(environment) {
   if (environment === 'development') {
     ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
     ENV.urls = {
-      getJurisdictions: ENV.APP.apiBaseUrl + 'jurisdictions',
-      getStandardsSet:  ENV.APP.apiBaseUrl + 'standard_sets',
-      postUserSignedIn: ENV.APP.apiBaseUrl + 'users/signed_in',
-      postJurisdiction: ENV.APP.apiBaseUrl + 'jurisdictions',
-      postCommit:       ENV.APP.apiBaseUrl + 'commits',
+      getJurisdictions:   ENV.APP.apiBaseUrl + 'jurisdictions',
+      getStandardsSet:    ENV.APP.apiBaseUrl + 'standard_sets',
+      postUserSignedIn:   ENV.APP.apiBaseUrl + 'users/signed_in',
+      postJurisdiction:   ENV.APP.apiBaseUrl + 'jurisdictions',
+      postCommit:         ENV.APP.apiBaseUrl + 'commits',
+      postCommitApproval: ENV.APP.apiBaseUrl + 'commits/approval',
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

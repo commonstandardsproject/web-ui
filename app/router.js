@@ -9,12 +9,9 @@ Router.map(function() {
   this.route('home', {path: '/'})
   this.route('search')
   this.route('developers')
-  this.route('developer-account')
   this.route('document-importer');
-  this.route('edit', function(){
-    this.route('info')
-  });
-  this.route('editor')
+  this.route('edit')
+  this.route('commits')
 });
 
 export default Router;

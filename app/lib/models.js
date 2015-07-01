@@ -23,3 +23,10 @@ export var user = {
 
 registerModel('user')
 registerModel2('user')
+
+export var commit = {
+  url: config.APP.apiBaseUrl + 'commits'
+}
+
+registerModel('commit')
+registerModel2('commit')

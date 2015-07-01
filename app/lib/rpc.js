@@ -22,6 +22,16 @@ export default {
       success:  cb,
       error:    cb,
     })
+  },
+
+  "commit:approve": function(id, cb){
+    $.ajax({
+      url:      config.urls.postCommitApproval + '/' + id,
+      dataType: "json",
+      method:   "POST",
+      success:  cb,
+      error:    cb,
+    })
   }
 
 }

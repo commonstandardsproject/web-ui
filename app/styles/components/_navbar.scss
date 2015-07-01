@@ -20,6 +20,9 @@
   &:hover .navbar__menu{
     transform: translateY(5px);
   }
+  + .below-navbar{
+    margin-top: 80px;
+  }
 }
 
 .navbar__title{
