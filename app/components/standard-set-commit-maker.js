@@ -32,6 +32,10 @@ export default Ember.Component.extend({
       <div class="alert alert-danger">{{error}}</div>
     {{/if}}
 
+    {{#if commitError}}
+      <div class="alert alert-danger">{{commitError}}</div>
+    {{/if}}
+
     {{#if commitSuccess}}
       <div class="alert alert-success">{{commitSuccess}}</div>
     {{/if}}

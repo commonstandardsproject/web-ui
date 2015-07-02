@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import User from "../models/user";
+import rpc from "../lib/rpc";
+import _ from "npm:lodash";
 import Fetcher from "../lib/fetcher2";
 
 export default Ember.Service.extend({
@@ -76,13 +77,9 @@ export default Ember.Service.extend({
         profile:         data.profile,
         currentToken:    data.token,
         isAuthenticated: true,
+        Authorization:   data.token
       })
-      $.ajaxSetup({
-        headers: {
-          "authorization": data.token
-        }
-      })
-      User.afterSignIn(data.profile, function(data){
+      rpc["user:afterSignIn"](data.profile, function(data){
         this.get('session').setProperties({
           apiKey:         data.data.apiKey,
           algoliaApiKey:  data.data.algoliaApiKey,

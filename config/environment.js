@@ -15,23 +15,16 @@ module.exports = function(environment) {
         'ember-htmlbars-component-generation': true
       }
     },
+    // Here you can pass flags/options to your application instance
+    // when it is created
     APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
+      apiKey: "vZKoJwFB1PTJnozKBSANADc3"
     }
   };
 
+
   if (environment === 'development') {
     ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
-    ENV.urls = {
-      getJurisdictions:   ENV.APP.apiBaseUrl + 'jurisdictions',
-      getstandardSet:    ENV.APP.apiBaseUrl + 'standard_sets',
-      postUserSignedIn:   ENV.APP.apiBaseUrl + 'users/signed_in',
-      postUser:           ENV.APP.apiBaseUrl + 'users',
-      postJurisdiction:   ENV.APP.apiBaseUrl + 'jurisdictions',
-      postCommit:         ENV.APP.apiBaseUrl + 'commits',
-      postCommitApproval: ENV.APP.apiBaseUrl + 'commits/approval',
-    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -40,6 +33,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
+    ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';

@@ -35,6 +35,8 @@ export default Ember.Component.extend({
       attrs.standardSetTitle = get(this, 'standardSet.title')
       rpc["commit:make"](attrs, function(data){
         this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
+      }.bind(this), function(jqXhr, textStatus, errorThrown){
+        this.set('commitError', errorThrown)
       }.bind(this))
     }
   },
@@ -101,6 +103,7 @@ export default Ember.Component.extend({
       onFormSubmit=(action 'onFormSubmit')
       diffError=diffError
       commitSuccess=commitSuccess
+      commitError=commitError
     }}
 
 

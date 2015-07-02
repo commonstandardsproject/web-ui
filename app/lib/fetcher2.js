@@ -1,6 +1,7 @@
 import Ember from "ember";
 import models from './models';
 import store from './store2';
+import rpc from "./rpc";
 import _ from "npm:lodash";
 
 var requests = []
@@ -13,27 +14,22 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
 
     if(shouldFetch(model._status) || fetch === true){
       model._status.isFetching = true
-      $.ajax({
-        url: models[modelName].url + '/' + id.replace('index', ''),
-        method: "GET",
-        headers: {
-          "Api-Key": "vZKoJwFB1PTJnozKBSANADc3"
-        },
-        success: function(_data){
-          var data = _data.data
-          if (Ember.isArray(data)){
-            data = {
-              list: _data.data
-            }
+      var url = models[modelName].url + '/' + id.replace('index', '')
+      rpc["fetcherGet"](url, function(_data){
+        if (_data === undefined) return
+        var data = _data.data
+        if (Ember.isArray(data)){
+          data = {
+            list: _data.data
           }
-          data._status = {
-            inLocalStore: true,
-            isFetching: false,
-          }
-          store.local.add(modelName, id, data)
-          return store.server.add(modelName, id, data)
-        }.bind(this)
-      })
+        }
+        data._status = {
+          inLocalStore: true,
+          isFetching: false,
+        }
+        store.local.add(modelName, id, data)
+        return store.server.add(modelName, id, data)
+      }.bind(this))
     }
 
     return model

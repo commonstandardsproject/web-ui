@@ -1,34 +1,47 @@
 import config from '../config/environment';
+import {local} from "../lib/store2";
+import Ember from "ember";
 
-export default {
+
+var headers = function(){
+  return {
+    "Api-Key":        config.APP.apiKey,
+    "Authorization":  JSON.parse(sessionStorage.getItem('es__Authorization'))
+  }
+}
+
+export default Ember.Object.create({
 
   addJurisdiction(data, cb, errCb){
     $.ajax({
-      url:      config.urls.postJurisdiction,
+      url:      config.APP.apiBaseUrl + 'jurisdictions',
       dataType: "json",
       method:   "POST",
+      headers:  headers(),
       data:     {jurisdiction: data},
       success:  cb,
       error:    errCb
     })
   },
 
-  "commit:make": function(data, cb){
+  "commit:make": function(data, cb, error){
     $.ajax({
-      url:      config.urls.postCommit,
+      url:      config.APP.apiBaseUrl + 'commits',
       dataType: "json",
       method:   "POST",
+      headers:  headers(),
       data:     {data: data},
       success:  cb,
-      error:    cb,
+      error:    error,
     })
   },
 
   "commit:approve": function(id, cb){
     $.ajax({
-      url:      config.urls.postCommitApproval + '/' + id,
+      url:      config.APP.apiBaseUrl + 'commits' + '/' + id,
       dataType: "json",
       method:   "POST",
+      headers:  headers(),
       success:  cb,
       error:    cb,
     })
@@ -36,14 +49,41 @@ export default {
 
   "user:updateAllowedOrigins": function(id, origins, cb){
     $.ajax({
-      url:      config.urls.postUser + '/' + id + '/allowed_origins',
+      url:      config.APP.apiBaseUrl + 'users' + '/' + id + '/allowed_origins',
       dataType: "json",
       method:   "POST",
+      headers:  headers(),
       data:     {data: origins},
       success:  cb,
       error:    cb,
     })
+  },
+
+  "user:afterSignIn": function(profile, cb){
+    $.ajax({
+      url:      config.APP.apiBaseUrl + 'users/signed_in',
+      method:   "POST",
+      dataType: "json",
+      data:     { profile: profile },
+      headers:  headers(),
+      success(data){
+        local.add('user', data.data.email, data)
+        return cb(data)
+      },
+      error: cb
+    })
+  },
+
+  "fetcherGet": function(url, cb){
+    $.ajax({
+      url:     url,
+      method:  "GET",
+      headers: headers(),
+      success: cb,
+      error:   cb
+    })
+
   }
 
 
-}
+})
