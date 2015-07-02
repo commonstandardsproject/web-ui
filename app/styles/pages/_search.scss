@@ -467,3 +467,18 @@ input.search-bar__input{
     // fill: $secondary-text;
   }
 }
+
+.alert-floating{
+  position: fixed;
+  left: 100px;
+  right: 100px;
+  z-index: 99999;
+  text-align: center;
+  opacity: 0;
+  transition: all .2s;
+  &.show{
+    opacity: .9;
+    transition: all .2s;
+  }
+
+}

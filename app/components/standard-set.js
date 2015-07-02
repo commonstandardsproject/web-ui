@@ -91,10 +91,19 @@ export default Ember.Component.extend({
 
     toggleLinkToSet(){
       this.toggleProperty('showLinkToSet')
+    },
+
+    didCopy(){
+      this.set('showCopyMessage', true)
+      Ember.run.later(this, function(){
+        this.set('showCopyMessage', false)
+      }, 1000)
     }
   },
 
   layout: hbs`
+  <div class="alert alert-success alert-floating {{if showCopyMessage 'show'}}">Copied to your clipboard!</div>
+
   <div class="standard-set__inner standard-set__inner--four-panes standard-set__inner--show-{{pane}} standard-set__inner--drop-transition">
 
     <div class="standard-set-pane">
@@ -184,13 +193,7 @@ export default Ember.Component.extend({
     <div class="standard-set-pane">
       <div class="searchable-standard-list">
       {{#each standards as |standard|}}
-        <div class="searchable-standard searchable-standard--depth-{{standard.depth}}">
-          <div class="searchable-standard__list-id">{{standard.listId}}</div>
-          <div class="searchable-standard__description">{{{standard.description}}}
-            <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
-            {{!-- {{partial "icons/ios7-link"}} --}}
-          </div>
-        </div>
+        {{searchable-standard standard=standard didCopy=(action 'didCopy')}}
       {{/each}}
       </div>
     </div>

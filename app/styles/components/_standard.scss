@@ -74,6 +74,9 @@ $standard-indent: 14px;
   width: 100%;
   box-sizing: border-box;
   padding-right: 10px;
+}
+
+.sortable-standard{
   svg{
     height: 14px; width: 20px;
     path{ fill: $dividers; }
@@ -83,6 +86,15 @@ $standard-indent: 14px;
       stroke: $hint;
     }
   }
+}
+
+.searchable-standard:hover{
+
+  .searchable-standard__btn-copy svg{
+    transition: opacity .2s;
+    opacity: 1;
+  }
+
 }
 
 .sortable-standard--depth-0,
@@ -177,4 +189,20 @@ $standard-indent: 14px;
   text-align: right;
   font-weight: 400;
   // width: 100%;
+}
+
+.searchable-standard__btn-copy{
+  height: 20px; width: 20px;
+  background-color: transparent;
+  padding: 0;
+  svg{
+    opacity: 0;
+    height: 18px; width: 18px;
+    fill: $dividers;
+  }
+  &.zeroclipboard-is-hover svg {
+    transition: opacity .2s;
+    opacity: 1;
+    fill: $teal;
+  }
 }

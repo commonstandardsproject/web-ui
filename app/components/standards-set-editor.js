@@ -22,7 +22,7 @@ export default Ember.Component.extend({
         store.server.find('standardsSet', this.get('standardsSet.id')),
         store.local.find('standardsSet', this.get('standardsSet.id'))
       )
-      if (_.keys(diff).length == 0){
+      if (_.keys(diff).length === 0){
         this.set('diffError', "You haven't changed anything yet!")
         return
       } else {
