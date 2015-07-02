@@ -39,20 +39,18 @@ export default Ember.Component.extend({
     <div class="developers-grid__sidebar">
       <div class="sidebar-list">
         <div class="sidebar-list__heading">API Overview</div>
-        <a class="sidebar-list__section" href="#why">Why?</a>
-        <a class="sidebar-list__section" href="#using">Using the API</a>
-        <a class="sidebar-list__section" href="#using">Who is behind this?</a>
+        {{#skip-link anchor="#why" class="sidebar-list__section --code"}}Why?{{/skip-link}}
+        {{#skip-link anchor="#who" class="sidebar-list__section --code"}}Who is behind this?{{/skip-link}}
+        {{#skip-link anchor="#using" class="sidebar-list__section --code"}}Using the API{{/skip-link}}
+        {{#skip-link anchor="#authentication" class="sidebar-list__section --code"}}Authentication{{/skip-link}}
 
         <div class="sidebar-list__heading">Endpoints</div>
-        <a class="sidebar-list__section --code" href="#jurisdictions-index">jurisdictions</a>
-        <a class="sidebar-list__section --code" href="#jurisdictions-id">jurisdictions/:id</a>
-        <a class="sidebar-list__section --code" href="#standard-sets-id">standard-sets/:id</a>
+        {{#skip-link anchor="#jurisdictions-index" class="sidebar-list__section --code"}}jurisdictions{{/skip-link}}
+        {{#skip-link anchor="#jurisdictions-id" class="sidebar-list__section --code"}}jurisdictions/:id{{/skip-link}}
+        {{#skip-link anchor="#standard-sets-id" class="sidebar-list__section --code"}}standard_sets/:id{{/skip-link}}
 
         <div class="sidebar-list__heading">Search</div>
-        <a class="sidebar-list__section --code" href="#search">Search API</a>
-
-        {{!-- <div class="sidebar-list__heading">Database dump</div>
-        <a class="sidebar-list__section --code" href="#database-dump">Database Dump</a> --}}
+        {{#skip-link anchor="#search" class="sidebar-list__section --code"}}Search{{/skip-link}}
 
       </div>
 
@@ -93,16 +91,16 @@ O7L4OQENOZ
       </p>
 
       <h1>API Overview</h1>
-      <h2>Why does edtech need a standards API?</h2>
+      <h2 id="why">Why does edtech need a standards API?</h2>
       <p>
         If edtech companies are going to reach their potential to change teaching practices and dramatically improve student outcomes, their products need to interop. Standards are a common denominator across vast swaths of the edtech landscape, yet their exists no
-        <ul>
-          <li>common data format for standards</li>
-          <li>shared set of IDs to uniquely identify each standard</li>
-          <li>central database of standards from all 50 states, organizations, and countries</li>
-          <li>an ability to publish new standards unique to districts, charter networks or organizations</li>
-        </ul>
       </p>
+      <ul>
+        <li>common data format for standards</li>
+        <li>shared set of IDs to uniquely identify each standard</li>
+        <li>central database of standards from all 50 states, organizations, and countries</li>
+        <li>an ability to publish new standards unique to districts, charter networks or organizations</li>
+      </ul>
       <p>
         This project aims to solve these barriers to edtech interoperability. Each standard follows a consistent convention, has a unique GUID, and is accessible through this API or through a database dump. New standards can be added through the web interface.
       </p>
@@ -111,17 +109,18 @@ O7L4OQENOZ
         This project wouldn't be possible without the work of the Achivement Standards Network (ASN) and it's parent company, Desire2Learn. They convert standards and release them on their website under a Creative Commons attribution license. This project builds on their work by adding GUIDs to each standards, converting the standards into a simple JSON structure, and grouping the standards into sets that teachers are familiar with and the standard writers published them in. For instance, ASN releases standards tagged with grade levels (e.g. 1st - 12th grade). We group those standards into groups such as "Grade 1 Math", "High School -- Algebra", "High School - Functions"
       </p>
 
-      <h2>Using these standards</h2>
-      <p>
-        Click "Register or Sign In" on the left to get your API key. Currently, there is not a limit placed on API requests. If limits are added in the future, they'll only be enacted to better share costs among the users of the API.
-      </p>
 
-      <h2>Who is behind this?</h2>
+      <h2 id="who">Who is behind this?</h2>
       <p>
         The Common Standards Project is produced by <a href="http://commoncurriculum.com" target="_blank">Common Curriculum</a>, a collaborative lesson planner transforming how schools develop and align instruction for their students. This API is in production at Common Curriculum.
       </p>
 
-      <h1>Authentication</h1>
+      <h2 id="using">Using these standards</h2>
+      <p>
+        Click "Register or Sign In" on the left to get your API key. Currently, there is not a limit placed on API requests. If limits are added in the future, they'll only be enacted to better share costs among the users of the API.
+      </p>
+
+      <h2 id="authentication">Authentication</h2>
       <ul>
         <li>All requests need an <code>api-key</code> query parameter or an <code>Api-Key</code> header. Your api key can be found in the sidebar.</li>
         <li>
@@ -130,7 +129,7 @@ O7L4OQENOZ
       </ul>
 
       <h1>Endpoints</h1>
-      <h2 name="jurisdictions-index">Jurisdictions/</h2>
+      <h2 id="jurisdictions-index">Jurisdictions/</h2>
       <p>
         Find a list of all the jurisdictions and organizations in the database
       </p>
@@ -224,7 +223,7 @@ http://commonstandardsproject.com/api/v1/jurisdictions/:id
     }
   }</code></pre>
 
-      <h2 name="standards-sets/:id">standards_sets/:id</h2>
+      <h2 id="standard-sets-id">standards_sets/:id</h2>
       <p>
         Select a group of standards
       </p>
