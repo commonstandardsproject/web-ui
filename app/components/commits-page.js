@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   },
 
   layout: hbs`
-    <h1>Commits</h1>
+    <h1 class="commit-list-header">Commits</h1>
     <div class="commit-list">
     {{#each commits.list as |commit|}}
       <div class="commit-list__item">

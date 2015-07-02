@@ -38,7 +38,7 @@ export default Ember.Object.create({
 
   "commit:approve": function(id, cb){
     $.ajax({
-      url:      config.APP.apiBaseUrl + 'commits' + '/' + id,
+      url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/approve',
       dataType: "json",
       method:   "POST",
       headers:  headers(),
