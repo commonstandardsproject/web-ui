@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('standards-sets-list', 'Unit | Component | standards sets list', {
+moduleForComponent('standard-sets-list', 'Unit | Component | standards sets list', {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar'],
   unit: true

@@ -16,7 +16,7 @@ export default Ember.Component.extend({
 
   actions: {
     update(value, object, field, e){
-      Standards.update(this.get('standardsSet'), object, field, value)
+      Standards.update(this.get('standardSet'), object, field, value)
     }
   },
   layout: hbs`

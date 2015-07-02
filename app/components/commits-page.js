@@ -32,7 +32,7 @@ export default Ember.Component.extend({
             </tr><tr>
               <td>Jurisdiction</td><td>{{commit.jurisdictionTitle}}</td>
             </tr><tr>
-              <td>Standards Set</td><td>{{commit.standardsSetTitle}}</td>
+              <td>Standards Set</td><td>{{commit.standardSetTitle}}</td>
             </tr><tr>
               <td>Submitted By:</td><td>{{commit.committerName}}</td>
             </tr><tr>

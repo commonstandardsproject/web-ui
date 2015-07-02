@@ -10,12 +10,12 @@ registerModel('jurisdiction')
 registerModel2('jurisdiction')
 
 
-export var standardsSet = {
+export var standardSet = {
   url: config.APP.apiBaseUrl + 'standard_sets'
 }
 
-registerModel('standardsSet')
-registerModel2('standardsSet')
+registerModel('standardSet')
+registerModel2('standardSet')
 
 export var user = {
   url: config.APP.apiBaseUrl + 'users'

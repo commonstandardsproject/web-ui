@@ -21,7 +21,7 @@ export default Ember.Component.extend({
 
   summary: "",
 
-  classNames: ['standards-set-commit-maker'],
+  classNames: ['standard-set-commit-maker'],
   layout: hbs`
 
     {{#if diffError}}

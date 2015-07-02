@@ -5,7 +5,7 @@ import Immutable from "npm:immutable";
 
 export default Ember.Controller.extend({
 
-  queryParams: ['jurisdictionId', 'standardsSetId'],
+  queryParams: ['jurisdictionId', 'standardSetId'],
   jurisdictionId: null,
   jurisdictions: [],
 
@@ -30,20 +30,20 @@ export default Ember.Controller.extend({
       this.set('jurisdiction', jurisdiction)
     }
 
-    var standardsSet = Fetcher.find('standardsSet', this.get('standardsSetId'))
-    if (standardsSet !== this.get('standardsSet')){
+    var standardSet = Fetcher.find('standardSet', this.get('standardSetId'))
+    if (standardSet !== this.get('standardSet')){
       // console.log('update standards set')
-      this.set('standardsSet', standardsSet)
+      this.set('standardSet', standardSet)
     }
     // this.set('jurisdiction', Fetcher.find('jurisdiction', this.get('jurisdictionId')))
-    // this.set('standardsSet', Fetcher.find('standardsSet', this.get('standardsSetId')))
+    // this.set('standardSet', Fetcher.find('standardSet', this.get('standardSetId')))
   },
 
   onStart: Ember.on('init', function(){
     Fetcher.on('storeUpdated', this.models.bind(this))
   }),
 
-  watcher: Ember.observer('jurisdictionId', 'standardsSetId', function(){
+  watcher: Ember.observer('jurisdictionId', 'standardSetId', function(){
     this.models()
   }),
 

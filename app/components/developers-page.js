@@ -223,14 +223,14 @@ http://commonstandardsproject.com/api/v1/jurisdictions/:id
     }
   }</code></pre>
 
-      <h2 id="standard-sets-id">standards_sets/:id</h2>
+      <h2 id="standard-sets-id">standard_sets/:id</h2>
       <p>
         Select a group of standards
       </p>
 
       <h3>Url</h3>
       <pre><code class="nohighlight">
-http://commonstandardsproject.com/api/v1/standards_sets/:id
+http://commonstandardsproject.com/api/v1/standard_sets/:id
       </code></pre>
 
       <h3>Example Response:</h3>

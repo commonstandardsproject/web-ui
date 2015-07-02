@@ -13,8 +13,8 @@ export default Ember.Component.extend({
       this.sendAction("viewStandardsDocument", id)
     },
 
-    viewStandardsSet(query){
-      this.sendAction("viewStandardsSet", query)
+    viewstandardSet(query){
+      this.sendAction("viewstandardSet", query)
     },
 
     importStandards(query){
@@ -84,17 +84,17 @@ export default Ember.Component.extend({
             <label>Standard Set Queries</label>
             <div class="form-rows__row__values">
               <ul class="label-list">
-                {{#each standardsDocument.standardsSetQueries as |query|}}
-                  <li class="label-list__item" {{action "viewStandardsSet" query}}>
+                {{#each standardsDocument.standardSetQueries as |query|}}
+                  <li class="label-list__item" {{action "viewstandardSet" query}}>
                     {{{query.title}}}
                   </li>
                 {{/each}}
               </ul>
             </div>
           </div>
-          {{#if standardsSetQuery}}
+          {{#if standardSetQuery}}
           <div class="form-rows__row">
-            {{json-pretty obj=standardsSetQuery}}
+            {{json-pretty obj=standardSetQuery}}
           </div>
           {{/if}}
         </div>
@@ -102,12 +102,12 @@ export default Ember.Component.extend({
     </div>
     {{/if}}
 
-    <div class="grid__column grid__column--standards-set">
+    <div class="grid__column grid__column--standard-set">
       <div class="grid__column__scroller">
         {{#if standards}}
           <h4>
-            <button class="button button-primary u-pull-right" {{action "importStandards" standardsSetQuery}}>Import</button>
-            {{standardsSet.title}}
+            <button class="button button-primary u-pull-right" {{action "importStandards" standardSetQuery}}>Import</button>
+            {{standardSet.title}}
           </h4>
           <div class="importable-standards">
           {{#each standards as |standard|}}

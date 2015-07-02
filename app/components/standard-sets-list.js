@@ -6,8 +6,8 @@ export default Ember.Component.extend({
 
   showForm: false,
 
-  groupedSets: Ember.computed('standardsSets', function(){
-    var sets = this.get('standardsSets')
+  groupedSets: Ember.computed('standardSets', function(){
+    var sets = this.get('standardSets')
     return _.flow(
       _.sortBy('subject'),
       _.groupBy('subject'),
@@ -35,14 +35,14 @@ export default Ember.Component.extend({
   },
 
   tagName: "div",
-  classNames: ['standards-sets-list'],
+  classNames: ['standard-sets-list'],
   layout: hbs`
     {{#each groupedSets as |group|}}
-      <div class="standards-sets-list__subject-group">
-        <div class="standards-sets-list__subject-title">{{group.title}}</div>
-        <div class="standards-sets-list__set-list">
+      <div class="standard-sets-list__subject-group">
+        <div class="standard-sets-list__subject-title">{{group.title}}</div>
+        <div class="standard-sets-list__set-list">
           {{#each group.sets as |set|}}
-            <div class="standards-sets-list__set-list__item" {{action this.attrs.selectStandardsSet set.id}}>{{set.title}}</div>
+            <div class="standard-sets-list__set-list__item" {{action this.attrs.selectstandardSet set.id}}>{{set.title}}</div>
           {{/each}}
         </div>
       </div>

@@ -1,8 +1,8 @@
 
-.standards-sets-list{
+.standard-sets-list{
 
 }
-.standards-sets-list__subject-group{
+.standard-sets-list__subject-group{
   // border-bottom: 1px solid $dividers;
   margin-top: 1rem;
   padding: .5rem 0;
@@ -10,11 +10,11 @@
   overflow: hidden;
 }
 
-.standards-sets-list__subject-title{
+.standard-sets-list__subject-title{
   font-weight: 700;
 }
 
-// .standards-sets-list__set-list__item{
+// .standard-sets-list__set-list__item{
 //   float: left;
 //   padding: 5px;
 //   margin: 0 5px 5px 0;
@@ -23,7 +23,7 @@
 //   border: 1px solid $dividers;
 // }
 
-.standards-sets-list__set-list__item{
+.standard-sets-list__set-list__item{
   @include bb;
   padding: .25rem 0;
   color: $secondary-text;

@@ -30,7 +30,7 @@ export default Ember.Component.extend({
 
   standardSet: Ember.computed('id', function(){
     if (this.get('id').match(/blank/) !== null) return;
-    return Fetcher.find('standardsSet', this.get('id'))
+    return Fetcher.find('standardSet', this.get('id'))
   }),
 
   jurisdiction: Ember.computed('standardSet.jurisdiction.id', 'jurisdictionId', function(){
@@ -38,13 +38,13 @@ export default Ember.Component.extend({
     return Fetcher.find('jurisdiction', id)
   }),
 
-  subjects: Ember.computed('jurisdiction.standardsSets', function(){
-    var sets = this.get('jurisdiction.standardsSets') || {}
+  subjects: Ember.computed('jurisdiction.standardSets', function(){
+    var sets = this.get('jurisdiction.standardSets') || {}
     return _.chain(sets).pluck('subject').uniq().value().sort()
   }),
 
-  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardsSets', function(){
-    var sets = this.get('jurisdiction.standardsSets') || {}
+  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardSets', function(){
+    var sets = this.get('jurisdiction.standardSets') || {}
     var subject = this.get('subject') || this.get('standardSet.subject')
     return _.chain(sets).filter({subject: subject}).sortBy('title').value()
   }),
@@ -77,7 +77,7 @@ export default Ember.Component.extend({
 
     selectSet(set){
       this.sendAction('selectSet', set.id, this.get('id'))
-      this.set('pane', 'standards-set')
+      this.set('pane', 'standard-set')
     },
 
     backToPane(pane){
@@ -141,7 +141,7 @@ export default Ember.Component.extend({
           <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
         {{/if}}
         <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
-        {{#link-to 'edit' (query-params standardsSetId=standardSet.id pane="standards-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+        {{#link-to 'edit' (query-params standardSetId=standardSet.id pane="standard-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
           {{partial "icons/ios7-compose"}}
         {{/link-to}}
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>

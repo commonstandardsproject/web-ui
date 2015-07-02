@@ -37,28 +37,28 @@ export default Ember.Controller.extend({
     })
   }),
 
-  _fetchStandardsSet: Ember.observer('standardsSetQuery', function(){
+  _fetchstandardSet: Ember.observer('standardSetQuery', function(){
     var data = {
-      query:               this.get('standardsSetQuery'),
+      query:               this.get('standardSetQuery'),
       standardsDocumentId: this.get('standardsDocument.id')
     }
     if(_.isEmpty(_.keys(data.query))) return;
     if(this.isFetching) return;
     this.isFetching = true
     $.ajax({
-      url: config.APP.apiBaseUrl + 'standards_set',
+      url: config.APP.apiBaseUrl + 'standard_set',
       data: data,
       dataType: "json",
       type: "POST",
       success: function(data){
         this.isFetching = false
-        this.set('standardsSet', data)
+        this.set('standardSet', data)
       }.bind(this)
     })
   }),
 
-  standards: Ember.computed('standardsSet', function(){
-    var standardsHash = this.get('standardsSet.standards')
+  standards: Ember.computed('standardSet', function(){
+    var standardsHash = this.get('standardSet.standards')
     if (Ember.isNone(standardsHash)) return [];
     var rootStandard = _.find(standardsHash, (value, key) => value.firstStandard === true)
 
@@ -81,8 +81,8 @@ export default Ember.Controller.extend({
     viewStandardsDocument(id){
       this.set('standardsDocumentId', id)
     },
-    viewStandardsSet(query){
-      this.set('standardsSetQuery', query)
+    viewstandardSet(query){
+      this.set('standardSetQuery', query)
     },
     importStandards(query){
       var data = {
@@ -90,7 +90,7 @@ export default Ember.Controller.extend({
         standardsDocumentId: this.get('standardsDocument.id')
       }
       $.ajax({
-        url: config.APP.apiBaseUrl + 'standards_set_import/',
+        url: config.APP.apiBaseUrl + 'standard_set_import/',
         data: data,
         dataType: "json",
         method: "POST",

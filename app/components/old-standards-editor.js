@@ -69,7 +69,7 @@ export default Ember.Component.extend({
           <div class="editor-grid__column__body">
             <div class="standard-set-list">
             {{#each standardSets as |set|}}
-              {{#link-to (query-params standardsSetId=(i-g set "id")) class="standard-set-list__item"}}
+              {{#link-to (query-params standardSetId=(i-g set "id")) class="standard-set-list__item"}}
                 <div class="standard-set-list__subject">{{i-g set "subject"}}</div>
                 <div class="standard-set-list__title">{{i-g set "title"}}</div>
               {{/link-to}}
@@ -85,8 +85,8 @@ export default Ember.Component.extend({
       </div>
       <div class="editor-grid__column__body">
         <label for="title">Title</label>
-        <input id="title" value={{i-g standardsSet "title"}}>
-        {{editable-standards-list standardsSet=standardsSet standardsHash=(i-g standardsSet "standards") }}
+        <input id="title" value={{i-g standardSet "title"}}>
+        {{editable-standards-list standardSet=standardSet standardsHash=(i-g standardSet "standards") }}
       </div>
     </div>
   </div>

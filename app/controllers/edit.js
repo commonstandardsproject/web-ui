@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams:    ['pane', 'standardsSetId', 'jurisdictionId'],
+  queryParams:    ['pane', 'standardSetId', 'jurisdictionId'],
   pane:           'jurisdictions',
-  standardsSetId: null
+  standardSetId: null
 })

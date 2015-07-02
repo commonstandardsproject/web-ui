@@ -17,8 +17,8 @@ export default Ember.Component.extend({
     return Fetcher.find('jurisdiction', this.get('jurisdictionId'))
   }),
 
-  standardsSet: Ember.computed('standardsSetId', function(){
-    return Fetcher.find('standardsSet', this.get('standardsSetId'))
+  standardSet: Ember.computed('standardSetId', function(){
+    return Fetcher.find('standardSet', this.get('standardSetId'))
   }),
 
   paneObserver: Ember.observer('pane', function(){
@@ -42,9 +42,9 @@ export default Ember.Component.extend({
       this.set('jurisdictionId', id)
       this.set('pane', 'jurisdiction')
     },
-    selectStandardsSet(id){
-      this.set('standardsSetId', id)
-      this.set('pane', 'standards-set')
+    selectstandardSet(id){
+      this.set('standardSetId', id)
+      this.set('pane', 'standard-set')
     },
     goToPane(pane){
       this.set('pane', pane)
@@ -77,9 +77,9 @@ export default Ember.Component.extend({
             {{#if jurisdiction._status.isFetching}}
               Loading...
             {{else}}
-            {{standards-sets-list
-              standardsSets=jurisdiction.standardsSets
-              selectStandardsSet=(action 'selectStandardsSet')
+            {{standard-sets-list
+              standardSets=jurisdiction.standardSets
+              selectstandardSet=(action 'selectstandardSet')
             }}
             {{/if}}
           </div>
@@ -89,11 +89,11 @@ export default Ember.Component.extend({
             <h1 class="standards-edit-pane__prompt">
               <div class="standards-edit-pane__back" {{action "goToPane" "jurisdiction"}}>&larr; Back</div>
               Standards Editor</h1>
-          {{#if standardsSet._status.isFetching}}
+          {{#if standardSet._status.isFetching}}
               Loading...
             {{else}}
-            {{standards-set-editor
-              standardsSet=standardsSet
+            {{standard-set-editor
+              standardSet=standardSet
               jurisdiction=jurisdiction
             }}
             {{/if}}
