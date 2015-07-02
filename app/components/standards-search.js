@@ -48,6 +48,10 @@ export default Ember.Component.extend({
       {{/if}}
     </div>
   </div>
+  <a href="http://commoncurriculum.com" class="sponsorship-footer">
+    <div class="sponsorship-footer__logo">{{partial "icons/cc-logo"}}</div>
+    <div class="sponsorship-footer__loving">Lovingly built by Common Curriculum, the social lesson planner with standards built-in</div>
+  </a>
   `
 
 

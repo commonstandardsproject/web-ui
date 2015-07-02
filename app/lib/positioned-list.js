@@ -21,7 +21,7 @@ export function moveItem(sortedArray, newIdx, oldIdx){
 
   var position = _getPositionForIndex(newIdx, array)
 
-  if (_isInteger(position) == false || position < 0){
+  if (_isInteger(position) === false || position < 0){
     array.splice(newIdx, 0, item)
     this._rebalanceList(array)
   } else {
@@ -48,7 +48,7 @@ export function addObjectAtIndex(sortedArray, object, newIndex){
   var position = _getPositionForIndex(newIndex, array)
   Ember.set(object, 'position', position)
 
-  if (_isInteger(position) == false || position < 0){
+  if (_isInteger(position) === false || position < 0){
     _rebalanceList(array)
   }
 
@@ -106,9 +106,9 @@ export function addModelBelow(sortedArray, model, newModel){
 function _getPositionForIndex(newIndex, array){
 
   var above, below, position;
-  if (array.length == 0){
+  if (array.length === 0){
     position = 1000
-  } else if (newIndex == 0){
+  } else if (newIndex === 0){
     // add at beginning
     var firstItemPosition = Ember.get(array.objectAt(0), 'position')
     position = firstItemPosition - 1000
@@ -117,8 +117,8 @@ function _getPositionForIndex(newIndex, array){
     var lastItemPosition = Ember.get(array.objectAt(array.length - 1), 'position')
     position = lastItemPosition + 1000
   } else {
-    var below =  array.objectAt(newIndex - 1)
-    var above =  array.objectAt(newIndex)
+    below =  array.objectAt(newIndex - 1)
+    above =  array.objectAt(newIndex)
     var abovePosition = Ember.get(above, 'position')
     var belowPosition = Ember.get(below, 'position')
     if (abovePosition - belowPosition > 2){
