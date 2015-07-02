@@ -77,7 +77,7 @@ export default Ember.Component.extend({
 
     selectSet(set){
       this.sendAction('selectSet', set.id, this.get('id'))
-      this.set('pane', 'standards')
+      this.set('pane', 'standards-set')
     },
 
     backToPane(pane){
@@ -132,7 +132,7 @@ export default Ember.Component.extend({
           <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
         {{/if}}
         <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
-        {{#link-to 'edit' (query-params ids=standardSet.id) class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+        {{#link-to 'edit' (query-params standardsSetId=standardSet.id pane="standards-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
           {{partial "icons/ios7-compose"}}
         {{/link-to}}
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
@@ -188,7 +188,7 @@ export default Ember.Component.extend({
           <div class="searchable-standard__list-id">{{standard.listId}}</div>
           <div class="searchable-standard__description">{{{standard.description}}}
             <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
-            {{partial "icons/ios7-link"}}
+            {{!-- {{partial "icons/ios7-link"}} --}}
           </div>
         </div>
       {{/each}}

@@ -25,6 +25,11 @@ export default Ember.Component.extend({
     $(window).scrollTop(0)
   }),
 
+  scrollOnStart: Ember.on('didInsertElement', function(){
+    $(window).scrollTop(0)
+  }),
+
+
 
   actions: {
     signIn(){
