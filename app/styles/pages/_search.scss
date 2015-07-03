@@ -12,6 +12,7 @@
   transition: max-height 1s .2s;
   display: flex;
   display: -webkit-flex;
+  transform: translateZ(0);
   &.show{
     transition: max-height 1s .2s;
     max-height: 1000px;
@@ -70,6 +71,7 @@ input.search-bar__input{
   display: flex;
   display: -webkit-flex;
   margin: 10px;
+  transform: translateZ(0);
 }
 
 .add-search-pane-button{
