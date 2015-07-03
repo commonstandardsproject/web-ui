@@ -3,21 +3,40 @@
   margin: 0 80px;
   text-align: left;
   // border: 1px solid $dividers;
-  border-top: 1px solid $red;
+  // border-top: 1px solid $red;
 }
 
 .home-menu__item{
-  border-bottom: 1px solid $red;
+  // border-bottom: 1px solid $red;
+  border: 1px solid $red;
+  background-color: $red;
+  color: white;
   padding: 20px 40px;
+  margin-bottom: 20px;
   clear: both;
-  display: block;
   display: flex;
   display: -webkit-flex;
+  border-radius: 10px;
   a {
     text-decoration: none;
   }
   &:hover{
+    .home-menu__item__title{
+      transition: all .3s;
+      color: $red;
+    }
+    .home-menu__item__subtitle{
+      transition: all .3s;
+      color: $secondary-text;
+    }
+    .home-menu__item__icon svg {
+      path, polygon, rect{
+        transition: all .3s;
+        fill: $red;
+      }
+    }
     background-color: $yellow;
+    transition: all .3s;
     text-decoration: none;
   }
 }
@@ -27,7 +46,9 @@
     width: 80px;
     height: 80px;
     path, polygon, rect {
-      fill: $red;
+      transition: all .3s;
+      // fill: $red;
+      fill: white;
     }
   }
   min-width: 90px;
@@ -47,18 +68,21 @@
   padding-bottom: 0;
   cursor: pointer;
   transition: all .3s;
-  color: #D96758;
+  // color: #D96758;
+  color: white;
   display: inline;
-  &:hover{
-    transition: all .3s;
-    // font-family: "aw-conqueror-carved-two";
-  }
+  transition: all .3s;
+  // &:hover{
+  //   transition: all .3s;
+  //   // font-family: "aw-conqueror-carved-two";
+  // }
 }
 
 .home-menu__item__subtitle{
+  transition: all .3s;
   // font-family: "le-monde-courrier-std-2";
   font-weight: 300;
-  color: $hint;
+  color: $dividers;
   font-size: 1.75rem;
   line-height: 1.2;
   margin-top: 0;

@@ -77,6 +77,8 @@ input.search-bar__input{
   margin-left: -10px;
   cursor: pointer;
   position: relative;
+  width: 25px;
+  height: 50px;
   svg{
     fill: $teal;
     height: 24px;
@@ -84,15 +86,19 @@ input.search-bar__input{
   }
   &:hover svg{
     fill: $secondary-text;
+    transition: all .2s;
   }
-  &:hover:after{
-    color: $teal;
+  &:hover .add-search-pane-button__text{
+    color: $secondary-text;
+    opacity: 1;
+    transition: all .2s;
   }
-  &:after{
-    // content: "Add Search Pane to See Multiple Groups of Standards";
-    content: "Search other standards";
+}
+
+.add-search-pane-button__text{
     transform: rotate(90deg);
     transform-origin: left top;
+    transition: all .2s;
     left: 27px;
     top: 30px;
     width: 700px;
@@ -104,12 +110,12 @@ input.search-bar__input{
     // max-width: 50px;
     font-size: 1.2rem;
     line-height: 1.3rem;
-    color: $hint;
+    color: $teal;
+    opacity: .5;
     // background-color: hsla(0,0,100%, .7);
     // color: white;
     padding: 10px;
     position: absolute;
-  }
 }
 
 
@@ -124,6 +130,14 @@ input.search-bar__input{
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 40px;
+  transform: translate3d(0, -20px, 0);
+  opacity: 0;
+  &.was-inserted{
+    transform: translate3d(0, 0px, 0);
+    opacity: 1;
+    transition: all .2s ease-out;
+  }
+  transition: all .2s;
   &:last-child{
     margin-right: 0;
   }
@@ -197,12 +211,12 @@ input.search-bar__input{
 .standard-set__inner{
   display: flex;
   display: -webkit-flex;
-  transition: transform .2s;
+  transition: transform .3s;
   vertical-align: center;
 }
 
 .standard-set__inner--drop-transition{
-  transition: transform 0s;
+  transition: transform .2s;
 }
 
 .standard-set__inner--four-panes {

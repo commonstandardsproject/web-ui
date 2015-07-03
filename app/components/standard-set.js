@@ -11,10 +11,9 @@ export default Ember.Component.extend({
 
   classNameBindings: ['wasInserted'],
 
-  // addInsertedClass: Ember.on('didInsertElement', function(){
-  //   console.log('did insert')
-  //   Ember.run.later(this, () => {this.set('wasInserted', true)}, 50)
-  // }),
+  addInsertedClass: Ember.on('didInsertElement', function(){
+    Ember.run.later(this, () => {this.set('wasInserted', true)}, 10)
+  }),
 
   linkToSet: Ember.computed('standardSetId', function(){
     return 'http://localhost:4200/search?ids=%5B"' + this.get('id') + '"%5D'
@@ -77,11 +76,10 @@ export default Ember.Component.extend({
 
     selectSet(set){
       this.sendAction('selectSet', set.id, this.get('id'))
-      this.set('pane', 'standard-set')
+      this.set('pane', 'standards')
     },
 
     backToPane(pane){
-      // this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('pane', pane)
     },
 
@@ -102,7 +100,9 @@ export default Ember.Component.extend({
   },
 
   layout: hbs`
-  <div class="alert alert-success alert-floating {{if showCopyMessage 'show'}}">Copied to your clipboard!</div>
+  {{#if showCopyMessage}}
+    <div class="alert alert-success alert-floating {{if showCopyMessage 'show'}}">Copied to your clipboard!</div>
+  {{/if}}
 
   <div class="standard-set__inner standard-set__inner--four-panes standard-set__inner--show-{{pane}} standard-set__inner--drop-transition">
 
