@@ -287,6 +287,63 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
         To get started with Algolia, go to <a href="https://github.com/algolia/algoliasearch-client-js#quick-start" target="_blank">Algolia's js library</a>. (They have clients for other languages, too). Your Algolia API Key and application id is in the left sidebar.
       </p>
 
+      <pre class="code-sample"><code>&lt;script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js">&lt;/script>
+&lt;script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.jquery.min.js">&lt;/script>
+&lt;script&lt;
+  var client = $.algolia.Client('O7L4OQENOZ', '{{session.algoliaApiKey}}');
+  var index = client.initIndex('common-standards-project');
+  index.search('something', function searchDone(err, content) {
+    console.log(err, content)
+  });
+&lt;/script></code></pre>
+
+      <p>
+        A few things to note:
+      </p>
+      <ul>
+        <li>Algolia will highlight the places where the search term is found.</li>
+        <li>There are facets for <code>standardSet.title</code>, <code>subject</code>, <code>normalizedSubject</code>, and <code>jurisdiction.title</code></li>
+        <li>The standards are ordered by the <code>position</code></li>
+        <li>All the standards include an array of their ancestor's descriptions so a word found in an ancestor will show the standard</li>
+      </ul>
+
+      <h3>Format of standard in response from Algolia</h3>
+      <pre class="code-sample"><code>{
+  "id": "0AD25973CF4E4DC892561BEEF05C6BB4",
+  "asnIdentifier": "S2604988",
+  "position": 33000,
+  "depth": 2,
+  "statementNotation": "1.NBT.4",
+  "statementLabel": "Standard",
+  "description": "Add within 100, including adding a two-digit number and a one-digit number, and adding a two-digit number and a multiple of 10, using concrete models or drawings and strategies based on place value, properties of operations, and/or the relationship between addition and subtraction; relate the strategy to a written method and explain the reasoning used. Understand that in adding two-digit numbers, one adds tens and tens, ones and ones, and sometimes it is necessary to compose a ten.",
+  "ancestorDescriptions": [
+    "Use place value understanding and properties of operations to add and subtract.",
+    "Number and Operations (Base Ten)"
+  ],
+  "educationLevels": [
+    "01"
+  ],
+  "subject": "Mathematics",
+  "normalizedSubject": "Math",
+  "standardSet": {
+    "title": "Grade 1",
+    "id": "49FCDFBD2CF04033A9C347BFA0584DF0_D2604890_grade-01"
+  },
+  "jurisdiction": {
+    "id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+    "title": "Maryland"
+  },
+  "_tags": [
+    "E5B209C180E24242B7D337302A19D69B",
+    "3993CD0C80874BE0B5CE62758D97F64A",
+    "49FCDFBD2CF04033A9C347BFA0584DF0_D2604890_grade-01",
+    "49FCDFBD2CF04033A9C347BFA0584DF0",
+    "01"
+  ],
+  "objectID": "0AD25973CF4E4DC892561BEEF05C6BB4"
+}</code></pre>
+
+
 
     </div>
 
