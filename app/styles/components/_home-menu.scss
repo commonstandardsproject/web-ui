@@ -8,7 +8,7 @@
 
 .home-menu__item{
   // border-bottom: 1px solid $red;
-  border: 1px solid $red;
+  // border: 1px solid $red;
   background-color: $red;
   color: white;
   padding: 20px 40px;
@@ -22,21 +22,22 @@
   }
   &:hover{
     .home-menu__item__title{
-      transition: all .3s;
+      transition: all .5s;
       color: $red;
     }
     .home-menu__item__subtitle{
-      transition: all .3s;
+      transition: all .5s;
       color: $secondary-text;
     }
     .home-menu__item__icon svg {
       path, polygon, rect{
-        transition: all .3s;
+        transition: all .5s;
         fill: $red;
       }
     }
+    box-shadow: 0 0 20px hsl(0,0,80%);
     background-color: $yellow;
-    transition: all .3s;
+    transition: all .5s;
     text-decoration: none;
   }
 }
@@ -86,6 +87,7 @@
   font-size: 1.75rem;
   line-height: 1.2;
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 
@@ -102,4 +104,14 @@
   .home-menu__item__subtitle{
     font-size: 1.25rem;
   }
+  .home-menu__item__icon{
+    min-width: 50px;
+    height: 40px;
+    margin-right: 10px;
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
 }

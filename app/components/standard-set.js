@@ -135,27 +135,29 @@ export default Ember.Component.extend({
     </div>
 
     <div class="standard-set-pane">
-      <div class="standard-set-pane-header">
-        {{#if showRemoveButton}}
-          <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
-        {{/if}}
-        <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
-        {{#link-to 'edit' (query-params standardSetId=standardSet.id pane="standard-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
-          {{partial "icons/ios7-compose"}}
-        {{/link-to}}
-        <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
-        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
-        <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</div>
-        <div class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</div>
-        <a class="standard-set-header__document-title" href={{standardSet.document.sourceURL}} target="_blank">
-          {{standardSet.document.title}}
-        </a>
-        {{#if showLinkToSet}}
-          <div class="standard-set-header__link-to-set">
-            <a href="{{linkToSet}}" target="_blank">{{linkToSet}}</a>
-          </div>
-        {{/if}}
-      </div>
+      {{#unless standardSet._status.isFetching}}
+        <div class="standard-set-pane-header">
+          {{#if showRemoveButton}}
+            <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
+          {{/if}}
+          <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
+          {{#link-to 'edit' (query-params standardSetId=standardSet.id pane="standard-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+            {{partial "icons/ios7-compose"}}
+          {{/link-to}}
+          <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
+          <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
+          <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</div>
+          <div class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</div>
+          <a class="standard-set-header__document-title" href={{standardSet.document.sourceURL}} target="_blank">
+            {{standardSet.document.title}}
+          </a>
+          {{#if showLinkToSet}}
+            <div class="standard-set-header__link-to-set">
+              <a href="{{linkToSet}}" target="_blank">{{linkToSet}}</a>
+            </div>
+          {{/if}}
+        </div>
+      {{/unless}}
     </div>
   </div>
 
@@ -190,11 +192,15 @@ export default Ember.Component.extend({
     </div>
 
     <div class="standard-set-pane">
+      {{#if standardSet._status.isFetching}}
+        {{partial "icons/loading-balls"}}
+      {{else}}
       <div class="searchable-standard-list">
         {{#each standards as |standard|}}
           {{searchable-standard standard=standard didCopy=(action 'didCopy')}}
         {{/each}}
       </div>
+      {{/if}}
     </div>
   </div>
   `

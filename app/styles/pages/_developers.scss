@@ -45,6 +45,17 @@
     opacity: 1;
   }
 }
+@media (max-width: 630px){
+  .developers-grid{
+    flex-direction: column;
+    // width: 100%;
+  }
+  .developers-grid__sidebar{
+    width: 100%;
+    flex-direction: column;
+  }
+
+}
 
 .developers-grid__main{
   padding: 10px 40px 10px 20px;
