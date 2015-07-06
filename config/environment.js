@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'standards-importer',
+    modulePrefix: 'common-standards-ui',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
