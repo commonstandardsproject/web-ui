@@ -24,7 +24,7 @@ module.exports = function(environment) {
 
 
   if (environment === 'development') {
-    ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
+    ENV.APP.apiBaseUrl = "http://teachnow.local:9393/api/"
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

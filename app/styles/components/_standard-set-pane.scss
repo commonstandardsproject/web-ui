@@ -1,0 +1,84 @@
+.standard-set-pane{
+  max-height: 0;
+  position: relative;
+}
+
+.standard-set-pane__remove,
+.standard-set-pane__edit,
+.standard-set-pane__link {
+  color: $hint;
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  cursor: pointer;
+  svg{
+    fill: $dividers;
+    width: 20px; height: 20px;
+  }
+  &:hover svg{
+    fill: $secondary-text;
+  }
+}
+.standard-set-pane__link {
+  right: 40px;
+  top: 13px;
+  svg{
+    height: 16px;
+  }
+  .standard-set-pane__button-text{
+    display: none;
+  }
+}
+
+.standard-set-pane__edit{
+  right: 64px;
+  top: 12px;
+  svg{ height: 25px; width: 30px;}
+}
+
+
+.standard-set-pane{
+  width: 100%;
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.standard-set-pane__back{
+  font-size: 1rem;
+  color: $hint;
+  // display: inline;
+  float: left;
+  margin-right: 10px;
+  display: block;
+  width: 20px;
+  // height: 100%;
+  font-size: 2rem;
+  line-height: 1;
+  border-right: 1px solid $dividers;
+  display: none;
+}
+
+.standard-set-pane-header{
+  border-bottom: 1px solid $dividers;
+  padding: 15px;
+  line-height: 1.2;
+  font-size: 1.7rem;
+  color: $teal;
+  font-weight: 400;
+}
+
+.standard-set-pane__selectable-list{
+  clear: both;
+  padding: 0;
+}
+
+.standard-set-pane__selectable-list__item{
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-bottom: 1px solid $dividers;
+  cursor: pointer;
+  color: $secondary-text;
+  &:hover{
+    background-color: $yellow;
+  }
+}

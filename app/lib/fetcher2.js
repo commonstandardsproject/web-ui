@@ -17,7 +17,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
       var url = models[modelName].url + '/' + id.replace('index', '')
       rpc["fetcherGet"](url, function(_data){
         if (_data === undefined) return
-        var data = _data.data
+        var data = _.clone(_data.data) || {}
         if (Ember.isArray(data)){
           data = {
             list: _data.data

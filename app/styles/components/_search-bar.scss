@@ -1,0 +1,32 @@
+.search-bar{
+  overflow: hidden;
+  max-height: 0px;
+  transition: max-height 1s .2s;
+  display: flex;
+  display: -webkit-flex;
+  transform: translateZ(0);
+  &.show{
+    transition: max-height 1s .2s;
+    max-height: 1000px;
+  }
+}
+
+input.search-bar__input{
+  width: calc(100% - 20px);
+  float: left;
+  margin: 10px;
+  border: none;
+  border: 1px solid $dividers;
+  font-size: 1.25rem;
+  padding-top: .25rem;
+  padding-bottom: 0rem;
+  margin-bottom: 0;
+  height: 4rem;
+  font-family: $font-family;
+  padding-left: 1rem;
+}
+
+.search-bar__icons{
+  // text-align: center;
+  // float:right;
+}

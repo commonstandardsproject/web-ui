@@ -1,5 +1,5 @@
 {
-  "name": "standards-importer",
+  "name": "Common Standards UI",
   "version": "0.0.0",
   "description": "Small description for standards-importer goes here",
   "private": true,
@@ -24,6 +24,7 @@
     "ember-cli": "0.2.7",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-auto-register-helpers": "1.0.1",
+    "ember-cli-autoprefixer": "0.4.1",
     "ember-cli-babel": "^5.0.0",
     "ember-cli-bootstrap-sassy": "0.0.18",
     "ember-cli-dependency-checker": "^1.0.0",

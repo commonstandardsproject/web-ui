@@ -50,11 +50,11 @@ export default Ember.Component.extend({
 
 
   currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
-    return this.get('standardSet.jurisdiction.title') || this.get('jurisdiction.title')
+    return this.get('jurisdiction.title') || this.get('standardSet.jurisdiction.title')
   }),
 
   currentSubject: Ember.computed('standardSet.subject', 'subject', function(){
-    return this.get('standardSet.subject') || this.get('subject')
+    return this.get('subject') || this.get('standardSet.subject')
   }),
 
 
@@ -64,7 +64,6 @@ export default Ember.Component.extend({
 
   actions: {
     selectJurisdiction(jurisdiction){
-      // this.sendAction('selectSet', 'blank'+Ember.generateGuid(), this.get('id'))
       this.set('jurisdictionId', jurisdiction.id)
       this.set('pane', 'subjects')
     },
@@ -118,7 +117,7 @@ export default Ember.Component.extend({
       <div class="standard-set-pane-header">
         <div class="standard-set-pane__remove" {{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
-        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
+        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
         <div class="standard-set-header__subject standard-set-header__select">Select a Subject</div>
         <div class="clearfix"></div>
       </div>
@@ -128,8 +127,8 @@ export default Ember.Component.extend({
       <div class="standard-set-pane-header">
         <div class="standard-set-pane__remove" {{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
-        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
-        <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}}</div>
+        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
+        <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</div>
         <div class="standard-set-header__title standard-set-header__select">Select a grade level</div>
         <div class="clearfix"></div>
       </div>
@@ -145,11 +144,11 @@ export default Ember.Component.extend({
           {{partial "icons/ios7-compose"}}
         {{/link-to}}
         <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
-        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}}</div>
-        <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}}</div>
+        <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
+        <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</div>
         <div class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</div>
-        <a class="standard-set-header__document-title" href={{standardSet.source}} target="_blank">
-          {{standardSet.documentTitle}}
+        <a class="standard-set-header__document-title" href={{standardSet.document.sourceURL}} target="_blank">
+          {{standardSet.document.title}}
         </a>
         {{#if showLinkToSet}}
           <div class="standard-set-header__link-to-set">
@@ -192,9 +191,9 @@ export default Ember.Component.extend({
 
     <div class="standard-set-pane">
       <div class="searchable-standard-list">
-      {{#each standards as |standard|}}
-        {{searchable-standard standard=standard didCopy=(action 'didCopy')}}
-      {{/each}}
+        {{#each standards as |standard|}}
+          {{searchable-standard standard=standard didCopy=(action 'didCopy')}}
+        {{/each}}
       </div>
     </div>
   </div>
