@@ -58,8 +58,13 @@ export default Ember.Component.extend({
   }),
 
 
-  standards: Ember.computed('standardSet.standards', function(){
-    return Standards.hashToArray(this.get('standardSet.standards'))
+  standards: Ember.computed('standardSet.standards', 'results', function(){
+    var standards = Standards.hashToArray(this.get('standardSet.standards'))
+    var results   = this.get('results')
+    if (results !== null){
+      standards = _.filter(standards, s => _.include(results, s.id))
+    }
+    return standards
   }),
 
   actions: {

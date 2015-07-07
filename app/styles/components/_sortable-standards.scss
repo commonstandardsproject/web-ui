@@ -133,6 +133,10 @@
   margin-bottom: 20px;
   list-style: none;
   padding-left: 0;
+  padding-top: 2rem;
+  :first-child{
+    padding-top: 0;
+  }
 }
 
 $standard-indent: 14px;

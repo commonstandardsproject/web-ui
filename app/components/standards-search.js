@@ -4,6 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 
 export default Ember.Component.extend({
 
+  search: Ember.inject.service('AlgoliaSearch'),
 
   isSearchVisible: Ember.computed('standardSetIds', function(){
     return _.chain(this.get('standardSetIds'))
@@ -12,16 +13,33 @@ export default Ember.Component.extend({
   }),
 
 
+  didUpdateAttrs(){
+    Ember.run.throttle(this, this.searchAlgolia, 30)
+  },
+
+  searchAlgolia(){
+    if (this.get('query') == "" || Ember.isNone(this.get('query'))){
+      this.set('results', null)
+      return
+    }
+    this.get('search.index').search(this.get('query'), {
+      attributesToRetrieve: 'id',
+      tagFilters: this.get('standardSetIds')
+    }).then(data => {
+      this.set('results', _.pluck(data.hits, 'id'))
+    }).catch(function(err){
+      console.log('err', err)
+    })
+  },
+
+
   actions: {
-    addPane(){
-      this.sendAction('addPane')
-    },
     selectSet(id, oldId){
-      this.sendAction('selectSet', id, oldId)
+      this.attrs.selectSet(id, oldId)
     },
     removeSet(id){
       if (this.get('standardSetIds').length == 1) return;
-      this.sendAction('removeSet', id)
+      this.attrs.removeSet(id)
     }
   },
 
@@ -39,10 +57,10 @@ export default Ember.Component.extend({
 
     <div class="search-panes">
       {{#each standardSetIds as |id|}}
-        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet"}}
+        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet" results=results}}
       {{/each}}
       {{#if isSearchVisible}}
-        <div class="add-search-pane-button hint--left" {{action 'addPane'}} data-hint="Compare standards by adding a pane">
+        <div class="add-search-pane-button hint--left" {{action this.attrs.addPane}} data-hint="Compare standards by adding a pane">
           {{partial "icons/ios7-browser-outline"}}
           <div class="add-search-pane-button__text">Compare Standards</div>
         </div>
