@@ -24,7 +24,7 @@ export default Ember.Component.extend({
     }
     this.get('search.index').search(this.get('query'), {
       attributesToRetrieve: 'id',
-      tagFilters: this.get('standardSetIds')
+      tagFilters: [this.get('standardSetIds')]
     }).then(data => {
       this.set('results', _.pluck(data.hits, 'id'))
     }).catch(function(err){
