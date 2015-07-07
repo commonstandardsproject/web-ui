@@ -279,7 +279,7 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
       }</code></pre>
 
 
-      <h2 name="search">Search</h2>
+      <h2 id="search">Search</h2>
       <p>
         We use <a href="http://algolia.com">Algolia</a> for our search service. While the API is free to use, the standards search has a limit of 100 requests per IP per hour due to the costs of hosting search. If you need to go above that, send us an email to become a sponsor of the Common Curriculum Project and we'll raise it for you.
       </p>
@@ -287,10 +287,10 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
         To get started with Algolia, go to <a href="https://github.com/algolia/algoliasearch-client-js#quick-start" target="_blank">Algolia's js library</a>. (They have clients for other languages, too). Your Algolia API Key and application id is in the left sidebar.
       </p>
 
-      <pre class="code-sample"><code>&lt;script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js">&lt;/script>
+      <pre class="code-sample"><code>// jQuery example (they have )
 &lt;script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.jquery.min.js">&lt;/script>
 &lt;script&lt;
-  var client = $.algolia.Client('O7L4OQENOZ', '{{session.algoliaApiKey}}');
+  var client = algoliaClient('O7L4OQENOZ', '{{session.algoliaApiKey}}');
   var index = client.initIndex('common-standards-project');
   index.search('something', function searchDone(err, content) {
     console.log(err, content)

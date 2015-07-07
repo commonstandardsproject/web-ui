@@ -10,7 +10,6 @@ export default Ember.Component.extend({
   attributeBindings: ['href'],
   // Used so that upon clicking on the link
   // anchor behaviors or ignored
-  href: 'javascript:;',
 
   scrollTo: function(){
     var anchor = this.get('anchor'),
@@ -29,5 +28,10 @@ export default Ember.Component.extend({
         $(this).removeAttr('tabindex');
       }).focus();
     }
-  }.on('click')
+  }.on('click'),
+
+  click(e){
+    e.preventDefault()
+  }
+
 });
