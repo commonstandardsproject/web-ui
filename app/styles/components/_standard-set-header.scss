@@ -21,6 +21,7 @@
   // color: $text;
   cursor: pointer;
   @include header-svg;
+  font-size: 1.7rem;
   &:hover{
     color: $teal;
     text-decoration: underline;
@@ -36,6 +37,7 @@
   display: block;
   float: left;
   margin: 0; padding: 0;
+  font-size: 1.7rem;
   // line-height: 1.6rem;
   // line-height: 2rem;
   // display: inline;
@@ -91,6 +93,7 @@
 }
 .standard-set-header__jurisdiction{
   font-weight: 700;
+  font-size: 1.7rem;
 }
 
 .standard-set-pane-header__choose-jurisdiction,

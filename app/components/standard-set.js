@@ -145,9 +145,9 @@ export default Ember.Component.extend({
             {{partial "icons/ios7-compose"}}
           {{/link-to}}
           <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
-          <div class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</div>
-          <div class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</div>
-          <div class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</div>
+          <h1 class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</h1>
+          <h2 class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</h2>
+          <h3 class="standard-set-header__title" {{action 'backToPane' 'grade-levels'}}>{{standardSet.title}}</h3>
           <a class="standard-set-header__document-title" href={{standardSet.document.sourceURL}} target="_blank">
             {{standardSet.document.title}}
           </a>
@@ -195,11 +195,11 @@ export default Ember.Component.extend({
       {{#if standardSet._status.isFetching}}
         {{partial "icons/loading-balls"}}
       {{else}}
-      <div class="searchable-standard-list">
+      <ul class="searchable-standard-list">
         {{#each standards as |standard|}}
-          {{searchable-standard standard=standard didCopy=(action 'didCopy')}}
+          {{searchable-standard standard=standard didCopy=(action 'didCopy') tagName="li"}}
         {{/each}}
-      </div>
+      </ul>
       {{/if}}
     </div>
   </div>

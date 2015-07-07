@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     <div class="searchable-standard searchable-standard--depth-{{standard.depth}}">
       <div class="searchable-standard__list-id">{{standard.listId}}</div>
       <div class="searchable-standard__description">{{{standard.description}}}
-        <div class="searchable-standard__statement-notation">{{standard.statementNotation}}</div>
+        <em class="searchable-standard__statement-notation">{{standard.statementNotation}}</em>
         {{!-- {{partial "icons/ios7-link"}} --}}
         {{#zero-clipboard text=textToCopy title="Copy to clipboard" class="btn hint--top searchable-standard__btn-copy" data-hint="Copy to clipboard" afterCopy=this.attrs.didCopy }}
           {{partial "icons/clipboard"}}
