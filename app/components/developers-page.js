@@ -177,48 +177,47 @@ http://commonstandardsproject.com/api/v1/jurisdictions/:id
 
       <h3>Example Response:</h3>
       <pre class="code-sample"><code class="json">{
+  {
     "data": {
-      "id": "B1339AB05F0347E79200FCA63240F3B2",
-      "title": "California",
-      "documents": [
-        {
-          "id": "D2538854:2014-05-12T14:12:38-04:00",
-          "title": "CTE Model Curriculum Standards: Business and Finance"
-        },
-        {
-          "id": "D2513639:2013-09-10T15:37:01-04:00",
-          "title": "California Common Core State Standards: Mathematics"
-        },
-        {
-          "id": "D2515047:2013-09-12T14:13:43-04:00",
-          "title": "California Common Core State Standards: English Language Arts and Literacy"
-        },
-        {
-          "id": "D2622356:2015-05-05T19:28:08-04:00",
-          "title": "Model School Library Standards for California Public Schools, Kindergarten Through Grade Twelve"
-        },
-      ],
+      "id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+      "title": "Maryland",
+      "type": "state",
       "standardSets": [
         {
-           "id": "B1339AB05F0347E79200FCA63240F3B2_D2541115_grades-08-09-10-11-12",
-           "title": "Grades 8, 9, 10, 11, 12",
-           "subject": "Engineering and Architecture"
-         },
-         {
-           "id": "B1339AB05F0347E79200FCA63240F3B2_D2538854_grades-08-09-10-11-12",
-           "title": "Grades 8, 9, 10, 11, 12",
-           "subject": "Business and Finance"
-         },
-         {
-           "id": "B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-k",
-           "title": "Grade K",
-           "subject": "Mathematics"
-         },
-         {
-           "id": "B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-01",
-           "title": "Grade 1",
-           "subject": "Mathematics"
-         },
+          "id": "49FCDFBD2CF04033A9C347BFA0584DF0_D1000265_grades-09-10-11-12",
+          "title": "Grades 9, 10, 11, 12",
+          "subject": "Science Core Learning Goals (2002)",
+          "educationLevels": [
+            "09",
+            "10",
+            "11",
+            "12"
+          ],
+          "document": {
+            "id": "D1000265",
+            "valid": "2002",
+            "title": "Maryland Science Core Learning Goals",
+            "sourceURL": "http:\/\/mdk12.org\/instruction\/curriculum\/science\/clg_toolkit.html",
+            "asnIdentifier": "D1000265",
+            "publicationStatus": "Published"
+          }
+        },
+        {
+          "id": "49FCDFBD2CF04033A9C347BFA0584DF0_D10002D0_grade-01",
+          "title": "Grade 1",
+          "subject": "Social Studies",
+          "educationLevels": [
+            "01"
+          ],
+          "document": {
+            "id": "D10002D0",
+            "valid": "2006",
+            "title": "Voluntary State Curriculum - Social Studies",
+            "sourceURL": null,
+            "asnIdentifier": "D10002D0",
+            "publicationStatus": "Published"
+          }
+        }
       ]
     }
   }</code></pre>
@@ -235,48 +234,69 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
 
       <h3>Example Response:</h3>
       <pre class="code-sample"><code class="json">{
-    "data": {
-      "id": "B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-01",
-      "title": "Grade 1",
-      "subject": "Mathematics",
-      "educationLevels": [
-        "01"
-      ],
-      "license": "CC BY 3.0 US",
-      "licenseURL": "http:\/\/creativecommons.org\/licenses\/by\/3.0\/us\/",
-      "attributionURL": "http:\/\/asn.jesandco.org\/resources\/D2513639",
-      "rightsHolder": "Desire2Learn Incorporated",
-      "documentId": "D2513639:2013-09-10T15:37:01-04:00",
-      "documentTitle": "California Common Core State Standards: Mathematics",
-      "jurisdictionId": "B1339AB05F0347E79200FCA63240F3B2",
-      "jurisdiction": "California",
-      "source": null,
-      "standards": {
-        "BED3BFCB945A4C5290571A4339095DF5": {
-          "id": "BED3BFCB945A4C5290571A4339095DF5",
-          "asnIdentifier": "S2513640",
-          "firstStandard": true,
-          "nextStandard": "B6B2267B534748A5BD34F423CFD7E621",
-          "depth": 0,
-          "description": "Standards for Mathematical Practice"
-        },
-        "B6B2267B534748A5BD34F423CFD7E621": {
-          "id": "B6B2267B534748A5BD34F423CFD7E621",
-          "asnIdentifier": "S2513641",
-          "nextStandard": "D908C7DEF36B4F9EBDB7D1568246ED31",
-          "depth": 1,
-          "statementNotation": "MP.1",
-          "statementLabel": "Standard",
-          "listId": "1",
-          "description": "Make sense of problems and persevere in solving them.",
-          "comments": [
-            "Mathematically proficient ..."
-          ],
-          "exactMatch": [
-            "http:\/\/corestandards.org\/Math\/Practice\/MP1"
-          ]
-        }
-      }</code></pre>
+  "data": {
+     "id": "49FCDFBD2CF04033A9C347BFA0584DF0_D2604890_grade-01",
+     "title": "Grade 1",
+     "subject": "Mathematics",
+     "educationLevels": [
+       "01"
+     ],
+     "license": {
+       "title": "CC BY 3.0 US",
+       "URL": "http:\/\/creativecommons.org\/licenses\/by\/3.0\/us\/",
+       "rightsHolder": "Desire2Learn Incorporated"
+     },
+     "rightsHolder": null,
+     "document": {
+       "id": "D2604890",
+       "valid": "2011",
+       "title": "Maryland College and Career-Ready Standards - Mathematics (PK-8)",
+       "sourceURL": "http:\/\/mdk12.org\/instruction\/curriculum\/mathematics\/index.html",
+       "asnIdentifier": "D2604890",
+       "publicationStatus": "Published"
+     },
+     "jurisdiction": {
+       "id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+       "title": "Maryland"
+     },
+     "standards": {
+       "10C032C40D33415EA1AD242D40481A4F": {
+         "id": "10C032C40D33415EA1AD242D40481A4F",
+         "asnIdentifier": "S2604891",
+         "position": 1000,
+         "depth": 0,
+         "description": "Standards for Mathematical Practice"
+       },
+       "97253D2D6F384ADF8001A3512A4107AE": {
+         "id": "97253D2D6F384ADF8001A3512A4107AE",
+         "asnIdentifier": "S2604892",
+         "position": 2000,
+         "depth": 1,
+         "statementLabel": "Standard",
+         "listId": "1.",
+         "description": "Make sense of problems and persevere in solving them."
+       },
+       "486874A7CEC04817BCD93180E5C47CB7": {
+         "id": "486874A7CEC04817BCD93180E5C47CB7",
+         "asnIdentifier": "S2604893",
+         "position": 3000,
+         "depth": 1,
+         "statementLabel": "Standard",
+         "listId": "2.",
+         "description": "Reason abstractly and quantitatively."
+       },
+       "32790706FBF043B4AE53539534337DB9": {
+         "id": "32790706FBF043B4AE53539534337DB9",
+         "asnIdentifier": "S2604894",
+         "position": 4000,
+         "depth": 1,
+         "statementLabel": "Standard",
+         "listId": "3.",
+         "description": "Construct viable arguments and critique the reasoning of others."
+       }
+    ]
+  }  
+}</code></pre>
 
 
       <h2 id="search">Search</h2>
