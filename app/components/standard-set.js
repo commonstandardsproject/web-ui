@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   }),
 
   linkToSet: Ember.computed('standardSetId', function(){
-    return 'http://localhost:4200/search?ids=%5B"' + this.get('id') + '"%5D'
+    return 'http://commonstandardsproject.com/search?ids=%5B"' + this.get('id') + '"%5D'
   }),
 
   showRemoveButton: Ember.computed('index', function(){
@@ -61,7 +61,7 @@ export default Ember.Component.extend({
   standards: Ember.computed('standardSet.standards', 'results', function(){
     var standards = Standards.hashToArray(this.get('standardSet.standards'))
     var results   = this.get('results')
-    if (results !== null){
+    if (results !== null && results !== undefined){
       standards = _.filter(standards, s => _.include(results, s.id))
     }
     return standards
