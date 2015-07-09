@@ -11,16 +11,20 @@ export default Ember.Component.extend({
 
   actions: {
     approveCommit(commit){
-      rpc["commit:approve"](commit.id, function(){
-        Ember.set(commit, 'approved', true)
-        Fetcher.find('commit', 'index', true)
-      })
+      if (window.confirm("Are you sure you want to accept this?")){
+        rpc["commit:approve"](commit.id, function(){
+          Ember.set(commit, 'approved', true)
+          Fetcher.find('commit', 'index', true)
+        })
+      }
     },
     rejectCommit(commit){
-      rpc["commit:reject"](commit.id, function(){
-        Ember.set(commit, 'approved', false)
-        Fetcher.find('commit', 'index', true)
-      })
+      if (window.confirm("Are you sure you want to reject this?")){
+        rpc["commit:reject"](commit.id, function(){
+          Ember.set(commit, 'approved', false)
+          Fetcher.find('commit', 'index', true)
+        })
+      }
     },
   },
 
