@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import _     from 'npm:lodash';
-import Fetcher from "../lib/fetcher2";
+import Fetcher from "../lib/fetcher";
 
 export default Ember.Controller.extend({
 

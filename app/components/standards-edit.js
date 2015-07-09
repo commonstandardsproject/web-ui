@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import _ from "npm:lodash";
 import hbs from 'htmlbars-inline-precompile';
-import Fetcher from "../lib/fetcher2";
+import Fetcher from "../lib/fetcher";
 
 export default Ember.Component.extend({
 

@@ -1,5 +1,5 @@
 import Ember from "ember";
-import Fetcher from "../lib/fetcher2";
+import Fetcher from "../lib/fetcher";
 import _ from "npm:lodash";
 import Standards from "../models/standards";
 import Immutable from "npm:immutable";

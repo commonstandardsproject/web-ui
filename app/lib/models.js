@@ -1,6 +1,6 @@
 import config from '../config/environment';
 import {registerModel} from './store';
-import {registerModel as registerModel2} from './store2';
+import {registerModel as registerModel2} from './store';
 
 export var jurisdiction = {
   url: config.APP.apiBaseUrl + 'jurisdictions'

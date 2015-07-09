@@ -1,5 +1,5 @@
 import config from '../config/environment';
-import {local} from "../lib/store2";
+import {local} from "../lib/store";
 import Ember from "ember";
 
 

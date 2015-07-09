@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import rpc from "../lib/rpc";
 import _ from "npm:lodash";
-import Fetcher from "../lib/fetcher2";
+import Fetcher from "../lib/fetcher";
 
 export default Ember.Service.extend({
   profile:         {},

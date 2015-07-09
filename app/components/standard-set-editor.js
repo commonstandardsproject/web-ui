@@ -1,6 +1,6 @@
 import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';
-import store from "../lib/store2";
+import store from "../lib/store";
 import differ from "../lib/differ";
 import rpc from "../lib/rpc";
 import Standards from "../models/standards";
