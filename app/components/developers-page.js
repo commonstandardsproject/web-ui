@@ -17,12 +17,15 @@ export default Ember.Component.extend({
 
   actions: {
     signIn(){
+      analytics.track('Developers - Sign In')
       this.get('authenticate').showSignin()
     },
     showReset(){
+      analytics.track('Developers - Sign Out')
       this.get('authenticate').logout()
     },
     updateOrigins(){
+      analytics.track('Developers - Update Origins')
       rpc["user:updateAllowedOrigins"](this.get('session.id'), this.get('session.allowedOrigins'), function(data){
         this.set('originSuccess', true)
         Ember.run.later(this, function(){

@@ -2,6 +2,10 @@ import Ember from 'ember';
 import resetScroll from "../mixins/reset-scroll";
 
 export default Ember.Route.extend(resetScroll, {
+  beforeModel(){
+    analytics.track('Edit Page')
+  },
+
   actions: {
     signIn: function(){
       return this.showSignin()

@@ -3,4 +3,8 @@ import resetScroll from "../mixins/reset-scroll";
 
 export default Ember.Route.extend(resetScroll, {
 
+  beforeModel(){
+    analytics.track('Search Page')
+  }
+
 });

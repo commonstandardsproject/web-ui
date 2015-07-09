@@ -35,9 +35,11 @@ export default Ember.Component.extend({
 
   actions: {
     selectSet(id, oldId){
+      analytics.track('Search - Select Set')
       this.attrs.selectSet(id, oldId)
     },
     removeSet(id){
+      analytics.track('Search - Remove Set')
       if (this.get('standardSetIds').length == 1) return;
       this.attrs.removeSet(id)
     }

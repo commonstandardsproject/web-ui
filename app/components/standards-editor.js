@@ -16,18 +16,22 @@ export default Ember.Component.extend({
 
   actions: {
     indent(standard){
+      analytics.track('Editor - Indent')
       Ember.set(standard, 'depth', standard.depth + 1)
     },
     outdent(standard){
+      analytics.track('Editor - Outdent')
       Ember.set(standard, 'depth', standard.depth - 1)
     },
     reorder(newArray, draggedItem){
+      analytics.track('Editor - Reorder')
       var oldIndex = _.indexOf(this.get('orderedStandards'), draggedItem)
       var newIndex = _.indexOf(newArray, draggedItem)
       listSorter.moveItem(this.get('orderedStandards'), newIndex, oldIndex)
       this.notifyPropertyChange('standardsHash')
     },
     addStandard(){
+      analytics.track('Editor - Add Standard')
       var id = uuid.v4().replace('-', '').toUpperCase()
       this.get('standardsHash')[id] = {
         depth:    Ember.get(_.last(this.get('orderedStandards')), 'depth'),
@@ -36,6 +40,7 @@ export default Ember.Component.extend({
       this.notifyPropertyChange('standardsHash')
     },
     removeStandard(standard){
+      analytics.track('Editor - Remove Standard')
       delete this.get('standardsHash')[Ember.get(standard, 'id')]
       this.notifyPropertyChange('standardsHash')
     }

@@ -14,6 +14,7 @@ export default Ember.Component.extend({
   scrollTo: function(){
     var anchor = this.get('anchor'),
     $el = Ember.$(anchor);
+    analytics.track('Developer Page - ' + anchor)
 
     if($el){
       // Scrolls to the top of main content or whatever

@@ -5,6 +5,7 @@ export default Ember.Component.extend({
 
   actions: {
     submit(){
+      analytics.track('Editor - Submit Commit')
       if (Ember.isEmpty(Ember.get(this, 'summary')) || Ember.isEmpty(Ember.get(this, 'session.profile.email')) || Ember.isEmpty(Ember.get(this, 'session.profile.name')) ) {
         this.set('error', "All fields must be filled in.")
         return

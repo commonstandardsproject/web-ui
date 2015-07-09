@@ -69,33 +69,40 @@ export default Ember.Component.extend({
 
   actions: {
     selectJurisdiction(jurisdiction){
+      analytics.track('Search - Select Jurisdiction')
       this.set('jurisdictionId', jurisdiction.id)
       this.set('pane', 'subjects')
     },
 
     selectSubject(subject){
+      analytics.track('Search - Select Subject')
       this.set('subject', subject)
       this.set('pane', 'grade-levels')
     },
 
     selectSet(set){
+      analytics.track('Search - Select Set')
       this.sendAction('selectSet', set.id, this.get('id'))
       this.set('pane', 'standards')
     },
 
     backToPane(pane){
+      analytics.track('Search - Back to Pane')
       this.set('pane', pane)
     },
 
     removeSet(){
+      analytics.track('Search - Remove Set')
       this.sendAction('removeSet', this.get('id'))
     },
 
     toggleLinkToSet(){
+      analytics.track('Search - Show Link')
       this.toggleProperty('showLinkToSet')
     },
 
     didCopy(){
+      analytics.track('Search - Copied standard')
       this.set('showCopyMessage', true)
       Ember.run.later(this, function(){
         this.set('showCopyMessage', false)
