@@ -165,7 +165,7 @@ http://commonstandardsproject.com/api/v1/jurisdictions/
   </code>
   </pre>
 
-      <h2 name="jurisdictions-id">jurisdictions/:id</h2>
+      <h2 id="jurisdictions-id">jurisdictions/:id</h2>
       <p>
         Select a particular jurisdiction
       </p>
@@ -295,7 +295,7 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
          "description": "Construct viable arguments and critique the reasoning of others."
        }
     ]
-  }  
+  }
 }</code></pre>
 
 
