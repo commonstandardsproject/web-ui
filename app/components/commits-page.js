@@ -15,7 +15,13 @@ export default Ember.Component.extend({
         Ember.set(commit, 'approved', true)
         Fetcher.find('commit', 'index', true)
       })
-    }
+    },
+    rejectCommit(commit){
+      rpc["commit:reject"](commit.id, function(){
+        Ember.set(commit, 'approved', false)
+        Fetcher.find('commit', 'index', true)
+      })
+    },
   },
 
   layout: hbs`
@@ -45,6 +51,7 @@ export default Ember.Component.extend({
               <td>Actions</td>
               <td>
                 <div class="btn btn-default" {{action "approveCommit" commit}}>Approve</div>
+                <div class="btn btn-link" {{action "rejectCommit" commit}}>Reject</div>
               </td>
             </tr>
           </tbody>

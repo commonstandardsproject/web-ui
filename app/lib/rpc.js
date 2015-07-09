@@ -47,6 +47,17 @@ export default Ember.Object.create({
     })
   },
 
+  "commit:reject": function(id, cb){
+    $.ajax({
+      url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/reject',
+      dataType: "json",
+      method:   "POST",
+      headers:  headers(),
+      success:  cb,
+      error:    cb,
+    })
+  },
+
   "user:updateAllowedOrigins": function(id, origins, cb){
     $.ajax({
       url:      config.APP.apiBaseUrl + 'users' + '/' + id + '/allowed_origins',
