@@ -25,7 +25,7 @@ module.exports = function(environment) {
 
 
   if (environment === 'development') {
-    ENV.APP.apiBaseUrl = "http://localhost:9393/api/"
+    ENV.APP.apiBaseUrl = "http://localhost:9393/api/v1/"
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -47,7 +47,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.apiBaseUrl = "http://api.commonstandardsproject.com/api/"
+    ENV.APP.apiBaseUrl = "http://api.commonstandardsproject.com/api/v1/"
 
   }
 
