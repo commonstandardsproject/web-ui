@@ -15,7 +15,7 @@ var StandardModel = {
 
 
   hashToArray(hash){
-    return _(hash).values().sortBy('position').value()
+    return _(hash).values().sortBy('position').compact().value()
   },
 
 

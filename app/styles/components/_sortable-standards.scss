@@ -51,8 +51,8 @@
 
 .sortable-standard__icon{
   svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
   width: 20px;
   height: 20px;
@@ -70,60 +70,9 @@
   display: -webkit-flex;
 }
 
-
-.sortable-standard__list-id{
-  min-width: 20px;
-  text-align: center;
-  // @include bb($dividers);
-  margin-right: 5px;
-  line-height: 1.2rem;
-  padding-right: 0 !important;
-  // background-color: hsl(0,0,96%);
-  // font-weight: 400;
-  border: 1px solid transparent;
-  // float: left;
-  display: inline;
-  // float: left;
-  &.is-empty:before{
-    content: "•";
-    font-size: 1rem;
-    color: $dividers;
-    font-weight: 400;
-  }
+.sortable-standard__column--description{
+  width: 100%;
 }
-
-.sortable-standard__statement-notation{
-  min-width: 50px;
-  display: inline;
-  text-align: center;
-  // @include bb($dividers);
-  line-height: 1.2rem;
-  // float: left;
-  &.is-empty:before{
-    content: "Code";
-    font-size: 1rem;
-    color: $dividers;
-    font-weight: 400;
-
-  }
-
-}
-
-.sortable-standard__description{
-  display: inline;
-  min-width: 200px;
-  &:empty:after{
-    content: "Description";
-    color: $dividers;
-    padding-right: 20px;
-  }
-}
-
-
-.sortable-standard__column--list-id{
-  min-width: 20px;
-}
-
 
 /**
  Searchable standards
@@ -154,7 +103,7 @@ $standard-indent: 14px;
 .sortable-standard{
   list-style: none;
   svg{
-    height: 14px; width: 20px;
+    height: 20px; width: 20px;
     path{ fill: $dividers; }
     rect{ stroke: $dividers; }
     &:hover{
@@ -179,8 +128,8 @@ $standard-indent: 14px;
   padding-left: $standard-indent;
   font-weight: 600;
   font-size: 1.25rem;
-  padding-top: 2rem;
-  padding-bottom: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   line-height: 1.1;
   .sortable-standard__list-id,
   .searchable-standard__list-id{
@@ -256,11 +205,14 @@ $standard-indent: 14px;
   display: block;
 }
 
+.searchable-standard__statement-notation{
+  display: inline;
+}
+
 .sortable-standard__statement-notation,
 .searchable-standard__statement-notation{
   color: $hint;
   max-width: 150px;
-  display: inline;
   font-size: 1rem;
   text-align: right;
   font-weight: 400;
@@ -281,4 +233,77 @@ $standard-indent: 14px;
     opacity: 1;
     fill: $teal;
   }
+}
+
+
+
+
+.sortable-standard__list-id{
+  min-width: 20px;
+  text-align: center;
+  // @include bb($dividers);
+  margin-right: 10px;
+  line-height: 1.5rem;
+  height: 2rem;
+  padding-right: 0 !important;
+  // background-color: hsl(0,0,96%);
+  // font-weight: 400;
+  border: 1px solid transparent;
+  // float: left;
+  display: inline;
+  outline: none;
+  // float: left;
+  transition: min-width .2s;
+  &.is-empty{
+    min-width: 90px;
+    transition: min-width .4s;
+  }
+  &.is-empty:before{
+    content: "Outline Letter";
+    font-size: 1rem;
+    color: $dividers;
+    font-weight: 400;
+  }
+}
+
+.sortable-standard__statement-notation{
+  min-width: 50px;
+  outline: none;
+  text-align: center;
+  // @include bb($dividers);
+  line-height: 1.2rem;
+  // float: left;
+  width: 100%;
+  max-width: none;
+  text-align: left;
+  height: 1.2rem;
+  display: block;
+  margin-top: 5px;
+  &:empty{
+    color: $teal;
+  }
+  &:empty:before{
+    content: "Enter the code for the standard (e.g. 1.NBT.4 or MD.Reading.4.A.2.c)";
+    font-size: 1rem;
+    color: $dividers;
+    font-weight: 400;
+
+  }
+
+}
+
+.sortable-standard__description{
+  display: block;
+  min-width: 200px;
+  outline: none;
+  &:empty:after{
+    content: "Enter the standard (e.g. Divide numbers by 2)";
+    color: $dividers;
+    padding-right: 20px;
+  }
+}
+
+
+.sortable-standard__column--list-id{
+  min-width: 20px;
 }

@@ -30,7 +30,6 @@ export default Ember.Component.extend({
     if (this.get('isUserTyping')) return;
     var value = this.get('value') || "";
     // return this.$().text(this.get('value'));
-
     this.set('_value', value)
   },
 
@@ -103,10 +102,10 @@ export default Ember.Component.extend({
     e.preventDefault()
   },
 
-  layout: hbs`{{_value}}`
-  // render: function(buffer) {
-  //   buffer.push(this.get('value') || "")
-  // }
+  // layout: hbs`{{_value}}`
+  render: function(buffer) {
+    buffer.push(this.get('value') || "")
+  }
 
 
 })

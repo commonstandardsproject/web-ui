@@ -1,33 +1,51 @@
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-import _ from "npm:lodash-fp";
+import _ from "npm:lodash";
+import rpc from "../lib/rpc";
 
 export default Ember.Component.extend({
 
   showForm: false,
 
   groupedSets: Ember.computed('standardSets', function(){
-    var sets = this.get('standardSets')
-    return _.flow(
-      _.sortBy('subject'),
-      _.groupBy('subject'),
-      _.pairs,
-      _.map(v => {
+
+    var sortFn = function(set) {
+      return _.chain(set.educationLevels)
+        .first()
+        .thru(v => v || "")
+        .replace("Pre-K", "-1")
+        .replace("K", 0)
+        .thru(v => Math.floor(v))
+        .run()
+    }
+
+    return _.chain(this.get('standardSets'))
+      .sortBy('subject')
+      .groupBy('subject')
+      .pairs()
+      .map((v) => {
         return {
-          title: v[0],
-          sets: _.sortBy(s => {
-            let one = _.first(s.educationLevels) || ""
-            one = one.replace("Pre-K", "-1").replace("K", 0)
-            return Math.floor(one)
-          }, v[1])
+          title: _.first(v),
+          sets: _.sortBy(_.last(v), sortFn)
         }
       })
-    )(sets)
+      .run()
   }),
 
   actions: {
     createNewSet(){
-
+      rpc["standardSet:create"]({
+        jurisdiction_id: this.get('jurisdictionId'),
+        title:          this.get('title'),
+        subject:        this.get('subject'),
+        committerName:  this.session.get('profile.name'),
+        committerEmail: this.session.get('profile.email'),
+      }, function(data){
+        this.sendAction('selectStandardSet', data.data.id)
+      }.bind(this), function(error){
+        console.log('Standard Set Create Error', error)
+        window.alert('There was an error creating the standard set.')
+      })
     },
     toggleForm(){
       this.toggleProperty('showForm')
@@ -42,7 +60,7 @@ export default Ember.Component.extend({
         <div class="standard-sets-list__subject-title">{{group.title}}</div>
         <div class="standard-sets-list__set-list">
           {{#each group.sets as |set|}}
-            <div class="standard-sets-list__set-list__item" {{action this.attrs.selectstandardSet set.id}}>{{set.title}}</div>
+            <div class="standard-sets-list__set-list__item" {{action this.attrs.selectStandardSet set.id}}>{{set.title}}</div>
           {{/each}}
         </div>
       </div>

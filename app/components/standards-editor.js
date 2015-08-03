@@ -32,17 +32,23 @@ export default Ember.Component.extend({
     },
     addStandard(){
       analytics.track('Editor - Add Standard')
-      var id = uuid.v4().replace('-', '').toUpperCase()
+      var id = uuid.v4().replace(/-/g, '').toUpperCase()
       this.get('standardsHash')[id] = {
-        depth:    Ember.get(_.last(this.get('orderedStandards')), 'depth'),
-        position: Ember.get(_.last(this.get('orderedStandards')), 'position') + 1000
+        id:                id,
+        depth:             _.get(_.last(this.get('orderedStandards')), 'depth', 0),
+        position:          _.get(_.last(this.get('orderedStandards')), 'position', 0) + 1000,
+        listId:            "",
+        description:       "",
+        statementNotation: ""
       }
       this.notifyPropertyChange('standardsHash')
     },
-    removeStandard(standard){
-      analytics.track('Editor - Remove Standard')
-      delete this.get('standardsHash')[Ember.get(standard, 'id')]
-      this.notifyPropertyChange('standardsHash')
+    removeStandard(id){
+      if (window.confirm("Are you sure you want to delete this standard?")){
+        analytics.track('Editor - Remove Standard')
+        this.get('standardsHash')[id] = null
+        this.notifyPropertyChange('standardsHash')
+      }
     }
   },
 
@@ -54,7 +60,7 @@ export default Ember.Component.extend({
         {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle"}}
           <div class="sortable-standard sortable-standard--depth-{{item.depth}}" data-id={{item.id}} key={{item.id}}>
             <div class="sortable-standard__icons">
-              <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action "removeStandard" item}}>
+              <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action "removeStandard" item.id}}>
                 {{partial "icons/ios7-trash-filled"}}
               </div>
               <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action "outdent" item}}>
@@ -69,7 +75,7 @@ export default Ember.Component.extend({
             </div>
             <div class="sortable-standard__columns">
               <div class="sortable-standard__column--list-id">
-                {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" data-hint="E.g A or B or 1. or 2" placeholder="List Identifier"}}
+                {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" placeholder="List Identifier"}}
               </div>
               <div class="sortable-standard__column--description">
                 {{simple-editable value=item.description class="sortable-standard__description"}}

@@ -42,7 +42,7 @@ export default Ember.Component.extend({
       this.set('jurisdictionId', id)
       this.set('pane', 'jurisdiction')
     },
-    selectstandardSet(id){
+    selectStandardSet(id){
       this.set('standardSetId', id)
       this.set('pane', 'standard-set')
     },
@@ -79,7 +79,8 @@ export default Ember.Component.extend({
             {{else}}
             {{standard-sets-list
               standardSets=jurisdiction.standardSets
-              selectstandardSet=(action 'selectstandardSet')
+              jurisdictionId=jurisdictionId
+              selectStandardSet=(action 'selectStandardSet')
             }}
             {{/if}}
           </div>

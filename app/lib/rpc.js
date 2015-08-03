@@ -93,7 +93,18 @@ export default Ember.Object.create({
       success: cb,
       error:   cb
     })
+  },
 
+  "standardSet:create": function(params, cb){
+    $.ajax({
+      url:      config.APP.apiBaseUrl + 'standard_sets',
+      method:   "POST",
+      dataType: "json",
+      data:     params,
+      headers:  headers(),
+      success:  cb,
+      error:    cb
+    })
   }
 
 
