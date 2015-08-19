@@ -85,7 +85,9 @@ export default Ember.Component.extend({
       <div class="form-group">
         <label class="control-label col-sm-2">Education Levels</label>
         <div class="col-sm-10">
-          {{education-level-checkboxes value=standardSet.educationLevels}}
+          {{#if standardSet.educationLevels}}
+            {{education-level-checkboxes value=standardSet.educationLevels}}
+          {{/if}}
         </div>
       </div>
     </div>
