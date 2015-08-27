@@ -1,54 +1,86 @@
 <div class="home-wrapper">
   <div class="masthead">
+    <div class="masthead__background">
+      Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
+      Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana
+      Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska
+      Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota
+      Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota
+      Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming
+      Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
+      Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana
+      Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska
+      Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota
+      Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota
+      Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming
+      Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
+      Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana
+      Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska
+      Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota
+      Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota
+      Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming
+      Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
+      Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky Louisiana
+      Maine Maryland Massachusetts Michigan Minnesota Mississippi Missouri Montana Nebraska
+      Nevada New Hampshire New Jersey New Mexico New York North Carolina North Dakota
+      Ohio Oklahoma Oregon Pennsylvania Rhode Island South Carolina South Dakota
+      Tennessee Texas Utah Vermont Virginia Washington West Virginia Wisconsin Wyoming
+    </div>
     {{#link-to 'search' tagName="h1" class="masthead__title"}}
-      The<br>Common<br>Standards<br>Project
+      The Common<br>Standards Project
     {{/link-to}}
     <h2 class="masthead__subtitle">
-      Free, Searchable Database of Standards from 50 States, Organizations, Districts, & Schools
+      A Free, Searchable Database of Standards from 50 States, Organizations, Districts, & Schools
     </h2>
   </div>
 
   <div class="home-menu">
 
     {{#link-to "search" class="home-menu__item"}}
-      <div class="home-menu__item__icon">
-        {{partial "icons/ios7-search"}}
-      </div>
-      <div class="home-menu__text">
-        <h2 class="home-menu__item__title">
-          Search & Compare Standards
-        </h2>
-        <h3 class="home-menu__item__subtitle">
-          Standards from all 50 states including the Common Core
-        </h3>
+      <div class="home-menu__inner">
+        <div class="home-menu__item__icon">
+          {{partial "icons/ios7-search"}}
+        </div>
+        <div class="home-menu__text">
+          <h2 class="home-menu__item__title">
+            Search & Compare Standards
+          </h2>
+          <h3 class="home-menu__item__subtitle">
+            Standards from all 50 states including the Common Core
+          </h3>
+        </div>
       </div>
     {{/link-to}}
 
     {{#link-to "edit" class="home-menu__item"}}
-      <div class="home-menu__item__icon">
-        {{partial "icons/ios7-compose"}}
-      </div>
-      <div class="home-menu__text">
-        <h2 class="home-menu__item__title">
-          Create & Edit Standards
-        </h2>
-        <h3 class="home-menu__item__subtitle">
-          Create your own standards and share them with your school or district
-        </h3>
+      <div class="home-menu__inner">
+        <div class="home-menu__item__icon">
+          {{partial "icons/ios7-compose"}}
+        </div>
+        <div class="home-menu__text">
+          <h2 class="home-menu__item__title">
+            Create & Edit Standards
+          </h2>
+          <h3 class="home-menu__item__subtitle">
+            Create your own standards and share them with your school or district
+          </h3>
+        </div>
       </div>
     {{/link-to}}
 
     {{#link-to 'developers' class="home-menu__item"}}
-      <div class="home-menu__item__icon">
-        {{partial "icons/ios7-lightbulb"}}
-      </div>
-      <div class="home-menu__text">
-        <h2 class="home-menu__item__title">
-          Developer API
-        </h2>
-        <h3 class="home-menu__item__subtitle">
-          If you’re a developer, integrate these standards into your application
-        </h3>
+      <div class="home-menu__inner">
+        <div class="home-menu__item__icon">
+          {{partial "icons/ios7-lightbulb"}}
+        </div>
+        <div class="home-menu__text">
+          <h2 class="home-menu__item__title">
+            Developer API
+          </h2>
+          <h3 class="home-menu__item__subtitle">
+            If you’re a developer, integrate these standards into your application
+          </h3>
+        </div>
       </div>
     {{/link-to}}
 
@@ -56,6 +88,7 @@
   </div>
 
   <div class="credits">
+
     {{!-- <div class="sponsorship-footer__logo">{{partial "icons/cc-logo"}}</div>
     <div class="sponsorship-footer__loving">Lovingly built by Common Curriculum, the social lesson planner with standards built-in</div>
     <br> --}}

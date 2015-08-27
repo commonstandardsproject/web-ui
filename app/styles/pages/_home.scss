@@ -10,8 +10,14 @@ body{
 }
 
 .credits{
-  margin: 40px;
+  padding: 40px;
   color: $secondary-text !important;
   font-size: .8rem;
   text-align: center;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.credits__background{
+  @extend .masthead__background;
 }

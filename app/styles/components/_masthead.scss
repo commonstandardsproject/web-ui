@@ -1,17 +1,20 @@
 .masthead{
-  margin: 0 auto;
-  padding: 20px 0px;
+  padding: 0 0px;
   background-color: white;
-  width: 90vw;
   // border-top: 1px solid $hint;
   // border-bottom: 1px solid $hint;
   text-align: center;
-
+  position: relative;
+  overflow-y: hidden;
 }
 .masthead__title {
+  margin: 3vh auto;
+  width: 80vw;
+  position: relative;
+  z-index: 10;
   font-family: "aw-conqueror-carved";
-  font-size: 8rem;
-  line-height: 1;
+  font-size: 6rem;
+  line-height: .9;
   cursor: pointer;
   transition: color .5s;
   color: $color-header-title;
@@ -24,12 +27,26 @@
   }
 }
 
+.masthead__background{
+  top: 0;
+  position: absolute;
+  color:    $super-light;
+  left: -20vw;
+  right: -20vw;
+  z-index:  0;
+  font-family: "aw-conqueror-carved";
+  font-size: 2rem;
+  line-height: 1;
+}
+
 .masthead__subtitle {
-  margin-top: 1.5rem;
-  font-size: 3rem;
-  margin-bottom: 0;
+  position: relative;
+  z-index: 10;
+  margin: 1.5rem auto 3vh;
+  width: 80vw;
+  font-size: 2rem;
   padding-bottom: 0px;
-  font-weight: 200;
+  font-weight: 400;
   color: $secondary-text;
   // text-transform: uppercase;
 }
