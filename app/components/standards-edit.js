@@ -18,7 +18,9 @@ export default Ember.Component.extend({
   }),
 
   standardSet: Ember.computed('standardSetId', function(){
-    return Fetcher.find('standardSet', this.get('standardSetId'))
+    var set = Fetcher.find('standardSet', this.get('standardSetId'))
+    set.educationLevels = set.educationLevels || []
+    return set
   }),
 
   paneObserver: Ember.observer('pane', function(){
@@ -126,9 +128,9 @@ export default Ember.Component.extend({
         <p>
           First, log in or sign up below. Then, add or edit standars using the easy interface. Each time someone submits a change to  the standards, we review it and then save a version. This way, if someone makes a mistake (or edits with the standards you spent hours adding), we can rollback the change. Educator rely on standards to be accurate, so we take the integrity of standards very seriously.
         </p>
-        <h3>A note on copyright</h3>
+        <h3>Who can use the standards?</h3>
         <p>
-          All standards on the Common Standards Project are copyright by the owner. This means that if you add standards, you still own the copyright to the standards and can do whatever you'd like with them. All standards on the Common Standards Project are also licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution license</a>. This means anyone who uses the standards on Common Standards Project can use them for free with one condition -- they  have to give credit to the license holder. If you add your standards, this license will also apply to your work -- anyone can use your standards as long as they give you credit.
+          Anyone. For free! All standards that published to Common Standards Project are licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution license</a>. This means anyone who uses standards on Common Standards Project can use them and do whatever they like with them for free! For more details, click the link.
         </p>
         <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>
       </div>

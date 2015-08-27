@@ -44,18 +44,25 @@
   opacity: 0;
   display: flex;
   display: -webkit-flex;
-  float: right;
+  position: absolute;
+  top: 20px;
+  left: -100px;
   align-items: center;
   transition: opacity .2s;
 }
 
 .sortable-standard__icon{
-  svg {
-    width: 20px;
-    height: 20px;
+  svg{
+    height: 25px; width: 25px;
+    path{ fill: $hint; }
+    rect{ stroke: $hint; }
+    &:hover{
+      fill: $hint;
+      stroke: $hint;
+    }
   }
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   &:hover{
     svg path,
     svg polygon {
@@ -95,22 +102,13 @@ $standard-indent: 14px;
   // border-bottom: 1px solid $dividers;
   font-size: 1rem;
   line-height: 1.22;
-  width: 100%;
+  width: calc(100% - 100px);
   box-sizing: border-box;
-  padding-right: 10px;
+  margin-left: 100px;
 }
 
 .sortable-standard{
   list-style: none;
-  svg{
-    height: 20px; width: 20px;
-    path{ fill: $dividers; }
-    rect{ stroke: $dividers; }
-    &:hover{
-      fill: $hint;
-      stroke: $hint;
-    }
-  }
 }
 
 .searchable-standard:hover{
