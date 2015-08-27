@@ -117,7 +117,7 @@ export default Ember.Component.extend({
           Standards Creator & Editor
         </h1>
         <h2 class="standards-edit-h2">
-          Are we missing standards you rely on? Has your school, district or charter network created their own custom standards? Add them to the database and make them searchable!
+          Are we missing standards you rely on? Found a typo? Has your school, district or charter network created their own custom standards? Add them to the database and make them searchable!
         </h2>
         <p>
           Welcome to the Common Standards Project editing interface. Here, you can add or edit any standard in the database or add your own. Once your standards are in the database, you can share them so your colleagues can easily search them.
