@@ -1,7 +1,7 @@
 {
   "name": "common-standards-ui",
   "version": "0.0.0",
-  "description": "Small description for standards-importer goes here",
+  "description": "Frontend to Common Standards Project",
   "private": true,
   "directories": {
     "doc": "doc",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
     "ember-browserify": "^1.0.0",
-    "ember-cli": "0.2.7",
+    "ember-cli": "1.13.8",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-auto-register-helpers": "1.0.1",
     "ember-cli-autoprefixer": "0.4.1",
@@ -37,7 +37,7 @@
     "ember-cli-sass": "^4.0.0",
     "ember-cli-selectize": "0.3.3",
     "ember-cli-sortable": "0.1.10",
-    "ember-cli-styles-reloader": "^0.1.4",
+    "ember-cli-styles-reloader": "0.1.8",
     "ember-cli-uglify": "^1.0.1",
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
@@ -53,8 +53,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.7.0",
-    "ember-cli": "^0.2.7",
-    "ember-zeroclipboard": "^0.1.0",
+    "ember-zeroclipboard": "https://github.com/commoncurriculum/ember-zeroclipboard.git",
     "fast-json-patch": "^0.5.2",
     "immutable": "^3.7.3",
     "lodash-fp": "^0.9.4",

@@ -5,7 +5,8 @@
     "-Promise",
     "$",
     "hljs",
-    "Auth0Lock"
+    "Auth0Lock",
+    "analytics"
   ],
   "asi": true,
   "browser": true,

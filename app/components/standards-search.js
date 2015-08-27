@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   },
 
   searchAlgolia(){
-    if (this.get('query') == "" || Ember.isNone(this.get('query'))){
+    if (this.get('query') === "" || Ember.isNone(this.get('query'))){
       this.set('results', null)
       return
     }
@@ -49,7 +49,6 @@ export default Ember.Component.extend({
   {{partial "navbar"}}
 
   <div class="search-interface">
-
     <div class="search-bar {{if isSearchVisible 'show'}}">
       {{input value=query class="search-bar__input" placeholder="What would you like to search for?"}}
       <div class="show-link" {{action 'showLink'}}>

@@ -17,7 +17,7 @@ App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
-Ember.LinkView.reopen({
+Ember.LinkComponent.reopen({
   attributeBindings: ['data-hint']
 });
 
