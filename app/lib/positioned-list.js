@@ -23,7 +23,7 @@ export function moveItem(sortedArray, newIdx, oldIdx){
 
   if (_isInteger(position) === false || position < 0){
     array.splice(newIdx, 0, item)
-    this._rebalanceList(array)
+    _rebalanceList(array)
   } else {
     Ember.set(item, 'position', position)
   }
