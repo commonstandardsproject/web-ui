@@ -71,18 +71,21 @@ export default Ember.Component.extend({
       analytics.track('Search - Select Jurisdiction')
       this.set('jurisdictionId', jurisdiction.id)
       this.set('pane', 'subjects')
+      $(window).scrollTop(0)
     },
 
     selectSubject(subject){
       analytics.track('Search - Select Subject')
       this.set('subject', subject)
       this.set('pane', 'grade-levels')
+      $(window).scrollTop(0)
     },
 
     selectSet(set){
       analytics.track('Search - Select Set')
       this.sendAction('selectSet', set.id, this.get('id'))
       this.set('pane', 'standards')
+      $(window).scrollTop(0)
     },
 
     backToPane(pane){

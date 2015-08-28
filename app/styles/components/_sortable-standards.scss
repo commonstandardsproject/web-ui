@@ -102,13 +102,17 @@ $standard-indent: 14px;
   // border-bottom: 1px solid $dividers;
   font-size: 1rem;
   line-height: 1.22;
-  width: calc(100% - 100px);
+  width: 100%;
+  padding-right: 15px;
   box-sizing: border-box;
 }
+
+
 
 .sortable-standard{
   list-style: none;
   margin-left: 100px;
+  width: calc(100% - 100px);
 }
 
 .searchable-standard:hover{
