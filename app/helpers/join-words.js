@@ -4,4 +4,4 @@ export function joinWords(params/*, hash*/) {
   return params.join('');
 }
 
-export default Ember.HTMLBars.makeBoundHelper(joinWords);
+export default Ember.Helper.helper(joinWords);
