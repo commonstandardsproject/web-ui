@@ -1,6 +1,7 @@
 import config from '../config/environment';
 import {local} from "../lib/store";
 import Ember from "ember";
+import _ from "npm:lodash";
 
 
 var headers = function(){
@@ -10,73 +11,62 @@ var headers = function(){
   }
 }
 
+var defaultPost = {
+  contentType: "application/json",
+  dataType: "json",
+  method: "POST",
+  headers: headers()
+}
+
 export default Ember.Object.create({
 
   addJurisdiction(data, cb, errCb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'jurisdictions',
-      dataType: "json",
-      method:   "POST",
-      headers:  headers(),
-      data:     {jurisdiction: data},
+      data:     JSON.stringify({jurisdiction: data}),
       success:  cb,
       error:    errCb
-    })
+    }))
   },
 
   "commit:make": function(data, cb, error){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'commits',
-      dataType: "json",
-      method:   "POST",
-      headers:  headers(),
-      data:     {data: data},
+      data:     JSON.stringify({data: data}),
       success:  cb,
       error:    error,
-    })
+    }))
   },
 
   "commit:approve": function(id, cb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/approve',
-      dataType: "json",
-      method:   "POST",
-      headers:  headers(),
       success:  cb,
       error:    cb,
     })
   },
 
   "commit:reject": function(id, cb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/reject',
-      dataType: "json",
-      method:   "POST",
-      headers:  headers(),
       success:  cb,
       error:    cb,
     })
   },
 
   "user:updateAllowedOrigins": function(id, origins, cb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'users' + '/' + id + '/allowed_origins',
-      dataType: "json",
-      method:   "POST",
-      headers:  headers(),
-      data:     {data: origins},
+      data:     JSON.stringify({data: origins}),
       success:  cb,
       error:    cb,
     })
   },
 
   "user:afterSignIn": function(profile, cb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'users/signed_in',
-      method:   "POST",
-      dataType: "json",
-      data:     { profile: profile },
-      headers:  headers(),
+      data:     JSON.stringify({ profile: profile }),
       success(data){
         local.add('user', data.data.email, data)
         return cb(data)
@@ -96,12 +86,9 @@ export default Ember.Object.create({
   },
 
   "standardSet:create": function(params, cb){
-    $.ajax({
+    $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'standard_sets',
-      method:   "POST",
-      dataType: "json",
-      data:     params,
-      headers:  headers(),
+      data:     JSON.stringify(params),
       success:  cb,
       error:    cb
     })

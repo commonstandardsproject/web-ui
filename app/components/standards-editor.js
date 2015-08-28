@@ -46,7 +46,7 @@ export default Ember.Component.extend({
     removeStandard(id){
       if (window.confirm("Are you sure you want to delete this standard?")){
         analytics.track('Editor - Remove Standard')
-        this.get('standardsHash')[id] = null
+        delete this.get('standardsHash')[id]
         this.notifyPropertyChange('standardsHash')
       }
     }
