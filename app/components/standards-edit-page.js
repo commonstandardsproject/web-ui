@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 
   standardSet: Ember.computed('standardSetId', function(){
     var set = Fetcher.find('standardSet', this.get('standardSetId'))
-    set.educationLevels = set.educationLevels || []
+    if (!Ember.isNone(set)) set.educationLevels = set.educationLevels || [];
     return set
   }),
 
