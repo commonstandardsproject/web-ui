@@ -50,7 +50,8 @@
     "ember-truth-helpers": "0.0.5",
     "jsoneditor": "^4.2.0",
     "lodash": "3.8.0",
-    "torii": "0.4.0"
+    "torii": "0.4.0",
+    "rus-diff": "^1.1.0"
   },
   "dependencies": {
     "algoliasearch": "^3.7.0",
