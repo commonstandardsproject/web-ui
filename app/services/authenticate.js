@@ -6,7 +6,7 @@ import Fetcher from "../lib/fetcher";
 export default Ember.Service.extend({
   profile:         {},
   currentToken:    null,
-  isAuthenticated: false,
+  authenticatedAt: null,
 
   clientId: "w35Aiy4apjMKVh13hbW0fFL6McHYPZ9D",
   domain:   "commoncurriculum.auth0.com",
@@ -76,7 +76,7 @@ export default Ember.Service.extend({
       this.get('session').setProperties({
         profile:         data.profile,
         currentToken:    data.token,
-        isAuthenticated: true,
+        authenticatedAt: Date.now(),
         Authorization:   data.token
       })
       rpc["user:afterSignIn"](data.profile, function(data){
@@ -92,7 +92,7 @@ export default Ember.Service.extend({
   _afterReset: function(err){ },
   _afterLogout(){
     this.get('session').setProperties({
-      isAuthenticated: false
+      authenticatedAt: null
     })
   }
 

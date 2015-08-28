@@ -7,7 +7,14 @@ export default Ember.Component.extend({
 
   authenticate:    Ember.inject.service(),
   session:         Ember.inject.service(),
-  isAuthenticated: Ember.computed.alias('session.isAuthenticated'),
+
+  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
+    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  }),
+
+  isAuthenticatedWatcher: Ember.observer('isAuthenticated', function(){
+    if (this.get('isAuthenticated') === true) $(window).scrollTop(0);
+  }),
 
   jurisdictions: Ember.computed(function(){
     return Fetcher.find('jurisdiction', 'index')
@@ -30,7 +37,6 @@ export default Ember.Component.extend({
   scrollOnStart: Ember.on('didInsertElement', function(){
     $(window).scrollTop(0)
   }),
-
 
 
   actions: {

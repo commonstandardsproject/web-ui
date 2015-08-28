@@ -7,7 +7,9 @@ export default Ember.Component.extend({
   authenticate: Ember.inject.service(),
   session: Ember.inject.service(),
 
-  isAuthenticated: Ember.computed.alias('session.isAuthenticated'),
+  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
+    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  }),
 
   addHighlighting: Ember.on('didInsertElement', function(){
     $('pre').each(function(i, block) {
