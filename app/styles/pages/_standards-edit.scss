@@ -16,7 +16,7 @@
   border-bottom: 1px solid $dividers;
 }
 
-.standards-edit-pane__prompt{
+.standards-editor-pane__prompt{
   color: $red;
   font-size: 2rem;
   line-height: 2.8rem;
@@ -27,7 +27,7 @@
   margin-top: 0;
 }
 
-.standards-edit-pane__back{
+.standards-editor-pane__back{
   color: $hint;
   font-weight: 300;
   font-family: $font-family;
@@ -49,7 +49,7 @@
   @include bb($dividers);
 }
 
-.standards-edit-pane__subhead{
+.standards-editor-pane__subhead{
 
 }
 

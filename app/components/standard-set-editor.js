@@ -94,7 +94,7 @@ export default Ember.Component.extend({
 
 
     <h2 class="standard-set-editor-subhead">Standards</h2>
-    {{standards-editor standardsHash=standardSet.standards}}
+    {{standards-sorter-editor standardsHash=standardSet.standards}}
 
 
     {{!-- <h2 class="standard-set-editor-subhead">Change the standards</h2> --}}

@@ -42,8 +42,8 @@ export default Ember.Object.create({
     $.ajax(_.merge({}, defaultPost, {
       url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/approve',
       success:  cb,
-      error:    cb,
-    })
+      error:    cb
+    }))
   },
 
   "commit:reject": function(id, cb){
@@ -51,7 +51,7 @@ export default Ember.Object.create({
       url:      config.APP.apiBaseUrl + 'commits' + '/' + id + '/reject',
       success:  cb,
       error:    cb,
-    })
+    }))
   },
 
   "user:updateAllowedOrigins": function(id, origins, cb){
@@ -60,7 +60,7 @@ export default Ember.Object.create({
       data:     JSON.stringify({data: origins}),
       success:  cb,
       error:    cb,
-    })
+    }))
   },
 
   "user:afterSignIn": function(profile, cb){
@@ -72,7 +72,7 @@ export default Ember.Object.create({
         return cb(data)
       },
       error: cb
-    })
+    }))
   },
 
   "fetcherGet": function(url, cb){
@@ -91,7 +91,7 @@ export default Ember.Object.create({
       data:     JSON.stringify(params),
       success:  cb,
       error:    cb
-    })
+    }))
   }
 
 
