@@ -35,6 +35,8 @@ export default Ember.Component.extend({
       attrs.standardSetSubject = get(this, 'standardSet.subject')
       attrs.standardSetTitle   = get(this, 'standardSet.title')
       rpc["commit:make"](attrs, function(data){
+        this.set('formSubmittedSuccessfully', true)
+        $(window).scrollTop(0)
         this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
       }.bind(this), function(jqXhr, textStatus, errorThrown){
         this.set('commitError', errorThrown)
@@ -57,55 +59,63 @@ export default Ember.Component.extend({
     {{/if}}
 
 
-    <h2 class="standard-set-editor-subhead">Directions</h2>
-    <p>
-      First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
-    </p>
+    {{#if commitSuccess}}
+      <div class="alert alert-success">{{commitSuccess}}</div>
+    {{/if}}
+
+    {{#unless formSubmittedSuccessfully}}
+
+      <h2 class="standard-set-editor-subhead">Directions</h2>
+      <p>
+        First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
+      </p>
 
 
-    <h2 class="standard-set-editor-subhead">Description</h2>
-    <div class="form-horizontal">
-      <div class="form-group">
-        <label class="control-label col-sm-2">Title</label>
-        <div class="col-sm-10">
-          {{input value=standardSet.title type="text" class="form-control" placeholder="E.g. First Grade or HS-Algebra"}}
+      <h2 class="standard-set-editor-subhead">Description</h2>
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2">Title</label>
+          <div class="col-sm-10">
+            {{input value=standardSet.title type="text" class="form-control" placeholder="E.g. First Grade or HS-Algebra"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2">Subject</label>
+          <div class="col-sm-10">
+            {{input class="form-control" value=standardSet.subject type="text"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2">Source URL</label>
+          <div class="col-sm-10">
+            {{input value=standardSet.sourceUrl type="url" class="form-control" placeholder="e.g. The website where you're copying & pasting the standards from"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2">Education Levels</label>
+          <div class="col-sm-10">
+            {{#if standardSet.educationLevels}}
+              {{education-level-checkboxes value=standardSet.educationLevels}}
+            {{/if}}
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2">Subject</label>
-        <div class="col-sm-10">
-          {{input class="form-control" value=standardSet.subject type="text"}}
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2">Source URL</label>
-        <div class="col-sm-10">
-          {{input value=standardSet.sourceUrl type="url" class="form-control" placeholder="e.g. The website where you're copying & pasting the standards from"}}
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2">Education Levels</label>
-        <div class="col-sm-10">
-          {{#if standardSet.educationLevels}}
-            {{education-level-checkboxes value=standardSet.educationLevels}}
-          {{/if}}
-        </div>
-      </div>
-    </div>
 
 
-    <h2 class="standard-set-editor-subhead">Standards</h2>
-    {{standards-sorter-editor standardsHash=standardSet.standards}}
+      <h2 class="standard-set-editor-subhead">Standards</h2>
+      {{standards-sorter-editor standardsHash=standardSet.standards}}
 
 
-    {{!-- <h2 class="standard-set-editor-subhead">Change the standards</h2> --}}
-    {{standard-set-commit-maker
-      standardSet=standardSet
-      onFormSubmit=(action 'onFormSubmit')
-      diffError=diffError
-      commitSuccess=commitSuccess
-      commitError=commitError
-    }}
+      {{!-- <h2 class="standard-set-editor-subhead">Change the standards</h2> --}}
+      {{standard-set-commit-maker
+        standardSet=standardSet
+        onFormSubmit=(action 'onFormSubmit')
+        diffError=diffError
+        commitSuccess=commitSuccess
+        commitError=commitError
+      }}
+    {{/unless}}
+
 
 
   `
