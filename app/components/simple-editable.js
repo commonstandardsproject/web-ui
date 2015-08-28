@@ -102,10 +102,10 @@ export default Ember.Component.extend({
     e.preventDefault()
   },
 
-  // layout: hbs`{{_value}}`
-  render: function(buffer) {
-    buffer.push(this.get('value') || "")
-  }
+  layout: hbs`{{_value}}`
+  // render: function(buffer) {
+  //   buffer.push(this.get('value') || "")
+  // }
 
 
 })

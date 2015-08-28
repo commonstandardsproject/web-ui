@@ -24,7 +24,6 @@
 @import "components/standard-set-commit-maker";
 @import "components/jurisdiction-columns";
 @import "components/standards-editor-panes";
-@import "components/commit-list";
 @import "components/loading-balls";
 
 
@@ -39,6 +38,7 @@
 @import "pages/home";
 @import "pages/search";
 @import "pages/standards-edit";
+@import "pages/commit-page";
 
 
 html{

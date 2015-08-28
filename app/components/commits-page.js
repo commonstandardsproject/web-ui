@@ -2,6 +2,7 @@ import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';
 import Fetcher from "../lib/fetcher";
 import rpc from "../lib/rpc";
+import _ from "npm:lodash";
 
 export default Ember.Component.extend({
 
@@ -26,13 +27,35 @@ export default Ember.Component.extend({
         })
       }
     },
+    selectCommit(commit){
+      _.each(this.get('commits.list'), c => {Ember.set(c, 'isSelected', false)})
+      this.set('commit', commit)
+      Ember.set(this.get('commit'), 'isSelected', true)
+    }
   },
 
   layout: hbs`
-    <h1 class="commit-list-header">Commits</h1>
-    <div class="commit-list">
-    {{#each commits.list as |commit|}}
-      <div class="commit-list__item">
+    <h1 class="commit-page__header">Commits</h1>
+    <div class="commit-page__panes">
+      <div class="commit-page__list-pane">
+        <div class="commit-page__list">
+          {{#each commits.list as |commit|}}
+          <div class="commit-page__list-item {{if commit.isSelected 'is-selected' ''}}" {{action "selectCommit" commit}}>
+            {{commit.createdOn}}<br>
+            <strong>{{commit.jurisdictionTitle}}</strong>
+            {{commit.stanadrdSetSubject}}<br>
+            {{commit.standardSetTitle}}<br>
+            {{commit.committerName}}
+            <a href="mailto:{{commit.committerEmail}}">{{commit.committerEmail}}</a>
+          </div>
+          {{else}}
+            No Commits
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="commit-page__detail-pane">
+        {{#if commit}}
         <table class="table">
           <tbody>
             <tr>
@@ -50,7 +73,7 @@ export default Ember.Component.extend({
             </tr><tr>
               <td>Summary</td><td>{{commit.commitSummary}}</td>
             </tr><tr>
-              <td>Diff</td><td>{{json-pretty obj=commit.diff}}</td>
+              <td>Ops</td><td>{{json-pretty obj=commit.ops}}</td>
             </tr><tr>
               <td>Actions</td>
               <td>
@@ -60,10 +83,9 @@ export default Ember.Component.extend({
             </tr>
           </tbody>
         </table>
+        {{/if}}
       </div>
-    {{/each}}
     </div>
-
   `
 
 })

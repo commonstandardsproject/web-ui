@@ -22,17 +22,18 @@ export default Ember.Component.extend({
         store.server.find('standardSet', this.get('standardSet.id')),
         store.local.find('standardSet', this.get('standardSet.id'))
       )
-      if (_.keys(diff).length === 0){
+      if (diff.length === 0){
         this.set('diffError', "You haven't changed anything yet!")
         return
       } else {
         this.set('diffError', "")
       }
-      attrs.diff              = diff
-      attrs.jurisdictionTitle = get(this, 'jurisdiction.title')
-      attrs.jurisdictionId    = get(this, 'jurisdiction.id')
-      attrs.standardSetId     = get(this, 'standardSet.id')
-      attrs.standardSetTitle  = get(this, 'standardSet.title')
+      attrs.ops                = diff
+      attrs.jurisdictionTitle  = get(this, 'jurisdiction.title')
+      attrs.jurisdictionId     = get(this, 'jurisdiction.id')
+      attrs.standardSetId      = get(this, 'standardSet.id')
+      attrs.standardSetSubject = get(this, 'standardSet.subject')
+      attrs.standardSetTitle   = get(this, 'standardSet.title')
       rpc["commit:make"](attrs, function(data){
         this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
       }.bind(this), function(jqXhr, textStatus, errorThrown){

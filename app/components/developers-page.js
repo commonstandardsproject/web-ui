@@ -85,7 +85,7 @@ O7L4OQENOZ
       {{/if}}
     </div>
     <div class="developers-grid__main">
-      <h1>Welcome, developers</h1>
+      <h1>Welcome!</h1>
       <p>
         Standards are hard and we're here to help. There are 50 states (and even more organizations) who produce standards. If you're like us, your customers will start asking to add their own standards. Creating an infrastructure to screen scrape 50 state websites and then updating them is overwhelming. Companies like ASN and Academic Benchmarks charge and arm and a leg for standards in formats that don't conform to conventional JSON or are organized in bizarre, teacher unfriendly ways. Further, you need to update the standards as the states update them. And, of course, let's not forget search. What's a developer to do?
       </p>
@@ -132,6 +132,7 @@ O7L4OQENOZ
       </ul>
 
       <h1>Endpoints</h1>
+      <blockquote>Try out a live version at <a href="http://api.commonstandardsproject.com" target="_blank">http://api.commonstandardsproject.com</a></blockquote>
       <h2 id="jurisdictions-index">Jurisdictions/</h2>
       <p>
         Find a list of all the jurisdictions and organizations in the database

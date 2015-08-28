@@ -1,0 +1,25 @@
+.commit-page__header{
+  color: $red;
+  text-align: center;
+}
+
+.commit-page__panes{
+  display: flex;
+  display: -webkit-flex;
+}
+.commit-page__list-pane{
+  width: 30%;
+}
+
+.commit-page__detail-pane{
+  width: 70%;
+}
+
+.commit-page__list-item{
+  padding: 20px;
+  border-bottom: 1px solid $dividers;
+  cursor: pointer;
+  &.is-selected{
+    background-color: $yellow;
+  }
+}
