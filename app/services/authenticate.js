@@ -92,7 +92,9 @@ export default Ember.Service.extend({
   _afterReset: function(err){ },
   _afterLogout(){
     this.get('session').setProperties({
-      authenticatedAt: null
+      authenticatedAt: null,
+      Authorization:   null,
+      profile:         null,
     })
   }
 
