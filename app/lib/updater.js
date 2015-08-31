@@ -4,7 +4,6 @@ import _ from "npm:lodash";
 
 
 export const _update = function(doc, hash){
-  // if (hash === undefined) debugger;
   return doc.withMutations(map => {
     hash.get("$set").map((v, k) => {
       map.setIn(k.split('.'), v)
