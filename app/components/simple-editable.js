@@ -28,13 +28,9 @@ export default Ember.Component.extend({
   // Observers:
   willRender(){
     if (this.get('isUserTyping')) return;
+    if (this.$() == undefined) return;
     var value = this.get('value') || "";
-    // return this.$().text(this.get('value'));
-    this.set('_value', value)
-  },
-
-  mouseLeave: function(){
-    this.set('isUserTyping', false)
+    this.$().html(value)
   },
 
   focusIn: function(){
@@ -81,7 +77,6 @@ export default Ember.Component.extend({
   },
 
   keyUp: function(event) {
-    console.log('text', this.$().text())
     return this.set('value', this.$().text());
   },
 
@@ -101,11 +96,6 @@ export default Ember.Component.extend({
 
     e.preventDefault()
   },
-
-  layout: hbs`{{_value}}`
-  // render: function(buffer) {
-  //   buffer.push(this.get('value') || "")
-  // }
 
 
 })
