@@ -33,6 +33,12 @@ export default Ember.Component.extend({
     this.$().html(value)
   },
 
+  didInsertElement(){
+    if (this.$() == undefined) return;
+    var value = this.get('value') || "";
+    this.$().html(value)
+  },
+
   focusIn: function(){
     if (this.$() === undefined) return;
     var text = this.$().text()
