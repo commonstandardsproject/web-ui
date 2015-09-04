@@ -8,12 +8,12 @@
   overflow-y: hidden;
 }
 .masthead__title {
-  margin: 5vh auto;
+  margin: 10vh auto;
   width: 80vw;
   position: relative;
   z-index: 10;
   font-family: "aw-conqueror-carved";
-  font-size: 6rem;
+  font-size: 6.5rem;
   line-height: .9;
   cursor: pointer;
   transition: color .5s;
@@ -42,12 +42,13 @@
 .masthead__subtitle {
   position: relative;
   z-index: 10;
-  margin: 1.5rem auto 5vh;
+  margin: 1.5rem auto 10vh;
   width: 80vw;
-  font-size: 2rem;
+  font-size: 2.5rem;
   padding-bottom: 0px;
   font-weight: 400;
-  color: $text;
+  color: $secondary-text;
+  // font-family: "aw-conqueror-carved-one";
   // text-transform: uppercase;
 }
 
