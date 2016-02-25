@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('document-importer');
   this.route('edit')
   this.route('commits')
+  this.route('pull-requests', {path: '/pull-requests/:id'})
 });
 
 export default Router;

@@ -30,3 +30,17 @@ export var commit = {
 
 registerModel('commit')
 registerModel2('commit')
+
+export var pullRequest = {
+  url: config.APP.apiBaseUrl + 'pull_requests'
+}
+
+registerModel('pullRequest')
+registerModel2('pullRequest')
+
+export var userPullRequests = {
+  url: config.APP.apiBaseUrl + 'pull_requests/user'
+}
+
+registerModel('userPullRequests')
+registerModel2('userPullRequests')

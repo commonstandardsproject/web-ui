@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import _ from "npm:lodash";
+import rpc from "../lib/rpc";
+import idGen from "../lib/id-gen";
 import hbs from 'htmlbars-inline-precompile';
 import Fetcher from "../lib/fetcher";
 
@@ -10,6 +12,11 @@ export default Ember.Component.extend({
 
   isAuthenticated: Ember.computed('session.authenticatedAt', function(){
     return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  }),
+
+  pullRequests: Ember.computed('session.id', function(){
+    console.log('pull requests', Ember.get(this, 'session.id'))
+    return Fetcher.find('userPullRequests', this.get('session.id'))
   }),
 
   isAuthenticatedWatcher: Ember.observer('isAuthenticated', function(){
@@ -56,77 +63,30 @@ export default Ember.Component.extend({
     },
     goToPane(pane){
       this.set('pane', pane)
+    },
+    createPullRequest(){
+      rpc["pullRequest:create"]({}, function(data){
+        this.get('container').lookup('router:main').transitionTo('pull-requests', data.data.id)
+      }.bind(this), function(error){
+        console.error(error)
+      })
     }
   },
 
   layout: hbs`
   {{partial "navbar"}}
 
-  <div class="standards-edit">
-    {{#if isAuthenticated}}
-      <div class="standards-editor-panes show-{{pane}}">
-        <div class="standards-editor-panes__inner">
-          <div class="standards-editor-pane">
-            <h1 class="standards-editor-pane__prompt">First, choose/create a State, Organization, or School/District</h1>
-            {{#if jurisdictions._status.isFetching}}
-              Loading...
-            {{else}}
-              {{jurisdiction-lists
-                jurisdictions=jurisdictions
-                newOrganization=newOrganization
-                selectJurisdiction=(action 'selectJurisdiction') }}
-            {{/if}}
-          </div>
-
-          <div class="standards-editor-pane">
-            <h1 class="standards-editor-pane__prompt">
-              <div class="standards-editor-pane__back" {{action "goToPane" "jurisdictions"}}>&larr; Back</div>
-              Now, choose a set of standards</h1>
-            {{#if jurisdiction._status.isFetching}}
-              Loading...
-            {{else}}
-            {{standard-sets-list
-              standardSets=jurisdiction.standardSets
-              jurisdictionId=jurisdictionId
-              selectStandardSet=(action 'selectStandardSet')
-            }}
-            {{/if}}
-          </div>
-
-
-          <div class="standards-editor-pane">
-            <h1 class="standards-editor-pane__prompt">
-              <div class="standards-editor-pane__back" {{action "goToPane" "jurisdiction"}}>&larr; Back</div>
-              Standards Editor</h1>
-          {{#if standardSet._status.isFetching}}
-              Loading...
-            {{else}}
-            {{standard-set-editor
-              standardSet=standardSet
-              jurisdiction=jurisdiction
-            }}
-            {{/if}}
-          </div>
-          <div class="standards-editor-pane">
-            <h1>Versions</h1>
-            - list of versions
-              with info about each version
-          </div>
-          <div class="standards-editor-pane">
-            <h1>Version</h1>
-            <h1>Approved?</h1>
-          </div>
-
-        </div>
-      </div>
-    {{else}}
-      <div class="standards-edit-description">
-        <h1 class="standards-edit-h1">
-          Standards Creator & Editor
-        </h1>
-        <h2 class="standards-edit-h2">
-          Are we missing standards you rely on? Found a typo? Has your school, district or charter network created their own custom standards? Add them to the database and make them searchable!
-        </h2>
+  <div class="standards-edit-page">
+    <div class="standards-edit-page__header">
+      <h1 class="standards-edit-h1">
+        Standards Creator & Editor
+      </h1>
+      <h2 class="standards-edit-h2">
+        Are we missing standards you rely on? Found a typo? Has your school, district or charter network created their own custom standards? Add them to the database and make them searchable!
+      </h2>
+    </div>
+    <div class="row">
+      <div class="standards-edit-description col-sm-8">
         <p>
           Welcome to the Common Standards Project editing interface. Here, you can add or edit any standard in the database or add your own. Once your standards are in the database, you can share them so your colleagues can easily search them.
         </p>
@@ -138,10 +98,21 @@ export default Ember.Component.extend({
         <p>
           Anyone. For free! All standards that published to Common Standards Project are licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution license</a>. This means anyone who uses standards on Common Standards Project can use them and do whatever they like with them for free! For more details, click the link.
         </p>
-        <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>
       </div>
-    {{/if}}
-
+      <div class="standards-edit-page__pull-request-pane col-sm-4">
+        {{#if isAuthenticated}}
+          <h3>My Changes/Additions</h3>
+          <ul>
+          {{#each pullRequests.list as |pullRequest|}}
+            <li>{{#link-to 'pull-requests' pullRequest.id}} {{pullRequest.createdAt}} {{/link-to}}</li>
+          {{/each}}
+          </ul>
+          <div class="btn" {{action "createPullRequest"}}>Create Pull Request</div>
+        {{else}}
+          <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>
+        {{/if}}
+      </div>
+    </div>
   </div>
   `
 

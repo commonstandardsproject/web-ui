@@ -6,7 +6,7 @@ import _ from "npm:lodash";
 
 var headers = function(){
   return {
-    "Api-Key":        config.APP.apiKey,
+    "Api-Key":        JSON.parse(sessionStorage.getItem('es__apiKey')) || config.APP.apiKey,
     "Authorization":  JSON.parse(sessionStorage.getItem('es__Authorization'))
   }
 }
@@ -28,6 +28,23 @@ export default Ember.Object.create({
       data:     JSON.stringify({jurisdiction: data}),
       success:  cb,
       error:    errCb
+    }))
+  },
+
+  "pullRequest:create": function(data, cb, error){
+    $.ajax(_.merge({}, defaultPost(), {
+      url:      config.APP.apiBaseUrl + 'pull_requests',
+      success:  cb,
+      error:    error,
+    }))
+  },
+
+  "pullRequest:save": function(data, cb, error){
+    $.ajax(_.merge({}, defaultPost(), {
+      url:     config.APP.apiBaseUrl + 'pull_requests' + '/' + data.id,
+      data:    JSON.stringify({data: data}),
+      success: cb,
+      error:   error,
     }))
   },
 

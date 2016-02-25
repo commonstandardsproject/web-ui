@@ -1,12 +1,25 @@
 
-.standards-edit{
-  margin: 100px 20px;
+.standards-edit-page{
+  margin-top: 100px;
+  max-width: 1000px;
+  margin-left: auto; margin-right: auto;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
 }
 
-.standards-edit-description{
-  max-width: 700px;
-  margin-left: auto; margin-right: auto;
+.standards-edit-page__header{
+  flex: 2 100%;
 }
+
+// .standards-edit-description{
+//   width: 70%;
+//   max-width: 700px;
+// }
+//
+// .standards-edit-page__pull-request-pane{
+//   width: 30%;
+// }
 
 .standards-edit-h1{
   color: $red;
