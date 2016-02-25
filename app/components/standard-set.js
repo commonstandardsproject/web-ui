@@ -1,5 +1,6 @@
 import Ember from "ember";
 import Fetcher from "../lib/fetcher";
+import rpc from "../lib/rpc";
 import _ from "npm:lodash";
 import Standards from "../models/standards";
 import hbs from 'htmlbars-inline-precompile';
@@ -93,6 +94,14 @@ export default Ember.Component.extend({
       this.set('pane', pane)
     },
 
+    editSet(){
+      rpc["pullRequest:create"]({standardSetId: Ember.get(this, 'id')}, function(data){
+        this.get('container').lookup('router:main').transitionTo('pull-requests', data.data.id)
+      }.bind(this), function(error){
+        console.error(error)
+      })
+    },
+
     removeSet(){
       analytics.track('Search - Remove Set')
       this.sendAction('removeSet', this.get('id'))
@@ -155,9 +164,9 @@ export default Ember.Component.extend({
             <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
           {{/if}}
           <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
-          {{#link-to 'edit' (query-params standardSetId=standardSet.id pane="standard-set") class="standard-set-pane__edit hint--left" tagName="div" data-hint="Fix a typo in these standards"}}
+          <div class="standard-set-pane__edit hint--left" {{action "editSet"}} data-hint="Fix a typo in these standards">
             {{partial "icons/ios7-compose"}}
-          {{/link-to}}
+          </div>
           <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
           <h1 class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</h1>
           <h2 class="standard-set-header__subject" {{action 'backToPane' 'subjects'}}>{{currentSubject}} {{partial "icons/chevron-right"}}</h2>

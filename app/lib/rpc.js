@@ -34,6 +34,7 @@ export default Ember.Object.create({
   "pullRequest:create": function(data, cb, error){
     $.ajax(_.merge({}, defaultPost(), {
       url:      config.APP.apiBaseUrl + 'pull_requests',
+      data:    JSON.stringify(data),
       success:  cb,
       error:    error,
     }))

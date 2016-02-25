@@ -74,9 +74,14 @@ export default Ember.Component.extend({
       this.set('isUserTyping', true);
     }
     // prevent enter key
-    if (event.keyCode == 13 || event.which == 13){
+    if (event.shiftKey !== true && (event.keyCode === 13 || event.which === 13)){
       event.preventDefault()
+      this.sendAction('onEnterKey')
       return true
+    }
+
+    if ((event.ctrlKey === true || event.metaKey === true) && (event.keyCode === 8 || event.which === 8)){
+      this.sendAction('removeStandard')
     }
 
     return true
