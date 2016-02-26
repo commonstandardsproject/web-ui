@@ -6,4 +6,5 @@ export default Ember.Route.extend({
   model(params){
     return Fetcher.find('pullRequest', params.id)
   }
+  
 });

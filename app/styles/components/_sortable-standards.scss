@@ -39,6 +39,14 @@
   }
 }
 
+.sortable-standard__wrapper{
+  max-height: 1000px;
+  transition: max-height 0.2s;
+  &.is-collapsed{
+    max-height: 0;
+  }
+}
+
 
 .sortable-standard__icons{
   opacity: .1;

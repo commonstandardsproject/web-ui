@@ -66,6 +66,13 @@
 
 }
 
+.standard-set-editor__save-button{
+  background-color: $teal;
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+}
+
 .standards-edit-h2{
   color: $secondary-text;
   font-size: 2rem;

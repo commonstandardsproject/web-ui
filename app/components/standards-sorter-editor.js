@@ -6,6 +6,9 @@ import _ from "npm:lodash";
 import listSorter from "../lib/positioned-list";
 import uuid from "npm:node-uuid";
 
+let get = Ember.get
+let set = Ember.set
+
 
 export default Ember.Component.extend({
 
@@ -41,10 +44,15 @@ export default Ember.Component.extend({
       Ember.set(standard, 'depth', standard.depth - 1)
     },
     reorder(newArray, draggedItem){
+      console.log('newarray', newArray)
       analytics.track('Editor - Reorder')
       var oldIndex = _.indexOf(this.get('orderedStandards'), draggedItem)
-      var newIndex = _.indexOf(newArray, draggedItem)
+      // We have to account for the top header item
+      var newIndex = _.indexOf(newArray, draggedItem) -1
+      console.log('newIndex Item', get(newArray[newIndex], 'description'))
+      console.log('newIndex', newIndex)
       listSorter.moveItem(this.get('orderedStandards'), newIndex, oldIndex)
+      _.forEach(get(this, 'standardsHash'), (s, id) => set(s, 'isCollapsed', false))
       this.notifyPropertyChange('standardsHash')
     },
     onEnterKey(item){
@@ -71,13 +79,37 @@ export default Ember.Component.extend({
           })
         }
       }
-    }
+    },
+    prepareMove(item){
+      console.log('event', item)
+      // get offset
+      let offset = $(`#sortable-item-${item.id}`).offset()
+      let scrollTop = $(window).scrollTop()
+
+      let relativePosition = offset.top - scrollTop
+
+      // console.log('firstoffset', offset, scrollTop, offset.top-scrollTop)
+
+      _(get(this, 'orderedStandards'))
+        .filter(s => get(s, 'depth') > get(item, 'depth'))
+        .forEach(s => set(s, 'isCollapsed', true))
+        .run()
+
+      Ember.run.sync()
+
+      // Since we hid all the elements, we need to scroll to the right place on the screen.
+      Ember.run.scheduleOnce('afterRender', this, function(){
+        let newOffset = $(`#sortable-item-${item.id}`).offset()
+        $(window).scrollTop(newOffset.top - relativePosition)
+      })
+    },
+
   },
 
 
   layout: hbs`
 
-    {{#sortable-group tagName="div" onChange="reorder" as |group|}}
+    {{#sortable-group tagName="div" onChange="reorder" onDragStart="onDragStart" as |group|}}
       {{! We need to wrap this as a sortable item so the sortable item handler
           knows to include it when it calculates absolute position}}
       {{#sortable-item tagName="div" group=group handle=".sortable-standard__handle"}}
@@ -102,37 +134,9 @@ export default Ember.Component.extend({
         </div>
       </div>
       {{/sortable-item}}
+      {{log orderedStandards}}
       {{#each orderedStandards as |item index| }}
-        {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle"}}
-          <div class="sortable-standard sortable-standard--depth-{{item.depth}}" data-id={{item.id}} key={{item.id}}>
-            <div class="sortable-standard__columns">
-              <div class="sortable-standard__column--list-id">
-                {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" placeholder="List Identifier" onEnterKey=(action "onEnterKey" item) removeStandard=(action "removeStandard" item.id index)}}
-              </div>
-              <div class="sortable-standard__column--description">
-                {{simple-editable value=item.description class="sortable-standard__description" onEnterKey=(action "onEnterKey" item) removeStandard=(action "removeStandard" item.id index)}}
-              </div>
-              <div class="sortable-standard__column--statement-notation">
-                {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation" onEnterKey=(action "onEnterKey" item) removeStandard=(action "removeStandard" item.id index)}}
-              </div>
-              <div class="sortable-standard__icons">
-                <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" data-hint="Move">
-                  {{partial "icons/arrow-move"}}
-                </div>
-                <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action "outdent" item}}>
-                  {{partial "icons/arrow-left"}}
-                </div>
-                <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action "indent" item}}>
-                  {{partial "icons/arrow-right"}}
-                </div>
-                <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action "removeStandard" item.id}}>
-                  {{partial "icons/ios7-trash-filled"}}
-                </div>
-
-              </div>
-            </div>
-          </div>
-        {{/sortable-item}}
+        {{sortable-standard group=group standards=standardsHash item=item index=index onEnterKey=(action "onEnterKey" item) removeStandard=(action "removeStandard" item.id index) key=item.id prepareMove=(action "prepareMove" item)}}
       {{/each}}
     {{/sortable-group}}
 

@@ -17,6 +17,10 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('bower_components/auth0-lock/build/auth0-lock.js')
+  app.import(app.bowerDirectory + '/ladda/dist/spin.min.js');
+  app.import(app.bowerDirectory + '/ladda/dist/ladda.min.css');
+  app.import(app.bowerDirectory + '/ladda/dist/ladda.min.js');
+  app.import(app.bowerDirectory + '/ladda/dist/ladda.jquery.min.js');
 
   return app.toTree();
 }

@@ -7,6 +7,18 @@ let get = Ember.get
 
 export default Ember.Component.extend({
 
+  // setupAutoSave: Ember.on('didInsertElement', function(){this.autoSave()}),
+
+  autoSave(){
+    Ember.run.later(this, function(){
+      Ember.set(this, 'isSaving', true)
+      rpc["pullRequest:save"](get(this, 'model'), () => {
+        Ember.run.later(this, () => Ember.set(this, 'isSaving', false), 1000)
+        this.autoSave()
+      })
+    }, 10000)
+  },
+
   // TODO
   // - create Jurisdiction
   // - save every 10 seconds?
@@ -17,7 +29,6 @@ export default Ember.Component.extend({
 
   actions: {
     save(){
-      console.log('model', get(this, 'model.standardSet.educationLevels'))
       rpc["pullRequest:save"](get(this, 'model'), function(){
 
       })
@@ -28,17 +39,14 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      <div class="row" style="margin-top: 120px;">
+      <div class="row" style="margin-top: 60px;">
 
-        <div class="col-sm-9">
-
-          <div class="btn" {{action "save"}}>Save</div>
+        <div class="col-sm-12">
 
           <h2 class="standard-set-editor-subhead">Directions</h2>
           <p>
             First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
           </p>
-
 
           <h2 class="standard-set-editor-subhead">Description</h2>
           <div class="form-horizontal">
@@ -76,13 +84,19 @@ export default Ember.Component.extend({
             </div>
           </div>
 
-          
+
           <h2 class="standard-set-editor-subhead">Standards</h2>
           {{standards-sorter-editor standardsHash=model.standardSet.standards}}
 
 
-        </div>
-        <div class="col-sm-3">
+          <h2 class="standard-set-editor-subhead">Status: Draft</h2>
+          <p>
+            When you're ready to submit this for us to review and approve, click this button!
+            {{ladda-button text="Submit" data-style="zoom-in" data-size="s" class="standard-set-editor__request-approval-button" isSpinning=isRequestingApproval action="requestApproval"}}
+          </p>
+
+          <h2 class="standard-set-editor-subhead">Comments/Activities</h2>
+          {{ladda-button text="Save" data-style="zoom-in" data-size="s" class="standard-set-editor__save-button" isSpinning=isSaving action="save"}}
           Leave a note
           Activity
           {{#each model.activities as |activity|}}
@@ -90,6 +104,7 @@ export default Ember.Component.extend({
             {{activity.title}}
           {{/each}}
         </div>
+
       </div>
     </div>
 
