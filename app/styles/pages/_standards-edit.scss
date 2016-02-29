@@ -92,3 +92,61 @@
   padding: 10px;
   background-color: $yellow;
 }
+
+
+
+.standard-set-editor-draft-box{
+  margin-top: 3rem;
+  background-color: $yellow;
+  border: 1px solid $dividers;
+  padding: 2rem;
+  .standard-set-editor-subhead{
+    color: $secondary-text;
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+.standard-set-editor-draft-box__statuses{
+  display: flex;
+}
+
+.standard-set-editor-draft-box__status{
+  padding-right: .5rem;
+  color: $hint;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  &.is-active{ color: $teal; }
+  &:after{
+    color: $hint;
+    padding-left: .5rem;
+    content: "\203A";
+  }
+  &:last-child:after{ content: ""; }
+}
+
+.standard-set-editor-draft-box__buttons{
+  text-align: right;
+}
+
+@media(max-width: 750px){
+  .standard-set-editor-draft-box__buttons{
+    text-align: left;
+  }
+}
+
+
+.standard-set-editor-draft-box__button{
+  border-color: white;
+  color: white;
+  background-color: $teal;
+  font-weight: 600;
+  text-transform: uppercase;
+  &:hover{
+    border-color: white;
+    background-color: $green;
+    color: white;
+  }
+}

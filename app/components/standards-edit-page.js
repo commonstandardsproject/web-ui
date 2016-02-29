@@ -104,7 +104,7 @@ export default Ember.Component.extend({
           <h3>My Changes/Additions</h3>
           <ul>
           {{#each pullRequests.list as |pullRequest|}}
-            <li>{{#link-to 'pull-requests' pullRequest.id}} {{pullRequest.createdAt}} {{/link-to}}</li>
+            <li>{{#link-to 'pull-requests' pullRequest.id}} PR: {{pullRequest.createdAt}} {{/link-to}}</li>
           {{/each}}
           </ul>
           <div class="btn" {{action "createPullRequest"}}>Create Pull Request</div>

@@ -72,7 +72,8 @@ export default Ember.Service.extend({
 
   // Handle events
   _afterSignIn: function(data){
-    if(data.err == null) {
+    console.log("AFTER SIGN IN ", data)
+    if(data.err === null) {
       this.get('session').setProperties({
         profile:         data.profile,
         currentToken:    data.token,
@@ -84,7 +85,8 @@ export default Ember.Service.extend({
           apiKey:         data.data.apiKey,
           algoliaApiKey:  data.data.algoliaApiKey,
           allowedOrigins: data.data.allowedOrigins,
-          id:             data.data.id
+          id:             data.data.id,
+          isCommitter:    data.data.isCommitter
         })
       }.bind(this))
     }
