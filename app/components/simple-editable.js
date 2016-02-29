@@ -81,8 +81,13 @@ export default Ember.Component.extend({
     }
 
     if ((event.ctrlKey === true || event.metaKey === true) && (event.keyCode === 8 || event.which === 8)){
-      this.sendAction('removeStandard')
+      this.sendAction('onMetaDelete')
     }
+
+    // Down Arrow
+    if (event.keyCode === 38) { this.sendAction('onArrowUp') }
+    if (event.keyCode === 40) { this.sendAction('onArrowDown') }
+
 
     return true
   },

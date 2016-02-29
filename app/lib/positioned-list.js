@@ -1,6 +1,48 @@
 import Ember from "ember";
 import _ from "npm:lodash";
 
+let {get, set} = Ember;
+
+/**
+ * Public: move and item and it's children
+ */
+export function moveItemAndAncestors(originalArray, itemsToMove, insertAfterIndex ){
+
+  console.log('insertAfterIndex', insertAfterIndex)
+
+  return  _.chain(itemsToMove)
+
+    // Step 1: Remove the items to move from the array so we can insert them in
+    // step 2
+    .reduce((acc, item) => {
+      _.remove(acc, s => {
+        return get(s, 'id') === get(item, 'id')
+      })
+      return acc
+    }, _.clone(originalArray))
+
+    // Step 2: split the array and insert the items to move
+    .thru(acc => {
+      var head = _.take(acc, insertAfterIndex + 1)
+      var tail = _.drop(acc, insertAfterIndex + 1)
+      return head.concat(itemsToMove).concat(tail)
+    })
+
+    // Set the new positions
+    .map((s, index) => {
+      set(s, 'position', index * 1000)
+      return s
+    })
+
+    // Return as a hash keyed by the id
+    .reduce((acc, s) => {
+      acc[get(s, 'id')] = s
+      return acc
+    }, {})
+    .run()
+
+}
+
 /**
  * Public: Move an item
  *

@@ -13,25 +13,40 @@ export default Ember.Component.extend({
   <div class="sortable-standard sortable-standard--depth-{{item.depth}}" data-id={{item.id}}>
     <div class="sortable-standard__columns">
       <div class="sortable-standard__column--list-id">
-        {{simple-editable value=item.listId class="sortable-standard__list-id hint--bottom" placeholder="List Identifier" onEnterKey=attrs.onEnterKey removeStandard=attrs.removeStandard}}
+        {{simple-editable
+          value=item.listId
+          class="sortable-standard__list-id hint--bottom"
+          placeholder="List Identifier"
+          onEnterKey=attrs.onEnterKey
+          onMetaDelete=attrs.removeStandard
+          onArrowUp=(action attrs.onArrow "up" item.id "sortable-standard__list-id")
+          onArrowDown=(action attrs.onArrow "down" item.id "sortable-standard__list-id")
+        }}
       </div>
       <div class="sortable-standard__column--description">
-        {{simple-editable value=item.description class="sortable-standard__description" onEnterKey=attrs.onEnterKey removeStandard=attrs.removeStandard}}
+        {{simple-editable value=item.description class="sortable-standard__description" onEnterKey=attrs.onEnterKey onMetaDelete=attrs.removeStandard}}
       </div>
       <div class="sortable-standard__column--statement-notation">
-        {{simple-editable value=item.statementNotation class="sortable-standard__statement-notation" onEnterKey=attrs.onEnterKey removeStandard=attrs.removeStandard}}
+        {{simple-editable
+          value=item.statementNotation
+          class="sortable-standard__statement-notation"
+          onEnterKey=attrs.onEnterKey
+          onMetaDelete=attrs.removeStandard
+          onArrowUp=(action attrs.onArrow "up" item.id "sortable-standard__statement-notation") 
+          onArrowDown=(action attrs.onArrow "down" item.id "sortable-standard__statement-notation")
+        }}
       </div>
       <div class="sortable-standard__icons">
         <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" {{action attrs.prepareMove on="mouseDown"}} data-hint="Move">
           {{partial "icons/arrow-move"}}
         </div>
-        <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action "outdent" item}}>
+        <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action attrs.outdent item}}>
           {{partial "icons/arrow-left"}}
         </div>
-        <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action "indent" item}}>
+        <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action attrs.indent item}}>
           {{partial "icons/arrow-right"}}
         </div>
-        <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action "removeStandard" item.id}}>
+        <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action attrs.removeStandard item.id}}>
           {{partial "icons/ios7-trash-filled"}}
         </div>
 

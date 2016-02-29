@@ -37,23 +37,71 @@ export default Ember.Component.extend({
     indent(standard){
       analytics.track('Editor - Indent')
       Ember.set(standard, 'depth', standard.depth + 1)
+      this.notifyPropertyChange('standardsHash')
     },
+
     outdent(standard){
       if (standard.depth === 0) return;
       analytics.track('Editor - Outdent')
       Ember.set(standard, 'depth', standard.depth - 1)
+      this.notifyPropertyChange('standardsHash')
     },
+
+    // find node above
+    // find the node's last ancestorId and find the position of that item
+    // increment it by 100 and apply to all the nodes from that point onward
     reorder(newArray, draggedItem){
-      console.log('newarray', newArray)
+
+      let offset = $(`#sortable-item-${draggedItem.id}`).offset()
+      let scrollTop = $(window).scrollTop()
+      let relativePosition = offset.top - scrollTop
+
       analytics.track('Editor - Reorder')
       var oldIndex = _.indexOf(this.get('orderedStandards'), draggedItem)
-      // We have to account for the top header item
-      var newIndex = _.indexOf(newArray, draggedItem) -1
-      console.log('newIndex Item', get(newArray[newIndex], 'description'))
-      console.log('newIndex', newIndex)
-      listSorter.moveItem(this.get('orderedStandards'), newIndex, oldIndex)
+      var itemsToMoveIds = [get(draggedItem, 'id')]
+      if (get(draggedItem, 'ancestorIds')) {
+        itemsToMoveIds = itemsToMoveIds.concat(get(draggedItem, 'ancestorIds'))
+      }
+
+      var itemsToMove = _.map(itemsToMoveIds, id => get(this, `standardsHash.${id}`))
+
+      // pull out the header item which is just null
+      _.pull(newArray, null)
+      var newIndex = _.indexOf(newArray, draggedItem)
+      var itemAbove = newArray[newIndex - 1]
+
+      // if (itemAbove && itemAbove.ancestorIds) {
+      //   itemAbove =
+      // }
+      let ids = []
+      if (itemAbove) ids = [get(itemAbove, 'id')];
+      if (itemAbove && itemAbove.depth === draggedItem.depth) {
+        ids = _.compact(ids.concat(itemAbove.ancestorIds))
+      }
+      itemAbove = get(this, `standardsHash.${_.last(ids)}`)
+
+      let itemAboveIndex
+      if (itemAbove) {
+        itemAboveIndex = _.chain(get(this, 'orderedStandards'))
+          .tap(s => console.log('s', s))
+          .reject(s => _.includes(itemsToMoveIds, get(s, 'id')))
+          .map(s => get(s, 'id'))
+          .indexOf(get(itemAbove, 'id'))
+          .run()
+      } else {
+        itemAboveIndex = -1
+      }
+
+      var newStandards = listSorter.moveItemAndAncestors(get(this, 'orderedStandards'), itemsToMove, itemAboveIndex)
+      _.each(get(this, 'standardsHash'), (value, key) => {
+        set(get(this, 'standardsHash'), key, get(newStandards, key))
+      })
       _.forEach(get(this, 'standardsHash'), (s, id) => set(s, 'isCollapsed', false))
       this.notifyPropertyChange('standardsHash')
+      Ember.run.scheduleOnce('afterRender', this, function(){
+        let newOffset = $(`#sortable-item-${draggedItem.id}`).offset()
+        $(window).scrollTop(newOffset.top - relativePosition)
+      })
     },
     onEnterKey(item){
       var newStandard = this.addStandard(item.depth, item.position + 1)
@@ -62,11 +110,29 @@ export default Ember.Component.extend({
       })
       return true
     },
+
+    onArrow(direction, itemId, className){
+      let index = _.chain(get(this, 'orderedStandards'))
+        .map(s => get (s, 'id'))
+        .findIndex(s => s === itemId)
+        .value()
+
+      let addend
+      if (direction === "up") addend = -1
+      if (direction === "down") addend = +1
+      let nextStandard = get(this, 'orderedStandards').objectAt(index + addend)
+
+      if (nextStandard) {
+        $(`[data-id=${get(nextStandard, 'id')}] .${className}`).focus()
+      }
+    },
+
     addStandard(){
       var depth = _.get(_.last(this.get('orderedStandards')), 'depth', 0)
       var position = _.get(_.last(this.get('orderedStandards')), 'position', 0) + 1000
       this.addStandard(depth, position)
     },
+
     removeStandard(id, index){
       if (window.confirm("Are you sure you want to delete this standard?")){
         analytics.track('Editor - Remove Standard')
@@ -81,11 +147,9 @@ export default Ember.Component.extend({
       }
     },
     prepareMove(item){
-      console.log('event', item)
       // get offset
       let offset = $(`#sortable-item-${item.id}`).offset()
       let scrollTop = $(window).scrollTop()
-
       let relativePosition = offset.top - scrollTop
 
       // console.log('firstoffset', offset, scrollTop, offset.top-scrollTop)
@@ -95,6 +159,7 @@ export default Ember.Component.extend({
         .forEach(s => set(s, 'isCollapsed', true))
         .run()
 
+      // Sync so the sortable helper has the right data
       Ember.run.sync()
 
       // Since we hid all the elements, we need to scroll to the right place on the screen.
@@ -134,9 +199,23 @@ export default Ember.Component.extend({
         </div>
       </div>
       {{/sortable-item}}
-      {{log orderedStandards}}
+
       {{#each orderedStandards as |item index| }}
-        {{sortable-standard group=group standards=standardsHash item=item index=index onEnterKey=(action "onEnterKey" item) removeStandard=(action "removeStandard" item.id index) key=item.id prepareMove=(action "prepareMove" item)}}
+        {{sortable-standard
+          group=group
+          standards=standardsHash
+          item=item
+          index=index
+          key=item.id
+          onEnterKey=(action "onEnterKey" item)
+          onArrow=(action "onArrow")
+          removeStandard=(action "removeStandard" item.id index)
+          prepareMove=(action "prepareMove" item)
+          indent=(action "indent")
+          outdent=(action "outdent")
+          removeStandard=(action "removeStandard")
+        }}
+
       {{/each}}
     {{/sortable-group}}
 
