@@ -57,6 +57,7 @@ export default Ember.Component.extend({
       let relativePosition = offset.top - scrollTop
 
       analytics.track('Editor - Reorder')
+
       var oldIndex = _.indexOf(this.get('orderedStandards'), draggedItem)
       var itemsToMoveIds = [get(draggedItem, 'id')]
       if (get(draggedItem, 'ancestorIds')) {
@@ -69,35 +70,46 @@ export default Ember.Component.extend({
       _.pull(newArray, null)
       var newIndex = _.indexOf(newArray, draggedItem)
       var itemAbove = newArray[newIndex - 1]
+      var itemAboveIndex
 
-      // if (itemAbove && itemAbove.ancestorIds) {
-      //   itemAbove =
-      // }
-      let ids = []
-      if (itemAbove) ids = [get(itemAbove, 'id')];
-      if (itemAbove && itemAbove.depth === draggedItem.depth) {
-        ids = _.compact(ids.concat(itemAbove.ancestorIds))
-      }
-      itemAbove = get(this, `standardsHash.${_.last(ids)}`)
+      // index isn't 0, so we set it
+      if (itemAbove){
+        let ids = [get(itemAbove, 'id')];
 
-      let itemAboveIndex
-      if (itemAbove) {
+        // if it's the same depth, we want the last of it's ancestors
+        // as those are hidden in the UI
+        if (itemAbove.depth === draggedItem.depth) {
+          ids = _.compact(ids.concat(itemAbove.ancestorIds))
+        }
+
+        // look it up from the standardsHash
+        itemAbove = get(this, `standardsHash.${_.last(ids)}`)
+
         itemAboveIndex = _.chain(get(this, 'orderedStandards'))
-          .tap(s => console.log('s', s))
           .reject(s => _.includes(itemsToMoveIds, get(s, 'id')))
           .map(s => get(s, 'id'))
           .indexOf(get(itemAbove, 'id'))
           .run()
+
       } else {
         itemAboveIndex = -1
       }
 
+      // Get the standards back with a new position
       var newStandards = listSorter.moveItemAndAncestors(get(this, 'orderedStandards'), itemsToMove, itemAboveIndex)
+
+      // Update from the new standards
       _.each(get(this, 'standardsHash'), (value, key) => {
         set(get(this, 'standardsHash'), key, get(newStandards, key))
       })
+
+      // Change the iscollapsed status
       _.forEach(get(this, 'standardsHash'), (s, id) => set(s, 'isCollapsed', false))
+
+      // Let ember know we changed the hash
       this.notifyPropertyChange('standardsHash')
+
+      // Scroll to the old place
       Ember.run.scheduleOnce('afterRender', this, function(){
         let newOffset = $(`#sortable-item-${draggedItem.id}`).offset()
         $(window).scrollTop(newOffset.top - relativePosition)
