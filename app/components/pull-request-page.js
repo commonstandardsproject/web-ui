@@ -183,10 +183,12 @@ export default Ember.Component.extend({
                 </div>
                 <div class="standard-set-editor-activity__content">
                   <div class="standard-set-editor-activity__timestamp">{{moment-format activity.createdAt "MMMM Do, YYYY"}}</div>
-                  <div class="standard-set-editor-activity__title">{{activity.title}}</div>
-                  {{#if (eq activity.type "comment")}}
-                    <div class="standard-set-editor-activity__comment-user">{{activity.userName}}</div>
-                  {{/if}}
+                  <div class="standard-set-editor-activity__title">
+                    {{#if (eq activity.type "comment")}}
+                      <div class="standard-set-editor-activity__comment-user">{{activity.userName}}</div>
+                    {{/if}}
+                    {{activity.title}}
+                  </div>
                 </div>
               </div>
             {{/each}}
