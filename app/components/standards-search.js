@@ -56,6 +56,8 @@ export default Ember.Component.extend({
       </div>
     </div>
 
+    {{log standardSetIds}}
+
     <div class="search-panes">
       {{#each standardSetIds as |id|}}
         {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet" results=results}}

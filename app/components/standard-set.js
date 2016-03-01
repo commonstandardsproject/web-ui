@@ -5,6 +5,7 @@ import _ from "npm:lodash";
 import Standards from "../models/standards";
 import hbs from 'htmlbars-inline-precompile';
 
+
 export default Ember.Component.extend({
 
   pane: "standards",
@@ -29,16 +30,24 @@ export default Ember.Component.extend({
 
   standardSet: Ember.computed('id', function(){
     if (this.get('id').match(/blank/) !== null) return;
-    return Fetcher.find('standardSet', this.get('id'))
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('standardSet', this.get('id'))
+    })
   }),
 
   jurisdiction: Ember.computed('standardSet.jurisdiction.id', 'jurisdictionId', function(){
     var id = this.get('jurisdictionId') || this.get('standardSet.jurisdiction.id')
-    return Fetcher.find('jurisdiction', id)
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('jurisdiction', id)
+    })
+
   }),
 
   subjects: Ember.computed('jurisdiction.standardSets', function(){
     var sets = this.get('jurisdiction.standardSets') || {}
+    console.log('subject', this.get('jurisdiction'), _.chain(sets).pluck('subject').uniq().value().sort())
     return _.chain(sets).pluck('subject').uniq().value().sort()
   }),
 

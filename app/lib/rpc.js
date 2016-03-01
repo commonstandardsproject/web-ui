@@ -58,6 +58,23 @@ export default Ember.Object.create({
     }))
   },
 
+  "pullRequest:submit": function(id, comment, cb, error){
+    $.ajax(_.merge({}, defaultPost(), {
+      url:     `${config.APP.apiBaseUrl}pull_requests/${id}/submit`,
+      success: cb,
+      error:   error,
+    }))
+  },
+
+  "pullRequest:changeStatus": function(id, status, message, cb, error){
+    $.ajax(_.merge({}, defaultPost(), {
+      url:     `${config.APP.apiBaseUrl}pull_requests/${id}/change_status`,
+      data:    JSON.stringify({status: status, message: message}),
+      success: cb,
+      error:   error,
+    }))
+  },
+
   "commit:make": function(data, cb, error){
     $.ajax(_.merge({}, defaultPost(), {
       url:      config.APP.apiBaseUrl + 'commits',
@@ -104,13 +121,13 @@ export default Ember.Object.create({
     }))
   },
 
-  "fetcherGet": function(url, cb){
+  "fetcherGet": function(url, cb, errCb){
     $.ajax({
       url:     url,
       method:  "GET",
       headers: headers(),
       success: cb,
-      error:   cb
+      error:   errCb
     })
   },
 

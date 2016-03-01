@@ -51,6 +51,15 @@ export default Ember.Component.extend({
         set(this, 'commentIsSaving', false)
         set(this, 'model.activities', data.data.activities)
       }.bind(this))
+    },
+    submit(){
+      set(this, 'isSaving', true)
+      rpc["pullRequest:submit"](get(this, 'model.id'), function(data){
+        set(this, 'isSaving', false)
+        set(this, 'model', data.data)
+      }.bind(this), function(err){
+        set(this, 'savingError', err)
+      }.bind(this))
     }
   },
 
@@ -62,52 +71,56 @@ export default Ember.Component.extend({
       <div class="row" style="margin-top: 60px;">
         <div class="col-sm-12">
           <div class="standard-set-editor-draft-box">
-            <div class="row">
-              <div class="col-sm-6">
-                <h2 class="standard-set-editor-subhead">Status</h2>
-                <div class="standard-set-editor-draft-box__statuses">
-                  <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
-                  <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approval-requested') 'is-active'}}">Approval Requested</div>
-                  {{#if (eq model.status "revise-and-resubmit")}}
-                    <div class="standard-set-editor-draft-box__status {{if (eq model.status 'revise-and-resubmit') 'is-active'}}">Revise and resubmit</div>
-                  {{/if}}
-                  <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approved') 'is-active'}}">Standards Approved</div>
-                  {{#if (eq model.status "rejected")}}
-                    <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Revise and resubmit</div>
-                  {{/if}}
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="standard-set-editor-draft-box__buttons">
-                  <div class="btn-group">
-                    {{#if (eq model.status "draft")}}
-                      <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Submit</div>
-                    {{/if}}
+            {{#if isSaving}}
+              <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
+            {{else}}
+              <div class="row">
+                <div class="col-sm-6">
+                  <h2 class="standard-set-editor-subhead">Status</h2>
+                  <div class="standard-set-editor-draft-box__statuses">
+                    <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
+                    <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approval-requested') 'is-active'}}">Approval Requested</div>
                     {{#if (eq model.status "revise-and-resubmit")}}
-                      <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Resubmit</div>
+                      <div class="standard-set-editor-draft-box__status {{if (eq model.status 'revise-and-resubmit') 'is-active'}}">Revise and resubmit</div>
                     {{/if}}
-                    {{#if session.isCommitter}}
-                      {{#if (eq model.status "approval-requested")}}
-                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "revise"}}>Request Revision</div>
-                      {{/if}}
-                      <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "reject"}}>Reject</div>
-                      <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "approve"}}>Approve</div>
+                    <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approved') 'is-active'}}">Standards Approved</div>
+                    {{#if (eq model.status "rejected")}}
+                      <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Revise and resubmit</div>
                     {{/if}}
                   </div>
                 </div>
+                <div class="col-sm-6">
+                  <div class="standard-set-editor-draft-box__buttons">
+                    <div class="btn-group">
+                      {{#if (eq model.status "draft")}}
+                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Submit</div>
+                      {{/if}}
+                      {{#if (eq model.status "revise-and-resubmit")}}
+                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Resubmit</div>
+                      {{/if}}
+                      {{#if session.isCommitter}}
+                        {{#if (eq model.status "approval-requested")}}
+                          <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "revise"}}>Request Revision</div>
+                        {{/if}}
+                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "reject"}}>Reject</div>
+                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "approve"}}>Approve</div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                {{#if session.isCommitter}}
-                  <br>
-                  {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
-                {{/if}}
-                {{#if model.statusComment}}
-                  <div class="standard-set-editor-draft-box__status-comment">{{model.statusComment}}</div>
-                {{/if}}
+              <div class="row">
+                <div class="col-sm-12">
+                  {{#if session.isCommitter}}
+                    <br>
+                    {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
+                  {{/if}}
+                  {{#if model.statusComment}}
+                    <div class="standard-set-editor-draft-box__status-comment">{{model.statusComment}}</div>
+                  {{/if}}
+                </div>
               </div>
-            </div>
+            {{/if}}
           </div>
 
           <h2 class="standard-set-editor-subhead">Directions</h2>

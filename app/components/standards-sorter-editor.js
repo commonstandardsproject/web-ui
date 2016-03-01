@@ -179,7 +179,7 @@ export default Ember.Component.extend({
         let newOffset = $(`#sortable-item-${item.id}`).offset()
         $(window).scrollTop(newOffset.top - relativePosition)
       })
-    },
+    }
 
   },
 

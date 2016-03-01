@@ -15,8 +15,10 @@ export default Ember.Component.extend({
   }),
 
   pullRequests: Ember.computed('session.id', function(){
-    console.log('pull requests', Ember.get(this, 'session.id'))
-    return Fetcher.find('userPullRequests', this.get('session.id'))
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('userPullRequests', this.get('session.id'))
+    })
   }),
 
   isAuthenticatedWatcher: Ember.observer('isAuthenticated', function(){
@@ -24,17 +26,24 @@ export default Ember.Component.extend({
   }),
 
   jurisdictions: Ember.computed(function(){
-    return Fetcher.find('jurisdiction', 'index')
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('jurisdiction', 'index')
+    })
   }),
 
   jurisdiction: Ember.computed('jurisdictionId', function(){
-    return Fetcher.find('jurisdiction', this.get('jurisdictionId'))
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('jurisdiction', this.get('jurisdictionId'))
+    })
   }),
 
   standardSet: Ember.computed('standardSetId', function(){
-    var set = Fetcher.find('standardSet', this.get('standardSetId'))
-    if (!Ember.isNone(set)) set.educationLevels = set.educationLevels || [];
-    return set
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+    return ObjectPromiseProxy.create({
+      promise: Fetcher.find('standardSet', this.get('standardSetId'))
+    })
   }),
 
   paneObserver: Ember.observer('pane', function(){

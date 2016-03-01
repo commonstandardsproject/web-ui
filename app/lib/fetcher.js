@@ -9,30 +9,39 @@ var requests = []
 var Fetcher = Ember.Object.extend(Ember.Evented, {
 
   find(modelName, id, fetch){
-    if (Ember.isNone(id)) return null;
+    if (Ember.isNone(id)){
+      return new Ember.RSVP.Promise(function(resolve, reject){
+        resolve(null)
+      });
+    }
     var model = store.local.find(modelName, id)
 
-    if(shouldFetch(model._status) || fetch === true){
-      model._status.isFetching = true
-      var url = models[modelName].url + '/' + id.replace('index', '')
-      rpc["fetcherGet"](url, function(_data){
-        if (_data === undefined) return
-        var data = _.clone(_data.data) || {}
-        if (Ember.isArray(data)){
-          data = {
-            list: _data.data
+    return new Ember.RSVP.Promise(function(resolve, reject){
+      if(shouldFetch(model._status) || fetch === true){
+        model._status.isFetching = true
+        var url = models[modelName].url + '/' + id.replace('index', '')
+        rpc["fetcherGet"](url, function(_data){
+          if (_data === undefined) return
+          var data = _.clone(_data.data) || {}
+          if (Ember.isArray(data)){
+            data = {
+              list: _data.data
+            }
           }
-        }
-        data._status = {
-          inLocalStore: true,
-          isFetching: false,
-        }
-        store.local.add(modelName, id, data)
-        return store.server.add(modelName, id, data)
-      }.bind(this))
-    }
-
-    return model
+          data._status = {
+            inLocalStore: true,
+            isFetching: false,
+          }
+          store.local.add(modelName, id, data)
+          store.server.add(modelName, id, data)
+          resolve(data)
+        }.bind(this), function(err){
+          reject(err)
+        })
+      } else {
+        resolve(model)
+      }
+    })
 
   }
 })
