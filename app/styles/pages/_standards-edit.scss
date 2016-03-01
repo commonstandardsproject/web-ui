@@ -110,14 +110,20 @@
 }
 .standard-set-editor-draft-box__statuses{
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-flow: row wrap;
 }
 
 .standard-set-editor-draft-box__status{
-  padding-right: .5rem;
   color: $hint;
   font-size: 1.25rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  // font-weight: 600;
+  // text-transform: uppercase;
+  align-self: flex-start;
+  margin-right: .5rem;
+  height: auto;
   &.is-active{ color: $teal; }
   &:after{
     color: $hint;
@@ -148,5 +154,18 @@
     border-color: white;
     background-color: $green;
     color: white;
+  }
+}
+
+.standard-set-editor-draft-box__status-comment{
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: white;
+  &:before{
+    content: "Our Thoughts:";
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 }

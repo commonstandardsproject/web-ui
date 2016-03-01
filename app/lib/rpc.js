@@ -58,7 +58,7 @@ export default Ember.Object.create({
     }))
   },
 
-  "pullRequest:submit": function(id, comment, cb, error){
+  "pullRequest:submit": function(id, cb, error){
     $.ajax(_.merge({}, defaultPost(), {
       url:     `${config.APP.apiBaseUrl}pull_requests/${id}/submit`,
       success: cb,

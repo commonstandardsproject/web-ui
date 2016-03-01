@@ -36,6 +36,5 @@
 .standard-set-editor-activity__comment-user{
   color: $text;
   font-weight: bold;
-  display: inline;
-  &:after{ content: ": "; }
+  display: block;
 }

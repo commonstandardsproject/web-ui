@@ -7,7 +7,7 @@ let {get, set} = Ember
 
 export default Ember.Component.extend({
 
-  // setupAutoSave: Ember.on('didInsertElement', function(){this.autoSave()}),
+  setupAutoSave: Ember.on('didInsertElement', function(){this.autoSave()}),
 
   session: Ember.inject.service(),
 
@@ -17,9 +17,9 @@ export default Ember.Component.extend({
 
   autoSave(){
     Ember.run.later(this, function(){
-      Ember.set(this, 'isSaving', true)
+      // Ember.set(this, 'isSaving', true)
       rpc["pullRequest:save"](get(this, 'model'), () => {
-        Ember.run.later(this, () => Ember.set(this, 'isSaving', false), 1000)
+        // Ember.run.later(this, () => Ember.set(this, 'isSaving', false), 1000)
         this.autoSave()
       })
     }, 10000)
@@ -28,10 +28,6 @@ export default Ember.Component.extend({
   reversedActivities: Ember.computed('model.activities.@each', function(){
     return _(get(this, 'model.activities') || []).reverse().value()
   }),
-
-  // TODO
-  // - create Jurisdiction
-  // - save every 10 seconds?
 
   nullEducationLevels: Ember.computed('model.standardSet.educationLevels.@each', function(){
     return Ember.isNone(Ember.get(this, 'model.standardSet.educationLevels'))
@@ -52,13 +48,55 @@ export default Ember.Component.extend({
         set(this, 'model.activities', data.data.activities)
       }.bind(this))
     },
+
     submit(){
       set(this, 'isSaving', true)
-      rpc["pullRequest:submit"](get(this, 'model.id'), function(data){
-        set(this, 'isSaving', false)
-        set(this, 'model', data.data)
-      }.bind(this), function(err){
-        set(this, 'savingError', err)
+      rpc["pullRequest:save"](get(this, 'model'), function(){
+        rpc["pullRequest:submit"](get(this, 'model.id'), function(data){
+          set(this, 'isSaving', false)
+          set(this, 'model', data.data)
+        }.bind(this), function(err){
+          set(this, 'savingError', err)
+        }.bind(this))
+      }.bind(this))
+    },
+
+    revise(){
+      set(this, 'isSaving', true)
+      rpc["pullRequest:save"](get(this, 'model'), function(){
+        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "revise-and-resubmit", get(this, 'statusComment'), function(data){
+          set(this, 'isSaving', false)
+          set(this, 'statusComment', "")
+          set(this, 'model', data.data)
+        }.bind(this), function(err){
+          set(this, 'savingError', err)
+        }.bind(this))
+      }.bind(this))
+    },
+
+    reject(){
+      set(this, 'isSaving', true)
+      rpc["pullRequest:save"](get(this, 'model'), function(){
+        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "rejected", get(this, 'statusComment'), function(data){
+          set(this, 'isSaving', false)
+          set(this, 'statusComment', "")
+          set(this, 'model', data.data)
+        }.bind(this), function(err){
+          set(this, 'savingError', err)
+        }.bind(this))
+      }.bind(this))
+    },
+
+    approve(){
+      set(this, 'isSaving', true)
+      rpc["pullRequest:save"](get(this, 'model'), function(){
+        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "approved", get(this, 'statusComment'), function(data){
+          set(this, 'isSaving', false)
+          set(this, 'statusComment', "")
+          set(this, 'model', data.data)
+        }.bind(this), function(err){
+          set(this, 'savingError', err)
+        }.bind(this))
       }.bind(this))
     }
   },
@@ -85,7 +123,7 @@ export default Ember.Component.extend({
                     {{/if}}
                     <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approved') 'is-active'}}">Standards Approved</div>
                     {{#if (eq model.status "rejected")}}
-                      <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Revise and resubmit</div>
+                      <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Rejected</div>
                     {{/if}}
                   </div>
                 </div>
@@ -102,8 +140,10 @@ export default Ember.Component.extend({
                         {{#if (eq model.status "approval-requested")}}
                           <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "revise"}}>Request Revision</div>
                         {{/if}}
-                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "reject"}}>Reject</div>
-                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "approve"}}>Approve</div>
+                        {{#unless (model.status "approved")}}
+                          <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "reject"}}>Reject</div>
+                          <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "approve"}}>Approve</div>
+                        {{/unless}}
                       {{/if}}
                     </div>
                   </div>
@@ -116,7 +156,7 @@ export default Ember.Component.extend({
                     {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
                   {{/if}}
                   {{#if model.statusComment}}
-                    <div class="standard-set-editor-draft-box__status-comment">{{model.statusComment}}</div>
+                    <div class="standard-set-editor-draft-box__status-comment">{{htmlize model.statusComment}}</div>
                   {{/if}}
                 </div>
               </div>
@@ -200,7 +240,10 @@ export default Ember.Component.extend({
                     {{#if (eq activity.type "comment")}}
                       <div class="standard-set-editor-activity__comment-user">{{activity.userName}}</div>
                     {{/if}}
-                    {{activity.title}}
+                    {{#if (eq activity.type "status-change")}}
+                      <div class="standard-set-editor-activity__comment-user">{{activity.status}}</div>
+                    {{/if}}
+                    {{htmlize activity.title}}
                   </div>
                 </div>
               </div>
