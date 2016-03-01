@@ -49,6 +49,15 @@ export default Ember.Object.create({
     }))
   },
 
+  "pullRequest:addComment": function(id, comment, cb, error){
+    $.ajax(_.merge({}, defaultPost(), {
+      url:     `${config.APP.apiBaseUrl}pull_requests/${id}/comment`,
+      data:    JSON.stringify({comment: comment}),
+      success: cb,
+      error:   error,
+    }))
+  },
+
   "commit:make": function(data, cb, error){
     $.ajax(_.merge({}, defaultPost(), {
       url:      config.APP.apiBaseUrl + 'commits',

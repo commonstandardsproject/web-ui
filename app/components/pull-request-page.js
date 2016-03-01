@@ -3,7 +3,7 @@ import _ from "npm:lodash";
 import hbs from 'htmlbars-inline-precompile';
 import rpc from "../lib/rpc";
 
-let get = Ember.get
+let {get, set} = Ember
 
 export default Ember.Component.extend({
 
@@ -25,6 +25,10 @@ export default Ember.Component.extend({
     }, 10000)
   },
 
+  reversedActivities: Ember.computed('model.activities.@each', function(){
+    return _(get(this, 'model.activities') || []).reverse().value()
+  }),
+
   // TODO
   // - create Jurisdiction
   // - save every 10 seconds?
@@ -38,6 +42,15 @@ export default Ember.Component.extend({
       rpc["pullRequest:save"](get(this, 'model'), function(){
 
       })
+    },
+    submitComment(){
+      let comment = get(this, 'commentValue')
+      set (this, 'commentIsSaving', true)
+      rpc["pullRequest:addComment"](get(this, 'model.id'), comment, function(data){
+        set(this, 'commentValue', '')
+        set(this, 'commentIsSaving', false)
+        set(this, 'model.activities', data.data.activities)
+      }.bind(this))
     }
   },
 
@@ -143,12 +156,16 @@ export default Ember.Component.extend({
 
 
           <h2 class="standard-set-editor-subhead">Comments & Questions</h2>
-          {{textarea class="form-control" rows="3" value=statusComment placeholder="If you have a comment or questions for us, just let write it here and we'll respond!"}}
-          <br>
-          <div class="btn btn-block btn-default" {{action "submitComment"}}>Comment</div>
+          {{#if commentIsSaving}}
+            <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
+          {{else}}
+            {{textarea class="form-control" rows="3" value=commentValue placeholder="If you have a comment or questions for us, just let write it here and we'll respond!"}}
+            <br>
+            <div class="btn btn-block btn-default" {{action "submitComment"}}>Comment</div>
+          {{/if}}
 
           <div class="standard-set-editor-activies">
-            {{#each model.activities as |activity|}}
+            {{#each reversedActivities as |activity|}}
               <div class="standard-set-editor-activity">
                 <div class="standard-set-editor-activity__icon">
                   {{#if (eq activity.type "created")}}
@@ -167,6 +184,9 @@ export default Ember.Component.extend({
                 <div class="standard-set-editor-activity__content">
                   <div class="standard-set-editor-activity__timestamp">{{moment-format activity.createdAt "MMMM Do, YYYY"}}</div>
                   <div class="standard-set-editor-activity__title">{{activity.title}}</div>
+                  {{#if (eq activity.type "comment")}}
+                    <div class="standard-set-editor-activity__comment-user">{{activity.userName}}</div>
+                  {{/if}}
                 </div>
               </div>
             {{/each}}
