@@ -50,7 +50,7 @@ export default Ember.Component.extend({
 
 
     {{#if standardSet.submissions}}
-      <h2 class="standard-set-editor-subhead">Changes waiting to be approved</h2>
+      <h2 class="standard-set-editor__subhead">Changes waiting to be approved</h2>
       <ul>
       {{#each standardSet.submissions as |submission|}}
         <li>{{submission.title}}</li>
@@ -65,13 +65,13 @@ export default Ember.Component.extend({
 
     {{#unless formSubmittedSuccessfully}}
 
-      <h2 class="standard-set-editor-subhead">Directions</h2>
+      <h2 class="standard-set-editor__subhead">Directions</h2>
       <p>
         First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
       </p>
 
 
-      <h2 class="standard-set-editor-subhead">Description</h2>
+      <h2 class="standard-set-editor__subhead">Description</h2>
       <div class="form-horizontal">
         <div class="form-group">
           <label class="control-label col-sm-2">Title</label>
@@ -102,11 +102,11 @@ export default Ember.Component.extend({
       </div>
 
 
-      <h2 class="standard-set-editor-subhead">Standards</h2>
+      <h2 class="standard-set-editor__subhead">Standards</h2>
       {{standards-sorter-editor standardsHash=standardSet.standards}}
 
 
-      {{!-- <h2 class="standard-set-editor-subhead">Change the standards</h2> --}}
+      {{!-- <h2 class="standard-set-editor__subhead">Change the standards</h2> --}}
       {{standard-set-commit-maker
         standardSet=standardSet
         onFormSubmit=(action 'onFormSubmit')

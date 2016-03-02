@@ -184,7 +184,7 @@ export default Ember.Component.extend({
               {{else}}
                 <div class="row">
                   <div class="col-sm-6">
-                    <h2 class="standard-set-editor-subhead">Status</h2>
+                    <h2 class="standard-set-editor__subhead">Status</h2>
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approval-requested') 'is-active'}}">Approval Requested</div>
@@ -237,18 +237,32 @@ export default Ember.Component.extend({
               {{/if}}
             </div>
 
-            <h2 class="standard-set-editor-subhead">Directions</h2>
-            <p class="standard-set-editor-directions">
-              First, thanks so much for helping improve the standards.
-              We (and all the teachers that use these standards) appreciate it.
-              Second, if you have any questions, scroll to the bottom and add a comment.
-              We'll respond within the week (or sooner!).
-              Third, when you're done, click "Submit" up top. We'll get an email and then take a look at the standards.
-              If they look good, we'll accept them. If there's anything that looks a miss or could be improved,
-              we'll send you an email and you'll get a chance to revise them as much as necessary.
+            <h2 class="standard-set-editor__subhead">Directions</h2>
+            <p class="standard-set-editor__directions">
+              First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
             </p>
+            <h3 class="standard-set-editor__h3">Your Goal</h3>
+            <ul>
+              <li>The standards you paste here should look like a pretty, outlined list by the time you’re done.</li>
+            </ul>
 
-            <h2 class="standard-set-editor-subhead">Description</h2>
+            <h3 class="standard-set-editor__h3">How to do this</h3>
+            <ul>
+              <li>Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
+              <li>Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
+              <li>Move a standard: the drag icon on the right of each standard</li>
+              <li>Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
+              <li>If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started"</li>
+            </ul>
+
+            <h3 class="standard-set-editor__h3">When you’re done</h3>
+            <ul>
+              <li>Click "Submit" up top. We’ll take action on your submission within a week (or sooner!)</li>
+              <li>We’ll either approve your standards or send it back to you with a few comments for revision</li>
+              <li>If you have any questions, scroll to the bottom and add a comment.</li>
+            </ul>
+
+            <h2 class="standard-set-editor__subhead">Description</h2>
             <div class="form-horizontal">
               <div class="form-group">
                 <label class="control-label col-sm-2">Jurisdiction</label>
@@ -289,11 +303,11 @@ export default Ember.Component.extend({
               </div>
             </div>
 
-            <h2 class="standard-set-editor-subhead">Standards</h2>
+            <h2 class="standard-set-editor__subhead">Standards</h2>
             {{standards-sorter-editor standardsHash=model.standardSet.standards}}
 
 
-            <h2 class="standard-set-editor-subhead">Comments & Questions</h2>
+            <h2 class="standard-set-editor__subhead">Comments & Questions</h2>
             {{#if commentIsSaving}}
               <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
             {{else}}

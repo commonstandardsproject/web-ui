@@ -53,7 +53,7 @@
 }
 
 
-.standard-set-editor-subhead{
+.standard-set-editor__subhead{
   color: $red;
   margin-top: 3rem;
   color: $hint;
@@ -62,7 +62,14 @@
   @include bb($dividers);
 }
 
-.standard-set-editor-directions{
+.standard-set-editor__h3{
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: $secondary-text;
+  font-weight: 600;
+}
+
+.standard-set-editor__directions{
   font-size: 1.5rem;
   color: $secondary-text;
 }
@@ -102,7 +109,7 @@
   background-color: $super-light;
   border: 1px solid $dividers;
   padding: 2rem;
-  .standard-set-editor-subhead{
+  .standard-set-editor__subhead{
     color: $secondary-text;
     margin-top: 0;
     border-bottom: none;

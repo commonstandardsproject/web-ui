@@ -209,7 +209,7 @@ export default Ember.Component.extend({
             <div class="sortable-standard__column--help-text">The text of the standard</div>
           </div>
           <div class="sortable-standard__column--statement-notation sortable-standard__column--header">
-            <div>Code</div>
+            <div>Abbreviation</div>
             <div class="sortable-standard__column--help-text">The shorthand identifier e.g. 1.NBT.4</div>
           </div>
           <div class="sortable-standard__icons sortable-standard__column--header">
