@@ -28,7 +28,7 @@ export default Ember.Component.extend({
   jurisdictions: Ember.computed(function(){
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', 'index')
+      promise: Fetcher.find('jurisdiction', 'index', true)
     })
   }),
 
@@ -119,13 +119,13 @@ export default Ember.Component.extend({
           {{/if}}
           <ul>
           {{#each pullRequests.list as |pullRequest|}}
-            <li>{{#link-to 'edit.pull-requests' pullRequest.id}}PR: {{pullRequest.title}}{{/link-to}}</li>
+            <li>{{#link-to 'edit.pull-requests' pullRequest.id}}{{pullRequest.title}}{{/link-to}}</li>
           {{/each}}
           </ul>
           {{#if isCreatingPullRequest}}
             <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
           {{else}}
-            <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Pull Request</div>
+            <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Standards</div>
           {{/if}}
         {{else}}
           <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>

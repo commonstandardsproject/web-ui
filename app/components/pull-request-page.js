@@ -39,7 +39,7 @@ export default Ember.Component.extend({
   jurisdictions: Ember.computed(function(){
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', 'index')
+      promise: Fetcher.find('jurisdiction', 'index', true)
     })
   }),
 
@@ -139,6 +139,8 @@ export default Ember.Component.extend({
     selectJurisdiction(id, title){
       set(this, 'model.standardSet.jurisdiction.id', id)
       set(this, 'model.standardSet.jurisdiction.title', title)
+      // Scroll to the top since the size changed
+      window.scrollTo(0,0);
     },
 
     selectSubject(value){
