@@ -318,6 +318,7 @@ export default Ember.Component.extend({
             </div>
           </div>
         {{else}}
+          <h1 class="standards-edit-h2">Choose a state, organization, or school</h1>
           {{jurisdiction-lists
             jurisdictions=jurisdictions
             newOrganization=newOrganization

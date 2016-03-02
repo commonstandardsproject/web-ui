@@ -74,9 +74,12 @@ export default Ember.Component.extend({
       this.set('pane', pane)
     },
     createPullRequest(){
+      Ember.set(this, 'isCreatingPullRequest', true)
       rpc["pullRequest:create"]({}, function(data){
         this.get('container').lookup('router:main').transitionTo('edit.pull-requests', data.data.id)
+        Ember.set(this, 'isCreatingPullRequest', false)
       }.bind(this), function(error){
+        Ember.set(this, 'isCreatingPullRequest', false)
         console.error(error)
       })
     }
@@ -119,7 +122,11 @@ export default Ember.Component.extend({
             <li>{{#link-to 'edit.pull-requests' pullRequest.id}}PR: {{pullRequest.title}}{{/link-to}}</li>
           {{/each}}
           </ul>
-          <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Pull Request</div>
+          {{#if isCreatingPullRequest}}
+            <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
+          {{else}}
+            <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Pull Request</div>
+          {{/if}}
         {{else}}
           <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>
         {{/if}}
