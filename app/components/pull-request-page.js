@@ -219,8 +219,14 @@ export default Ember.Component.extend({
             </div>
 
             <h2 class="standard-set-editor-subhead">Directions</h2>
-            <p>
-              First, thanks for helping improve the standards. We (and all the teachers that use these standards) appreciate it. Second, to edit a standard, it's really easy -- just click into the text and make your change. When you're done, scroll down to bottom and click "Submit Change".
+            <p class="standard-set-editor-directions">
+              First, thanks so much for helping improve the standards.
+              We (and all the teachers that use these standards) appreciate it.
+              Second, if you have any questions, scroll to the bottom and add a comment.
+              We'll respond within the week (or sooner!).
+              Third, when you're done, click "Submit" up top. We'll get an email and then take a look at the standards.
+              If they look good, we'll accept them. If there's anything that looks a miss or could be improved,
+              we'll send you an email and you'll get a chance to revise them as much as necessary.
             </p>
 
             <h2 class="standard-set-editor-subhead">Description</h2>
