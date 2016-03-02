@@ -10,22 +10,26 @@
 
 .home-menu__item{
   &:last-child{
-    border-bottom: 1px solid $dividers;
+    // border-bottom: 4px solid $dividers;
   }
-  background-color: hsla(0,0,100%, .8);
+  // transform: rotate(-15deg);
+
+  background-color: hsla(0,0,100%, .6);
+  // border-top: 2px solid $dividers;
+  // border-left: 2px solid $dividers;
+  // border-right: 2px solid $dividers;
   border-top: 1px solid $dividers;
-  border-left: 1px solid $dividers;
-  border-right: 1px solid $dividers;
+  border-bottom: 1px solid $dividers;
   padding: 20px 0;
-  // margin-bottom: 20px;
+  // margin-bottom: 2rem;
   color: $teal;
   clear: both;
   display: flex;
-  display: -webkit-flex;
-  // width: 80vw;
-  max-width: 600px;
+  align-children: left;
   margin-left: auto;
   margin-right: auto;
+  padding: 3rem 0;
+  // justify-content: left;
   a {
     text-decoration: none;
   }
@@ -57,41 +61,45 @@
   display: -webkit-flex;
   align-items: center;
   width: 100%;
+  max-width: 1200px;
+  padding-left: 10vw;
 }
 
 .home-menu__item__icon{
+  // display: none;
+  // width: 30vw;
+  min-width: 120px;
+  max-height: 120px;
+  text-align: left;
+  align-self: left;
+  margin-right: 2rem;
   svg {
-    width: 10vw;
-    max-width: 60px;
-    max-height: 60px;
-    height: 10vw;
+    width: 40vw;
+    max-width: 120px;
+    max-height: 120px;
+    height: 40vw;
     path, polygon, rect {
       transition: all .3s;
       // fill: $red;
       fill: $teal;
     }
   }
-  width: 10vw;
-  min-width: 20px;
-  // max-width: 60px;
-  max-height: 60px;
-  width: 20%;
-  text-align: center;
-  align-self: center;
+
 }
 
 .home-menu__text{
-  align-self: center;
+  align-self: left;
   width: 80%;
+  padding-right: 3rem;
 }
 
 .home-menu__item__title{
-  // font-family: "aw-conqueror-carved-one";
-  font-family: $font-family;
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-family: "aw-conqueror-carved";
+  // font-family: $font-family;
+  font-size: 4rem;
+  font-weight: 400;
   // letter-spacing: -.15rem;
-  line-height: 1;
+  line-height: .9;
   margin-bottom: 0;
   margin-top: 0;
   padding-bottom: 0;
@@ -110,9 +118,9 @@
 .home-menu__item__subtitle{
   transition: all .3s;
   // font-family: "le-monde-courrier-std-2";
-  font-weight: 300;
-  color: $secondary-text;
-  font-size: 1.5rem;
+  font-weight: 400;
+  color: $hint;
+  font-size: 2rem;
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0;
@@ -125,6 +133,14 @@
   .home-menu__item{
     padding: 20px;
   }
+  .home-menu__inner{
+    padding-left: 20px;
+  }
+
+  .home-menu__text{
+    padding-right: 1rem;
+  }
+
   .home-menu__item__title{
     font-size: 1.5rem;
   }

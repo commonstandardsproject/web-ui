@@ -3,7 +3,7 @@
   // background-color: white;
   // border-top: 1px solid $hint;
   // border-bottom: 1px solid $hint;
-  text-align: center;
+  text-align: left;
   position: relative;
   overflow-y: hidden;
 }
@@ -13,13 +13,14 @@
   position: relative;
   z-index: 10;
   font-family: "aw-conqueror-carved";
-  font-size: 6.5rem;
-  line-height: .9;
+  font-size: 7.5rem;
+  line-height: .8;
   cursor: pointer;
   transition: color .5s;
   color: $color-header-title;
   margin-bottom: 0;
   padding-bottom: 0;
+  // transform: rotate(-15deg);
   &:hover{
     // color: #EAE3A0;
     // color: $red;
@@ -46,8 +47,9 @@
   width: 80vw;
   font-size: 2.5rem;
   padding-bottom: 0px;
-  font-weight: 400;
+  font-weight: 600;
   color: $secondary-text;
+  // transform: rotate(-15deg);
   // font-family: "aw-conqueror-carved-one";
   // text-transform: uppercase;
 }

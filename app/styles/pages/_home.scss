@@ -6,10 +6,10 @@ body{
 }
 
 .state-background{
-  top: 0; bottom: 0; left: 0; right: 0;
+  top: 0; bottom: 0; left: -50%; right: -50%;
   position: absolute;
-  color:    $super-light;
-  width: 100%;
+  color: $super-light;
+  width: 200%;
   z-index:  0;
   font-family: "aw-conqueror-carved";
   font-size: 2rem;
@@ -26,6 +26,10 @@ body{
   width: 140vw;
 }
 
+.state-background__inner-line{
+  display: block;
+  transform: rotate(-15deg) scale(1) translate(30%);
+}
 
 .home-wrapper{
   // background-color: white;
