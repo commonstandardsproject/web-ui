@@ -84,9 +84,13 @@ export default Ember.Component.extend({
       this.sendAction('onMetaDelete')
     }
 
-    // Down Arrow
+    // Up/Down Arrow
     if (event.keyCode === 38) { this.sendAction('onArrowUp') }
     if (event.keyCode === 40) { this.sendAction('onArrowDown') }
+
+    // Left/Right Arrow + command
+    if ((event.ctrlKey === true || event.metaKey === true) && event.keyCode === 37) { this.sendAction('onArrowLeft') }
+    if ((event.ctrlKey === true || event.metaKey === true) && event.keyCode === 39) { this.sendAction('onArrowRight') }
 
 
     return true

@@ -21,10 +21,19 @@ export default Ember.Component.extend({
           onMetaDelete=attrs.removeStandard
           onArrowUp=(action attrs.onArrow "up" item.id "sortable-standard__list-id")
           onArrowDown=(action attrs.onArrow "down" item.id "sortable-standard__list-id")
+          onArrowLeft=(action attrs.outdent item)
+          onArrowRight=(action attrs.indent item)
         }}
       </div>
       <div class="sortable-standard__column--description">
-        {{simple-editable value=item.description class="sortable-standard__description" onEnterKey=attrs.onEnterKey onMetaDelete=attrs.removeStandard}}
+        {{simple-editable
+          value=item.description
+          class="sortable-standard__description"
+          onEnterKey=attrs.onEnterKey
+          onMetaDelete=attrs.removeStandard
+          onArrowLeft=(action attrs.outdent item)
+          onArrowRight=(action attrs.indent item)
+        }}
       </div>
       <div class="sortable-standard__column--statement-notation">
         {{simple-editable
@@ -32,8 +41,10 @@ export default Ember.Component.extend({
           class="sortable-standard__statement-notation"
           onEnterKey=attrs.onEnterKey
           onMetaDelete=attrs.removeStandard
-          onArrowUp=(action attrs.onArrow "up" item.id "sortable-standard__statement-notation") 
+          onArrowUp=(action attrs.onArrow "up" item.id "sortable-standard__statement-notation")
           onArrowDown=(action attrs.onArrow "down" item.id "sortable-standard__statement-notation")
+          onArrowLeft=(action attrs.outdent item)
+          onArrowRight=(action attrs.indent item)
         }}
       </div>
       <div class="sortable-standard__icons">
