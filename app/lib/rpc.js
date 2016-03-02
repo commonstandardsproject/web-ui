@@ -2,12 +2,17 @@ import config from '../config/environment';
 import {local} from "../lib/store";
 import Ember from "ember";
 import _ from "npm:lodash";
+import { storageFor } from 'ember-local-storage';
+
+var localStore = {
+  session: storageFor('persistedSession')
+}
 
 
 var headers = function(){
   return {
-    "Api-Key":        JSON.parse(sessionStorage.getItem('es__apiKey')) || config.APP.apiKey,
-    "Authorization":  JSON.parse(sessionStorage.getItem('es__Authorization'))
+    "Api-Key":        Ember.get(localStore, 'session.apiKey') || config.APP.apiKey,
+    "Authorization":  Ember.get(localStore, 'session.Authorization')
   }
 }
 

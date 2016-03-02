@@ -3,6 +3,7 @@ import _ from "npm:lodash";
 import hbs from 'htmlbars-inline-precompile';
 import rpc from "../lib/rpc";
 import Fetcher from "../lib/fetcher";
+import { storageFor } from 'ember-local-storage';
 
 let {get, set} = Ember
 
@@ -10,7 +11,7 @@ export default Ember.Component.extend({
 
   setupAutoSave: Ember.on('didInsertElement', function(){this.autoSave()}),
 
-  session: Ember.inject.service(),
+  session: storageFor('persistedSession'),
 
   stickyCommentOptions: {
     topSpacing: 50

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import rpc from "../lib/rpc";
 import _ from "npm:lodash";
 import Fetcher from "../lib/fetcher";
+import { storageFor } from 'ember-local-storage';
 
 export default Ember.Service.extend({
   profile:         {},
@@ -11,7 +12,7 @@ export default Ember.Service.extend({
   clientId: "w35Aiy4apjMKVh13hbW0fFL6McHYPZ9D",
   domain:   "commoncurriculum.auth0.com",
 
-  session: Ember.inject.service(),
+  session: storageFor('persistedSession'),
 
   init: function() {
     var cid    = this.get('clientId');

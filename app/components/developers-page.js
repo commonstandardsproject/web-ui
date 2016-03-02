@@ -1,13 +1,15 @@
 import Ember from 'ember';
 import rpc from "../lib/rpc";
 import hbs from 'htmlbars-inline-precompile';
+import { storageFor } from 'ember-local-storage';
 
 export default Ember.Component.extend({
 
   authenticate: Ember.inject.service(),
-  session: Ember.inject.service(),
+  session: storageFor('persistedSession'),
 
   isAuthenticated: Ember.computed('session.authenticatedAt', function(){
+    console.log('session.authenticatedAt', Ember.get(this, 'session.authenticatedAt'))
     return (Date.now() - this.get('session.authenticatedAt')) < 3100000
   }),
 

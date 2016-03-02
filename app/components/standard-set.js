@@ -4,6 +4,7 @@ import rpc from "../lib/rpc";
 import _ from "npm:lodash";
 import Standards from "../models/standards";
 import hbs from 'htmlbars-inline-precompile';
+import { storageFor } from 'ember-local-storage';
 
 
 export default Ember.Component.extend({
@@ -11,7 +12,7 @@ export default Ember.Component.extend({
   pane: "standards",
 
   authenticate:    Ember.inject.service(),
-  session:         Ember.inject.service(),
+  session:         storageFor('persistedSession'),
 
   isAuthenticated: Ember.computed('session.authenticatedAt', function(){
     return (Date.now() - this.get('session.authenticatedAt')) < 3100000

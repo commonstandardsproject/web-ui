@@ -18,7 +18,8 @@
     "Sortable": "~1.2.0",
     "zeroclipboard": "~2.2.0",
     "ladda": "0.9.8",
-    "sticky": "^1.0.3"
+    "sticky": "^1.0.3",
+    "blob-polyfill": "^1.0.20150320"
   },
   "devDependencies": {},
   "resolutions": {
