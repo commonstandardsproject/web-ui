@@ -143,9 +143,25 @@ export default Ember.Component.extend({
 
     selectSubject(value){
       if (value === "__CUSTOM__") {
-        value = window.prompt("Enter your subject")
+        swal({
+          title: "Enter your subject",
+          type: "input",
+          showCancelButton: true,
+          closeOnConfirm: true,
+          animation: "slide-from-top",
+          inputPlaceholder: "Write something"
+        }, (inputValue) => {
+          if (inputValue === false) return false;
+          if (inputValue === "") {
+            swal.showInputError("You need to write something!");
+            return false
+          }
+          set(this, 'model.standardSet.subject', inputValue)
+          swal.close()
+        })
+      } else {
+        set(this, 'model.standardSet.subject', value)
       }
-      set(this, 'model.standardSet.subject', value)
     }
   },
 

@@ -6,7 +6,8 @@
     "$",
     "hljs",
     "Auth0Lock",
-    "analytics"
+    "analytics",
+    "swal"
   ],
   "asi": true,
   "browser": true,

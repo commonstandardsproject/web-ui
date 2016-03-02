@@ -146,8 +146,16 @@ export default Ember.Component.extend({
     },
 
     removeStandard(id, index){
-      if (window.confirm("Are you sure you want to delete this standard?")){
+      swal({
+        title: "Are you sure you want to delete this standard?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+      }, function() {
         analytics.track('Editor - Remove Standard')
+        swal.close()
         delete this.get('standardsHash')[id]
         this.notifyPropertyChange('standardsHash')
         if (index){
@@ -156,7 +164,7 @@ export default Ember.Component.extend({
             if ($el) $el.focus(); // might be the last item, so check if it exists
           })
         }
-      }
+      }.bind(this));
     },
     prepareMove(item){
       // get offset
@@ -225,7 +233,6 @@ export default Ember.Component.extend({
           prepareMove=(action "prepareMove" item)
           indent=(action "indent")
           outdent=(action "outdent")
-          removeStandard=(action "removeStandard")
         }}
 
       {{/each}}
