@@ -181,23 +181,23 @@ export default Ember.Component.extend({
                   <div class="col-sm-6">
                     <div class="standard-set-editor-draft-box__buttons">
                       <div class="btn-group">
-                        <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "save"}}>
+                        <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
                           <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
                           Save
                         </div>
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if (eq model.status "revise-and-resubmit")}}
-                          <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "submit"}}>Resubmit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "revise"}}>Request Revision</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
                           {{/if}}
                           {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-lg btn btn-default" {{action "approve"}}>Approve</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
                       </div>
