@@ -17,8 +17,8 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('bower_components/auth0-lock/build/auth0-lock.js')
-  app.import('bower_components/sweetalert/dist/sweetalert.css');
-  app.import('bower_components/sweetalert/dist/sweetalert-dev.js');
+  app.import('vendor/sweetalert/sweetalert.css');
+  app.import('vendor/sweetalert/sweetalert-dev.js');
 
 
   return app.toTree();
