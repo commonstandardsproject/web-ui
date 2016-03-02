@@ -74,6 +74,7 @@ export default Ember.Component.extend({
         set(this, 'isAutoSaving', false)
       }.bind(this))
     },
+
     submitComment(){
       let comment = get(this, 'commentValue')
       set (this, 'commentIsSaving', true)
@@ -152,7 +153,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      <div class="row" style="margin-top: 100px;">
+      <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           <div class="col-sm-12">
             <div class="standard-set-editor-draft-box">

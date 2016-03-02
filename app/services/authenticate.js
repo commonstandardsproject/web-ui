@@ -38,10 +38,11 @@ export default Ember.Service.extend({
       instance._afterSignIn({err: err, profile: profile, token: token});
     });
   },
-  showSignin: function() {
+  showSignin: function(cb) {
     var instance = this;
     this.lock().showSignin(this.get('options'), function(err, profile, token){
       instance._afterSignIn({err: err, profile: profile, token: token});
+      if (cb) cb();
     });
   },
   showSignup: function() {

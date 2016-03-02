@@ -111,9 +111,12 @@ export default Ember.Component.extend({
       <div class="standards-edit-page__pull-request-pane col-sm-4">
         {{#if isAuthenticated}}
           <h3 class="standards-edit-h1">My Changes/Additions</h3>
+          {{#if pullRequests.isPending}}
+            <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
+          {{/if}}
           <ul>
           {{#each pullRequests.list as |pullRequest|}}
-            <li>{{#link-to 'pull-requests' pullRequest.id}} PR: {{pullRequest.createdAt}} {{/link-to}}</li>
+            <li>{{#link-to 'edit.pull-requests' pullRequest.id}}PR: {{pullRequest.title}}{{/link-to}}</li>
           {{/each}}
           </ul>
           <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Pull Request</div>

@@ -10,9 +10,10 @@ Router.map(function() {
   this.route('search')
   this.route('developers')
   this.route('document-importer');
-  this.route('edit')
+  this.route('edit', function(){
+    this.route('pull-requests', {path: '/pull-requests/:id'})
+  })
   this.route('commits')
-  this.route('pull-requests', {path: '/pull-requests/:id'})
 });
 
 export default Router;

@@ -10,6 +10,13 @@ export default Ember.Component.extend({
 
   pane: "standards",
 
+  authenticate:    Ember.inject.service(),
+  session:         Ember.inject.service(),
+
+  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
+    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  }),
+
   classNameBindings: ['wasInserted'],
 
   addInsertedClass: Ember.on('didInsertElement', function(){
@@ -76,6 +83,15 @@ export default Ember.Component.extend({
     return standards
   }),
 
+  editSet(){
+    Ember.set(this, 'standardSet.isFetching', true)
+    rpc["pullRequest:create"]({standardSetId: Ember.get(this, 'id')}, function(data){
+      this.get('container').lookup('router:main').transitionTo('edit.pull-requests', data.data.id)
+    }.bind(this), function(error){
+      console.error(error)
+    })
+  },
+
   actions: {
     selectJurisdiction(jurisdiction){
       analytics.track('Search - Select Jurisdiction')
@@ -104,11 +120,13 @@ export default Ember.Component.extend({
     },
 
     editSet(){
-      rpc["pullRequest:create"]({standardSetId: Ember.get(this, 'id')}, function(data){
-        this.get('container').lookup('router:main').transitionTo('pull-requests', data.data.id)
-      }.bind(this), function(error){
-        console.error(error)
-      })
+      if (Ember.get(this, 'isAuthenticated') === false) {
+        this.get('authenticate').showSignin(function(){
+          this.editSet()
+        }.bind(this));
+      } else {
+        this.editSet()
+      }
     },
 
     removeSet(){
@@ -167,7 +185,7 @@ export default Ember.Component.extend({
     </div>
 
     <div class="standard-set-pane">
-      {{#unless standardSet._status.isFetching}}
+      {{#unless standardSet.isPending}}
         <div class="standard-set-pane-header">
           {{#if showRemoveButton}}
             <div class="standard-set-pane__remove hint--left" data-hint="Close this search pane"{{action 'removeSet'}}>{{partial "icons/ios7-close-outline"}}</div>
@@ -224,14 +242,18 @@ export default Ember.Component.extend({
     </div>
 
     <div class="standard-set-pane">
-      {{#if standardSet._status.isFetching}}
+      {{#if standardSet.isPending}}
         {{partial "icons/loading-balls"}}
       {{else}}
-      <ul class="searchable-standard-list">
-        {{#each standards as |standard|}}
-          {{searchable-standard standard=standard didCopy=(action 'didCopy') tagName="li"}}
-        {{/each}}
-      </ul>
+        {{#if standardSet.isFetching}}
+          {{partial "icons/loading-balls"}}
+        {{else}}
+          <ul class="searchable-standard-list">
+            {{#each standards as |standard|}}
+              {{searchable-standard standard=standard didCopy=(action 'didCopy') tagName="li"}}
+            {{/each}}
+          </ul>
+        {{/if}}
       {{/if}}
     </div>
   </div>

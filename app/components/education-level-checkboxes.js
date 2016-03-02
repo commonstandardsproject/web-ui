@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     {value: "04", title: "4th"},
     {value: "05", title: "5th"},
     {value: "06", title: "6th"},
-    {value: "07", title: "6th"},
+    {value: "07", title: "7th"},
     {value: "08", title: "8th"},
     {value: "09", title: "9th"},
     {value: "10", title: "10th"},
