@@ -152,7 +152,7 @@
   text-transform: uppercase;
   &:hover{
     border-color: white;
-    background-color: $green;
+    background-color: desaturate(lighten($teal, 5%), 5%);
     color: white;
   }
 }

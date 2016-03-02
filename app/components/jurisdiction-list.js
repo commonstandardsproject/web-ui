@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   classNames: ['jurisdiction-list'],
   layout: hbs`
     {{#each jurisdictions as |jurisdiction|}}
-      <li class="jurisdiction-list__item" {{action this.attrs.selectJurisdiction jurisdiction.id}}>{{jurisdiction.title}}</li>
+      <li class="jurisdiction-list__item" {{action this.attrs.selectJurisdiction jurisdiction.id jurisdiction.title}}>{{jurisdiction.title}}</li>
     {{/each}}
   `
 });

@@ -110,13 +110,13 @@ export default Ember.Component.extend({
       </div>
       <div class="standards-edit-page__pull-request-pane col-sm-4">
         {{#if isAuthenticated}}
-          <h3>My Changes/Additions</h3>
+          <h3 class="standards-edit-h1">My Changes/Additions</h3>
           <ul>
           {{#each pullRequests.list as |pullRequest|}}
             <li>{{#link-to 'pull-requests' pullRequest.id}} PR: {{pullRequest.createdAt}} {{/link-to}}</li>
           {{/each}}
           </ul>
-          <div class="btn" {{action "createPullRequest"}}>Create Pull Request</div>
+          <div class="btn btn-default btn-primary btn-block btn-lg" {{action "createPullRequest"}}>Create Pull Request</div>
         {{else}}
           <div class="btn btn-primary btn-block btn-lg" {{action "signIn"}}>Get Started!</div>
         {{/if}}

@@ -16,3 +16,27 @@
     width: 50px;
   }
 }
+
+.loading-ripple-sm{
+
+  display: inline;
+}
+
+.loading-ripple--sliding{
+  max-width: 0;
+  transition: max-width .2s, opacity .2s;
+  display: inline-block;
+  // float: left;
+  height: 20px;
+  width: 20px;
+  margin-left: -5px;
+  margin-right: 5px;
+  circle{ fill: white;}
+  opacity: 0;
+  &.is-visible{
+    max-width: 40px;
+    transition: max-width .2s, opacity .2s;
+    opacity: 1;
+  }
+
+}
