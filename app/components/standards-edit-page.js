@@ -75,7 +75,7 @@ export default Ember.Component.extend({
     },
     createPullRequest(){
       rpc["pullRequest:create"]({}, function(data){
-        this.get('container').lookup('router:main').transitionTo('pull-requests', data.data.id)
+        this.get('container').lookup('router:main').transitionTo('edit.pull-requests', data.data.id)
       }.bind(this), function(error){
         console.error(error)
       })
