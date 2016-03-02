@@ -86,6 +86,10 @@ export default Ember.Component.extend({
     },
 
     submit(){
+      if (Ember.isBlank(get(this, 'model.submitterEmail')) || get(this, 'model.submitterEmail') === ""){
+        swal("Make sure your email is filled out!")
+        return false
+      }
       set(this, 'isSaving', true)
       rpc["pullRequest:save"](get(this, 'model'), function(){
         rpc["pullRequest:submit"](get(this, 'model.id'), function(data){
@@ -265,7 +269,19 @@ export default Ember.Component.extend({
             <h2 class="standard-set-editor__subhead">Description</h2>
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="control-label col-sm-2">Jurisdiction</label>
+                <label class="control-label col-sm-2">Your Name</label>
+                <div class="col-sm-10">
+                  {{input value=model.submitterName type="text" class="form-control" placeholder="Name"}}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Your Email</label>
+                <div class="col-sm-10">
+                  {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Organization</label>
                 <div class="col-sm-10">
                   {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
                 </div>
