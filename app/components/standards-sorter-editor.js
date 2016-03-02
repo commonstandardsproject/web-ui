@@ -29,6 +29,9 @@ export default Ember.Component.extend({
     }
     this.get('standardsHash')[id] = standard
     this.notifyPropertyChange('standardsHash')
+    Ember.run.scheduleOnce('afterRender', function(){
+      $("[data-id=" + standard.id + "] .sortable-standard__list-id").focus()
+    })
     return standard
   },
 
@@ -116,10 +119,7 @@ export default Ember.Component.extend({
       })
     },
     onEnterKey(item){
-      var newStandard = this.addStandard(item.depth, item.position + 1)
-      Ember.run.scheduleOnce('afterRender', function(){
-        $("[data-id=" + newStandard.id + "] .sortable-standard__list-id").focus()
-      })
+      this.addStandard(item.depth, item.position + 1)
       return true
     },
 
@@ -239,7 +239,7 @@ export default Ember.Component.extend({
     {{/sortable-group}}
 
     <br>
-    <div class="btn btn-default btn-block" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
+    <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
 
   `
 
