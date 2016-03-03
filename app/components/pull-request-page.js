@@ -283,6 +283,14 @@ export default Ember.Component.extend({
                   {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}
                 </div>
               </div>
+              {{#if model.forkedFromStandardSetId}}
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Modified From</label>
+                  <div class="col-sm-10">
+                    <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D</a>
+                  </div>
+                </div>
+              {{/if}}
               <div class="form-group">
                 <label class="control-label col-sm-2">Organization</label>
                 <div class="col-sm-10">
