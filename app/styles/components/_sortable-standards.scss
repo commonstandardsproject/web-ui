@@ -227,7 +227,7 @@ $standard-indent: 14px;
 
 .sortable-standard__statement-notation,
 .searchable-standard__statement-notation{
-  color: $hint;
+  color: $secondary-text;
   max-width: 150px;
   font-size: 1rem;
   text-align: right;
@@ -278,7 +278,7 @@ $standard-indent: 14px;
     text-align: center;
   }
   &.is-empty:before{
-    content: "A.";
+    content: "-";
     text-align: center;
     font-size: 1rem;
     color: $dividers;
@@ -287,7 +287,7 @@ $standard-indent: 14px;
 }
 
 .sortable-standard__statement-notation{
-  min-width: 30px;
+  min-width: 50px;
   outline: none;
   text-align: right;
   // @include bb($dividers);
@@ -300,10 +300,10 @@ $standard-indent: 14px;
   margin-top: 5px;
   &:empty{
     color: $teal;
-    text-align: right;
+    text-align: center;
   }
   &:empty:before{
-    text-align: right;
+    text-align: center;
     content: "Code";
     font-size: 1rem;
     color: $dividers;
@@ -368,6 +368,8 @@ $standard-indent: 14px;
 }
 
 .sortable-standard__icons.sortable-standard__column--header{
+  margin-left: 0rem;
+  padding-left: 0;
   text-align: right;
   opacity: 1;
 }
