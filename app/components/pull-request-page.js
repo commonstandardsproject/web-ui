@@ -309,9 +309,9 @@ export default Ember.Component.extend({
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-2">Title</label>
+                <label class="control-label col-sm-2">Grade or Course Name</label>
                 <div class="col-sm-10">
-                  {{input value=model.standardSet.title type="text" class="form-control" placeholder="For instance, 'First Grade' or 'Algebra I'"}}
+                  {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
                 </div>
               </div>
               <div class="form-group">
