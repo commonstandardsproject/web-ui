@@ -315,6 +315,12 @@ export default Ember.Component.extend({
                 </div>
               </div>
               <div class="form-group">
+                <label class="control-label col-sm-2">Source Title</label>
+                <div class="col-sm-10">
+                  {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="control-label col-sm-2">Source URL</label>
                 <div class="col-sm-10">
                   {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
