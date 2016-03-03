@@ -4,9 +4,10 @@ import Ember from "ember";
 import _ from "npm:lodash";
 
 var headers = function(){
+  let session = JSON.parse(localStorage.getItem('storage:persisted-session')) || {}
   return {
-    "Api-Key":        JSON.parse(localStorage.getItem('storage:persisted-session')).apiKey || config.APP.apiKey,
-    "Authorization":  JSON.parse(localStorage.getItem('storage:persisted-session')).Authorization
+    "Api-Key":        session.apiKey || config.APP.apiKey,
+    "Authorization":  session.Authorization
   }
 }
 
