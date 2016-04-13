@@ -1,8 +1,11 @@
 import Ember from 'ember';
 import _ from "npm:lodash";
 import hbs from 'htmlbars-inline-precompile';
+import { storageFor } from 'ember-local-storage';
 
 export default Ember.Component.extend({
+
+  session: storageFor('persistedSession'),
 
   actions: {
     onSubmit(){
