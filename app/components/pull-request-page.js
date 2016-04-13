@@ -148,6 +148,13 @@ export default Ember.Component.extend({
       window.scrollTo(0,0);
     },
 
+    selectJurisdictionFromDropdown(value){
+      let id = value.split('*')[0]
+      let title = value.split('*')[1]
+      set(this, 'model.standardSet.jurisdiction.id', id)
+      set(this, 'model.standardSet.jurisdiction.title', title)
+    },
+
     selectSubject(value){
       if (value === "__CUSTOM__") {
         swal({
@@ -294,7 +301,15 @@ export default Ember.Component.extend({
               <div class="form-group">
                 <label class="control-label col-sm-2">Organization</label>
                 <div class="col-sm-10">
-                  {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                  {{#if session.isCommitter}}
+                    <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
+                      {{#each jurisdictions.content.list as |jurisdiction|}}
+                        <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected="{{if (eq jurisdiction.title model.jurisdiction.title) 'true'}}">{{jurisdiction.title}}</option>
+                      {{/each}}
+                    </select>
+                  {{else}}
+                    {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                  {{/if}}
                 </div>
               </div>
               <div class="form-group">
