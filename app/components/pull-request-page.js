@@ -304,7 +304,7 @@ export default Ember.Component.extend({
                   {{#if session.isCommitter}}
                     <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
                       {{#each jurisdictions.content.list as |jurisdiction|}}
-                        <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected="{{if (eq jurisdiction.title model.jurisdiction.title) 'true'}}">{{jurisdiction.title}}</option>
+                        <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.jurisdiction.id}}>{{jurisdiction.title}}</option>
                       {{/each}}
                     </select>
                   {{else}}
