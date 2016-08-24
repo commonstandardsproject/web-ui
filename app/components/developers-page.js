@@ -22,7 +22,7 @@ export default Ember.Component.extend({
   actions: {
     signIn(){
       analytics.track('Developers - Sign In')
-      this.get('authenticate').showSignin()
+      this.get('authenticate').show()
     },
     showReset(){
       analytics.track('Developers - Sign Out')
