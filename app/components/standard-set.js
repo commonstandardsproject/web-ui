@@ -122,9 +122,10 @@ export default Ember.Component.extend({
 
     editSet(){
       if (Ember.get(this, 'isAuthenticated') === false) {
-        this.get('authenticate').showSignin(function(){
+        this.get('authenticate').show()
+        this.get('authenticate.lock').on('authenticate', () => {
           this.editSet()
-        }.bind(this));
+        })
       } else {
         this.editSet()
       }

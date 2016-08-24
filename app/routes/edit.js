@@ -8,7 +8,7 @@ export default Ember.Route.extend(resetScroll, {
 
   actions: {
     signIn: function(){
-      return this.showSignin()
+      return this.show()
     }
   }
 

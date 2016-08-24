@@ -18,48 +18,40 @@ export default Ember.Service.extend({
     var cid    = this.get('clientId');
     var domain = this.get('domain');
 
-    this.set('lock', function() {
-      return new Auth0Lock(cid, domain);
-    });
+    let lock = new Auth0Lock(cid, domain, {
+      auth: {redirect: false}
+    })
+    this.set('lock', lock);
+    lock.on('authenticated', (authResult) => {
+      lock.getProfile(authResult.idToken, (error, profile)  => {
+        if(error === null) {
+          this.get('session').setProperties({
+            profile:         profile,
+            currentToken:    authResult.idToken,
+            authenticatedAt: Date.now(),
+            Authorization:   authResult.idToekn
+          })
+          rpc["user:afterSignIn"](profile, function(data){
+            this.get('session').setProperties({
+              apiKey:         data.data.apiKey,
+              algoliaApiKey:  data.data.algoliaApiKey,
+              allowedOrigins: data.data.allowedOrigins,
+              id:             data.data.id,
+              isCommitter:    data.data.isCommitter
+            })
+          }.bind(this))
+        }
+      })
+    })
   },
 
   // user: Ember.computed('session.profile.email', function(){
   //   return Fetcher.find('user', this.get('session.profile.email'))
   // }),
 
-  options: {
-    focusInput: true,
-    popup: true
-  },
-
   // Handle appear
   show: function() {
-    var instance = this;
-    this.lock().show(this.get('options'), function(err, profile, token){
-      instance._afterSignIn({err: err, profile: profile, token: token});
-    });
-  },
-  showSignin: function(cb) {
-    var instance = this;
-    this.lock().showSignin(this.get('options'), function(err, profile, token){
-      instance._afterSignIn({err: err, profile: profile, token: token});
-      if (cb) cb();
-    });
-  },
-  showSignup: function() {
-    var instance = this;
-    this.lock().showSignup(this.get('options'), function(err, profile, token){
-      instance._afterSignIn({err: err, profile: profile, token: token});
-    });
-  },
-  showReset: function() {
-    var instance = this;
-    this.lock().showReset(this.get('options'), function(err, profile, token){
-      instance._afterReset(err);
-    });
-  },
-  logout: function() {
-    this._afterLogout()
+    Ember.get(this, 'lock').show()
   },
 
   // Some helpers
@@ -72,29 +64,8 @@ export default Ember.Service.extend({
     return logged_in ;
   }.property('currentUser'),
 
-  // Handle events
-  _afterSignIn: function(data){
-    console.log("AFTER SIGN IN ", data)
-    if(data.err === null) {
-      this.get('session').setProperties({
-        profile:         data.profile,
-        currentToken:    data.token,
-        authenticatedAt: Date.now(),
-        Authorization:   data.token
-      })
-      rpc["user:afterSignIn"](data.profile, function(data){
-        this.get('session').setProperties({
-          apiKey:         data.data.apiKey,
-          algoliaApiKey:  data.data.algoliaApiKey,
-          allowedOrigins: data.data.allowedOrigins,
-          id:             data.data.id,
-          isCommitter:    data.data.isCommitter
-        })
-      }.bind(this))
-    }
-  },
-  _afterReset: function(err){ },
-  _afterLogout(){
+
+  logout: function() {
     this.get('session').setProperties({
       authenticatedAt: null,
       Authorization:   null,
