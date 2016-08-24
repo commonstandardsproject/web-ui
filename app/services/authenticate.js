@@ -29,7 +29,7 @@ export default Ember.Service.extend({
             profile:         profile,
             currentToken:    authResult.idToken,
             authenticatedAt: Date.now(),
-            Authorization:   authResult.idToekn
+            Authorization:   authResult.idToken
           })
           rpc["user:afterSignIn"](profile, function(data){
             this.get('session').setProperties({
