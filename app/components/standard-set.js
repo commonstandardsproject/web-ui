@@ -40,7 +40,10 @@ export default Ember.Component.extend({
     if (this.get('id').match(/blank/) !== null) return;
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('standardSet', this.get('id'))
+      promise: Fetcher.find('standardSet', this.get('id')).then((datum) => {
+        window.document.title = `${datum.jurisdiction.title} : ${datum.subject} : ${datum.title} - Common Standards Project`
+        return datum
+      })
     })
   }),
 
