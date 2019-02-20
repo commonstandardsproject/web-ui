@@ -1,16 +1,16 @@
-.jurisdiction-list{
+.jurisdiction-list {
   list-style: none;
   padding-left: 0;
   border-top: 1px solid $dividers;
 }
 
-.jurisdiction-list__item{
-  padding:       .4rem;
+.jurisdiction-list__item {
+  padding: 0.4rem;
   border-bottom: 1px solid $dividers;
   cursor: pointer;
   font-size: 1rem;
   color: $secondary-text;
-  &:hover{
+  &:hover {
     background-color: $yellow;
     color: black;
   }

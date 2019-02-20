@@ -1,52 +1,56 @@
 $page-margin: 5vh;
-body{
+body {
   position: relative;
   // overflow-y: hidden;
   // background-color: $dividers;
 }
 
-.state-background{
-  top: 0; bottom: 0; left: -50%; right: -50%;
+.state-background {
+  top: 0;
+  bottom: 0;
+  left: -50%;
+  right: -50%;
   position: absolute;
   color: $super-light;
   width: 200%;
-  z-index:  0;
+  z-index: 0;
   font-family: "aw-conqueror-carved";
   font-size: 2rem;
   line-height: 1;
   overflow-x: hidden;
   overflow-y: hidden;
 }
-.state-background__inner{
+.state-background__inner {
   left: -20vw;
   right: -20vw;
   width: 140vw;
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   width: 140vw;
 }
 
-.state-background__inner-line{
+.state-background__inner-line {
   display: block;
   transform: rotate(-15deg) scale(1) translate(30%);
 }
 
-.home-wrapper{
+.home-wrapper {
   // background-color: white;
   // padding: 20px 40px;
   // margin: 20px;
 }
 
-.credits{
+.credits {
   padding: 80px 40px 20px;
   // background-color: $super-light;
   color: $hint !important;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   position: relative;
   overflow-y: hidden;
 }
 
-.credits__background{
+.credits__background {
   @extend .masthead__background;
 }

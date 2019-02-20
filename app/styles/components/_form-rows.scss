@@ -1,14 +1,14 @@
-.form-rows{
+.form-rows {
   // margin: 0 10px;
 }
 
-.form-rows__row{
+.form-rows__row {
   display: flex;
   border-bottom: 1px solid $dividers;
   padding-bottom: 0px;
   vertical-align: center;
   align-items: center;
-  label{
+  label {
     width: 20%;
     min-width: 50px;
     font-size: 12px;
@@ -20,7 +20,7 @@
   }
 }
 
-.form-rows__row__values{
+.form-rows__row__values {
   width: 90%;
   padding-left: 10px;
   font-size: 12px;
@@ -31,7 +31,7 @@
   font-family: $font-family;
   border-color: transparent;
   .form-rows__row__url,
-  input{
+  input {
     width: 100%;
     font-family: "Source Sans Pro";
     border-color: transparent;
@@ -39,7 +39,9 @@
     height: 28px;
     margin-bottom: 0;
   }
-  input{margin-left: -10px; }
+  input {
+    margin-left: -10px;
+  }
 }
 
 // input.minimal-input{

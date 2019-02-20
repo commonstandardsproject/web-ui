@@ -1,21 +1,20 @@
-.jurisdiction-columns{
+.jurisdiction-columns {
   @include display-flex;
 }
 
-.jurisdiction-columns__column{
-  width:         100%;
+.jurisdiction-columns__column {
+  width: 100%;
   padding: 0 20px;
   border-right: 1px solid $dividers;
-  &:first-child{
+  &:first-child {
     padding-left: 0;
   }
-  &:last-child{
+  &:last-child {
     padding-right: 0;
     border-right: none;
   }
 }
 
-
-.jurisdiction-columns__heading{
+.jurisdiction-columns__heading {
   @include column-subhead;
 }

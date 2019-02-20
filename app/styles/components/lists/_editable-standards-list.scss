@@ -1,32 +1,30 @@
-
-.editable-standards-list{
-
+.editable-standards-list {
 }
 
-.editable-standard{
+.editable-standard {
   font-size: 1.2rem;
   line-height: 1.3;
   border-top: 1px solid $dividers;
   padding-top: 5px;
   padding-bottom: 5px;
   display: flex;
-  &.depth-0{
+  &.depth-0 {
     font-weight: bold;
     font-size: 1.5rem;
   }
-  &.depth-1{
+  &.depth-1 {
     padding-left: 10px;
     font-weight: bold;
   }
-  &.depth-2{
+  &.depth-2 {
     padding-left: 20px;
   }
-  &.depth-3{
+  &.depth-3 {
     padding-left: 30px;
   }
 }
 
-.editable-standard__listId{
+.editable-standard__listId {
   color: $color-accent;
   font-weight: 700;
   display: inline-block;
@@ -34,12 +32,12 @@
   text-align: center;
 }
 
-.editable-standard__description{
+.editable-standard__description {
   display: inline;
   width: 100%;
 }
 
-.editable-standard__notation{
+.editable-standard__notation {
   color: $hint;
   display: block;
   min-width: 100px;

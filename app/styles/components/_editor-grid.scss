@@ -1,4 +1,4 @@
-.editor-grid{
+.editor-grid {
   margin: 0;
   padding-top: 50px;
   display: flex;
@@ -6,69 +6,70 @@
   box-sizing: border-box;
 }
 
-.editor-grid__column{
+.editor-grid__column {
   width: 100%;
   padding: 30px 0px 0;
   border-right: 1px solid $dividers;
-  &:last-child{ border: none;}
+  &:last-child {
+    border: none;
+  }
   height: 100%;
   flex: 1;
 }
 
-.editor-grid__column--with-panes{
+.editor-grid__column--with-panes {
   overflow: hidden;
 }
 
-.editor-grid__column__pane-container{
+.editor-grid__column__pane-container {
   width: 200%;
   display: flex;
-  transition: transform .2s;
-  &.show-jurisdictions{
+  transition: transform 0.2s;
+  &.show-jurisdictions {
     transform: translateX(0%);
   }
-  &.show-standard-sets{
+  &.show-standard-sets {
     transform: translateX(-50%);
   }
 }
 
-.editor-grid__column__pane{
+.editor-grid__column__pane {
   width: 100%;
   flex: 1;
-  &.is-active{
-
+  &.is-active {
   }
 }
 
-.editor-grid__column--jurisdictions{
+.editor-grid__column--jurisdictions {
   flex-grow: 1;
   max-width: 0;
-  transition: max-width .2s;
+  transition: max-width 0.2s;
   overflow: hidden;
-  &.is-visible{
+  &.is-visible {
     max-width: 100%;
-    transition: max-width .2s;
+    transition: max-width 0.2s;
   }
 }
 
-.editor-grid__column--standard-sets{
+.editor-grid__column--standard-sets {
   flex-grow: 1;
   max-width: 0;
-  transition: max-width .2s;
+  transition: max-width 0.2s;
   overflow: hidden;
-  &.is-visible{
+  &.is-visible {
     max-width: 100%;
-    transition: max-width .2s;
+    transition: max-width 0.2s;
   }
 }
-.editor-grid__column--standards{
+.editor-grid__column--standards {
   flex-grow: 2;
 }
 
-.editor-grid__column__header{
+.editor-grid__column__header {
   padding: 0 20px;
 }
 
-.editor-grid__column__title{
+.editor-grid__column__title {
   font-size: 2.5rem;
   line-height: 1;
   width: 100%;
@@ -82,7 +83,7 @@
   border-bottom: 1px solid $dividers;
 }
 
-.editor-grid__column__body{
+.editor-grid__column__body {
   padding: 0 20px;
   overflow-y: scroll;
   height: calc(100vh - 150px);

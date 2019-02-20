@@ -1,7 +1,7 @@
-.standard-set-editor-activies{
+.standard-set-editor-activies {
 }
 
-.standard-set-editor-activity{
+.standard-set-editor-activity {
   border-bottom: 1px solid $dividers;
   margin-top: 1rem;
   padding-top: 1rem;
@@ -10,7 +10,7 @@
   font-size: 1.25rem;
 }
 
-.standard-set-editor-activity__timestamp{
+.standard-set-editor-activity__timestamp {
   font-weight: 600;
   text-transform: uppercase;
   color: $hint;
@@ -18,22 +18,26 @@
   flex-direction: column;
 }
 
-
-
-.standard-set-editor-activity__icon{
+.standard-set-editor-activity__icon {
   width: 75px;
   margin-right: 1rem;
   margin-left: 1rem;
-  svg{
-    width: 75px; height: 75px;
-    path {fill: $teal; }
-    polygon {fill: $teal; }
-    rect {fill: $teal; }
+  svg {
+    width: 75px;
+    height: 75px;
+    path {
+      fill: $teal;
+    }
+    polygon {
+      fill: $teal;
+    }
+    rect {
+      fill: $teal;
+    }
   }
 }
 
-
-.standard-set-editor-activity__comment-user{
+.standard-set-editor-activity__comment-user {
   color: $text;
   font-weight: bold;
   display: block;

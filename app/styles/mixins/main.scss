@@ -1,29 +1,28 @@
-@mixin bb($color:$dividers, $width: 1px){
-  border-bottom: $width solid $color
+@mixin bb($color: $dividers, $width: 1px) {
+  border-bottom: $width solid $color;
 }
 
-@mixin bt($color:$dividers, $width: 1px){
-  border-top: $width solid $color
+@mixin bt($color: $dividers, $width: 1px) {
+  border-top: $width solid $color;
 }
 
-
-@mixin display-flex{
+@mixin display-flex {
   display: flex;
   display: -webkit-flex;
 }
 
-@mixin column-subhead{
+@mixin column-subhead {
   // color: $secondary-text;
   color: $red;
   font-size: 1.5rem;
   text-align: center;
   // border-bottom: 1px solid $dividers;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   padding-bottom: 1rem;
   // margin-bottom: 2rem;
 }
 
-@mixin square($dimension){
+@mixin square($dimension) {
   width: $dimension;
   height: $dimension;
 }

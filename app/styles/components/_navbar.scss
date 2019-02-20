@@ -1,31 +1,32 @@
-.navbar{
+.navbar {
   position: fixed;
   height: 65px;
   width: 100%;
   border-bottom: 1px solid $color-navbar-title;
   overflow: hidden;
   top: 0;
-  left: 0; right: 0;
-  box-shadow: 0 2px 20px hsla(0,0,20%, .2);
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 20px hsla(0, 0, 20%, 0.2);
   background-color: white;
   // transform: translateZ(0);
   z-index: 999999;
-  &:hover .navbar__title{
+  &:hover .navbar__title {
     // opacity: 0;
     // font-size: 30px;
     // line-height: 100px;
     // transform: translateY(80px);
     // transform: translateX(-100%);
   }
-  &:hover .navbar__menu{
+  &:hover .navbar__menu {
     // transform: translateY(5px);
   }
-  + .below-navbar{
+  + .below-navbar {
     margin-top: 80px;
   }
 }
 
-.navbar__title{
+.navbar__title {
   font-family: "aw-conqueror-carved";
   font-weight: 200;
   font-size: 5rem;
@@ -36,34 +37,34 @@
   text-align: center;
   width: 200%;
   margin-left: -50%;
-  opacity: .05;
+  opacity: 0.05;
   // margin-top: -10px;
   // padding-left: 10px;
   // position: absolute;
   // letter-spacing: -0.1rem;
-  a{
+  a {
     color: $color-navbar-title !important;
     text-decoration: none;
   }
-  transition: all .2s;
+  transition: all 0.2s;
   transition-timing-function: ease-in;
   // cursor: pointer;
 }
 
-.navbar__title--project{
+.navbar__title--project {
   font-family: $font-family;
   text-align: left;
   font-size: 1rem;
   letter-spacing: 0rem;
 }
 
-
-.navbar__menu{
+.navbar__menu {
   position: absolute;
   // height: 100%;
   right: 0px;
   left: 0;
-  top: 20px; bottom: 0;
+  top: 20px;
+  bottom: 0;
   display: block;
   // transition: all .2s;
   // transition-timing-function: ease-in;
@@ -75,29 +76,30 @@
   // transform: translateY(65px);
 }
 
-a.navbar__menu__item{
+a.navbar__menu__item {
   color: $hint;
   margin: 0 20px;
   font-weight: 700;
-  letter-spacing: .05rem;
-  &:hover{
+  letter-spacing: 0.05rem;
+  &:hover {
     text-decoration: none;
     color: $text;
   }
-  &.active{
+  &.active {
     // font-weight: bold;
     color: $teal;
     text-decoration: none;
   }
-  svg{
+  svg {
     margin-top: 5px;
-    height: 20px; width: 20px;
+    height: 20px;
+    width: 20px;
     display: inline;
   }
 }
 
-@media (max-width: 500px){
-  a.navbar__menu__item{
+@media (max-width: 500px) {
+  a.navbar__menu__item {
     font-size: 1.1rem;
     margin: 0 7px;
   }
