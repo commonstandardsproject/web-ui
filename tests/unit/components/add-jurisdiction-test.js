@@ -1,19 +1,19 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test } from "ember-qunit"
 
-moduleForComponent('add-jurisdiction', 'Unit | Component | add jurisdiction', {
+moduleForComponent("add-jurisdiction", "Unit | Component | add jurisdiction", {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar'],
-  unit: true
-});
+  unit: true,
+})
 
-test('it renders', function(assert) {
-  assert.expect(2);
+test("it renders", function(assert) {
+  assert.expect(2)
 
   // Creates the component instance
-  var component = this.subject();
-  assert.equal(component._state, 'preRender');
+  var component = this.subject()
+  assert.equal(component._state, "preRender")
 
   // Renders the component to the page
-  this.render();
-  assert.equal(component._state, 'inDOM');
-});
+  this.render()
+  assert.equal(component._state, "inDOM")
+})

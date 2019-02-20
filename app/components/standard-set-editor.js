@@ -1,47 +1,52 @@
-import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
-import store from "../lib/store";
-import differ from "../lib/differ";
-import rpc from "../lib/rpc";
-import Standards from "../models/standards";
-import MultiselectCheckboxesComponent from 'ember-multiselect-checkboxes/components/multiselect-checkboxes';
-import _ from "npm:lodash";
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import store from "../lib/store"
+import differ from "../lib/differ"
+import rpc from "../lib/rpc"
+import Standards from "../models/standards"
+import MultiselectCheckboxesComponent from "ember-multiselect-checkboxes/components/multiselect-checkboxes"
+import _ from "npm:lodash"
 
 var get = Ember.get
 
-
 export default Ember.Component.extend({
-
-  standards: Ember.computed('standardSet.standards', function(){
-    return Standards.hashToArray(this.get('standardSet.standards'))
+  standards: Ember.computed("standardSet.standards", function() {
+    return Standards.hashToArray(this.get("standardSet.standards"))
   }),
 
   actions: {
-    onFormSubmit(attrs){
+    onFormSubmit(attrs) {
       var diff = differ(
-        store.server.find('standardSet', this.get('standardSet.id')),
-        store.local.find('standardSet', this.get('standardSet.id'))
+        store.server.find("standardSet", this.get("standardSet.id")),
+        store.local.find("standardSet", this.get("standardSet.id"))
       )
-      if (diff.length === 0){
-        this.set('diffError', "You haven't changed anything yet!")
+      if (diff.length === 0) {
+        this.set("diffError", "You haven't changed anything yet!")
         return
       } else {
-        this.set('diffError', "")
+        this.set("diffError", "")
       }
-      attrs.ops                = diff
-      attrs.jurisdictionTitle  = get(this, 'jurisdiction.title')
-      attrs.jurisdictionId     = get(this, 'jurisdiction.id')
-      attrs.standardSetId      = get(this, 'standardSet.id')
-      attrs.standardSetSubject = get(this, 'standardSet.subject')
-      attrs.standardSetTitle   = get(this, 'standardSet.title')
-      rpc["commit:make"](attrs, function(data){
-        this.set('formSubmittedSuccessfully', true)
-        $(window).scrollTop(0)
-        this.set('commitSuccess', "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right.")
-      }.bind(this), function(jqXhr, textStatus, errorThrown){
-        this.set('commitError', errorThrown)
-      }.bind(this))
-    }
+      attrs.ops = diff
+      attrs.jurisdictionTitle = get(this, "jurisdiction.title")
+      attrs.jurisdictionId = get(this, "jurisdiction.id")
+      attrs.standardSetId = get(this, "standardSet.id")
+      attrs.standardSetSubject = get(this, "standardSet.subject")
+      attrs.standardSetTitle = get(this, "standardSet.title")
+      rpc["commit:make"](
+        attrs,
+        function(data) {
+          this.set("formSubmittedSuccessfully", true)
+          $(window).scrollTop(0)
+          this.set(
+            "commitSuccess",
+            "Your change was successful! We'll review it in the next day (or two if we're really busy) and let you know if anything doesn't look right."
+          )
+        }.bind(this),
+        function(jqXhr, textStatus, errorThrown) {
+          this.set("commitError", errorThrown)
+        }.bind(this)
+      )
+    },
   },
 
   diffError: "",
@@ -118,6 +123,5 @@ export default Ember.Component.extend({
 
 
 
-  `
-
+  `,
 })

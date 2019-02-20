@@ -1,17 +1,15 @@
-import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
 
 export default Ember.Component.extend({
-
-
-  textToCopy: Ember.computed('standard.description', function(){
-    var statementNotation = this.get('standard.statementNotation') || ''
-    return [statementNotation, this.get('standard.description')].join(' ')
+  textToCopy: Ember.computed("standard.description", function() {
+    var statementNotation = this.get("standard.statementNotation") || ""
+    return [statementNotation, this.get("standard.description")].join(" ")
   }),
 
-  classNames: ['searchable-standard'],
-  classNameBindings: ['classNameDepth'],
-  classNameDepth: Ember.computed('standard.depth', function(){
+  classNames: ["searchable-standard"],
+  classNameBindings: ["classNameDepth"],
+  classNameDepth: Ember.computed("standard.depth", function() {
     return "searchable-standard--depth-" + this.get("standard.depth")
   }),
 
@@ -24,6 +22,5 @@ export default Ember.Component.extend({
         {{partial "icons/clipboard"}}
       {{/zero-clipboard}}
     </div>
-  `
-
+  `,
 })

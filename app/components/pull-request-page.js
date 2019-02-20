@@ -1,182 +1,251 @@
-import Ember from 'ember';
-import _ from "npm:lodash";
-import hbs from 'htmlbars-inline-precompile';
-import rpc from "../lib/rpc";
-import Fetcher from "../lib/fetcher";
-import { storageFor } from 'ember-local-storage';
+import Ember from "ember"
+import _ from "npm:lodash"
+import hbs from "htmlbars-inline-precompile"
+import rpc from "../lib/rpc"
+import Fetcher from "../lib/fetcher"
+import { storageFor } from "ember-local-storage"
 
-let {get, set} = Ember
+let { get, set } = Ember
 
 export default Ember.Component.extend({
+  setupAutoSave: Ember.on("didInsertElement", function() {
+    this.autoSave()
+  }),
 
-  setupAutoSave: Ember.on('didInsertElement', function(){this.autoSave()}),
-
-  session: storageFor('persistedSession'),
+  session: storageFor("persistedSession"),
 
   stickyCommentOptions: {
-    topSpacing: 50
+    topSpacing: 50,
   },
 
-  autoSave(){
-    Ember.run.later(this, function(){
-      if (Ember.isNone(get(this, 'model.id'))) return;
-      if (get(this, 'isAutoSaving') === true) return;
-      Ember.set(this, 'isAutoSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), () => {
-        Ember.run.later(this, () => Ember.set(this, 'isAutoSaving', false), 500)
-        this.autoSave()
-      }, () => { set(this, 'isAutoSaving', false)})
-    }, 10000)
+  autoSave() {
+    Ember.run.later(
+      this,
+      function() {
+        if (Ember.isNone(get(this, "model.id"))) return
+        if (get(this, "isAutoSaving") === true) return
+        Ember.set(this, "isAutoSaving", true)
+        rpc["pullRequest:save"](
+          get(this, "model"),
+          () => {
+            Ember.run.later(this, () => Ember.set(this, "isAutoSaving", false), 500)
+            this.autoSave()
+          },
+          () => {
+            set(this, "isAutoSaving", false)
+          }
+        )
+      },
+      10000
+    )
   },
 
-  reversedActivities: Ember.computed('model.activities.@each', function(){
-    return _(get(this, 'model.activities') || []).reverse().value()
+  reversedActivities: Ember.computed("model.activities.@each", function() {
+    return _(get(this, "model.activities") || [])
+      .reverse()
+      .value()
   }),
 
-  nullEducationLevels: Ember.computed('model.standardSet.educationLevels.@each', function(){
-    return Ember.isNone(Ember.get(this, 'model.standardSet.educationLevels'))
+  nullEducationLevels: Ember.computed("model.standardSet.educationLevels.@each", function() {
+    return Ember.isNone(Ember.get(this, "model.standardSet.educationLevels"))
   }),
 
-  jurisdictions: Ember.computed(function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  jurisdictions: Ember.computed(function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', 'index', true)
+      promise: Fetcher.find("jurisdiction", "index", true),
     })
   }),
 
-  jurisdiction: Ember.computed('model.standardSet.jurisdiction.id', function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  jurisdiction: Ember.computed("model.standardSet.jurisdiction.id", function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', get(this, 'model.standardSet.jurisdiction.id'))
+      promise: Fetcher.find("jurisdiction", get(this, "model.standardSet.jurisdiction.id")),
     })
   }),
 
-  subjects: Ember.computed('jurisdiction.standardSets.@each.subject', 'model.standardSet.subject', function(){
-    let jurisdictionSubjects = _.unique(_.map(get(this, 'jurisdiction.standardSets'), function(set){
-      return get(set, 'subject')
-    })).sort()
-    if (!_.includes(jurisdictionSubjects, get(this, 'model.standardSet.subject'))){
-      jurisdictionSubjects.push(get(this, 'model.standardSet.subject'))
+  subjects: Ember.computed("jurisdiction.standardSets.@each.subject", "model.standardSet.subject", function() {
+    let jurisdictionSubjects = _.unique(
+      _.map(get(this, "jurisdiction.standardSets"), function(set) {
+        return get(set, "subject")
+      })
+    ).sort()
+    if (!_.includes(jurisdictionSubjects, get(this, "model.standardSet.subject"))) {
+      jurisdictionSubjects.push(get(this, "model.standardSet.subject"))
     }
     return jurisdictionSubjects.sort()
   }),
 
   actions: {
-    save(){
-      if (get(this, 'isAutoSaving') === true) return;
-      set(this, 'isAutoSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), function(){
-        Ember.run.later(this, function(){
-          set(this, 'isAutoSaving', false)
-          set(this, 'isSavingError', null)
-        }, 750)
-      }.bind(this), function(err){
-        set(this, 'isSavingError', "We hit an error! Email us at support@commoncurriculum.com if this happens again. Error Code:" + err.statusText)
-        set(this, 'isAutoSaving', false)
-      }.bind(this))
+    save() {
+      if (get(this, "isAutoSaving") === true) return
+      set(this, "isAutoSaving", true)
+      rpc["pullRequest:save"](
+        get(this, "model"),
+        function() {
+          Ember.run.later(
+            this,
+            function() {
+              set(this, "isAutoSaving", false)
+              set(this, "isSavingError", null)
+            },
+            750
+          )
+        }.bind(this),
+        function(err) {
+          set(
+            this,
+            "isSavingError",
+            "We hit an error! Email us at support@commoncurriculum.com if this happens again. Error Code:" +
+              err.statusText
+          )
+          set(this, "isAutoSaving", false)
+        }.bind(this)
+      )
     },
 
-    submitComment(){
-      let comment = get(this, 'commentValue')
-      set (this, 'commentIsSaving', true)
-      rpc["pullRequest:addComment"](get(this, 'model.id'), comment, function(data){
-        set(this, 'commentValue', '')
-        set(this, 'commentIsSaving', false)
-        set(this, 'model.activities', data.data.activities)
-      }.bind(this))
+    submitComment() {
+      let comment = get(this, "commentValue")
+      set(this, "commentIsSaving", true)
+      rpc["pullRequest:addComment"](
+        get(this, "model.id"),
+        comment,
+        function(data) {
+          set(this, "commentValue", "")
+          set(this, "commentIsSaving", false)
+          set(this, "model.activities", data.data.activities)
+        }.bind(this)
+      )
     },
 
-    submit(){
-      if (Ember.isBlank(get(this, 'model.submitterEmail')) || get(this, 'model.submitterEmail') === ""){
+    submit() {
+      if (Ember.isBlank(get(this, "model.submitterEmail")) || get(this, "model.submitterEmail") === "") {
         swal("Make sure your email is filled out!")
         return false
       }
-      set(this, 'isSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), function(){
-        rpc["pullRequest:submit"](get(this, 'model.id'), function(data){
-          set(this, 'isSaving', false)
-          set(this, 'model', data.data)
-        }.bind(this), function(err){
-          set(this, 'savingError', err)
-        }.bind(this))
-      }.bind(this))
+      set(this, "isSaving", true)
+      rpc["pullRequest:save"](
+        get(this, "model"),
+        function() {
+          rpc["pullRequest:submit"](
+            get(this, "model.id"),
+            function(data) {
+              set(this, "isSaving", false)
+              set(this, "model", data.data)
+            }.bind(this),
+            function(err) {
+              set(this, "savingError", err)
+            }.bind(this)
+          )
+        }.bind(this)
+      )
     },
 
-    revise(){
-      set(this, 'isSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), function(){
-        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "revise-and-resubmit", get(this, 'statusComment'), function(data){
-          set(this, 'isSaving', false)
-          set(this, 'statusComment', "")
-          set(this, 'model', data.data)
-        }.bind(this), function(err){
-          set(this, 'savingError', err)
-        }.bind(this))
-      }.bind(this))
+    revise() {
+      set(this, "isSaving", true)
+      rpc["pullRequest:save"](
+        get(this, "model"),
+        function() {
+          rpc["pullRequest:changeStatus"](
+            get(this, "model.id"),
+            "revise-and-resubmit",
+            get(this, "statusComment"),
+            function(data) {
+              set(this, "isSaving", false)
+              set(this, "statusComment", "")
+              set(this, "model", data.data)
+            }.bind(this),
+            function(err) {
+              set(this, "savingError", err)
+            }.bind(this)
+          )
+        }.bind(this)
+      )
     },
 
-    reject(){
-      set(this, 'isSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), function(){
-        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "rejected", get(this, 'statusComment'), function(data){
-          set(this, 'isSaving', false)
-          set(this, 'statusComment', "")
-          set(this, 'model', data.data)
-        }.bind(this), function(err){
-          set(this, 'savingError', err)
-        }.bind(this))
-      }.bind(this))
+    reject() {
+      set(this, "isSaving", true)
+      rpc["pullRequest:save"](
+        get(this, "model"),
+        function() {
+          rpc["pullRequest:changeStatus"](
+            get(this, "model.id"),
+            "rejected",
+            get(this, "statusComment"),
+            function(data) {
+              set(this, "isSaving", false)
+              set(this, "statusComment", "")
+              set(this, "model", data.data)
+            }.bind(this),
+            function(err) {
+              set(this, "savingError", err)
+            }.bind(this)
+          )
+        }.bind(this)
+      )
     },
 
-    approve(){
-      set(this, 'isSaving', true)
-      rpc["pullRequest:save"](get(this, 'model'), function(){
-        rpc["pullRequest:changeStatus"](get(this, 'model.id'), "approved", get(this, 'statusComment'), function(data){
-          set(this, 'isSaving', false)
-          set(this, 'statusComment', "")
-          set(this, 'model', data.data)
-        }.bind(this), function(err){
-          set(this, 'savingError', err)
-        }.bind(this))
-      }.bind(this))
+    approve() {
+      set(this, "isSaving", true)
+      rpc["pullRequest:save"](
+        get(this, "model"),
+        function() {
+          rpc["pullRequest:changeStatus"](
+            get(this, "model.id"),
+            "approved",
+            get(this, "statusComment"),
+            function(data) {
+              set(this, "isSaving", false)
+              set(this, "statusComment", "")
+              set(this, "model", data.data)
+            }.bind(this),
+            function(err) {
+              set(this, "savingError", err)
+            }.bind(this)
+          )
+        }.bind(this)
+      )
     },
 
-    selectJurisdiction(id, title){
-      set(this, 'model.standardSet.jurisdiction.id', id)
-      set(this, 'model.standardSet.jurisdiction.title', title)
+    selectJurisdiction(id, title) {
+      set(this, "model.standardSet.jurisdiction.id", id)
+      set(this, "model.standardSet.jurisdiction.title", title)
       // Scroll to the top since the size changed
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0)
     },
 
-    selectJurisdictionFromDropdown(value){
-      let id = value.split('*')[0]
-      let title = value.split('*')[1]
-      set(this, 'model.standardSet.jurisdiction.id', id)
-      set(this, 'model.standardSet.jurisdiction.title', title)
+    selectJurisdictionFromDropdown(value) {
+      let id = value.split("*")[0]
+      let title = value.split("*")[1]
+      set(this, "model.standardSet.jurisdiction.id", id)
+      set(this, "model.standardSet.jurisdiction.title", title)
     },
 
-    selectSubject(value){
+    selectSubject(value) {
       if (value === "__CUSTOM__") {
-        swal({
-          title: "Enter your subject",
-          type: "input",
-          showCancelButton: true,
-          closeOnConfirm: true,
-          animation: "slide-from-top",
-          inputPlaceholder: "Write something"
-        }, (inputValue) => {
-          if (inputValue === false) return false;
-          if (inputValue === "") {
-            swal.showInputError("You need to write something!");
-            return false
+        swal(
+          {
+            title: "Enter your subject",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: true,
+            animation: "slide-from-top",
+            inputPlaceholder: "Write something",
+          },
+          inputValue => {
+            if (inputValue === false) return false
+            if (inputValue === "") {
+              swal.showInputError("You need to write something!")
+              return false
+            }
+            set(this, "model.standardSet.subject", inputValue)
+            swal.close()
           }
-          set(this, 'model.standardSet.subject', inputValue)
-          swal.close()
-        })
+        )
       } else {
-        set(this, 'model.standardSet.subject', value)
+        set(this, "model.standardSet.subject", value)
       }
-    }
+    },
   },
 
   layout: hbs`
@@ -406,6 +475,5 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     </div>
-  `
-
+  `,
 })

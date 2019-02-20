@@ -1,15 +1,14 @@
-import Ember from 'ember';
-import resetScroll from "../mixins/reset-scroll";
+import Ember from "ember"
+import resetScroll from "../mixins/reset-scroll"
 
 export default Ember.Route.extend(resetScroll, {
-  beforeModel(){
-    analytics.track('Edit Page')
+  beforeModel() {
+    analytics.track("Edit Page")
   },
 
   actions: {
-    signIn: function(){
+    signIn: function() {
       return this.show()
-    }
-  }
-
-});
+    },
+  },
+})

@@ -1,12 +1,8 @@
-import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
-import _ from "npm:lodash";
-
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import _ from "npm:lodash"
 
 export default Ember.Component.extend({
-
-
-
   layout: hbs`
   {{#unless item.isCollapsed}}
   {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle" id=(join-words 'sortable-item-' item.id) }}
@@ -74,6 +70,5 @@ export default Ember.Component.extend({
   {{/sortable-item}}
   {{/unless}}
 
-  `
-
+  `,
 })

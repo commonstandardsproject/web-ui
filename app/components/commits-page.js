@@ -1,37 +1,38 @@
-import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
-import Fetcher from "../lib/fetcher";
-import rpc from "../lib/rpc";
-import _ from "npm:lodash";
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import Fetcher from "../lib/fetcher"
+import rpc from "../lib/rpc"
+import _ from "npm:lodash"
 
 export default Ember.Component.extend({
-
-  commits: Ember.computed(function(){
-    return Fetcher.find('commit', 'index')
+  commits: Ember.computed(function() {
+    return Fetcher.find("commit", "index")
   }),
 
   actions: {
-    approveCommit(commit){
-      if (window.confirm("Are you sure you want to accept this?")){
-        rpc["commit:approve"](commit.id, function(){
-          Ember.set(commit, 'approved', true)
-          Fetcher.find('commit', 'index', true)
+    approveCommit(commit) {
+      if (window.confirm("Are you sure you want to accept this?")) {
+        rpc["commit:approve"](commit.id, function() {
+          Ember.set(commit, "approved", true)
+          Fetcher.find("commit", "index", true)
         })
       }
     },
-    rejectCommit(commit){
-      if (window.confirm("Are you sure you want to reject this?")){
-        rpc["commit:reject"](commit.id, function(){
-          Ember.set(commit, 'approved', false)
-          Fetcher.find('commit', 'index', true)
+    rejectCommit(commit) {
+      if (window.confirm("Are you sure you want to reject this?")) {
+        rpc["commit:reject"](commit.id, function() {
+          Ember.set(commit, "approved", false)
+          Fetcher.find("commit", "index", true)
         })
       }
     },
-    selectCommit(commit){
-      _.each(this.get('commits.list'), c => {Ember.set(c, 'isSelected', false)})
-      this.set('commit', commit)
-      Ember.set(this.get('commit'), 'isSelected', true)
-    }
+    selectCommit(commit) {
+      _.each(this.get("commits.list"), c => {
+        Ember.set(c, "isSelected", false)
+      })
+      this.set("commit", commit)
+      Ember.set(this.get("commit"), "isSelected", true)
+    },
   },
 
   layout: hbs`
@@ -86,6 +87,5 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     </div>
-  `
-
+  `,
 })

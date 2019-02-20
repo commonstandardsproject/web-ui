@@ -1,32 +1,31 @@
-import Ember from 'ember';
-import _ from "npm:lodash";
-import hbs from 'htmlbars-inline-precompile';
-import { storageFor } from 'ember-local-storage';
+import Ember from "ember"
+import _ from "npm:lodash"
+import hbs from "htmlbars-inline-precompile"
+import { storageFor } from "ember-local-storage"
 
 export default Ember.Component.extend({
-
-  session: storageFor('persistedSession'),
+  session: storageFor("persistedSession"),
 
   actions: {
-    onSubmit(){
+    onSubmit() {
       var data = {
-        title:          this.get('title'),
-        url:            this.get('url'),
-        submitterEmail: this.get('session.profile.email'),
-        submitterName:  this.get('submitterName'),
-        type:           this.get('type')
+        title: this.get("title"),
+        url: this.get("url"),
+        submitterEmail: this.get("session.profile.email"),
+        submitterName: this.get("submitterName"),
+        type: this.get("type"),
       }
 
       let values = _.values(data)
       let has = _.curry(_.includes, 2)(values)
       let isValid = !has("") && !has(null) && !has(undefined)
 
-      if (isValid){
+      if (isValid) {
         this.attrs.onSubmit(data)
       } else {
-        this.set('errorMessage',  "You must fill out all the fields");
+        this.set("errorMessage", "You must fill out all the fields")
       }
-    }
+    },
   },
 
   layout: hbs`
@@ -55,6 +54,5 @@ export default Ember.Component.extend({
       <input type="submit" value="Create" class="btn btn-primary" {{action "onSubmit"}}>
     </div>
   </form>
-  `
-
-});
+  `,
+})

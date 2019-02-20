@@ -1,11 +1,10 @@
-import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
-import MultiselectCheckboxesComponent from 'ember-multiselect-checkboxes/components/multiselect-checkboxes';
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import MultiselectCheckboxesComponent from "ember-multiselect-checkboxes/components/multiselect-checkboxes"
 
 export default MultiselectCheckboxesComponent.extend({
-
   tagName: "div",
-  classNames: ['education-level-checkboxes'],
+  classNames: ["education-level-checkboxes"],
 
   layout: hbs`
   {{#each checkboxes as |checkbox|}}
@@ -16,7 +15,5 @@ export default MultiselectCheckboxesComponent.extend({
       </label>
     </div>
   {{/each}}
-  `
-
-
+  `,
 })

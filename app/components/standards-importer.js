@@ -1,25 +1,24 @@
-import Ember from 'ember';
-import config from '../../config/environment';
-import hbs from 'htmlbars-inline-precompile';
+import Ember from "ember"
+import config from "../../config/environment"
+import hbs from "htmlbars-inline-precompile"
 
 export default Ember.Component.extend({
-
   actions: {
-    viewJurisdiction(id={}){
-      this.sendAction('viewJurisdiction', id.id)
+    viewJurisdiction(id = {}) {
+      this.sendAction("viewJurisdiction", id.id)
     },
 
-    viewStandardsDocument(id){
+    viewStandardsDocument(id) {
       this.sendAction("viewStandardsDocument", id)
     },
 
-    viewstandardSet(query){
+    viewstandardSet(query) {
       this.sendAction("viewstandardSet", query)
     },
 
-    importStandards(query){
+    importStandards(query) {
       this.sendAction("importStandards", query)
-    }
+    },
   },
 
   layout: hbs`
@@ -118,7 +117,5 @@ export default Ember.Component.extend({
       </div>
     </div>
   </div>
-  `
-
-
-});
+  `,
+})

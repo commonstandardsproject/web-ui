@@ -1,42 +1,49 @@
-import Ember from 'ember';
-import rpc from "../lib/rpc";
-import hbs from 'htmlbars-inline-precompile';
-import { storageFor } from 'ember-local-storage';
+import Ember from "ember"
+import rpc from "../lib/rpc"
+import hbs from "htmlbars-inline-precompile"
+import { storageFor } from "ember-local-storage"
 
 export default Ember.Component.extend({
-
   authenticate: Ember.inject.service(),
-  session: storageFor('persistedSession'),
+  session: storageFor("persistedSession"),
 
-  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
-    console.log('session.authenticatedAt', Ember.get(this, 'session.authenticatedAt'))
-    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  isAuthenticated: Ember.computed("session.authenticatedAt", function() {
+    console.log("session.authenticatedAt", Ember.get(this, "session.authenticatedAt"))
+    return Date.now() - this.get("session.authenticatedAt") < 3100000
   }),
 
-  addHighlighting: Ember.on('didInsertElement', function(){
-    $('pre').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
+  addHighlighting: Ember.on("didInsertElement", function() {
+    $("pre").each(function(i, block) {
+      hljs.highlightBlock(block)
+    })
   }),
 
   actions: {
-    signIn(){
-      analytics.track('Developers - Sign In')
-      this.get('authenticate').show()
+    signIn() {
+      analytics.track("Developers - Sign In")
+      this.get("authenticate").show()
     },
-    showReset(){
-      analytics.track('Developers - Sign Out')
-      this.get('authenticate').logout()
+    showReset() {
+      analytics.track("Developers - Sign Out")
+      this.get("authenticate").logout()
     },
-    updateOrigins(){
-      analytics.track('Developers - Update Origins')
-      rpc["user:updateAllowedOrigins"](this.get('session.id'), this.get('session.allowedOrigins'), function(data){
-        this.set('originSuccess', true)
-        Ember.run.later(this, function(){
-          this.set('originSuccess', false)
-        }, 2000)
-      }.bind(this))
-    }
+    updateOrigins() {
+      analytics.track("Developers - Update Origins")
+      rpc["user:updateAllowedOrigins"](
+        this.get("session.id"),
+        this.get("session.allowedOrigins"),
+        function(data) {
+          this.set("originSuccess", true)
+          Ember.run.later(
+            this,
+            function() {
+              this.set("originSuccess", false)
+            },
+            2000
+          )
+        }.bind(this)
+      )
+    },
   },
 
   layout: hbs`
@@ -376,6 +383,5 @@ http://commonstandardsproject.com/api/v1/standard_sets/:id
     </div>
 
   </div>
-  `
-
+  `,
 })
