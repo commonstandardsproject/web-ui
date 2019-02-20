@@ -1,6 +1,6 @@
-import Ember from "ember";
-import hbs from "htmlbars-inline-precompile";
-import _ from "npm:lodash";
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import _ from "npm:lodash"
 
 export default Ember.Component.extend({
   layout: hbs`
@@ -71,5 +71,5 @@ export default Ember.Component.extend({
   {{/sortable-item}}
   {{/unless}}
 
-  `
-});
+  `,
+})
