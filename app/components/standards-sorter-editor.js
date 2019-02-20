@@ -199,6 +199,10 @@ export default Ember.Component.extend({
       {{#sortable-item tagName="div" group=group handle=".sortable-standard__handle"}}
       <div class="sortable-standard sortable-standard__header">
         <div class="sortable-standard__columns">
+          <div class="sortable-standard__icons sortable-standard__column--header">
+            <div>Actions</div>
+            <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
+          </div>
           <div class="sortable-standard__column--list-id sortable-standard__column--header">
             <div>Outline</div>
             <div class="sortable-standard__column--help-text">E.g. I, II, III or A, B, C, etc</div>
@@ -210,10 +214,6 @@ export default Ember.Component.extend({
           <div class="sortable-standard__column--statement-notation sortable-standard__column--header">
             <div>Abbreviation</div>
             <div class="sortable-standard__column--help-text">The shorthand identifier e.g. 1.NBT.4</div>
-          </div>
-          <div class="sortable-standard__icons sortable-standard__column--header">
-            <div>Actions</div>
-            <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
           </div>
         </div>
       </div>
