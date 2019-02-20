@@ -1,29 +1,28 @@
-import Ember from 'ember';
-import Resolver from 'ember/resolver';
-import loadInitializers from 'ember/load-initializers';
-import config from './config/environment';
+import Ember from "ember"
+import Resolver from "ember/resolver"
+import loadInitializers from "ember/load-initializers"
+import config from "./config/environment"
 
-var App;
+var App
 
-Ember.MODEL_FACTORY_INJECTIONS = true;
+Ember.MODEL_FACTORY_INJECTIONS = true
 
 App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   Resolver: Resolver,
   customEvents: {
-    paste: 'paste'
-  }
-});
+    paste: "paste",
+  },
+})
 
-loadInitializers(App, config.modulePrefix);
+loadInitializers(App, config.modulePrefix)
 
 Ember.LinkComponent.reopen({
-  attributeBindings: ['data-hint']
-});
+  attributeBindings: ["data-hint"],
+})
 
 Ember.Component.reopen({
-  attributeBindings: ['data-hint']
-});
+  attributeBindings: ["data-hint"],
+})
 
-
-export default App;
+export default App

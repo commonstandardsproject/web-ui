@@ -1,46 +1,46 @@
-import Ember from "ember";
-import _ from "npm:lodash";
+import Ember from "ember"
+import _ from "npm:lodash"
 
-let {get, set} = Ember;
+let { get, set } = Ember
 
 /**
  * Public: move and item and it's children
  */
-export function moveItemAndAncestors(originalArray, itemsToMove, insertAfterIndex ){
+export function moveItemAndAncestors(originalArray, itemsToMove, insertAfterIndex) {
+  console.log("insertAfterIndex", insertAfterIndex)
 
-  console.log('insertAfterIndex', insertAfterIndex)
+  return (
+    _.chain(itemsToMove)
 
-  return  _.chain(itemsToMove)
+      // Step 1: Remove the items to move from the array so we can insert them in
+      // step 2
+      .reduce((acc, item) => {
+        _.remove(acc, s => {
+          return get(s, "id") === get(item, "id")
+        })
+        return acc
+      }, _.clone(originalArray))
 
-    // Step 1: Remove the items to move from the array so we can insert them in
-    // step 2
-    .reduce((acc, item) => {
-      _.remove(acc, s => {
-        return get(s, 'id') === get(item, 'id')
+      // Step 2: split the array and insert the items to move
+      .thru(acc => {
+        var head = _.take(acc, insertAfterIndex + 1)
+        var tail = _.drop(acc, insertAfterIndex + 1)
+        return head.concat(itemsToMove).concat(tail)
       })
-      return acc
-    }, _.clone(originalArray))
 
-    // Step 2: split the array and insert the items to move
-    .thru(acc => {
-      var head = _.take(acc, insertAfterIndex + 1)
-      var tail = _.drop(acc, insertAfterIndex + 1)
-      return head.concat(itemsToMove).concat(tail)
-    })
+      // Set the new positions
+      .map((s, index) => {
+        set(s, "position", index * 1000)
+        return s
+      })
 
-    // Set the new positions
-    .map((s, index) => {
-      set(s, 'position', index * 1000)
-      return s
-    })
-
-    // Return as a hash keyed by the id
-    .reduce((acc, s) => {
-      acc[get(s, 'id')] = s
-      return acc
-    }, {})
-    .run()
-
+      // Return as a hash keyed by the id
+      .reduce((acc, s) => {
+        acc[get(s, "id")] = s
+        return acc
+      }, {})
+      .run()
+  )
 }
 
 /**
@@ -56,24 +56,22 @@ export function moveItemAndAncestors(originalArray, itemsToMove, insertAfterInde
  *
  * Returns self
  */
-export function moveItem(sortedArray, newIdx, oldIdx){
+export function moveItem(sortedArray, newIdx, oldIdx) {
   var item = sortedArray.objectAt(oldIdx)
   var array = _.clone(sortedArray) || []
   array.removeObject(item)
 
   var position = _getPositionForIndex(newIdx, array)
 
-  if (_isInteger(position) === false || position < 0){
+  if (_isInteger(position) === false || position < 0) {
     array.splice(newIdx, 0, item)
     _rebalanceList(array)
   } else {
-    Ember.set(item, 'position', position)
+    Ember.set(item, "position", position)
   }
 
   return this
 }
-
-
 
 /**
  * Public: Add an object at the specified index
@@ -84,13 +82,13 @@ export function moveItem(sortedArray, newIdx, oldIdx){
  * Returns self
  */
 
-export function addObjectAtIndex(sortedArray, object, newIndex){
+export function addObjectAtIndex(sortedArray, object, newIndex) {
   var array = _.clone(sortedArray)
 
   var position = _getPositionForIndex(newIndex, array)
-  Ember.set(object, 'position', position)
+  Ember.set(object, "position", position)
 
-  if (_isInteger(position) === false || position < 0){
+  if (_isInteger(position) === false || position < 0) {
     _rebalanceList(array)
   }
 
@@ -107,14 +105,14 @@ export function addObjectAtIndex(sortedArray, object, newIndex){
  */
 
 export function addModelAbove(sortedArray, model, newModel) {
-  var index = sortedArray.indexOf(model);
-  if (index == -1){ index = 0 }
+  var index = sortedArray.indexOf(model)
+  if (index == -1) {
+    index = 0
+  }
   this.addObjectAtIndex(sortedArray, newModel, index)
 
   return this
 }
-
-
 
 /**
  * Public. Add a model below the current model
@@ -125,13 +123,12 @@ export function addModelAbove(sortedArray, model, newModel) {
  * Returns this
  */
 
-export function addModelBelow(sortedArray, model, newModel){
-  var index = sortedArray.indexOf(model);
+export function addModelBelow(sortedArray, model, newModel) {
+  var index = sortedArray.indexOf(model)
   this.addObjectAtIndex(sortedArray, newModel, index + 1)
 
   return this
 }
-
 
 /* Private:  Return the position to set an element
  * if you want to insert it at a specificed index
@@ -145,26 +142,25 @@ export function addModelBelow(sortedArray, model, newModel){
  * is not an integer or negative
  */
 
-function _getPositionForIndex(newIndex, array){
-
-  var above, below, position;
-  if (array.length === 0){
+function _getPositionForIndex(newIndex, array) {
+  var above, below, position
+  if (array.length === 0) {
     position = 1000
-  } else if (newIndex === 0){
+  } else if (newIndex === 0) {
     // add at beginning
-    var firstItemPosition = Ember.get(array.objectAt(0), 'position')
+    var firstItemPosition = Ember.get(array.objectAt(0), "position")
     position = firstItemPosition - 1000
-  } else if (newIndex >= array.length){
+  } else if (newIndex >= array.length) {
     // add at end
-    var lastItemPosition = Ember.get(array.objectAt(array.length - 1), 'position')
+    var lastItemPosition = Ember.get(array.objectAt(array.length - 1), "position")
     position = lastItemPosition + 1000
   } else {
-    below =  array.objectAt(newIndex - 1)
-    above =  array.objectAt(newIndex)
-    var abovePosition = Ember.get(above, 'position')
-    var belowPosition = Ember.get(below, 'position')
-    if (abovePosition - belowPosition > 2){
-      position = belowPosition + Math.floor((abovePosition - belowPosition)/2)
+    below = array.objectAt(newIndex - 1)
+    above = array.objectAt(newIndex)
+    var abovePosition = Ember.get(above, "position")
+    var belowPosition = Ember.get(below, "position")
+    if (abovePosition - belowPosition > 2) {
+      position = belowPosition + Math.floor((abovePosition - belowPosition) / 2)
     } else {
       position = belowPosition + 0.5
     }
@@ -172,20 +168,17 @@ function _getPositionForIndex(newIndex, array){
   return position
 }
 
-
-
-function _rebalanceList(array){
+function _rebalanceList(array) {
   Ember.run.sync()
-  Ember.run(this, function(){
+  Ember.run(this, function() {
     Ember.beginPropertyChanges()
-    _.each(array, function(item, index){
-      Ember.set(item, 'position', (index+1)*1000)
+    _.each(array, function(item, index) {
+      Ember.set(item, "position", (index + 1) * 1000)
     })
     Ember.endPropertyChanges()
   })
 }
 
-
 function _isInteger(number) {
-  return number % 1 === 0;
+  return number % 1 === 0
 }

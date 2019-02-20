@@ -1,48 +1,50 @@
-import Ember from 'ember';
-import _ from "npm:lodash";
-import hbs from 'htmlbars-inline-precompile';
+import Ember from "ember"
+import _ from "npm:lodash"
+import hbs from "htmlbars-inline-precompile"
 
 export default Ember.Component.extend({
+  search: Ember.inject.service("AlgoliaSearch"),
 
-  search: Ember.inject.service('AlgoliaSearch'),
-
-  isSearchVisible: Ember.computed('standardSetIds', function(){
-    return _.chain(this.get('standardSetIds'))
-            .filter(s => !_.contains(s, 'blank'))
-            .value().length > 0
+  isSearchVisible: Ember.computed("standardSetIds", function() {
+    return (
+      _.chain(this.get("standardSetIds"))
+        .filter(s => !_.contains(s, "blank"))
+        .value().length > 0
+    )
   }),
 
-
-  didUpdateAttrs(){
+  didUpdateAttrs() {
     Ember.run.throttle(this, this.searchAlgolia, 30)
   },
 
-  searchAlgolia(){
-    if (this.get('query') === "" || Ember.isNone(this.get('query'))){
-      this.set('results', null)
+  searchAlgolia() {
+    if (this.get("query") === "" || Ember.isNone(this.get("query"))) {
+      this.set("results", null)
       return
     }
-    this.get('search.index').search(this.get('query'), {
-      attributesToRetrieve: 'id',
-      tagFilters: [this.get('standardSetIds')]
-    }).then(data => {
-      this.set('results', _.pluck(data.hits, 'id'))
-    }).catch(function(err){
-      console.log('err', err)
-    })
+    this.get("search.index")
+      .search(this.get("query"), {
+        attributesToRetrieve: "id",
+        tagFilters: [this.get("standardSetIds")],
+      })
+      .then(data => {
+        this.set("results", _.pluck(data.hits, "id"))
+      })
+      .catch(function(err) {
+        console.log("err", err)
+      })
   },
 
-
   actions: {
-    selectSet(id, oldId){
-      analytics.track('Search - Select Set')
+    selectSet(id, oldId) {
+      analytics.track("Search - Select Set")
       this.attrs.selectSet(id, oldId)
     },
-    removeSet(id){
-      analytics.track('Search - Remove Set')
-      if (this.get('standardSetIds').length == 1) return;
+    removeSet(id) {
+      analytics.track("Search - Remove Set")
+      if (this.get("standardSetIds").length == 1) return
       this.attrs.removeSet(id)
-    }
+    },
   },
 
   layout: hbs`
@@ -74,7 +76,5 @@ export default Ember.Component.extend({
     <div class="sponsorship-footer__logo">{{partial "icons/cc-logo"}}</div>
     <div class="sponsorship-footer__loving">Lovingly built by Common Curriculum, the social lesson planner with standards built-in</div>
   </a>
-  `
-
-
+  `,
 })

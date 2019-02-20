@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Ember from "ember"
 
-export function joinWords(params/*, hash*/) {
-  return params.join('');
+export function joinWords(params /*, hash*/) {
+  return params.join("")
 }
 
-export default Ember.Helper.helper(joinWords);
+export default Ember.Helper.helper(joinWords)

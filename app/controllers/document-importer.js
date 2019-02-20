@@ -1,71 +1,68 @@
-import Ember from 'ember';
-import config from '../config/environment';
+import Ember from "ember"
+import config from "../config/environment"
 import _ from "npm:lodash"
 
 export default Ember.Controller.extend({
-
   queryParams: ["jurisdictionId", "standardsDocumentId"],
 
-  _getJurisdictions: function(){
+  _getJurisdictions: function() {
     $.ajax({
-      url: config.APP.apiBaseUrl + 'jurisdictions',
+      url: config.APP.apiBaseUrl + "jurisdictions",
       method: "GET",
-      success: function(data){
-        this.set('jurisdictions', data.data)
-      }.bind(this)
+      success: function(data) {
+        this.set("jurisdictions", data.data)
+      }.bind(this),
     })
-  }.on('init'),
+  }.on("init"),
 
-
-  _jurisdiction: Ember.observer('jurisdictionId', function(){
+  _jurisdiction: Ember.observer("jurisdictionId", function() {
     $.ajax({
-      url: config.APP.apiBaseUrl + 'jurisdictions/' + this.get("jurisdictionId"),
+      url: config.APP.apiBaseUrl + "jurisdictions/" + this.get("jurisdictionId"),
       method: "GET",
-      success: function(data){
-        this.set('jurisdiction', data.data)
-      }.bind(this)
+      success: function(data) {
+        this.set("jurisdiction", data.data)
+      }.bind(this),
     })
   }),
 
-  _fetchStandardsDocument: Ember.observer('standardsDocumentId', function(){
+  _fetchStandardsDocument: Ember.observer("standardsDocumentId", function() {
     $.ajax({
-      url: config.APP.apiBaseUrl + 'standards_document/' + this.get('standardsDocumentId'),
-      success: function(data){
+      url: config.APP.apiBaseUrl + "standards_document/" + this.get("standardsDocumentId"),
+      success: function(data) {
         var queries = _.map(data.standardSetQueries, q => Ember.Object.create(q))
-        this.set('standardsDocument', data)
-      }.bind(this)
+        this.set("standardsDocument", data)
+      }.bind(this),
     })
   }),
 
-  _fetchstandardSet: Ember.observer('standardSetQuery', function(){
+  _fetchstandardSet: Ember.observer("standardSetQuery", function() {
     var data = {
-      query:               this.get('standardSetQuery'),
-      standardsDocumentId: this.get('standardsDocument.id')
+      query: this.get("standardSetQuery"),
+      standardsDocumentId: this.get("standardsDocument.id"),
     }
-    if(_.isEmpty(_.keys(data.query))) return;
-    if(this.isFetching) return;
+    if (_.isEmpty(_.keys(data.query))) return
+    if (this.isFetching) return
     this.isFetching = true
     $.ajax({
-      url: config.APP.apiBaseUrl + 'standard_set',
+      url: config.APP.apiBaseUrl + "standard_set",
       data: data,
       dataType: "json",
       type: "POST",
-      success: function(data){
+      success: function(data) {
         this.isFetching = false
-        this.set('standardSet', data)
-      }.bind(this)
+        this.set("standardSet", data)
+      }.bind(this),
     })
   }),
 
-  standards: Ember.computed('standardSet', function(){
-    var standardsHash = this.get('standardSet.standards')
-    if (Ember.isNone(standardsHash)) return [];
+  standards: Ember.computed("standardSet", function() {
+    var standardsHash = this.get("standardSet.standards")
+    if (Ember.isNone(standardsHash)) return []
     var rootStandard = _.find(standardsHash, (value, key) => value.firstStandard === true)
 
-    function fetchNext(acc, standards, standardId){
+    function fetchNext(acc, standards, standardId) {
       acc.push(standards[standardId])
-      if (acc.length < _.keys(standards).length)
-        fetchNext(acc, standards, standards[standardId].nextStandard);
+      if (acc.length < _.keys(standards).length) fetchNext(acc, standards, standards[standardId].nextStandard)
       return acc
     }
 
@@ -75,33 +72,32 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    viewJurisdiction(id){
-      this.set('jurisdictionId', id)
+    viewJurisdiction(id) {
+      this.set("jurisdictionId", id)
     },
-    viewStandardsDocument(id){
-      this.set('standardsDocumentId', id)
+    viewStandardsDocument(id) {
+      this.set("standardsDocumentId", id)
     },
-    viewstandardSet(query){
-      this.set('standardSetQuery', query)
+    viewstandardSet(query) {
+      this.set("standardSetQuery", query)
     },
-    importStandards(query){
+    importStandards(query) {
       var data = {
-        query:               query,
-        standardsDocumentId: this.get('standardsDocument.id')
+        query: query,
+        standardsDocumentId: this.get("standardsDocument.id"),
       }
       $.ajax({
-        url: config.APP.apiBaseUrl + 'standard_set_import/',
+        url: config.APP.apiBaseUrl + "standard_set_import/",
         data: data,
         dataType: "json",
         method: "POST",
-        success: function(data){
-          window.alert('Success!')
+        success: function(data) {
+          window.alert("Success!")
         }.bind(this),
-        error: function(data){
+        error: function(data) {
           window.alert(JSON.stringify(data))
-        }.bind(this)
+        }.bind(this),
       })
-    }
-  }
-
+    },
+  },
 })

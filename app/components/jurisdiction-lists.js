@@ -1,42 +1,42 @@
-import Ember from 'ember';
-import hbs from 'htmlbars-inline-precompile';
-import _ from "npm:lodash";
-import rpc from "../lib/rpc";
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import _ from "npm:lodash"
+import rpc from "../lib/rpc"
 
 export default Ember.Component.extend({
-
   showAddOrganizationForm: false,
   showAddSchoolForm: false,
 
-  stateJurisdictions: Ember.computed('jurisdictions.list', function(){
-    return _.filter(this.get('jurisdictions.list'), {type: "state"})
+  stateJurisdictions: Ember.computed("jurisdictions.list", function() {
+    return _.filter(this.get("jurisdictions.list"), { type: "state" })
   }),
 
-  orgJurisdictions: Ember.computed('jurisdictions.list', function(){
-    return _.filter(this.get('jurisdictions.list'), {type: "organization"})
+  orgJurisdictions: Ember.computed("jurisdictions.list", function() {
+    return _.filter(this.get("jurisdictions.list"), { type: "organization" })
   }),
 
-  schoolJurisdictions: Ember.computed('jurisdictions.list', function(){
-    return _.filter(this.get('jurisdictions.list'), {type: "school"})
+  schoolJurisdictions: Ember.computed("jurisdictions.list", function() {
+    return _.filter(this.get("jurisdictions.list"), { type: "school" })
   }),
 
   actions: {
-
-    toggleAddOrganizationForm(){
-      this.toggleProperty('showAddOrganizationForm')
+    toggleAddOrganizationForm() {
+      this.toggleProperty("showAddOrganizationForm")
     },
 
-    toggleAddSchoolForm(){
-      this.toggleProperty('showAddSchoolForm')
+    toggleAddSchoolForm() {
+      this.toggleProperty("showAddSchoolForm")
     },
 
-    addJurisdiction(data){
-      rpc.addJurisdiction(data, function(_data){
-        this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
-      }.bind(this), function(err){
-
-      })
-    }
+    addJurisdiction(data) {
+      rpc.addJurisdiction(
+        data,
+        function(_data) {
+          this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
+        }.bind(this),
+        function(err) {}
+      )
+    },
   },
 
   layout: hbs`
@@ -77,5 +77,5 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     </div>
-  `
-});
+  `,
+})

@@ -1,132 +1,156 @@
-import Ember from "ember";
-import Fetcher from "../lib/fetcher";
-import rpc from "../lib/rpc";
-import _ from "npm:lodash";
-import Standards from "../models/standards";
-import hbs from 'htmlbars-inline-precompile';
-import { storageFor } from 'ember-local-storage';
-
+import Ember from "ember"
+import Fetcher from "../lib/fetcher"
+import rpc from "../lib/rpc"
+import _ from "npm:lodash"
+import Standards from "../models/standards"
+import hbs from "htmlbars-inline-precompile"
+import { storageFor } from "ember-local-storage"
 
 export default Ember.Component.extend({
-
   pane: "standards",
 
-  authenticate:    Ember.inject.service(),
-  session:         storageFor('persistedSession'),
+  authenticate: Ember.inject.service(),
+  session: storageFor("persistedSession"),
 
-  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
-    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  isAuthenticated: Ember.computed("session.authenticatedAt", function() {
+    return Date.now() - this.get("session.authenticatedAt") < 3100000
   }),
 
-  classNameBindings: ['wasInserted'],
+  classNameBindings: ["wasInserted"],
 
-  addInsertedClass: Ember.on('didInsertElement', function(){
-    Ember.run.later(this, () => {this.set('wasInserted', true)}, 10)
+  addInsertedClass: Ember.on("didInsertElement", function() {
+    Ember.run.later(
+      this,
+      () => {
+        this.set("wasInserted", true)
+      },
+      10
+    )
   }),
 
-  linkToSet: Ember.computed('standardSetId', function(){
-    return 'http://commonstandardsproject.com/search?ids=%5B"' + this.get('id') + '"%5D'
+  linkToSet: Ember.computed("standardSetId", function() {
+    return 'http://commonstandardsproject.com/search?ids=%5B"' + this.get("id") + '"%5D'
   }),
 
-  showRemoveButton: Ember.computed('index', function(){
-    return this.get('index') !== 0
+  showRemoveButton: Ember.computed("index", function() {
+    return this.get("index") !== 0
   }),
 
-  setPane: Ember.on('init', function(){
-    if (this.get('id').match(/blank/) !== null) this.set('pane', 'jurisdictions')
+  setPane: Ember.on("init", function() {
+    if (this.get("id").match(/blank/) !== null) this.set("pane", "jurisdictions")
   }),
 
-  standardSet: Ember.computed('id', function(){
-    if (this.get('id').match(/blank/) !== null) return;
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  standardSet: Ember.computed("id", function() {
+    if (this.get("id").match(/blank/) !== null) return
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('standardSet', this.get('id')).then((datum) => {
-        window.document.title = `${datum.jurisdiction.title} : ${datum.subject} : ${datum.title} - Common Standards Project`
+      promise: Fetcher.find("standardSet", this.get("id")).then(datum => {
+        window.document.title = `${datum.jurisdiction.title} : ${datum.subject} : ${
+          datum.title
+        } - Common Standards Project`
         return datum
-      })
+      }),
     })
   }),
 
-  jurisdiction: Ember.computed('standardSet.jurisdiction.id', 'jurisdictionId', function(){
-    var id = this.get('jurisdictionId') || this.get('standardSet.jurisdiction.id')
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  jurisdiction: Ember.computed("standardSet.jurisdiction.id", "jurisdictionId", function() {
+    var id = this.get("jurisdictionId") || this.get("standardSet.jurisdiction.id")
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', id)
+      promise: Fetcher.find("jurisdiction", id),
     })
-
   }),
 
-  subjects: Ember.computed('jurisdiction.standardSets', function(){
-    var sets = this.get('jurisdiction.standardSets') || {}
-    console.log('subject', this.get('jurisdiction'), _.chain(sets).pluck('subject').uniq().value().sort())
-    return _.chain(sets).pluck('subject').uniq().value().sort()
+  subjects: Ember.computed("jurisdiction.standardSets", function() {
+    var sets = this.get("jurisdiction.standardSets") || {}
+    console.log(
+      "subject",
+      this.get("jurisdiction"),
+      _.chain(sets)
+        .pluck("subject")
+        .uniq()
+        .value()
+        .sort()
+    )
+    return _.chain(sets)
+      .pluck("subject")
+      .uniq()
+      .value()
+      .sort()
   }),
 
-  gradeLevels: Ember.computed('subject', 'standardSet.subject', 'jurisdiction.standardSets', function(){
-    var sets = this.get('jurisdiction.standardSets') || {}
-    var subject = this.get('subject') || this.get('standardSet.subject')
-    return _.chain(sets).filter({subject: subject}).sortBy('title').value()
+  gradeLevels: Ember.computed("subject", "standardSet.subject", "jurisdiction.standardSets", function() {
+    var sets = this.get("jurisdiction.standardSets") || {}
+    var subject = this.get("subject") || this.get("standardSet.subject")
+    return _.chain(sets)
+      .filter({ subject: subject })
+      .sortBy("title")
+      .value()
   }),
 
-
-  currentJurisdiction: Ember.computed('standardSet.jurisdiction', 'jurisdiction.title', function(){
-    return this.get('jurisdiction.title') || this.get('standardSet.jurisdiction.title')
+  currentJurisdiction: Ember.computed("standardSet.jurisdiction", "jurisdiction.title", function() {
+    return this.get("jurisdiction.title") || this.get("standardSet.jurisdiction.title")
   }),
 
-  currentSubject: Ember.computed('standardSet.subject', 'subject', function(){
-    return this.get('subject') || this.get('standardSet.subject')
+  currentSubject: Ember.computed("standardSet.subject", "subject", function() {
+    return this.get("subject") || this.get("standardSet.subject")
   }),
 
-
-  standards: Ember.computed('standardSet.standards', 'results', function(){
-    var standards = Standards.hashToArray(this.get('standardSet.standards'))
-    var results   = this.get('results')
-    if (results !== null && results !== undefined){
+  standards: Ember.computed("standardSet.standards", "results", function() {
+    var standards = Standards.hashToArray(this.get("standardSet.standards"))
+    var results = this.get("results")
+    if (results !== null && results !== undefined) {
       standards = _.filter(standards, s => _.include(results, s.id))
     }
     return standards
   }),
 
-  editSet(){
-    Ember.set(this, 'standardSet.isFetching', true)
-    rpc["pullRequest:create"]({standardSetId: Ember.get(this, 'id')}, function(data){
-      this.get('container').lookup('router:main').transitionTo('edit.pull-requests', data.data.id)
-    }.bind(this), function(error){
-      console.error(error)
-    })
+  editSet() {
+    Ember.set(this, "standardSet.isFetching", true)
+    rpc["pullRequest:create"](
+      { standardSetId: Ember.get(this, "id") },
+      function(data) {
+        this.get("container")
+          .lookup("router:main")
+          .transitionTo("edit.pull-requests", data.data.id)
+      }.bind(this),
+      function(error) {
+        console.error(error)
+      }
+    )
   },
 
   actions: {
-    selectJurisdiction(jurisdiction){
-      analytics.track('Search - Select Jurisdiction')
-      this.set('jurisdictionId', jurisdiction.id)
-      this.set('pane', 'subjects')
+    selectJurisdiction(jurisdiction) {
+      analytics.track("Search - Select Jurisdiction")
+      this.set("jurisdictionId", jurisdiction.id)
+      this.set("pane", "subjects")
       $(window).scrollTop(0)
     },
 
-    selectSubject(subject){
-      analytics.track('Search - Select Subject')
-      this.set('subject', subject)
-      this.set('pane', 'grade-levels')
+    selectSubject(subject) {
+      analytics.track("Search - Select Subject")
+      this.set("subject", subject)
+      this.set("pane", "grade-levels")
       $(window).scrollTop(0)
     },
 
-    selectSet(set){
-      analytics.track('Search - Select Set')
-      this.sendAction('selectSet', set.id, this.get('id'))
-      this.set('pane', 'standards')
+    selectSet(set) {
+      analytics.track("Search - Select Set")
+      this.sendAction("selectSet", set.id, this.get("id"))
+      this.set("pane", "standards")
       $(window).scrollTop(0)
     },
 
-    backToPane(pane){
-      analytics.track('Search - Back to Pane')
-      this.set('pane', pane)
+    backToPane(pane) {
+      analytics.track("Search - Back to Pane")
+      this.set("pane", pane)
     },
 
-    editSet(){
-      if (Ember.get(this, 'isAuthenticated') === false) {
-        this.get('authenticate').show()
-        this.get('authenticate.lock').on('authenticate', () => {
+    editSet() {
+      if (Ember.get(this, "isAuthenticated") === false) {
+        this.get("authenticate").show()
+        this.get("authenticate.lock").on("authenticate", () => {
           this.editSet()
         })
       } else {
@@ -134,23 +158,27 @@ export default Ember.Component.extend({
       }
     },
 
-    removeSet(){
-      analytics.track('Search - Remove Set')
-      this.sendAction('removeSet', this.get('id'))
+    removeSet() {
+      analytics.track("Search - Remove Set")
+      this.sendAction("removeSet", this.get("id"))
     },
 
-    toggleLinkToSet(){
-      analytics.track('Search - Show Link')
-      this.toggleProperty('showLinkToSet')
+    toggleLinkToSet() {
+      analytics.track("Search - Show Link")
+      this.toggleProperty("showLinkToSet")
     },
 
-    didCopy(){
-      analytics.track('Search - Copied standard')
-      this.set('showCopyMessage', true)
-      Ember.run.later(this, function(){
-        this.set('showCopyMessage', false)
-      }, 1000)
-    }
+    didCopy() {
+      analytics.track("Search - Copied standard")
+      this.set("showCopyMessage", true)
+      Ember.run.later(
+        this,
+        function() {
+          this.set("showCopyMessage", false)
+        },
+        1000
+      )
+    },
   },
 
   layout: hbs`
@@ -262,7 +290,5 @@ export default Ember.Component.extend({
       {{/if}}
     </div>
   </div>
-  `
-
-
+  `,
 })

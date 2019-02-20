@@ -1,12 +1,12 @@
-import { moduleFor, test } from 'ember-qunit';
+import { moduleFor, test } from "ember-qunit"
 
-moduleFor('service:algolia-search', 'Unit | Service | algolia search', {
+moduleFor("service:algolia-search", "Unit | Service | algolia search", {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
-});
+})
 
 // Replace this with your real tests.
-test('it exists', function(assert) {
-  var service = this.subject();
-  assert.ok(service);
-});
+test("it exists", function(assert) {
+  var service = this.subject()
+  assert.ok(service)
+})

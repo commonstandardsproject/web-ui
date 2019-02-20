@@ -1,14 +1,12 @@
-import Ember from 'ember';
-import hbs from 'htmlbars-inline-precompile';
-import _ from "npm:lodash";
-import rpc from "../lib/rpc";
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
+import _ from "npm:lodash"
+import rpc from "../lib/rpc"
 
 export default Ember.Component.extend({
-
   showForm: false,
 
-  groupedSets: Ember.computed('standardSets', function(){
-
+  groupedSets: Ember.computed("standardSets", function() {
     var sortFn = function(set) {
       return _.chain(set.educationLevels)
         .first()
@@ -19,41 +17,45 @@ export default Ember.Component.extend({
         .run()
     }
 
-    return _.chain(this.get('standardSets'))
-      .sortBy('subject')
-      .groupBy('subject')
+    return _.chain(this.get("standardSets"))
+      .sortBy("subject")
+      .groupBy("subject")
       .pairs()
-      .map((v) => {
+      .map(v => {
         return {
           title: _.first(v),
-          sets: _.sortBy(_.last(v), sortFn)
+          sets: _.sortBy(_.last(v), sortFn),
         }
       })
       .run()
   }),
 
   actions: {
-    createNewSet(){
-      rpc["standardSet:create"]({
-        jurisdiction_id: this.get('jurisdictionId'),
-        title:          this.get('title'),
-        subject:        this.get('subject'),
-        committerName:  this.session.get('profile.name'),
-        committerEmail: this.session.get('profile.email'),
-      }, function(data){
-        this.sendAction('selectStandardSet', data.data.id)
-      }.bind(this), function(error){
-        console.log('Standard Set Create Error', error)
-        window.alert('There was an error creating the standard set.')
-      })
+    createNewSet() {
+      rpc["standardSet:create"](
+        {
+          jurisdiction_id: this.get("jurisdictionId"),
+          title: this.get("title"),
+          subject: this.get("subject"),
+          committerName: this.session.get("profile.name"),
+          committerEmail: this.session.get("profile.email"),
+        },
+        function(data) {
+          this.sendAction("selectStandardSet", data.data.id)
+        }.bind(this),
+        function(error) {
+          console.log("Standard Set Create Error", error)
+          window.alert("There was an error creating the standard set.")
+        }
+      )
     },
-    toggleForm(){
-      this.toggleProperty('showForm')
-    }
+    toggleForm() {
+      this.toggleProperty("showForm")
+    },
   },
 
   tagName: "div",
-  classNames: ['standard-sets-list'],
+  classNames: ["standard-sets-list"],
   layout: hbs`
     {{#each groupedSets as |group|}}
       <div class="standard-sets-list__subject-group">
@@ -77,5 +79,5 @@ export default Ember.Component.extend({
     {{else}}
       <div class="btn btn-primary" {{action "toggleForm"}}>Create a set of standards</div>
     {{/if}}
-  `
-});
+  `,
+})

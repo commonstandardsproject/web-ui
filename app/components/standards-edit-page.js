@@ -1,89 +1,93 @@
-import Ember from 'ember';
-import _ from "npm:lodash";
-import rpc from "../lib/rpc";
-import idGen from "../lib/id-gen";
-import hbs from 'htmlbars-inline-precompile';
-import Fetcher from "../lib/fetcher";
-import { storageFor } from 'ember-local-storage';
+import Ember from "ember"
+import _ from "npm:lodash"
+import rpc from "../lib/rpc"
+import idGen from "../lib/id-gen"
+import hbs from "htmlbars-inline-precompile"
+import Fetcher from "../lib/fetcher"
+import { storageFor } from "ember-local-storage"
 
 export default Ember.Component.extend({
+  authenticate: Ember.inject.service(),
+  session: storageFor("persistedSession"),
 
-  authenticate:    Ember.inject.service(),
-  session:         storageFor('persistedSession'),
-
-  isAuthenticated: Ember.computed('session.authenticatedAt', function(){
-    return (Date.now() - this.get('session.authenticatedAt')) < 3100000
+  isAuthenticated: Ember.computed("session.authenticatedAt", function() {
+    return Date.now() - this.get("session.authenticatedAt") < 3100000
   }),
 
-  pullRequests: Ember.computed('session.id', function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  pullRequests: Ember.computed("session.id", function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('userPullRequests', this.get('session.id'))
+      promise: Fetcher.find("userPullRequests", this.get("session.id")),
     })
   }),
 
-  isAuthenticatedWatcher: Ember.observer('isAuthenticated', function(){
-    if (this.get('isAuthenticated') === true) $(window).scrollTop(0);
+  isAuthenticatedWatcher: Ember.observer("isAuthenticated", function() {
+    if (this.get("isAuthenticated") === true) $(window).scrollTop(0)
   }),
 
-  jurisdictions: Ember.computed(function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  jurisdictions: Ember.computed(function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', 'index', true)
+      promise: Fetcher.find("jurisdiction", "index", true),
     })
   }),
 
-  jurisdiction: Ember.computed('jurisdictionId', function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  jurisdiction: Ember.computed("jurisdictionId", function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('jurisdiction', this.get('jurisdictionId'))
+      promise: Fetcher.find("jurisdiction", this.get("jurisdictionId")),
     })
   }),
 
-  standardSet: Ember.computed('standardSetId', function(){
-    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+  standardSet: Ember.computed("standardSetId", function() {
+    var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
-      promise: Fetcher.find('standardSet', this.get('standardSetId'))
+      promise: Fetcher.find("standardSet", this.get("standardSetId")),
     })
   }),
 
-  paneObserver: Ember.observer('pane', function(){
+  paneObserver: Ember.observer("pane", function() {
     $(window).scrollTop(0)
   }),
 
-  scrollOnStart: Ember.on('didInsertElement', function(){
+  scrollOnStart: Ember.on("didInsertElement", function() {
     $(window).scrollTop(0)
   }),
-
 
   actions: {
-    signIn(){
-      this.get('authenticate').show()
+    signIn() {
+      this.get("authenticate").show()
     },
-    showReset(){
-      this.get('authenticate').logout()
+    showReset() {
+      this.get("authenticate").logout()
     },
-    selectJurisdiction(id){
-      this.set('jurisdictionId', id)
-      this.set('pane', 'jurisdiction')
+    selectJurisdiction(id) {
+      this.set("jurisdictionId", id)
+      this.set("pane", "jurisdiction")
     },
-    selectStandardSet(id){
-      this.set('standardSetId', id)
-      this.set('pane', 'standard-set')
+    selectStandardSet(id) {
+      this.set("standardSetId", id)
+      this.set("pane", "standard-set")
     },
-    goToPane(pane){
-      this.set('pane', pane)
+    goToPane(pane) {
+      this.set("pane", pane)
     },
-    createPullRequest(){
-      Ember.set(this, 'isCreatingPullRequest', true)
-      rpc["pullRequest:create"]({}, function(data){
-        this.get('container').lookup('router:main').transitionTo('edit.pull-requests', data.data.id)
-        Ember.set(this, 'isCreatingPullRequest', false)
-      }.bind(this), function(error){
-        Ember.set(this, 'isCreatingPullRequest', false)
-        console.error(error)
-      })
-    }
+    createPullRequest() {
+      Ember.set(this, "isCreatingPullRequest", true)
+      rpc["pullRequest:create"](
+        {},
+        function(data) {
+          this.get("container")
+            .lookup("router:main")
+            .transitionTo("edit.pull-requests", data.data.id)
+          Ember.set(this, "isCreatingPullRequest", false)
+        }.bind(this),
+        function(error) {
+          Ember.set(this, "isCreatingPullRequest", false)
+          console.error(error)
+        }
+      )
+    },
   },
 
   layout: hbs`
@@ -134,6 +138,5 @@ export default Ember.Component.extend({
       </div>
     </div>
   </div>
-  `
-
+  `,
 })

@@ -1,7 +1,6 @@
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var EmberApp = require("ember-cli/lib/broccoli/ember-app")
 module.exports = function(defaults) {
-
-  var app = new EmberApp();
+  var app = new EmberApp()
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
@@ -16,10 +15,9 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('bower_components/auth0-lock/build/lock.js')
-  app.import('vendor/sweetalert/sweetalert.css');
-  app.import('vendor/sweetalert/sweetalert-dev.js');
+  app.import("bower_components/auth0-lock/build/lock.js")
+  app.import("vendor/sweetalert/sweetalert.css")
+  app.import("vendor/sweetalert/sweetalert-dev.js")
 
-
-  return app.toTree();
+  return app.toTree()
 }

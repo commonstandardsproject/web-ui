@@ -1,28 +1,31 @@
-import Ember from 'ember';
-import hbs from 'htmlbars-inline-precompile';
+import Ember from "ember"
+import hbs from "htmlbars-inline-precompile"
 
 export default Ember.Component.extend({
-
   actions: {
-    submit(){
-      analytics.track('Editor - Submit Commit')
-      if (Ember.isEmpty(Ember.get(this, 'summary')) || Ember.isEmpty(Ember.get(this, 'session.profile.email')) || Ember.isEmpty(Ember.get(this, 'session.profile.name')) ) {
-        this.set('error', "All fields must be filled in.")
+    submit() {
+      analytics.track("Editor - Submit Commit")
+      if (
+        Ember.isEmpty(Ember.get(this, "summary")) ||
+        Ember.isEmpty(Ember.get(this, "session.profile.email")) ||
+        Ember.isEmpty(Ember.get(this, "session.profile.name"))
+      ) {
+        this.set("error", "All fields must be filled in.")
         return
       } else {
-        this.set('error', false)
+        this.set("error", false)
       }
       this.attrs.onFormSubmit({
-        committerName:  Ember.get(this, 'session.profile.name'),
-        committerEmail: Ember.get(this, 'session.profile.email'),
-        commitSummary:  Ember.get(this, 'summary')
+        committerName: Ember.get(this, "session.profile.name"),
+        committerEmail: Ember.get(this, "session.profile.email"),
+        commitSummary: Ember.get(this, "summary"),
       })
-    }
+    },
   },
 
   summary: "",
 
-  classNames: ['standard-set-commit-maker'],
+  classNames: ["standard-set-commit-maker"],
   layout: hbs`
 
     {{#if diffError}}
@@ -64,6 +67,5 @@ export default Ember.Component.extend({
     <div class="form-group">
       <div class="btn btn-primary btn-block form-control" {{action "submit"}}>Submit Change</div>
     </div>
-  `
-
+  `,
 })
