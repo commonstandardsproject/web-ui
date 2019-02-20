@@ -28,7 +28,6 @@
 @import "components/loading-ripple";
 @import "components/standard-set-editor-activies";
 
-
 @import "components/lists/jurisdiction-list";
 @import "components/lists/editable-standards-list";
 @import "components/lists/editor-jurisdictions-list";
@@ -42,29 +41,25 @@
 @import "pages/standards-edit";
 @import "pages/commit-page";
 
-
-html{
+html {
   font-size: 80%;
 }
 
-body{
+body {
   margin: 0;
 }
 
-
-.json-pretty{
+.json-pretty {
   width: 100%;
-  pre{
+  pre {
     outline: 0 !important;
   }
 }
 
-
-.selectize-control{
+.selectize-control {
   margin-top: 10px;
 }
 
-
-.clearfix{
+.clearfix {
   clear: both;
 }

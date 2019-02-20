@@ -1,8 +1,8 @@
-.standard{
+.standard {
   display: block;
 }
 
-.standard{
+.standard {
   padding-top: 5px;
   border-bottom: 1px solid $dividers;
   padding-bottom: 5px;
@@ -11,45 +11,44 @@
   line-height: 1.3;
   // display: none;
 
-  &.depth-0{
+  &.depth-0 {
     display: block;
   }
 
-  &.depth-1{
+  &.depth-1 {
     margin-left: 20px;
   }
-  &.depth-2{
+  &.depth-2 {
     margin-left: 40px;
   }
-  &.depth-3{
+  &.depth-3 {
     margin-left: 60px;
   }
-  &.depth-4{
+  &.depth-4 {
     margin-left: 80px;
   }
-  &.depth-5{
+  &.depth-5 {
     margin-left: 100px;
   }
-
 }
 
-.standard__guid{
+.standard__guid {
   display: block;
   font-size: 10px;
   color: $hint;
 }
 
-.standard__asn-identifier{
+.standard__asn-identifier {
   color: $hint;
   font-size: 10px;
 }
 
-.standard__statement-notation{
+.standard__statement-notation {
   // font-weight: 700;
   // color: $secondary-text;
   // display: block;
 }
 
-.standard__description{
+.standard__description {
   color: $secondary-text;
 }

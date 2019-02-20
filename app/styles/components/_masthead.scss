@@ -1,4 +1,4 @@
-.masthead{
+.masthead {
   padding: 0 0px;
   // background-color: white;
   // border-top: 1px solid $hint;
@@ -14,27 +14,27 @@
   z-index: 10;
   font-family: "aw-conqueror-carved";
   font-size: 7.5rem;
-  line-height: .8;
+  line-height: 0.8;
   cursor: pointer;
-  transition: color .5s;
+  transition: color 0.5s;
   color: $color-header-title;
   margin-bottom: 0;
   padding-bottom: 0;
   // transform: rotate(-15deg);
-  &:hover{
+  &:hover {
     // color: #EAE3A0;
     // color: $red;
     // transition: color .5s;
   }
 }
 
-.masthead__background{
+.masthead__background {
   top: 0;
   position: absolute;
-  color:    $super-light;
+  color: $super-light;
   left: -20vw;
   right: -20vw;
-  z-index:  0;
+  z-index: 0;
   font-family: "aw-conqueror-carved";
   font-size: 2rem;
   line-height: 1;
@@ -54,15 +54,14 @@
   // text-transform: uppercase;
 }
 
-
-@media (max-width: 500px){
+@media (max-width: 500px) {
   .masthead {
     margin: 0 20px 20px;
   }
-  .masthead__title{
+  .masthead__title {
     font-size: 4rem;
   }
-  .masthead__subtitle{
+  .masthead__subtitle {
     font-size: 2rem;
   }
 }

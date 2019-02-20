@@ -1,8 +1,8 @@
-.selectable-list{
+.selectable-list {
   margin-left: 0;
 }
 
-.selectable-list__item{
+.selectable-list__item {
   display: block;
   font-size: 11px;
   line-height: 1.2;
@@ -13,10 +13,10 @@
   margin-bottom: 0;
   border-bottom: 1px solid $dividers;
   cursor: pointer;
-  &:hover{
-    background-color: lighten(#33C3F0, 20%);
+  &:hover {
+    background-color: lighten(#33c3f0, 20%);
   }
-  &.active{
+  &.active {
     background-color: $dividers;
   }
 }

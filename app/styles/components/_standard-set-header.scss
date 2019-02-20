@@ -1,7 +1,6 @@
-
-@mixin header-svg{
+@mixin header-svg {
   vertical-align: baseline;
-  svg{
+  svg {
     height: 16px;
     width: 16px;
     margin-top: 5px;
@@ -10,10 +9,10 @@
   }
 }
 
-
-.standard-set-header__subject{
+.standard-set-header__subject {
   // font-size: 1.75rem;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   display: block;
   float: left;
   // font-size: 1rem;
@@ -22,13 +21,13 @@
   cursor: pointer;
   @include header-svg;
   font-size: 1.7rem;
-  &:hover{
+  &:hover {
     color: $teal;
     text-decoration: underline;
   }
 }
 
-.standard-set-header__title{
+.standard-set-header__title {
   // font-weight: 700;
   // font-size: 1.75rem;
   // font-size: 1.5rem;
@@ -36,40 +35,44 @@
   // color: $secondary-text;
   display: block;
   float: left;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   font-size: 1.7rem;
   // line-height: 1.6rem;
   // line-height: 2rem;
   // display: inline;
   // color: black;
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: $teal;
     text-decoration: underline;
   }
 }
 
-.standard-set-header__document-title{
+.standard-set-header__document-title {
   display: block;
   clear: both;
   font-size: 0.8rem;
   color: $hint;
-  &:before{ content: "Source: ";}
-  margin: 0; padding: 0;
+  &:before {
+    content: "Source: ";
+  }
+  margin: 0;
+  padding: 0;
   line-height: 1.1;
-  padding: .25rem 0 0 0;
+  padding: 0.25rem 0 0 0;
   text-decoration: none;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
 }
 
-.standard-set-header__link-to-set{
+.standard-set-header__link-to-set {
   font-size: 1rem;
   font-weight: 400;
   text-decoration: none;
-  background-color: hsl(0,0,98%);
-  border: 1px solid hsl(0,0,90%);
+  background-color: hsl(0, 0, 98%);
+  border: 1px solid hsl(0, 0, 90%);
   padding: 10px;
   margin: 5px 0;
   display: block;
@@ -83,26 +86,28 @@
   // }
 }
 
-
-.standard-set-header__select{
+.standard-set-header__select {
   // color: $secondary-text;
   // font-weight: 400;
   // &:after{ content: ""; }
   color: $teal;
-  &:hover{ text-decoration: none;}
+  &:hover {
+    text-decoration: none;
+  }
 }
-.standard-set-header__jurisdiction{
+.standard-set-header__jurisdiction {
   font-weight: 700;
   font-size: 1.7rem;
 }
 
 .standard-set-pane-header__choose-jurisdiction,
-.standard-set-header__jurisdiction{
+.standard-set-header__jurisdiction {
   display: block;
   // color: $hint;
   // text-transform: uppercase;
   // line-height: 1;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
   display: block;
   float: left;
@@ -112,19 +117,19 @@
   // color: $text;
   padding-right: 0;
   @include header-svg;
-  &:hover{
+  &:hover {
     color: $teal;
     text-decoration: underline;
   }
 }
 
-.standard-set-pane-header__choose-jurisdiction{
+.standard-set-pane-header__choose-jurisdiction {
   // font-size: 1.2rem;
   letter-spacing: normal;
   text-transform: none;
   color: $teal;
   // font-size: 1.2rem;
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
 }

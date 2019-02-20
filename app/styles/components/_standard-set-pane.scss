@@ -1,4 +1,4 @@
-.standard-set-pane{
+.standard-set-pane {
   max-height: 0;
   position: relative;
 }
@@ -11,39 +11,42 @@
   right: 12px;
   top: 15px;
   cursor: pointer;
-  svg{
+  svg {
     fill: $dividers;
-    width: 20px; height: 20px;
+    width: 20px;
+    height: 20px;
   }
-  &:hover svg{
+  &:hover svg {
     fill: $secondary-text;
   }
 }
 .standard-set-pane__link {
   right: 40px;
   top: 13px;
-  svg{
+  svg {
     height: 16px;
   }
-  .standard-set-pane__button-text{
+  .standard-set-pane__button-text {
     display: none;
   }
 }
 
-.standard-set-pane__edit{
+.standard-set-pane__edit {
   right: 64px;
   top: 12px;
-  svg{ height: 25px; width: 30px;}
+  svg {
+    height: 25px;
+    width: 30px;
+  }
 }
 
-
-.standard-set-pane{
+.standard-set-pane {
   width: 100%;
   flex-grow: 1;
   margin-bottom: 0;
 }
 
-.standard-set-pane__back{
+.standard-set-pane__back {
   font-size: 1rem;
   color: $hint;
   // display: inline;
@@ -58,7 +61,7 @@
   display: none;
 }
 
-.standard-set-pane-header{
+.standard-set-pane-header {
   border-bottom: 1px solid $dividers;
   padding: 15px;
   line-height: 1.2;
@@ -67,18 +70,18 @@
   font-weight: 400;
 }
 
-.standard-set-pane__selectable-list{
+.standard-set-pane__selectable-list {
   clear: both;
   padding: 0;
 }
 
-.standard-set-pane__selectable-list__item{
+.standard-set-pane__selectable-list__item {
   font-size: 1.2rem;
   padding: 5px 10px;
   border-bottom: 1px solid $dividers;
   cursor: pointer;
   color: $secondary-text;
-  &:hover{
+  &:hover {
     background-color: $yellow;
   }
 }

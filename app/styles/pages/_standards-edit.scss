@@ -1,14 +1,14 @@
-
-.standards-edit-page{
+.standards-edit-page {
   margin-top: 100px;
   max-width: 1000px;
-  margin-left: auto; margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   display: -webkit-flex;
   flex-direction: column;
 }
 
-.standards-edit-page__header{
+.standards-edit-page__header {
   flex: 2 100%;
 }
 
@@ -21,7 +21,7 @@
 //   width: 30%;
 // }
 
-.standards-edit-h1{
+.standards-edit-h1 {
   color: $red;
   text-align: center;
   font-family: $font-headings;
@@ -29,7 +29,7 @@
   border-bottom: 1px solid $dividers;
 }
 
-.standards-editor-pane__prompt{
+.standards-editor-pane__prompt {
   color: $red;
   font-size: 2rem;
   line-height: 2.8rem;
@@ -40,20 +40,19 @@
   margin-top: 0;
 }
 
-.standards-editor-pane__back{
+.standards-editor-pane__back {
   color: $hint;
   font-weight: 300;
   font-family: $font-family;
   float: left;
   cursor: pointer;
   font-size: 1.2rem;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
 }
 
-
-.standard-set-editor__subhead{
+.standard-set-editor__subhead {
   color: $red;
   margin-top: 3rem;
   color: $hint;
@@ -62,27 +61,26 @@
   @include bb($dividers);
 }
 
-.standard-set-editor__h3{
+.standard-set-editor__h3 {
   font-size: 1.25rem;
   text-transform: uppercase;
   color: $secondary-text;
   font-weight: 600;
 }
 
-.standard-set-editor__directions{
+.standard-set-editor__directions {
   font-size: 1.5rem;
   color: $secondary-text;
 }
 
-
-.standard-set-editor__save-button{
+.standard-set-editor__save-button {
   background-color: $teal;
   display: block;
   width: 100%;
   border-radius: 5px;
 }
 
-.standards-edit-h2{
+.standards-edit-h2 {
   color: $secondary-text;
   font-size: 2rem;
   text-align: center;
@@ -90,26 +88,21 @@
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
-.standards-edit p{
+.standards-edit p {
   font-size: 1.2rem;
 }
 
-
-
-
-.add-jurisdiction{
+.add-jurisdiction {
   padding: 10px;
   background-color: $yellow;
 }
 
-
-
-.standard-set-editor-draft-box{
+.standard-set-editor-draft-box {
   margin-top: 3rem;
   background-color: $super-light;
   border: 1px solid $dividers;
   padding: 2rem;
-  .standard-set-editor__subhead{
+  .standard-set-editor__subhead {
     color: $secondary-text;
     margin-top: 0;
     border-bottom: none;
@@ -117,7 +110,7 @@
     margin-bottom: 0;
   }
 }
-.standard-set-editor-draft-box__statuses{
+.standard-set-editor-draft-box__statuses {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -125,53 +118,56 @@
   flex-flow: row wrap;
 }
 
-.standard-set-editor-draft-box__status{
+.standard-set-editor-draft-box__status {
   color: $hint;
   font-size: 1.25rem;
   // font-weight: 600;
   // text-transform: uppercase;
   align-self: flex-start;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   height: auto;
-  &.is-active{ color: $teal; }
-  &:after{
+  &.is-active {
+    color: $teal;
+  }
+  &:after {
     color: $hint;
-    padding-left: .5rem;
+    padding-left: 0.5rem;
     content: "\203A";
   }
-  &:last-child:after{ content: ""; }
+  &:last-child:after {
+    content: "";
+  }
 }
 
-.standard-set-editor-draft-box__buttons{
+.standard-set-editor-draft-box__buttons {
   text-align: right;
 }
 
-@media(max-width: 750px){
-  .standard-set-editor-draft-box__buttons{
+@media (max-width: 750px) {
+  .standard-set-editor-draft-box__buttons {
     text-align: left;
   }
 }
 
-
-.standard-set-editor-draft-box__button{
+.standard-set-editor-draft-box__button {
   border-color: white;
   color: white;
   background-color: $teal;
   font-weight: 600;
   text-transform: uppercase;
-  &:hover{
+  &:hover {
     border-color: white;
     background-color: desaturate(lighten($teal, 5%), 5%);
     color: white;
   }
 }
 
-.standard-set-editor-draft-box__status-comment{
+.standard-set-editor-draft-box__status-comment {
   margin-top: 1rem;
   padding: 1rem 1.5rem;
   font-size: 1.2rem;
   background-color: white;
-  &:before{
+  &:before {
     content: "Our Thoughts:";
     display: block;
     font-weight: 600;

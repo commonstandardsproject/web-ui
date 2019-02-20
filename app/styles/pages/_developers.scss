@@ -1,89 +1,85 @@
-
-.developers-grid{
+.developers-grid {
   display: flex;
   display: -webkit-flex;
   margin-top: 90px;
-  h1{
+  h1 {
     // font-family: $font-headings;
     font-family: "aw-conqueror-carved-one";
-    letter-spacing: -.1rem;
+    letter-spacing: -0.1rem;
     border-top: 1px solid $dividers;
     border-bottom: 1px solid $dividers;
     // border-top: 1px solid $teal;
     // border-bottom: 1px solid $teal;
     margin-top: 3rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     color: $red;
     font-weight: 400;
   }
-  h1:first-child{
+  h1:first-child {
     margin-top: 0;
   }
-  p{
+  p {
     font-size: 1.2rem;
     line-height: 1.5;
     margin-bottom: 1.5rem;
     color: $text;
   }
-  h2{
+  h2 {
     // text-transform: uppercase;
     margin-top: 2rem;
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
     font-size: 2.5rem;
     border-bottom: 1px solid $dividers;
   }
 }
 
-.developers-grid__sidebar{
+.developers-grid__sidebar {
   min-width: 200px;
   flex-grow: 1;
   // border-right: 1px solid $dividers;
   padding: 0 20px;
-  opacity: .8;
-  &:hover{
+  opacity: 0.8;
+  &:hover {
     opacity: 1;
   }
 }
-@media (max-width: 630px){
-  .developers-grid{
+@media (max-width: 630px) {
+  .developers-grid {
     flex-direction: column;
     // width: 100%;
   }
-  .developers-grid__sidebar{
+  .developers-grid__sidebar {
     width: 100%;
     flex-direction: column;
   }
-
 }
 
-.developers-grid__main{
+.developers-grid__main {
   padding: 10px 40px 10px 20px;
   flex-grow: 4;
 }
 
-
-.api-info{
+.api-info {
   margin-top: 2rem;
 }
 
-.api-info__welcome{
+.api-info__welcome {
   border-top: 1px solid $dividers;
   padding-top: 1rem;
   color: $text;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
-.api-info__sign-in{
+.api-info__sign-in {
   margin-top: 1rem;
 }
 
-.api-key{
-  font-size: .7rem;
+.api-key {
+  font-size: 0.7rem;
 }
 
-
-.code-sample{
-  font-size: .9rem;
-  background-color: hsl(44,87%,94%);
+.code-sample {
+  font-size: 0.9rem;
+  background-color: hsl(44, 87%, 94%);
 }

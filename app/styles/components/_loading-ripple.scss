@@ -1,42 +1,41 @@
-.loading-ripple{
+.loading-ripple {
   display: flex;
   width: 100%;
   justify-content: center;
-  svg{
+  svg {
     display: inline-block;
     text-align: center;
     align-self: center;
   }
-
 }
 
-.loading-ripple-md{
-  svg{
+.loading-ripple-md {
+  svg {
     height: 50px;
     width: 50px;
   }
 }
 
-.loading-ripple-sm{
-
+.loading-ripple-sm {
   display: inline;
 }
 
-.loading-ripple--sliding{
+.loading-ripple--sliding {
   max-width: 0;
-  transition: max-width .2s, opacity .2s;
+  transition: max-width 0.2s, opacity 0.2s;
   display: inline-block;
   // float: left;
   height: 18px;
   width: 18px;
   margin-left: -5px;
   margin-right: 2px;
-  circle{ fill: white;}
+  circle {
+    fill: white;
+  }
   opacity: 0;
-  &.is-visible{
+  &.is-visible {
     max-width: 40px;
-    transition: max-width .2s, opacity .2s;
+    transition: max-width 0.2s, opacity 0.2s;
     opacity: 1;
   }
-
 }

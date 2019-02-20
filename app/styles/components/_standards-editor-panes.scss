@@ -1,23 +1,23 @@
-.standards-editor-panes{
+.standards-editor-panes {
   width: 100%;
   overflow: hidden;
-  &.show-jurisdictions .standards-editor-panes__inner{
+  &.show-jurisdictions .standards-editor-panes__inner {
     transform: translateX(0);
   }
-  &.show-jurisdiction .standards-editor-panes__inner{
+  &.show-jurisdiction .standards-editor-panes__inner {
     transform: translateX(-20%);
   }
-  &.show-standard-set .standards-editor-panes__inner{
+  &.show-standard-set .standards-editor-panes__inner {
     transform: translateX(-40%);
   }
 }
-.standards-editor-panes__inner{
+.standards-editor-panes__inner {
   width: 500%;
   display: flex;
   display: -webkit-flex;
-  @include transition(transform(.3s));
-  -webkit-transition: -webkit-transform .3s;
+  @include transition(transform(0.3s));
+  -webkit-transition: -webkit-transform 0.3s;
 }
-.standards-editor-pane{
+.standards-editor-pane {
   width: 100%;
 }

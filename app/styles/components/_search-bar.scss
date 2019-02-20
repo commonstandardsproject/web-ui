@@ -1,24 +1,24 @@
-.search-bar{
+.search-bar {
   overflow: hidden;
   max-height: 0px;
-  transition: max-height 1s .2s;
+  transition: max-height 1s 0.2s;
   display: flex;
   display: -webkit-flex;
   transform: translateZ(0);
-  &.show{
-    transition: max-height 1s .2s;
+  &.show {
+    transition: max-height 1s 0.2s;
     max-height: 1000px;
   }
 }
 
-input.search-bar__input{
+input.search-bar__input {
   width: calc(100% - 20px);
   float: left;
   margin: 10px;
   border: none;
   border: 1px solid $dividers;
   font-size: 1.25rem;
-  padding-top: .25rem;
+  padding-top: 0.25rem;
   padding-bottom: 0rem;
   margin-bottom: 0;
   height: 4rem;
@@ -26,7 +26,7 @@ input.search-bar__input{
   padding-left: 1rem;
 }
 
-.search-bar__icons{
+.search-bar__icons {
   // text-align: center;
   // float:right;
 }
