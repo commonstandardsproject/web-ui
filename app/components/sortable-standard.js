@@ -1,13 +1,29 @@
-import Ember from "ember"
-import hbs from "htmlbars-inline-precompile"
-import _ from "npm:lodash"
+import Ember from "ember";
+import hbs from "htmlbars-inline-precompile";
+import _ from "npm:lodash";
 
 export default Ember.Component.extend({
   layout: hbs`
   {{#unless item.isCollapsed}}
   {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle" id=(join-words 'sortable-item-' item.id) }}
-  <div class="sortable-standard sortable-standard--depth-{{item.depth}}" data-id={{item.id}}>
-    <div class="sortable-standard__columns">
+  <div class="sortable-standard sortable-standard-table" data-id={{item.id}}>
+      <div class="sortable-standard__icons">
+        <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" {{action attrs.prepareMove on="mouseDown"}} data-hint="Move">
+          {{partial "icons/arrow-move"}}
+        </div>
+        <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action attrs.outdent item}}>
+          {{partial "icons/arrow-left"}}
+        </div>
+        <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action attrs.indent item}}>
+          {{log "why does this not work?"}}
+          {{partial "icons/arrow-right"}}
+        </div>
+        <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action attrs.removeStandard item.id}}>
+          {{partial "icons/ios7-trash-filled"}}
+        </div>
+      </div>
+    <div class="sortable-standard sortable-standard__column--depth-{{item.depth}} sortable-standard__columns" data-id={{item.id}}>
+
       <div class="sortable-standard__column--list-id">
         {{simple-editable
           value=item.listId
@@ -43,21 +59,6 @@ export default Ember.Component.extend({
           onArrowRight=(action attrs.indent item)
         }}
       </div>
-      <div class="sortable-standard__icons">
-        <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" {{action attrs.prepareMove on="mouseDown"}} data-hint="Move">
-          {{partial "icons/arrow-move"}}
-        </div>
-        <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action attrs.outdent item}}>
-          {{partial "icons/arrow-left"}}
-        </div>
-        <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action attrs.indent item}}>
-          {{partial "icons/arrow-right"}}
-        </div>
-        <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action attrs.removeStandard item.id}}>
-          {{partial "icons/ios7-trash-filled"}}
-        </div>
-
-      </div>
     </div>
   </div>
   {{!-- {{#unless item.isCollapsed}}
@@ -70,5 +71,5 @@ export default Ember.Component.extend({
   {{/sortable-item}}
   {{/unless}}
 
-  `,
-})
+  `
+});
