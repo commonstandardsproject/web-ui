@@ -254,7 +254,109 @@ export default Ember.Component.extend({
     <div class="container">
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
-          <div class="col-sm-12">
+          <div class="verification-container">
+            <div>
+              {{#unless session.isCommitter}}
+                <h2 class="standard-set-editor__subhead">Directions</h2>
+                <p class="standard-set-editor__directions">
+                  First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
+                </p>
+                <h3 class="standard-set-editor__h3">Your Goal</h3>
+                <ul>
+                  <li>The standards you paste here should look like a pretty, outlined list by the time you’re done.</li>
+                </ul>
+
+                <h3 class="standard-set-editor__h3">How to do this</h3>
+                <ul>
+                  <li>Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
+                  <li>Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
+                  <li>Move a standard: the drag icon on the right of each standard</li>
+                  <li>Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
+                  <li>If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started"</li>
+                </ul>
+
+                <h3 class="standard-set-editor__h3">When you’re done</h3>
+                <ul>
+                  <li>Click "Submit" up top. We’ll take action on your submission within a week (or sooner!)</li>
+                  <li>We’ll either approve your standards or send it back to you with a few comments for revision</li>
+                  <li>If you have any questions, scroll to the bottom and add a comment.</li>
+                </ul>
+              {{/unless}}
+              <h2 class="standard-set-editor__subhead">Description</h2>
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Your Name</label>
+                  <div class="col-sm-10">
+                    {{input value=model.submitterName type="text" class="form-control" placeholder="Name"}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Your Email</label>
+                  <div class="col-sm-10">
+                    {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}
+                  </div>
+                </div>
+                {{#if model.forkedFromStandardSetId}}
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Modified From</label>
+                    <div class="col-sm-10">
+                      <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D</a>
+                    </div>
+                  </div>
+                {{/if}}
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Organization</label>
+                  <div class="col-sm-10">
+                    {{#if session.isCommitter}}
+                      <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
+                        {{#each jurisdictions.content.list as |jurisdiction|}}
+                          <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
+                        {{/each}}
+                      </select>
+                    {{else}}
+                      {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Subject</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" oninput={{action "selectSubject" value="target.value"}}>
+                      <option value="__CUSTOM__" selected="false">Let me enter my own...</option>
+                      {{#each subjects as |subject|}}
+                        <option value="{{subject}}" selected="{{if (eq subject model.standardSet.subject) 'true'}}">{{subject}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Grade or Course Name</label>
+                  <div class="col-sm-10">
+                    {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Source Title</label>
+                  <div class="col-sm-10">
+                    {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Source URL</label>
+                  <div class="col-sm-10">
+                    {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Education Levels</label>
+                  <div class="col-sm-10">
+                    {{#unless nullEducationLevels}}
+                      {{education-level-checkboxes value=model.standardSet.educationLevels}}
+                    {{/unless}}
+                  </div>
+                </div>
+              </div>
+          </div>
             <div class="standard-set-editor-draft-box">
               {{#if isSavingError}}
                 <pre>{{isSavingError}}</pre>
@@ -264,7 +366,7 @@ export default Ember.Component.extend({
                 <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
               {{else}}
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
@@ -274,34 +376,47 @@ export default Ember.Component.extend({
                       {{/if}}
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approved') 'is-active'}}">Standards Approved</div>
                       {{#if (eq model.status "rejected")}}
+
+
                         <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Rejected</div>
                       {{/if}}
                     </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="standard-set-editor-draft-box__buttons">
-                      <div class="btn-group">
-                        <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
-                          <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
-                          Save
-                        </div>
-                        {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
-                        {{/if}}
-                        {{#if (eq model.status "revise-and-resubmit")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
-                        {{/if}}
-                        {{#if session.isCommitter}}
-                          {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
+                    <div>
+                      <div class="standard-set-editor-draft-box__buttons">
+                        <div class="btn-group">
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
+                            <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
+                            Save
+                          </div>
+                          {{#if (eq model.status "draft")}}
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
                           {{/if}}
-                          {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
-                          {{/unless}}
-                        {{/if}}
+                          {{#if (eq model.status "revise-and-resubmit")}}
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
+                          {{/if}}
+                          {{#if session.isCommitter}}
+                            {{#if (eq model.status "approval-requested")}}
+                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
+                            {{/if}}
+                            {{#unless (eq model.status "approved")}}
+                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
+                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
+                            {{/unless}}
+                          {{/if}}
+                        </div>
                       </div>
                     </div>
+                    {{!-- {{#unless session.isCommitter}} --}}
+                    <div>
+                      <ul>
+                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Filled in all description fields</li>
+                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Added at least 5 standards</li>
+                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Put standards into at least 2 groups</li>
+                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Organized standards in outline form</li>
+                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Added numbers/letters on the left of each line</li>
+                      </ul>
+                    </div>
+                  {{!-- {{/unless}} --}}
                   </div>
                 </div>
                 <div class="row">
@@ -317,108 +432,8 @@ export default Ember.Component.extend({
                 </div>
               {{/if}}
             </div>
+        </div>
 
-            {{#unless session.isCommitter}}
-              <h2 class="standard-set-editor__subhead">Directions</h2>
-              <p class="standard-set-editor__directions">
-                First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
-              </p>
-              <h3 class="standard-set-editor__h3">Your Goal</h3>
-              <ul>
-                <li>The standards you paste here should look like a pretty, outlined list by the time you’re done.</li>
-              </ul>
-
-              <h3 class="standard-set-editor__h3">How to do this</h3>
-              <ul>
-                <li>Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
-                <li>Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
-                <li>Move a standard: the drag icon on the right of each standard</li>
-                <li>Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
-                <li>If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started"</li>
-              </ul>
-
-              <h3 class="standard-set-editor__h3">When you’re done</h3>
-              <ul>
-                <li>Click "Submit" up top. We’ll take action on your submission within a week (or sooner!)</li>
-                <li>We’ll either approve your standards or send it back to you with a few comments for revision</li>
-                <li>If you have any questions, scroll to the bottom and add a comment.</li>
-              </ul>
-            {{/unless}}
-
-            <h2 class="standard-set-editor__subhead">Description</h2>
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Your Name</label>
-                <div class="col-sm-10">
-                  {{input value=model.submitterName type="text" class="form-control" placeholder="Name"}}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Your Email</label>
-                <div class="col-sm-10">
-                  {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}
-                </div>
-              </div>
-              {{#if model.forkedFromStandardSetId}}
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Modified From</label>
-                  <div class="col-sm-10">
-                    <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D</a>
-                  </div>
-                </div>
-              {{/if}}
-              <div class="form-group">
-                <label class="control-label col-sm-2">Organization</label>
-                <div class="col-sm-10">
-                  {{#if session.isCommitter}}
-                    <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
-                      {{#each jurisdictions.content.list as |jurisdiction|}}
-                        <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
-                      {{/each}}
-                    </select>
-                  {{else}}
-                    {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
-                  {{/if}}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Subject</label>
-                <div class="col-sm-10">
-                  <select class="form-control" oninput={{action "selectSubject" value="target.value"}}>
-                    <option value="__CUSTOM__" selected="false">Let me enter my own...</option>
-                    {{#each subjects as |subject|}}
-                      <option value="{{subject}}" selected="{{if (eq subject model.standardSet.subject) 'true'}}">{{subject}}</option>
-                    {{/each}}
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Grade or Course Name</label>
-                <div class="col-sm-10">
-                  {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Source Title</label>
-                <div class="col-sm-10">
-                  {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Source URL</label>
-                <div class="col-sm-10">
-                  {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2">Education Levels</label>
-                <div class="col-sm-10">
-                  {{#unless nullEducationLevels}}
-                    {{education-level-checkboxes value=model.standardSet.educationLevels}}
-                  {{/unless}}
-                </div>
-              </div>
-            </div>
 
             <h2 class="standard-set-editor__subhead">Standards</h2>
             {{standards-sorter-editor standardsHash=model.standardSet.standards}}
@@ -465,7 +480,6 @@ export default Ember.Component.extend({
                 </div>
               {{/each}}
             </div>
-          </div>
         {{else}}
           <h1 class="standards-edit-h2">Choose a state, organization, or school</h1>
           {{jurisdiction-lists

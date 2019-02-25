@@ -15,7 +15,6 @@ export default Ember.Component.extend({
           {{partial "icons/arrow-left"}}
         </div>
         <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action attrs.indent item}}>
-          {{log "why does this not work?"}}
           {{partial "icons/arrow-right"}}
         </div>
         <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action attrs.removeStandard item.id}}>

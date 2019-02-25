@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+.verification-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .standards-edit-page__header {
   flex: 2 100%;
 }
@@ -139,8 +144,20 @@
   }
 }
 
+.standard-set-editor-draft-box__checklist {
+  display: flex;
+  align-items: center;
+  color: $hint;
+  font-size: 1.2rem;
+  align-self: flex-start;
+  margin-right: 0.5rem;
+  height: auto;
+  list-style-type: none;
+  padding: 5px;
+}
+
 .standard-set-editor-draft-box__buttons {
-  text-align: right;
+  padding: 5px 0 3px 0;
 }
 
 @media (max-width: 750px) {
