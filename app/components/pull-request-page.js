@@ -254,8 +254,9 @@ export default Ember.Component.extend({
     <div class="container">
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
+
           <div class="verification-container">
-            <div>
+            <div class="col-sm-9">
               {{#unless session.isCommitter}}
                 <h2 class="standard-set-editor__subhead">Directions</h2>
                 <p class="standard-set-editor__directions">
@@ -282,6 +283,7 @@ export default Ember.Component.extend({
                   <li>If you have any questions, scroll to the bottom and add a comment.</li>
                 </ul>
               {{/unless}}
+              {{log "model" model}}
               <h2 class="standard-set-editor__subhead">Description</h2>
               <div class="form-horizontal">
                 <div class="form-group">
@@ -368,6 +370,7 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
+                    {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approval-requested') 'is-active'}}">Approval Requested</div>
@@ -381,55 +384,74 @@ export default Ember.Component.extend({
                         <div class="standard-set-editor-draft-box__status {{if (eq model.status 'rejected') 'is-active'}}">Rejected</div>
                       {{/if}}
                     </div>
-                    <div>
-                      <div class="standard-set-editor-draft-box__buttons">
-                        <div class="btn-group">
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
-                            <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
-                            Save
-                          </div>
-                          {{#if (eq model.status "draft")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
-                          {{/if}}
-                          {{#if (eq model.status "revise-and-resubmit")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
-                          {{/if}}
-                          {{#if session.isCommitter}}
-                            {{#if (eq model.status "approval-requested")}}
-                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
-                            {{/if}}
-                            {{#unless (eq model.status "approved")}}
-                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
-                              <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
-                            {{/unless}}
-                          {{/if}}
-                        </div>
-                      </div>
+
                     </div>
+
                     {{!-- {{#unless session.isCommitter}} --}}
                     <div>
-                      <ul>
-                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Filled in all description fields</li>
-                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Added at least 5 standards</li>
-                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Put standards into at least 2 groups</li>
-                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Organized standards in outline form</li>
-                        <li class="standard-set-editor-draft-box__checklist"><span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>Added numbers/letters on the left of each line</li>
+                      <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
+                        <li class="standard-set-editor-draft-box__checklist">
+                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
+                          Fill in all description fields
+                        </li>
+                        <li class="standard-set-editor-draft-box__checklist">
+                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
+                          Add at least 5 standards
+                        </li>
+                        <li class="standard-set-editor-draft-box__checklist">
+                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
+                          Put standards into at least 2 groups
+                        </li>
+                        <li class="standard-set-editor-draft-box__checklist">
+                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
+                          Organize standards in outline form
+                        </li>
+                        <li class="standard-set-editor-draft-box__checklist">
+                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
+                          Add numbers/letters on the left of each line
+                        </li>
                       </ul>
                     </div>
                   {{!-- {{/unless}} --}}
+                  <div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        {{#if session.isCommitter}}
+                          <br>
+                          {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
+                        {{/if}}
+                        {{#if model.statusComment}}
+                          <div class="standard-set-editor-draft-box__status-comment">{{htmlize model.statusComment}}</div>
+                        {{/if}}
+                      </div>
+                    </div>
+                    <div class="standard-set-editor-draft-box__buttons">
+                      <div class="btn-group">
+                        <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
+                          <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
+                          Save
+                        </div>
+                        {{#if (eq model.status "draft")}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
+                        {{/if}}
+                        {{#if (eq model.status "revise-and-resubmit")}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
+                        {{/if}}
+                        {{#if session.isCommitter}}
+                          {{#if (eq model.status "approval-requested")}}
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
+                          {{/if}}
+                          {{#unless (eq model.status "approved")}}
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
+                          {{/unless}}
+                        {{/if}}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    {{#if session.isCommitter}}
-                      <br>
-                      {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
-                    {{/if}}
-                    {{#if model.statusComment}}
-                      <div class="standard-set-editor-draft-box__status-comment">{{htmlize model.statusComment}}</div>
-                    {{/if}}
-                  </div>
-                </div>
+
               {{/if}}
             </div>
         </div>

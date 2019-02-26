@@ -4,7 +4,6 @@
   "description": "Frontend to Common Standards Project",
   "private": true,
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
   "scripts": {
@@ -12,7 +11,10 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commonstandardsproject/web-ui.git"
+  },
   "engines": {
     "node": "5.11.1"
   },
@@ -22,7 +24,7 @@
     "babel-core": "^5.2.10",
     "broccoli-asset-rev": "^2.0.2",
     "ember-browserify": "^1.0.0",
-    "ember-cli": "2.3.0",
+    "ember-cli": "^2.13.0",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-auto-register-helpers": "1.0.2",
     "ember-cli-autoprefixer": "0.4.1",
@@ -59,12 +61,19 @@
   },
   "dependencies": {
     "algoliasearch": "^3.7.0",
-    "ember-zeroclipboard": "https://github.com/commoncurriculum/ember-zeroclipboard.git",
+    "ember-changeset": "^2.0.0",
+    "ember-zeroclipboard": "git+https://github.com/commoncurriculum/ember-zeroclipboard.git",
     "fast-json-patch": "^0.5.2",
     "immutable": "^3.7.3",
     "lodash-fp": "^0.9.4",
+    "node-sass": "^4.11.0",
     "node-uuid": "^1.4.3",
     "rus-diff": "^1.1.0",
     "xtypejs": "^0.4.2"
-  }
+  },
+  "main": "ember-cli-build.js",
+  "bugs": {
+    "url": "https://github.com/commonstandardsproject/web-ui/issues"
+  },
+  "homepage": "https://github.com/commonstandardsproject/web-ui#readme"
 }

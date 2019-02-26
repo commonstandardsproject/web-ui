@@ -26,13 +26,13 @@ export default Ember.Component.extend({
   // Observers:
   willRender() {
     if (this.get("isUserTyping")) return
-    if (this.$() == undefined) return
+    if (this.$() === undefined) return
     var value = this.get("value") || ""
     this.$().html(value)
   },
 
   didInsertElement() {
-    if (this.$() == undefined) return
+    if (this.$() === undefined) return
     var value = this.get("value") || ""
     this.$().html(value)
   },
