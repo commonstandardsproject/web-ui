@@ -283,82 +283,82 @@ export default Ember.Component.extend({
                   <li>If you have any questions, scroll to the bottom and add a comment.</li>
                 </ul>
               {{/unless}}
-              {{log "model" model}}
-              <h2 class="standard-set-editor__subhead">Description</h2>
-              <div class="form-horizontal">
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Your Name</label>
-                  <div class="col-sm-10">
-                    {{input value=model.submitterName type="text" class="form-control" placeholder="Name"}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Your Email</label>
-                  <div class="col-sm-10">
-                    {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}
-                  </div>
-                </div>
-                {{#if model.forkedFromStandardSetId}}
+              {{#with (changeset model) as |changeset|}}
+                <h2 class="standard-set-editor__subhead">Description</h2>
+                <div class="form-horizontal">
                   <div class="form-group">
-                    <label class="control-label col-sm-2">Modified From</label>
+                    <label class="control-label col-sm-2">Your Name</label>
                     <div class="col-sm-10">
-                      <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D</a>
+                      {{input value=changeset.submitterName type="text" class="form-control" placeholder="Name"}}
                     </div>
                   </div>
-                {{/if}}
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Organization</label>
-                  <div class="col-sm-10">
-                    {{#if session.isCommitter}}
-                      <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
-                        {{#each jurisdictions.content.list as |jurisdiction|}}
-                          <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Your Email</label>
+                    <div class="col-sm-10">
+                      {{input value=changeset.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}                    </div>
+                  </div>
+                  {{#if changeset.forkedFromStandardSetId}}
+                    <div class="form-group">
+                      <label class="control-label col-sm-2">Modified From</label>
+                      <div class="col-sm-10">
+                        <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{changeset.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{changeset.forkedFromStandardSetId}}"%5D</a>
+                      </div>
+                    </div>
+                  {{/if}}
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Organization</label>
+                    <div class="col-sm-10">
+                      {{#if session.isCommitter}}
+                        <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
+                          {{#each jurisdictions.content.list as |jurisdiction|}}
+                            <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id changeset.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
+                          {{/each}}
+                        </select>
+                      {{else}}
+                        {{input value=changeset.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                      {{/if}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Subject</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" oninput={{action "selectSubject" value="target.value"}}>
+                        <option value="__CUSTOM__" selected="false">Let me enter my own...</option>
+                        {{#each subjects as |subject|}}
+                          <option value="{{subject}}" selected="{{if (eq subject changeset.standardSet.subject) 'true'}}">{{subject}}</option>
                         {{/each}}
                       </select>
-                    {{else}}
-                      {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
-                    {{/if}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Grade or Course Name</label>
+                    <div class="col-sm-10">
+                      {{input value=changeset.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Source Title</label>
+                    <div class="col-sm-10">
+                      {{input value=changeset.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Source URL</label>
+                    <div class="col-sm-10">
+                      {{input value=changeset.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2">Education Levels</label>
+                    <div class="col-sm-10">
+                      {{#unless nullEducationLevels}}
+                        {{education-level-checkboxes value=changeset.standardSet.educationLevels}}
+                      {{/unless}}
+                    </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Subject</label>
-                  <div class="col-sm-10">
-                    <select class="form-control" oninput={{action "selectSubject" value="target.value"}}>
-                      <option value="__CUSTOM__" selected="false">Let me enter my own...</option>
-                      {{#each subjects as |subject|}}
-                        <option value="{{subject}}" selected="{{if (eq subject model.standardSet.subject) 'true'}}">{{subject}}</option>
-                      {{/each}}
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Grade or Course Name</label>
-                  <div class="col-sm-10">
-                    {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Source Title</label>
-                  <div class="col-sm-10">
-                    {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Source URL</label>
-                  <div class="col-sm-10">
-                    {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2">Education Levels</label>
-                  <div class="col-sm-10">
-                    {{#unless nullEducationLevels}}
-                      {{education-level-checkboxes value=model.standardSet.educationLevels}}
-                    {{/unless}}
-                  </div>
-                </div>
+              {{/with}}
               </div>
-          </div>
             <div class="standard-set-editor-draft-box">
               {{#if isSavingError}}
                 <pre>{{isSavingError}}</pre>
