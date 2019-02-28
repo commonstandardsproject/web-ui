@@ -83,6 +83,7 @@ export default Ember.Component.extend({
       rpc["pullRequest:save"](
         get(this, "model"),
         function() {
+          console.log(get(this, "model"))
           Ember.run.later(
             this,
             function() {
@@ -291,6 +292,7 @@ export default Ember.Component.extend({
                     <div class="col-sm-10">
                       {{input value=changeset.submitterName type="text" class="form-control" placeholder="Name"}}
                     </div>
+                    {{!-- {{log changeset}} --}}
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Email</label>
