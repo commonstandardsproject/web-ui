@@ -4,10 +4,18 @@ import hbs from "htmlbars-inline-precompile"
 import rpc from "../lib/rpc"
 import Fetcher from "../lib/fetcher"
 import { storageFor } from "ember-local-storage"
+import PullRequestValidations from "../validations/pull-request-page"
+import lookUpValidator from "ember-changeset-validations"
+import Changeset from "ember-changeset"
 
 let { get, set } = Ember
 
 export default Ember.Component.extend({
+  PullRequestValidations,
+  init() {
+    this._super(...arguments)
+  },
+
   setupAutoSave: Ember.on("didInsertElement", function() {
     this.autoSave()
   }),
@@ -18,6 +26,7 @@ export default Ember.Component.extend({
     topSpacing: 50,
   },
 
+  validateEverything() {},
   autoSave() {
     Ember.run.later(
       this,
@@ -75,15 +84,26 @@ export default Ember.Component.extend({
     }
     return jurisdictionSubjects.sort()
   }),
+  validateThis() {
+    let validationMap = PullRequestValidations
+    let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
+    changeset.validate().then(() => {
+      set(this, "errors", changeset.get("errors"))
+    })
+  },
 
   actions: {
+    validate() {
+      console.log("educations")
+      this.validateThis()
+    },
+
     save() {
       if (get(this, "isAutoSaving") === true) return
       set(this, "isAutoSaving", true)
       rpc["pullRequest:save"](
         get(this, "model"),
         function() {
-          console.log(get(this, "model"))
           Ember.run.later(
             this,
             function() {
@@ -124,22 +144,29 @@ export default Ember.Component.extend({
         swal("Make sure your email is filled out!")
         return false
       }
-      set(this, "isSaving", true)
-      rpc["pullRequest:save"](
-        get(this, "model"),
-        function() {
-          rpc["pullRequest:submit"](
-            get(this, "model.id"),
-            function(data) {
-              set(this, "isSaving", false)
-              set(this, "model", data.data)
-            }.bind(this),
-            function(err) {
-              set(this, "savingError", err)
+      let model = get(this, "model")
+      model.validate().then(() => {
+        if (model.get("isValid")) {
+          set(this, "isSaving", true)
+          rpc["pullRequest:save"](
+            get(this, "model"),
+            function() {
+              rpc["pullRequest:submit"](
+                get(this, "model.id"),
+                function(data) {
+                  set(this, "isSaving", false)
+                  set(this, "model", data.data)
+                }.bind(this),
+                function(err) {
+                  set(this, "savingError", err)
+                }.bind(this)
+              )
             }.bind(this)
           )
-        }.bind(this)
-      )
+        } else {
+          this.validateThis()
+        }
+      })
     },
 
     revise() {
@@ -211,6 +238,7 @@ export default Ember.Component.extend({
     selectJurisdiction(id, title) {
       set(this, "model.standardSet.jurisdiction.id", id)
       set(this, "model.standardSet.jurisdiction.title", title)
+      this.validateThis()
       // Scroll to the top since the size changed
       window.scrollTo(0, 0)
     },
@@ -220,6 +248,7 @@ export default Ember.Component.extend({
       let title = value.split("*")[1]
       set(this, "model.standardSet.jurisdiction.id", id)
       set(this, "model.standardSet.jurisdiction.title", title)
+      this.validateThis()
     },
 
     selectSubject(value) {
@@ -246,11 +275,13 @@ export default Ember.Component.extend({
       } else {
         set(this, "model.standardSet.subject", value)
       }
+      this.validateThis()
     },
   },
 
   layout: hbs`
     {{partial "navbar"}}
+    {{log model}}
 
     <div class="container">
       <div class="row" style="margin-top: 80px;">
@@ -284,26 +315,28 @@ export default Ember.Component.extend({
                   <li>If you have any questions, scroll to the bottom and add a comment.</li>
                 </ul>
               {{/unless}}
-              {{#with (changeset model) as |changeset|}}
                 <h2 class="standard-set-editor__subhead">Description</h2>
                 <div class="form-horizontal">
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Name</label>
                     <div class="col-sm-10">
-                      {{input value=changeset.submitterName type="text" class="form-control" placeholder="Name"}}
+                      {{input value=model.submitterName type="text" class="form-control" placeholder="Name" focusOut=(action "validate")}}
+                      {{validate-pull-request errors=errors propertyName="submitterName"}}
+
                     </div>
-                    {{!-- {{log changeset}} --}}
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Email</label>
                     <div class="col-sm-10">
-                      {{input value=changeset.submitterEmail type="text" class="form-control" placeholder="Email" type="email"}}                    </div>
+                      {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email" focusOut=(action "validate")}}
+                      {{validate-pull-request errors=errors propertyName="submitterEmail"}}
+                    </div>
                   </div>
-                  {{#if changeset.forkedFromStandardSetId}}
+                  {{#if model.forkedFromStandardSetId}}
                     <div class="form-group">
                       <label class="control-label col-sm-2">Modified From</label>
                       <div class="col-sm-10">
-                        <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{changeset.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{changeset.forkedFromStandardSetId}}"%5D</a>
+                        <a target="_blank" href='http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D'>http://commonstandardsproject.com/search?ids=%5B"{{model.forkedFromStandardSetId}}"%5D</a>
                       </div>
                     </div>
                   {{/if}}
@@ -313,11 +346,13 @@ export default Ember.Component.extend({
                       {{#if session.isCommitter}}
                         <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
                           {{#each jurisdictions.content.list as |jurisdiction|}}
-                            <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id changeset.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
+                            <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
                           {{/each}}
                         </select>
+                        {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
                       {{else}}
-                        {{input value=changeset.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                        {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
                       {{/if}}
                     </div>
                   </div>
@@ -327,39 +362,44 @@ export default Ember.Component.extend({
                       <select class="form-control" oninput={{action "selectSubject" value="target.value"}}>
                         <option value="__CUSTOM__" selected="false">Let me enter my own...</option>
                         {{#each subjects as |subject|}}
-                          <option value="{{subject}}" selected="{{if (eq subject changeset.standardSet.subject) 'true'}}">{{subject}}</option>
+                          <option value="{{subject}}" selected="{{if (eq subject model.standardSet.subject) 'true'}}">{{subject}}</option>
                         {{/each}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.standards.subject"}}
+
                       </select>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Grade or Course Name</label>
                     <div class="col-sm-10">
-                      {{input value=changeset.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'"}}
+                      {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'" focusOut=(action "validate")}}
+                      {{validate-pull-request errors=errors propertyName="standardSet.title"}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Source Title</label>
                     <div class="col-sm-10">
-                      {{input value=changeset.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'"}}
+                      {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'" focusOut=(action "validate")}}
+                      {{validate-pull-request errors=errors propertyName="standardSet.document.title"}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Source URL</label>
                     <div class="col-sm-10">
-                      {{input value=changeset.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"}}
+                      {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here" focusOut=(action "validate")}}
+                      {{validate-pull-request errors=errors propertyName="standardSet.document.sourceURL"}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Education Levels</label>
                     <div class="col-sm-10">
                       {{#unless nullEducationLevels}}
-                        {{education-level-checkboxes value=changeset.standardSet.educationLevels}}
+                        {{education-level-checkboxes value=model.standardSet.educationLevels onBlur=(action "validate")}}
                       {{/unless}}
+                      {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
                     </div>
                   </div>
                 </div>
-              {{/with}}
               </div>
             <div class="standard-set-editor-draft-box">
               {{#if isSavingError}}
@@ -505,7 +545,6 @@ export default Ember.Component.extend({
               {{/each}}
             </div>
         {{else}}
-          <h1 class="standards-edit-h2">Choose a state, organization, or school</h1>
           {{jurisdiction-lists
             jurisdictions=jurisdictions
             newOrganization=newOrganization
