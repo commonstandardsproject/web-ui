@@ -5,7 +5,7 @@ let { get } = Ember
 
 export default Ember.Component.extend({
   layout: hbs`
-    <div class="edit">
+    <div class="standards-edit">
       {{#if errors}}
           {{#each (filter-by "key" propertyName errors) as |errorset|}}
             {{#each errorset.validation as |error|}}

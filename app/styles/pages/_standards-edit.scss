@@ -102,6 +102,11 @@
   font-size: 1.2rem;
 }
 
+.standards-edit li {
+  list-style: none;
+  color: red;
+}
+
 .add-jurisdiction {
   padding: 10px;
   background-color: $yellow;
