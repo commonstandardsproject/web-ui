@@ -144,29 +144,26 @@ export default Ember.Component.extend({
         swal("Make sure your email is filled out!")
         return false
       }
-      let model = get(this, "model")
-      model.validate().then(() => {
-        if (model.get("isValid")) {
-          set(this, "isSaving", true)
-          rpc["pullRequest:save"](
-            get(this, "model"),
-            function() {
-              rpc["pullRequest:submit"](
-                get(this, "model.id"),
-                function(data) {
-                  set(this, "isSaving", false)
-                  set(this, "model", data.data)
-                }.bind(this),
-                function(err) {
-                  set(this, "savingError", err)
-                }.bind(this)
-              )
-            }.bind(this)
-          )
-        } else {
-          this.validateThis()
-        }
-      })
+      if (!get(this, "errors")) {
+        set(this, "isSaving", true)
+        rpc["pullRequest:save"](
+          get(this, "model"),
+          function() {
+            rpc["pullRequest:submit"](
+              get(this, "model.id"),
+              function(data) {
+                set(this, "isSaving", false)
+                set(this, "model", data.data)
+              }.bind(this),
+              function(err) {
+                set(this, "savingError", err)
+              }.bind(this)
+            )
+          }.bind(this)
+        )
+      } else {
+        swal("Please fix the requested fields!")
+      }
     },
 
     revise() {
