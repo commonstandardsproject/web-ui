@@ -94,7 +94,6 @@ export default Ember.Component.extend({
 
   actions: {
     validate() {
-      console.log("educations")
       this.validateThis()
     },
 
@@ -278,7 +277,6 @@ export default Ember.Component.extend({
 
   layout: hbs`
     {{partial "navbar"}}
-    {{log model}}
 
     <div class="container">
       <div class="row" style="margin-top: 80px;">
