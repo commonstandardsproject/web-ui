@@ -26,13 +26,13 @@ export default Ember.Component.extend({
     topSpacing: 50,
   },
 
-  validateEverything() {},
   autoSave() {
     Ember.run.later(
       this,
       function() {
         if (Ember.isNone(get(this, "model.id"))) return
         if (get(this, "isAutoSaving") === true) return
+        this.validateThis()
         Ember.set(this, "isAutoSaving", true)
         rpc["pullRequest:save"](
           get(this, "model"),

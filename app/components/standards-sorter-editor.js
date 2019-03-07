@@ -33,6 +33,7 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce("afterRender", function() {
       $("[data-id=" + standard.id + "] .sortable-standard__list-id").focus()
     })
+    this.validate()
     return standard
   },
 
@@ -41,6 +42,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Indent")
       Ember.set(standard, "depth", standard.depth + 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     outdent(standard) {
@@ -48,6 +50,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Outdent")
       Ember.set(standard, "depth", standard.depth - 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     // find node above
@@ -166,6 +169,7 @@ export default Ember.Component.extend({
           }
         }.bind(this)
       )
+      this.validate()
     },
     prepareMove(item) {
       // get offset
