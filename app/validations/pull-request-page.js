@@ -1,4 +1,7 @@
-import { validatePresence, validateFormat, validateLength } from "ember-changeset-validations/validators"
+import { validatePresence, validateFormat } from "ember-changeset-validations/validators"
+import validateDepth from "../validators/depth"
+import lengthValidator from "../validators/length"
+import validateNotation from "../validators/notation"
 
 export default {
   submitterName: validatePresence({ presence: true, message: "Please enter your name" }),
@@ -19,7 +22,9 @@ export default {
     message: "Please select the name of the organization",
   }),
   "standardSet.standards": [
-    validatePresence({ presence: true, message: "Please enter your standards" }),
-    validateLength({ min: 5 }),
+    validatePresence({ presence: true }),
+    lengthValidator(),
+    validateNotation(),
+    validateDepth(),
   ],
 }
