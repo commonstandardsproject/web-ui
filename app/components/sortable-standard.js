@@ -25,6 +25,7 @@ export default Ember.Component.extend({
 
       <div class="sortable-standard__column--list-id">
         {{simple-editable
+          maxLength=10
           value=item.listId
           class="sortable-standard__list-id hint--bottom"
           placeholder="List Identifier"
