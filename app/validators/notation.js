@@ -9,9 +9,10 @@ export default function validateNotation() {
         return false
       }
     })
+
     let hasNotation = _.filter(checkStandardNotation, notation => {
       return notation === true
     })
-    hasNotation.length / checkStandardNotation.length >= 0.3 ? true : false
+    return hasNotation.length / checkStandardNotation.length >= 0.3 ? true : "notation needed"
   }
 }
