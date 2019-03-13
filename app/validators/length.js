@@ -1,6 +1,6 @@
 export default function lengthValidator() {
   return (key, oldValue) => {
-    let length = Object.keys(oldValue).length
-    return length >= 5 ? true : "not enough standards"
+    let numberOfStandards = Object.keys(oldValue).length
+    return numberOfStandards >= 5 ? true : "not enough standards"
   }
 }

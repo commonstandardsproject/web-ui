@@ -13,6 +13,9 @@ export default function validateNotation() {
     let hasNotation = _.filter(checkStandardNotation, notation => {
       return notation === true
     })
-    return hasNotation.length / checkStandardNotation.length >= 0.3 ? true : "notation needed"
+
+    let isValid = hasNotation.length / checkStandardNotation.length
+
+    return isValid >= 0.3 ? true : "notation needed"
   }
 }
