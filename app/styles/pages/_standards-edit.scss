@@ -163,6 +163,12 @@
   height: auto;
   list-style-type: none;
   padding: 5px;
+  &.is-valid {
+    color: $teal;
+  }
+  &.is-valid span svg {
+    fill: $teal;
+  }
 }
 
 .standard-set-editor-draft-box__buttons {

@@ -3,6 +3,7 @@ import _ from "npm:lodash"
 import hbs from "htmlbars-inline-precompile"
 import rpc from "../lib/rpc"
 import Fetcher from "../lib/fetcher"
+import { isEmpty } from "@ember/utils"
 import { storageFor } from "ember-local-storage"
 import PullRequestValidations from "../validations/pull-request-page"
 import lookUpValidator from "ember-changeset-validations"
@@ -89,6 +90,41 @@ export default Ember.Component.extend({
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
     changeset.validate().then(() => {
       set(this, "errors", changeset.get("errors"))
+      let errorObj = get(this, "errors")
+      if (Ember.isEmpty(errorObj)) {
+        set(this, "descriptionIsValid", true)
+        set(this, "standardLengthIsValid", true)
+        set(this, "standardNotationIsValid", true)
+        set(this, "standardIndentationIsValid", true)
+      } else {
+        let fieldsToDetermineValidate = [
+          "submitterName",
+          "submitterEmail",
+          "standardset.educationLevels",
+          "standardSet.document.sourceURL",
+          "standardSet.document.title",
+          "standardSet.subject",
+          "standardSet.title",
+          "standardSet.jurisdiction.title",
+        ]
+
+        if (!_.includes(fieldsToDetermineValidate, errorObj[0].key)) {
+          set(this, "descriptionIsValid", true)
+        }
+
+        let formatValidateFields = ["indentation needed", "notation needed", "not enough standards"]
+        let checkFormat = _.intersection(errorObj[0].validation, formatValidateFields)
+
+        if (!checkFormat.includes("indentation needed")) {
+          set(this, "standardIndentationIsValid", true)
+        }
+        if (!checkFormat.includes("notation needed")) {
+          set(this, "standardNotationIsValid", true)
+        }
+        if (!checkFormat.includes("not enough standards")) {
+          set(this, "standardLengthIsValid", true)
+        }
+      }
     })
   },
 
@@ -424,32 +460,28 @@ export default Ember.Component.extend({
 
                     </div>
 
-                    {{!-- {{#unless session.isCommitter}} --}}
+                    {{#unless session.isCommitter}}
                     <div>
                       <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
-                        <li class="standard-set-editor-draft-box__checklist">
+                        <li class="standard-set-editor-draft-box__checklist {{if this.descriptionIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Fill in all description fields
                         </li>
-                        <li class="standard-set-editor-draft-box__checklist">
+                        <li class="standard-set-editor-draft-box__checklist {{if this.standardLengthIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Add at least 5 standards
                         </li>
-                        <li class="standard-set-editor-draft-box__checklist">
-                          <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Put standards into at least 2 groups
-                        </li>
-                        <li class="standard-set-editor-draft-box__checklist">
+                        <li class="standard-set-editor-draft-box__checklist {{if this.standardIndentationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Organize standards in outline form
                         </li>
-                        <li class="standard-set-editor-draft-box__checklist">
+                        <li class="standard-set-editor-draft-box__checklist {{if this.standardNotationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Add numbers/letters on the left of each line
                         </li>
                       </ul>
                     </div>
-                  {{!-- {{/unless}} --}}
+                  {{/unless}}
                   <div>
                     <div class="row">
                       <div class="col-sm-12">
@@ -495,8 +527,7 @@ export default Ember.Component.extend({
 
 
             <h2 class="standard-set-editor__subhead">Standards</h2>
-            {{standards-sorter-editor standardsHash=model.standardSet.standards}}
-
+            {{standards-sorter-editor standardsHash=model.standardSet.standards validate=(action "validate")}}
 
             <h2 class="standard-set-editor__subhead">Comments & Questions</h2>
             {{#if commentIsSaving}}
