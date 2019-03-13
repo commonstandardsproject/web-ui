@@ -94,7 +94,7 @@ export default Ember.Component.extend({
           .reject(s => _.includes(itemsToMoveIds, get(s, "id")))
           .map(s => get(s, "id"))
           .indexOf(get(itemAbove, "id"))
-          .run()
+          .value()
       } else {
         itemAboveIndex = -1
       }
@@ -182,7 +182,7 @@ export default Ember.Component.extend({
       _(get(this, "orderedStandards"))
         .filter(s => get(s, "depth") > get(item, "depth"))
         .forEach(s => set(s, "isCollapsed", true))
-        .run()
+        .value()
 
       // Sync so the sortable helper has the right data
       Ember.run.sync()

@@ -75,7 +75,7 @@ export default Ember.Component.extend({
   }),
 
   subjects: Ember.computed("jurisdiction.standardSets.@each.subject", "model.standardSet.subject", function() {
-    let jurisdictionSubjects = _.unique(
+    let jurisdictionSubjects = _.uniq(
       _.map(get(this, "jurisdiction.standardSets"), function(set) {
         return get(set, "subject")
       })
@@ -91,7 +91,8 @@ export default Ember.Component.extend({
     changeset.validate().then(() => {
       set(this, "errors", changeset.get("errors"))
       let errorObj = get(this, "errors")
-      if (Ember.isEmpty(errorObj)) {
+
+      if (Ember.isEmpty(errorObj) === true) {
         set(this, "descriptionIsValid", true)
         set(this, "standardLengthIsValid", true)
         set(this, "standardNotationIsValid", true)
@@ -463,7 +464,7 @@ export default Ember.Component.extend({
 
                     </div>
 
-                    {{#unless session.isCommitter}}
+                    {{!-- {{#unless session.isCommitter}} --}}
                     <div>
                       <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
                         <li class="standard-set-editor-draft-box__checklist {{if this.descriptionIsValid 'is-valid'}}">
@@ -484,7 +485,7 @@ export default Ember.Component.extend({
                         </li>
                       </ul>
                     </div>
-                  {{/unless}}
+                  {{!-- {{/unless}} --}}
                   <div>
                     <div class="row">
                       <div class="col-sm-12">

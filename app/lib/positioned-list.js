@@ -39,7 +39,7 @@ export function moveItemAndAncestors(originalArray, itemsToMove, insertAfterInde
         acc[get(s, "id")] = s
         return acc
       }, {})
-      .run()
+      .value()
   )
 }
 

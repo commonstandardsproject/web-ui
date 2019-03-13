@@ -57,7 +57,7 @@
     "ember-truth-helpers": "0.0.5",
     "jsoneditor": "^4.2.0",
     "loader.js": "^4.2.3",
-    "lodash": "3.8.0",
+    "lodash": "^4.17.11",
     "moment": "2.11.2",
     "moment-timezone": "0.5.0",
     "rus-diff": "^1.1.0",
