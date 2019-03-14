@@ -5,9 +5,9 @@ export default function validateNotation() {
     let checkStandardNotation = _.filter(Object.values(oldValue), standard => {
       return !_.isEmpty(standard.statementNotation)
     })
+    //checking if ~1/3 of standards have notation
+    let isValid = checkStandardNotation.length / Object.values(oldValue).length >= 0.3
 
-    let isValid = checkStandardNotation.length / Object.values(oldValue).length
-
-    return isValid >= 0.3 ? true : "notation needed"
+    return isValid ? true : "notation needed"
   }
 }

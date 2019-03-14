@@ -6,13 +6,11 @@ let { get } = Ember
 export default Ember.Component.extend({
   layout: hbs`
     <div class="standards-edit">
-      {{#if errors}}
           {{#each (filter-by "key" propertyName errors) as |errorset|}}
             {{#each errorset.validation as |error|}}
               <li>{{error}}</li>
             {{/each}}
         {{/each}}
-      {{/if}}
     </div>
   `,
 })
