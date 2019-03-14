@@ -144,7 +144,14 @@ export default Ember.Component.extend({
         function(_data) {
           this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
         }.bind(this),
-        function(err) {}
+        function(err) {
+          swal({
+            type: "error",
+            title: "Oh no!",
+            text: "Go find Scott or Marika",
+          })
+          console.log(err)
+        }
       )
     },
 
@@ -339,6 +346,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
+      {{#unless (eq model.status "approved")}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           <div class="directions">
@@ -620,6 +628,18 @@ export default Ember.Component.extend({
             newOrganization=newOrganization
             selectJurisdiction=(action 'selectJurisdiction') }}
         {{/if}}
+      </div>
+    {{/unless}}
+      <div class="approved-standards">
+        <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit'}}
+            <div class="standard-set-editor-draft-box__button btn">Make another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
       </div>
     </div>
   `,
