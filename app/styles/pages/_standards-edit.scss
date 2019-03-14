@@ -198,6 +198,13 @@
   }
 }
 
+.admin-btn {
+  width: 125px;
+  margin-left: 3px;
+  font-size: 0.8rem;
+  padding-top: 8px;
+}
+
 .standard-set-editor-draft-box__status-comment {
   margin-top: 1rem;
   padding: 1rem 1.5rem;
@@ -218,4 +225,8 @@ ul {
 
 ul.standard-set-editor__subhead {
   font-size: 1rem;
+}
+
+.admin-form-group {
+  display: flex;
 }

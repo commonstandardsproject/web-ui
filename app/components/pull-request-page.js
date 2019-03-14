@@ -130,6 +130,24 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    toggleAddOrganizationForm() {
+      this.toggleProperty("showAddOrganizationForm")
+    },
+
+    toggleAddSchoolForm() {
+      this.toggleProperty("showAddSchoolForm")
+    },
+
+    addJurisdiction(data) {
+      rpc.addJurisdiction(
+        data,
+        function(_data) {
+          this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
+        }.bind(this),
+        function(err) {}
+      )
+    },
+
     validate() {
       this.validateThis()
     },
@@ -277,6 +295,11 @@ export default Ember.Component.extend({
     },
 
     selectJurisdictionFromDropdown(value) {
+      if (value === "__CUSTOM__") {
+        swal({
+          title: "School or Jurisdiction?",
+        })
+      }
       let id = value.split("*")[0]
       let title = value.split("*")[1]
       set(this, "model.standardSet.jurisdiction.id", id)
@@ -379,12 +402,29 @@ export default Ember.Component.extend({
                     <label class="control-label col-sm-2">Organization</label>
                     <div class="col-sm-10">
                       {{#if session.isCommitter}}
+                        <div class="admin-form-group">
+
                         <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
                           {{#each jurisdictions.content.list as |jurisdiction|}}
                             <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
                           {{/each}}
                         </select>
+                        {{#if showAddOrganizationForm}}
+                          {{add-jurisdiction type="organization" humanizedType="Organization" toggleForm=(action 'toggleAddOrganizationForm') onSubmit=(action 'addJurisdiction')}}
+                        {{else}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddOrganizationForm"}}>
+                            + ORGANIZATION
+                          </div>
+                        {{/if}}
+                        {{#if showAddSchoolForm}}
+                          {{add-jurisdiction type="school" humanizedType="School" toggleForm=(action 'toggleAddSchoolForm') onSubmit=(action 'addJurisdiction')}}
+                        {{else}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddSchoolForm"}}>
+                            + SCHOOL/DISTRICT
+                          </div>
+                        {{/if}}
                         {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
+                      </div>
                       {{else}}
                         {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
                         {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
