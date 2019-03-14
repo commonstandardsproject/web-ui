@@ -326,23 +326,23 @@ export default Ember.Component.extend({
             </p>
             <h3 class="standard-set-editor__h3">Your Goal</h3>
             <ul>
-              <li>The standards you paste here should look like a pretty, outlined list by the time you’re done.</li>
+              <li class="standard-set-editor__directions-list">The standards you paste here should look like a pretty, outlined list by the time you’re done.</li>
             </ul>
 
             <h3 class="standard-set-editor__h3">How to do this</h3>
             <ul>
-              <li>Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
-              <li>Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
-              <li>Move a standard: the drag icon on the right of each standard</li>
-              <li>Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
-              <li>If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started"</li>
+              <li class="standard-set-editor__directions-list">Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
+              <li class="standard-set-editor__directions-list">Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
+              <li class="standard-set-editor__directions-list">Move a standard: the drag icon on the right of each standard</li>
+              <li class="standard-set-editor__directions-list">Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
+              <li class="standard-set-editor__directions-list">If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started".</li>
             </ul>
 
             <h3 class="standard-set-editor__h3">When you’re done</h3>
             <ul>
-              <li>Click "Submit" up top. We’ll take action on your submission within a week (or sooner!)</li>
-              <li>We’ll either approve your standards or send it back to you with a few comments for revision</li>
-              <li>If you have any questions, scroll to the bottom and add a comment.</li>
+              <li class="standard-set-editor__directions-list">Click "Submit". We’ll take action on your submission within a week (or sooner!).</li>
+              <li class="standard-set-editor__directions-list">We’ll either approve your standards or send it back to you with a few comments for revision.</li>
+              <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission.</li>
             </ul>
           {{/unless}}
         </div>
@@ -431,8 +431,8 @@ export default Ember.Component.extend({
                       {{#unless nullEducationLevels}}
                         {{education-level-checkboxes value=model.standardSet.educationLevels onBlur=(action "validate")}}
                       {{/unless}}
-                      {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
                     </div>
+                    {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
                   </div>
                 </div>
               </div>
@@ -464,7 +464,7 @@ export default Ember.Component.extend({
 
                     </div>
 
-                    {{!-- {{#unless session.isCommitter}} --}}
+                    {{#unless session.isCommitter}}
                     <div>
                       <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
                         <li class="standard-set-editor-draft-box__checklist {{if this.descriptionIsValid 'is-valid'}}">
@@ -485,7 +485,7 @@ export default Ember.Component.extend({
                         </li>
                       </ul>
                     </div>
-                  {{!-- {{/unless}} --}}
+                  {{/unless}}
                   <div>
                     <div class="row">
                       <div class="col-sm-12">
