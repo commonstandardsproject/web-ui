@@ -10,7 +10,8 @@ export default function validateDepth() {
         return result
       }, {})
       .value()
+    let isValid = depthObj[0] >= 2 && depthObj[1] >= 2
     //ensures outline form by counting # of standards with indentation of 0 and 1
-    return depthObj[0] >= 2 && depthObj[1] >= 2 ? true : "indentation needed"
+    return isValid ? true : "indentation needed"
   }
 }
