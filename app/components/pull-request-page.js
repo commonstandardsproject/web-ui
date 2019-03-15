@@ -636,6 +636,7 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/unless}}
+    {{#if (eq model.status "approved")}}
       <div class="approved-standards">
         <h3>Your standards have been approved!</h3>
         <div>
@@ -647,6 +648,7 @@ export default Ember.Component.extend({
           {{/link-to}}
         </div>
       </div>
+    {{/if}}
     </div>
   `,
 })
