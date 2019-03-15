@@ -60,7 +60,7 @@ export default Ember.Component.extend({
     return Ember.isNone(Ember.get(this, "model.standardSet.educationLevels"))
   }),
 
-  jurisdictions: Ember.computed(function() {
+  jurisdictions: Ember.computed("model.standardSet.jurisdiction.id", function() {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("jurisdiction", "index", true),
@@ -139,10 +139,14 @@ export default Ember.Component.extend({
     },
 
     addJurisdiction(data) {
+      set(this, "showAddSchoolForm", false)
+      set(this, "showAddOrganizationForm", false)
       rpc.addJurisdiction(
         data,
         function(_data) {
-          this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
+          set(this, "model.standardSet.jurisdiction.id", _data.data.id)
+          set(this, "model.standardSet.jurisdiction.title", _data.data.title)
+          // this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
         }.bind(this),
         function(err) {
           swal({
@@ -302,16 +306,13 @@ export default Ember.Component.extend({
     },
 
     selectJurisdictionFromDropdown(value) {
-      if (value === "__CUSTOM__") {
-        swal({
-          title: "School or Jurisdiction?",
-        })
-      }
       let id = value.split("*")[0]
       let title = value.split("*")[1]
       set(this, "model.standardSet.jurisdiction.id", id)
       set(this, "model.standardSet.jurisdiction.title", title)
-      this.validateThis()
+      if (this.triedToSubmit === true) {
+        this.validateThis()
+      }
     },
 
     selectSubject(value) {
@@ -386,16 +387,20 @@ export default Ember.Component.extend({
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Name</label>
                     <div class="col-sm-10">
-                      {{input value=model.submitterName type="text" class="form-control" placeholder="Name" focusOut=(action "validate")}}
-                      {{validate-pull-request errors=errors propertyName="submitterName"}}
+                      {{input value=model.submitterName type="text" class="form-control" placeholder="Name" onBlur=(action "validate")}}
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="submitterName"}}
+                      {{/if}}
 
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Email</label>
                     <div class="col-sm-10">
-                      {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email" focusOut=(action "validate")}}
-                      {{validate-pull-request errors=errors propertyName="submitterEmail"}}
+                      {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email" onBlur=(action "validate")}}
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="submitterEmail"}}
+                      {{/if}}
                     </div>
                   </div>
                   {{#if model.forkedFromStandardSetId}}
@@ -413,19 +418,20 @@ export default Ember.Component.extend({
                         <div class="admin-form-group">
 
                         <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
+                          <option selected>Select a Jurisdiction</option>
                           {{#each jurisdictions.content.list as |jurisdiction|}}
                             <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
                           {{/each}}
                         </select>
                         {{#if showAddOrganizationForm}}
-                          {{add-jurisdiction type="organization" humanizedType="Organization" toggleForm=(action 'toggleAddOrganizationForm') onSubmit=(action 'addJurisdiction')}}
+                          {{add-jurisdiction showFormInFloatingBox=true type="organization" humanizedType="Organization" toggleForm=(action 'toggleAddOrganizationForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
                           <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddOrganizationForm"}}>
                             + ORGANIZATION
                           </div>
                         {{/if}}
                         {{#if showAddSchoolForm}}
-                          {{add-jurisdiction type="school" humanizedType="School" toggleForm=(action 'toggleAddSchoolForm') onSubmit=(action 'addJurisdiction')}}
+                          {{add-jurisdiction showFormInFloatingBox=true type="school" humanizedType="School" toggleForm=(action 'toggleAddSchoolForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
                           <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddSchoolForm"}}>
                             + SCHOOL/DISTRICT
