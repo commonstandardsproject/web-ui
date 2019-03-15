@@ -554,10 +554,6 @@ export default Ember.Component.extend({
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
                       <div class="btn-group">
-                        <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "save"}}>
-                          <span class="loading-ripple loading-ripple--sliding {{if isAutoSaving 'is-visible'}}">{{partial "icons/ripple"}}</span>
-                          Save
-                        </div>
                         {{#if (eq model.status "draft")}}
                           <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
                         {{/if}}
