@@ -147,8 +147,8 @@ export default Ember.Component.extend({
         function(err) {
           swal({
             type: "error",
-            title: "Oh no!",
-            text: "Go find Scott or Marika",
+            title: "We've run into an error creating the jurisdiction!",
+            text: "Contact support@commoncurriculum.com",
           })
           console.log(err)
         }
