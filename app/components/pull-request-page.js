@@ -634,7 +634,7 @@ export default Ember.Component.extend({
         <h3>Your standards have been approved!</h3>
         <div>
           {{#link-to 'edit'}}
-            <div class="standard-set-editor-draft-box__button btn">Make another set of standards</div>
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
           {{/link-to}}
           {{#link-to 'search'}}
             <div class="standard-set-editor-draft-box__button btn">Search Standards</div>

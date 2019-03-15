@@ -134,6 +134,15 @@
 .add-jurisdiction {
   padding: 10px;
   background-color: $yellow;
+  &.in-floating-box {
+    width: 300px;
+    position: absolute;
+    z-index: 9999;
+    padding: 20px;
+    border: 1px solid $hint;
+    box-shadow: 2px 2px 8px 0px $hint;
+    border-radius: 4px;
+  }
 }
 
 .standard-set-editor-draft-box {
