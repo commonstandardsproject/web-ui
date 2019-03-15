@@ -149,7 +149,6 @@ export default Ember.Component.extend({
         function(_data) {
           set(this, "model.standardSet.jurisdiction.id", _data.data.id)
           set(this, "model.standardSet.jurisdiction.title", _data.data.title)
-          // this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
         }.bind(this),
         function(err) {
           swal({
@@ -393,7 +392,7 @@ export default Ember.Component.extend({
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Name</label>
                     <div class="col-sm-10">
-                      {{input value=model.submitterName type="text" class="form-control" placeholder="Name" onBlur=(action "validate")}}
+                      {{input value=model.submitterName type="text" class="form-control" placeholder="Name" focusOut=(action "validate")}}
                       {{#if triedToSubmit}}
                         {{validate-pull-request errors=errors propertyName="submitterName"}}
                       {{/if}}
@@ -403,7 +402,7 @@ export default Ember.Component.extend({
                   <div class="form-group">
                     <label class="control-label col-sm-2">Your Email</label>
                     <div class="col-sm-10">
-                      {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email" onBlur=(action "validate")}}
+                      {{input value=model.submitterEmail type="text" class="form-control" placeholder="Email" type="email" focusOut=(action "validate")}}
                       {{#if triedToSubmit}}
                         {{validate-pull-request errors=errors propertyName="submitterEmail"}}
                       {{/if}}
@@ -443,11 +442,15 @@ export default Ember.Component.extend({
                             + SCHOOL/DISTRICT
                           </div>
                         {{/if}}
-                        {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
+                        {{#if triedToSubmit}}
+                          {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
+                        {{/if}}
                       </div>
                       {{else}}
-                        {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true}}
-                        {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
+                        {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true focusOut=(action "validate")}}
+                        {{#if triedToSubmit}}
+                          {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
+                        {{/if}}
                       {{/if}}
                     </div>
                   </div>
@@ -459,7 +462,9 @@ export default Ember.Component.extend({
                         {{#each subjects as |subject|}}
                           <option value="{{subject}}" selected="{{if (eq subject model.standardSet.subject) 'true'}}">{{subject}}</option>
                         {{/each}}
-                        {{validate-pull-request errors=errors propertyName="standardSet.standards.subject"}}
+                        {{#if triedToSubmit}}
+                          {{validate-pull-request errors=errors propertyName="standardSet.standards.subject"}}
+                        {{/if}}
 
                       </select>
                     </div>
@@ -468,31 +473,39 @@ export default Ember.Component.extend({
                     <label class="control-label col-sm-2">Grade or Course Name</label>
                     <div class="col-sm-10">
                       {{input value=model.standardSet.title type="text" class="form-control" placeholder="The grade level or name of the course. E.g. 'First Grade', 'Algebra I', 'Advanced Band', 'Middle School', or 'AP'" focusOut=(action "validate")}}
-                      {{validate-pull-request errors=errors propertyName="standardSet.title"}}
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.title"}}
+                      {{/if}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Source Title</label>
                     <div class="col-sm-10">
                       {{input value=model.standardSet.document.title type="url" class="form-control" placeholder="The name of the publication you got these from. E.g. 'South Dakota Content Standards'" focusOut=(action "validate")}}
-                      {{validate-pull-request errors=errors propertyName="standardSet.document.title"}}
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.document.title"}}
+                      {{/if}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Source URL</label>
                     <div class="col-sm-10">
-                      {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here" focusOut=(action "validate")}}
-                      {{validate-pull-request errors=errors propertyName="standardSet.document.sourceURL"}}
+                      {{input value=model.standardSet.document.sourceURL type="url" class="form-control" placeholder="If you're copying and pasting the standards from anywhere (like your State's Department of Education), enter that URL here"focusOut=(action "validate")}}
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.document.sourceURL"}}
+                      {{/if}}
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2">Education Levels</label>
                     <div class="col-sm-10">
                       {{#unless nullEducationLevels}}
-                        {{education-level-checkboxes value=model.standardSet.educationLevels onBlur=(action "validate")}}
+                        {{education-level-checkboxes value=model.standardSet.educationLevels focusOut=(action "validate")}}
                       {{/unless}}
                     </div>
-                    {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
+                    {{#if triedToSubmit}}
+                      {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
+                    {{/if}}
                   </div>
                 </div>
               </div>
@@ -511,7 +524,7 @@ export default Ember.Component.extend({
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approval-requested') 'is-active'}}">Approval Requested</div>
-                      {{#if (eq model.status "revise-and-resubmit")}}
+                      {{#if triedToSubmit}}
                         <div class="standard-set-editor-draft-box__status {{if (eq model.status 'revise-and-resubmit') 'is-active'}}">Revise and resubmit</div>
                       {{/if}}
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'approved') 'is-active'}}">Standards Approved</div>
@@ -563,7 +576,7 @@ export default Ember.Component.extend({
                         {{#if (eq model.status "draft")}}
                           <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
                         {{/if}}
-                        {{#if (eq model.status "revise-and-resubmit")}}
+                        {{#if triedToSubmit}}
                           <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
