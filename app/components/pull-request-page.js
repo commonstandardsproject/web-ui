@@ -90,9 +90,9 @@ export default Ember.Component.extend({
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
     changeset.validate().then(() => {
       set(this, "errors", changeset.get("errors"))
-      let errorObj = get(this, "errors")
+      let errorArray = get(this, "errors")
 
-      if (Ember.isEmpty(errorObj) === true) {
+      if (Ember.isEmpty(errorArray) === true) {
         set(this, "descriptionIsValid", true)
         set(this, "standardLengthIsValid", true)
         set(this, "standardNotationIsValid", true)
@@ -109,22 +109,25 @@ export default Ember.Component.extend({
           "standardSet.jurisdiction.title",
         ]
 
-        if (!_.includes(fieldsToDetermineValidate, errorObj[0].key)) {
-          set(this, "descriptionIsValid", true)
-        }
+        let allErrorKeys = _.map(errorArray, error => {
+          return error.key
+        })
+
+        let descriptionIsValid = _.size(_.intersection(fieldsToDetermineValidate, allErrorKeys)) === 0
+        set(this, "descriptionIsValid", descriptionIsValid)
 
         let formatValidateFields = ["indentation needed", "notation needed", "not enough standards"]
-        let checkFormat = _.intersection(errorObj[0].validation, formatValidateFields)
+        let standardsErrors = _.chain(errorArray)
+          .map(error => error.validation)
+          .flatten()
+          .intersectionBy(formatValidateFields)
+          .value()
 
-        if (!checkFormat.includes("indentation needed")) {
-          set(this, "standardIndentationIsValid", true)
-        }
-        if (!checkFormat.includes("notation needed")) {
-          set(this, "standardNotationIsValid", true)
-        }
-        if (!checkFormat.includes("not enough standards")) {
-          set(this, "standardLengthIsValid", true)
-        }
+        set(this, "standardIndentationIsValid", !standardsErrors.includes("indentation needed"))
+
+        set(this, "standardNotationIsValid", !standardsErrors.includes("notation needed"))
+
+        set(this, "standardLengthIsValid", !standardsErrors.includes("not enough standards"))
       }
     })
   },
@@ -205,11 +208,12 @@ export default Ember.Component.extend({
     },
 
     submit() {
+      set(this, "triedToSubmit", true)
       if (Ember.isBlank(get(this, "model.submitterEmail")) || get(this, "model.submitterEmail") === "") {
         swal("Make sure your email is filled out!")
         return false
       }
-      if (!get(this, "errors")) {
+      if (Ember.isEmpty(get(this, "errors"))) {
         set(this, "isSaving", true)
         rpc["pullRequest:save"](
           get(this, "model"),
@@ -339,7 +343,9 @@ export default Ember.Component.extend({
       } else {
         set(this, "model.standardSet.subject", value)
       }
-      this.validateThis()
+      if (this.triedToSubmit === true) {
+        this.validateThis()
+      }
     },
   },
 
