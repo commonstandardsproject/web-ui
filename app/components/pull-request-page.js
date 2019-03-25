@@ -31,6 +31,8 @@ export default Ember.Component.extend({
     Ember.run.later(
       this,
       function() {
+        get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
+
         if (Ember.isNone(get(this, "model.id"))) return
         if (get(this, "isAutoSaving") === true) return
         this.validateThis()
@@ -109,25 +111,23 @@ export default Ember.Component.extend({
           "standardSet.jurisdiction.title",
         ]
 
-        let allErrorKeys = _.map(errorArray, error => {
-          return error.key
-        })
+        let allErrorKeys = _.map(errorArray, error => error.key)
 
         let descriptionIsValid = _.size(_.intersection(fieldsToDetermineValidate, allErrorKeys)) === 0
         set(this, "descriptionIsValid", descriptionIsValid)
 
         let formatValidateFields = ["indentation needed", "notation needed", "not enough standards"]
-        let standardsErrors = _.chain(errorArray)
+        let formattingErrors = _.chain(errorArray)
           .map(error => error.validation)
           .flatten()
           .intersectionBy(formatValidateFields)
           .value()
 
-        set(this, "standardIndentationIsValid", !standardsErrors.includes("indentation needed"))
+        set(this, "standardIndentationIsValid", !formattingErrors.includes("indentation needed"))
 
-        set(this, "standardNotationIsValid", !standardsErrors.includes("notation needed"))
+        set(this, "standardNotationIsValid", !formattingErrors.includes("notation needed"))
 
-        set(this, "standardLengthIsValid", !standardsErrors.includes("not enough standards"))
+        set(this, "standardLengthIsValid", !formattingErrors.includes("not enough standards"))
       }
     })
   },
@@ -230,7 +230,9 @@ export default Ember.Component.extend({
           }.bind(this)
         )
       } else {
-        swal("Please fix the requested fields!")
+        swal(
+          "These standards aren't ready for submitting, yet! Make sure all the checkboxes are green and fix any errors."
+        )
       }
     },
 
@@ -313,9 +315,7 @@ export default Ember.Component.extend({
       let title = value.split("*")[1]
       set(this, "model.standardSet.jurisdiction.id", id)
       set(this, "model.standardSet.jurisdiction.title", title)
-      if (this.triedToSubmit === true) {
-        this.validateThis()
-      }
+      this.validateThis()
     },
 
     selectSubject(value) {
@@ -342,9 +342,7 @@ export default Ember.Component.extend({
       } else {
         set(this, "model.standardSet.subject", value)
       }
-      if (this.triedToSubmit === true) {
-        this.validateThis()
-      }
+      this.validateThis()
     },
   },
 
@@ -442,15 +440,14 @@ export default Ember.Component.extend({
                             + SCHOOL/DISTRICT
                           </div>
                         {{/if}}
-                        {{#if triedToSubmit}}
-                          {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
-                        {{/if}}
                       </div>
                       {{else}}
                         {{input value=model.standardSet.jurisdiction.title type="text" class="form-control" placeholder="Oregon" disabled=true focusOut=(action "validate")}}
-                        {{#if triedToSubmit}}
-                          {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
-                        {{/if}}
+                      {{/if}}
+                    </div>
+                    <div class="ed-levels">
+                      {{#if triedToSubmit}}
+                        {{validate-pull-request errors=errors propertyName="standardSet.jurisdiction.title"}}
                       {{/if}}
                     </div>
                   </div>
@@ -504,7 +501,9 @@ export default Ember.Component.extend({
                       {{/unless}}
                     </div>
                     {{#if triedToSubmit}}
-                      {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
+                      <div class="col-sm-10 ed-levels">
+                        {{validate-pull-request errors=errors propertyName="standardSet.educationLevels"}}
+                      </div>
                     {{/if}}
                   </div>
                 </div>
@@ -654,6 +653,19 @@ export default Ember.Component.extend({
     {{#if (eq model.status "approved")}}
       <div class="approved-standards">
         <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if (eq model.status "rejected")}}
+      <div class="approved-standards">
+        <h3>Your standards can no longer be edited.</h3>
         <div>
           {{#link-to 'edit'}}
             <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
