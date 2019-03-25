@@ -650,20 +650,7 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/unless}}
-    {{#if (eq model.status "approved")}}
-      <div class="approved-standards">
-        <h3>Your standards have been approved!</h3>
-        <div>
-          {{#link-to 'edit'}}
-            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-          {{/link-to}}
-          {{#link-to 'search'}}
-            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-          {{/link-to}}
-        </div>
-      </div>
-    {{/if}}
-    {{#if (eq model.status "rejected")}}
+    {{#if (or (eq model.status "approved") (eq model.status "rejected"))}}
       <div class="approved-standards">
         <h3>Your standards can no longer be edited.</h3>
         <div>
@@ -676,6 +663,7 @@ export default Ember.Component.extend({
         </div>
       </div>
     {{/if}}
+
     </div>
   `,
 })
