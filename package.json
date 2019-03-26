@@ -38,7 +38,7 @@
     "ember-cli-json-pretty": "0.0.1",
     "ember-cli-moment-shim": "1.0.0",
     "ember-cli-qunit": "^4.0.0-beta.1",
-    "ember-cli-sass": "^4.0.0",
+    "ember-cli-sass": "^10.0.0",
     "ember-cli-selectize": "0.3.3",
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sticky": "0.3.0",

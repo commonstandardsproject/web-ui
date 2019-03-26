@@ -1,10 +1,14 @@
 /* eslint-env node */
-const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const EmberApp = require("ember-cli/lib/broccoli/ember-app")
+var nodeSass = require("node-sass")
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    sassOptions: {
+      implementation: nodeSass,
+    },
     // Add options here
-  });
+  })
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
