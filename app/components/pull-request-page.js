@@ -15,6 +15,7 @@ export default Ember.Component.extend({
   PullRequestValidations,
   init() {
     this._super(...arguments)
+    this.triedToSubmit = false
   },
 
   setupAutoSave: Ember.on("didInsertElement", function() {
@@ -31,8 +32,6 @@ export default Ember.Component.extend({
     Ember.run.later(
       this,
       function() {
-        get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
-
         if (Ember.isNone(get(this, "model.id"))) return
         if (get(this, "isAutoSaving") === true) return
         this.validateThis()
@@ -350,7 +349,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#unless (eq model.status "approved")}}
+      {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           <div class="directions">
