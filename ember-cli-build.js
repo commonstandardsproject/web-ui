@@ -26,6 +26,7 @@ module.exports = function(defaults) {
   app.import("bower_components/auth0-lock/build/lock.js")
   app.import("vendor/sweetalert/sweetalert.css")
   app.import("vendor/sweetalert/sweetalert-dev.js")
+  app.import("vendor/ember/ember-template-compiler.js")
 
   return app.toTree()
 }
