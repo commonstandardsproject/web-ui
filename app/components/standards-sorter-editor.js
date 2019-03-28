@@ -195,54 +195,54 @@ export default Ember.Component.extend({
     },
   },
 
-  // layout: hbs`
-  //
-  //   {{#sortable-group tagName="div" onChange="reorder" onDragStart="onDragStart" as |group|}}
-  //     {{! We need to wrap this as a sortable item so the sortable item handler
-  //         knows to include it when it calculates absolute position}}
-  //     {{#sortable-item tagName="div" group=group handle=".sortable-standard__handle"}}
-  //     <div class="sortable-standard sortable-standard__header">
-  //       <div class="sortable-standard__columns">
-  //         <div class="sortable-standard__icons sortable-standard__column--header">
-  //           <div>Actions</div>
-  //           <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
-  //         </div>
-  //         <div class="sortable-standard__column--list-id sortable-standard__column--header">
-  //           <div>Outline</div>
-  //           <div class="sortable-standard__column--help-text">E.g. I, II, III or A, B, C, etc</div>
-  //         </div>
-  //         <div class="sortable-standard__column--description sortable-standard__column--header">
-  //           <div>Standard</div>
-  //           <div class="sortable-standard__column--help-text">The text of the standard</div>
-  //         </div>
-  //         <div class="sortable-standard__column--statement-notation sortable-standard__column--header">
-  //           <div>Abbreviation</div>
-  //           <div class="sortable-standard__column--help-text">The shorthand identifier e.g. 1.NBT.4</div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     {{/sortable-item}}
-  //
-  //     {{#each orderedStandards as |item index| }}
-  //       {{sortable-standard
-  //         group=group
-  //         standards=standardsHash
-  //         item=item
-  //         index=index
-  //         key=item.id
-  //         onEnterKey=(action "onEnterKey" item)
-  //         onArrow=(action "onArrow")
-  //         removeStandard=(action "removeStandard" item.id index)
-  //         prepareMove=(action "prepareMove" item)
-  //         indent=(action "indent")
-  //         outdent=(action "outdent")
-  //       }}
-  //
-  //     {{/each}}
-  //   {{/sortable-group}}
-  //
-  //   <br>
-  //   <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
-  //
-  // `,
+  layout: hbs`
+
+    {{#sortable-group tagName="div" onChange="reorder" onDragStart="onDragStart" as |group|}}
+      {{! We need to wrap this as a sortable item so the sortable item handler
+          knows to include it when it calculates absolute position}}
+      {{#sortable-item tagName="div" group=group handle=".sortable-standard__handle"}}
+      <div class="sortable-standard sortable-standard__header">
+        <div class="sortable-standard__columns">
+          <div class="sortable-standard__icons sortable-standard__column--header">
+            <div>Actions</div>
+            <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
+          </div>
+          <div class="sortable-standard__column--list-id sortable-standard__column--header">
+            <div>Outline</div>
+            <div class="sortable-standard__column--help-text">E.g. I, II, III or A, B, C, etc</div>
+          </div>
+          <div class="sortable-standard__column--description sortable-standard__column--header">
+            <div>Standard</div>
+            <div class="sortable-standard__column--help-text">The text of the standard</div>
+          </div>
+          <div class="sortable-standard__column--statement-notation sortable-standard__column--header">
+            <div>Abbreviation</div>
+            <div class="sortable-standard__column--help-text">The shorthand identifier e.g. 1.NBT.4</div>
+          </div>
+        </div>
+      </div>
+      {{/sortable-item}}
+
+      {{#each orderedStandards as |item index| }}
+        {{sortable-standard
+          group=group
+          standards=standardsHash
+          item=item
+          index=index
+          key=item.id
+          onEnterKey=(action "onEnterKey" item)
+          onArrow=(action "onArrow")
+          removeStandard=(action "removeStandard" item.id index)
+          prepareMove=(action "prepareMove" item)
+          indent=(action "indent")
+          outdent=(action "outdent")
+        }}
+
+      {{/each}}
+    {{/sortable-group}}
+
+    <br>
+    <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
+
+  `,
 })
