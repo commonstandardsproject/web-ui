@@ -78,10 +78,7 @@ export default Ember.Component.extend({
       rpc["pullRequest:create"](
         {},
         function(data) {
-          let owner = getOwner(this)
-          let banana = owner.lookup(`container:${this.get("container")}`)
-          console.log("banana", banana)
-          this.get("container")
+          getOwner(this)
             .lookup("router:main")
             .transitionTo("edit.pull-requests", data.data.id)
           Ember.set(this, "isCreatingPullRequest", false)
