@@ -149,7 +149,7 @@
   margin-top: 3rem;
   background-color: $super-light;
   border: 1px solid $dividers;
-  padding: 0.25rem 2rem 1rem 2rem;
+  padding: 1rem 3rem 2rem 3rem;
   .standard-set-editor__subhead {
     color: $secondary-text;
     margin-top: 0;
@@ -226,6 +226,10 @@
     background-color: desaturate(lighten($teal, 5%), 5%);
     color: white;
   }
+}
+
+.approval-btn {
+  padding: 10px 18px;
 }
 
 .admin-btn {

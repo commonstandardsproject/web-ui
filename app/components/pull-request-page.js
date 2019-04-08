@@ -353,8 +353,8 @@ export default Ember.Component.extend({
       {{#unless (eq model.status "approved")}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
-          <div class="directions">
           {{#unless session.isCommitter}}
+            <div class="standard-set-editor-draft-box">
             <h2 class="standard-set-editor__subhead">Directions</h2>
             <p class="standard-set-editor__directions">
               First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
@@ -379,8 +379,8 @@ export default Ember.Component.extend({
               <li class="standard-set-editor__directions-list">We’ll either approve your standards or send it back to you with a few comments for revision.</li>
               <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission.</li>
             </ul>
+          </div>
           {{/unless}}
-        </div>
 
           <div class="verification-container">
             <div class="col-sm-9">
@@ -573,18 +573,18 @@ export default Ember.Component.extend({
                     <div class="standard-set-editor-draft-box__buttons">
                       <div class="btn-group">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if triedToSubmit}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "revise"}}>Request Revision</div>
                           {{/if}}
                           {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
                       </div>
