@@ -4,7 +4,6 @@ import rpc from "../lib/rpc"
 import idGen from "../lib/id-gen"
 import hbs from "htmlbars-inline-precompile"
 import Fetcher from "../lib/fetcher"
-import { getOwner } from "@ember/application"
 import { storageFor } from "ember-local-storage"
 
 export default Ember.Component.extend({
@@ -78,7 +77,7 @@ export default Ember.Component.extend({
       rpc["pullRequest:create"](
         {},
         function(data) {
-          getOwner(this)
+          Ember.getOwner(this)
             .lookup("router:main")
             .transitionTo("edit.pull-requests", data.data.id)
           Ember.set(this, "isCreatingPullRequest", false)
