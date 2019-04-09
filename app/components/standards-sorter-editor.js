@@ -178,8 +178,7 @@ export default Ember.Component.extend({
       let relativePosition = offset.top - scrollTop
 
       // console.log('firstoffset', offset, scrollTop, offset.top-scrollTop)
-
-      _(get(this, "orderedStandards"))
+      _.chain(get(this, "orderedStandards"))
         .filter(s => get(s, "depth") > get(item, "depth"))
         .forEach(s => set(s, "isCollapsed", true))
         .value()

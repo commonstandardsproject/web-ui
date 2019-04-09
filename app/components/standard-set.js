@@ -67,13 +67,13 @@ export default Ember.Component.extend({
       "subject",
       this.get("jurisdiction"),
       _.chain(sets)
-        .pluck("subject")
+        .map("subject")
         .uniq()
         .value()
         .sort()
     )
     return _.chain(sets)
-      .pluck("subject")
+      .map("subject")
       .uniq()
       .value()
       .sort()

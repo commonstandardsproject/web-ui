@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   isSearchVisible: Ember.computed("standardSetIds", function() {
     return (
       _.chain(this.get("standardSetIds"))
-        .filter(s => !_.contains(s, "blank"))
+        .filter(s => !_.includes(s, "blank"))
         .value().length > 0
     )
   }),
@@ -28,7 +28,7 @@ export default Ember.Component.extend({
         tagFilters: [this.get("standardSetIds")],
       })
       .then(data => {
-        this.set("results", _.pluck(data.hits, "id"))
+        this.set("results", _.map(data.hits, "id"))
       })
       .catch(function(err) {
         console.log("err", err)
