@@ -169,7 +169,6 @@ function _getPositionForIndex(newIndex, array) {
 }
 
 function _rebalanceList(array) {
-  Ember.run.sync()
   Ember.run(this, function() {
     Ember.beginPropertyChanges()
     _.each(array, function(item, index) {

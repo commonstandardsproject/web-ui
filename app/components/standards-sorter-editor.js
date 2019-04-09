@@ -184,9 +184,6 @@ export default Ember.Component.extend({
         .forEach(s => set(s, "isCollapsed", true))
         .value()
 
-      // Sync so the sortable helper has the right data
-      Ember.run.sync()
-
       // Since we hid all the elements, we need to scroll to the right place on the screen.
       Ember.run.scheduleOnce("afterRender", this, function() {
         let newOffset = $(`#sortable-item-${item.id}`).offset()
