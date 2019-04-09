@@ -31,6 +31,7 @@ export default Ember.Component.extend({
     Ember.run.later(
       this,
       function() {
+        if (this.isDestroyed || this.isDestroying) return
         get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
 
         if (Ember.isNone(get(this, "model.id"))) return
