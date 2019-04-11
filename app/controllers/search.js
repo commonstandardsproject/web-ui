@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
     },
     selectSet(id, oldId) {
       var idx = this.get("ids").indexOf(oldId)
-      this.get("ids").replace(idx, 1, id)
+      this.get("ids").replace(idx, 1, [id])
     },
     removeSet(id) {
       this.get("ids").removeObject(id)
