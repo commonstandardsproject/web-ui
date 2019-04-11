@@ -110,7 +110,7 @@ export default Ember.Component.extend({
     rpc["pullRequest:create"](
       { standardSetId: Ember.get(this, "id") },
       function(data) {
-        this.get("container")
+        Ember.getOwner(this)
           .lookup("router:main")
           .transitionTo("edit.pull-requests", data.data.id)
       }.bind(this),
