@@ -380,18 +380,18 @@ export default Ember.Component.extend({
 
             <h3 class="standard-set-editor__h3">How to do this</h3>
             <ul>
-              <li class="standard-set-editor__directions-list">Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
-              <li class="standard-set-editor__directions-list">Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
-              <li class="standard-set-editor__directions-list">Move a standard: the drag icon on the right of each standard</li>
-              <li class="standard-set-editor__directions-list">Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
-              <li class="standard-set-editor__directions-list">If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started".</li>
+              <li class="standard-set-editor__directions-list">Add a new line: click “Add Standard” or press the “Enter” if you're in a standard.</li>
+              <li class="standard-set-editor__directions-list">Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key).</li>
+              <li class="standard-set-editor__directions-list">Move a standard: the drag icon on the right of each standard.</li>
+              <li class="standard-set-editor__directions-list">Delete a standard: the trash can on the right of each standard (or CTRL + Delete).</li>
+              <li class="standard-set-editor__directions-list">Need to come back later?  Don't worry - your standards save automatically! When you come back, click "Create/Edit Standards" on the homepage and then "Get Started".</li>
             </ul>
 
             <h3 class="standard-set-editor__h3">When you’re done</h3>
             <ul>
               <li class="standard-set-editor__directions-list">Click "Submit". We’ll take action on your submission within a week (or sooner!).</li>
               <li class="standard-set-editor__directions-list">We’ll either approve your standards or send it back to you with a few comments for revision.</li>
-              <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission.</li>
+              <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission below the standards portion.</li>
             </ul>
           </div>
           {{/unless}}
@@ -555,7 +555,7 @@ export default Ember.Component.extend({
                       <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
                         <li class="standard-set-editor-draft-box__checklist {{if this.descriptionIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Fill in all description fields
+                          Fill in all description fields in the form on the left
                         </li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardLengthIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
@@ -567,7 +567,7 @@ export default Ember.Component.extend({
                         </li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardNotationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Add numbers/letters on the left of each line
+                          Add an abbreviation on the right of each line
                         </li>
                       </ul>
                     </div>
