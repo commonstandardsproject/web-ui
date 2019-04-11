@@ -364,7 +364,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#unless (eq model.status "approved")}}
+      {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
@@ -664,9 +664,23 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/unless}}
-    {{#if (or (eq model.status "approved") (eq model.status "rejected"))}}
+    {{#if (eq model.status "approved")}}
       <div class="approved-standards">
-        <h3>Your standards can no longer be edited.</h3>
+        <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if (eq model.status "rejected")}}
+      <div class="approved-standards">
+        <h3>We're sorry, your standards were not accepted.</h3>
+        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
         <div>
           {{#link-to 'edit'}}
             <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
