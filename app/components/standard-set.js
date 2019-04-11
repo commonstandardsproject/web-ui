@@ -160,7 +160,7 @@ export default Ember.Component.extend({
 
     removeSet() {
       analytics.track("Search - Remove Set")
-      this.sendAction("removeSet", this.get("id"))
+      this.attrs.removeSet(this.get("id"))
     },
 
     toggleLinkToSet() {

@@ -62,7 +62,7 @@ export default Ember.Component.extend({
 
     <div class="search-panes">
       {{#each standardSetIds as |id|}}
-        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet" results=results}}
+        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet=(action "removeSet") results=results}}
       {{/each}}
       {{#if isSearchVisible}}
         <div class="add-search-pane-button hint--left" {{action this.attrs.addPane}} data-hint="Compare standards by adding a pane">
