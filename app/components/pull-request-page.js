@@ -19,6 +19,7 @@ export default Ember.Component.extend({
 
   setupAutoSave: Ember.on("didInsertElement", function() {
     this.autoSave()
+    this.autoValidate()
   }),
 
   session: storageFor("persistedSession"),
@@ -50,6 +51,18 @@ export default Ember.Component.extend({
         )
       },
       10000
+    )
+  },
+
+  autoValidate() {
+    Ember.run.later(
+      this,
+      function() {
+        if (this.isDestroyed || this.isDestroying) return
+        get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
+        this.validateThis()
+      },
+      3000
     )
   },
 
