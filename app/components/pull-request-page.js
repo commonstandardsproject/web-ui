@@ -511,7 +511,7 @@ export default Ember.Component.extend({
                     <label class="control-label col-sm-2">Education Levels</label>
                     <div class="col-sm-10">
                       {{#unless nullEducationLevels}}
-                        {{education-level-checkboxes value=model.standardSet.educationLevels focusOut=(action "validate")}}
+                        {{education-level-checkboxes value=model.standardSet.educationLevels mouseLeave=(action "validate")}}
                       {{/unless}}
                     </div>
                     {{#if triedToSubmit}}
