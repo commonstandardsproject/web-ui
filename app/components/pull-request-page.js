@@ -587,10 +587,10 @@ export default Ember.Component.extend({
                     <div class="standard-set-editor-draft-box__buttons">
                       <div class="btn-group">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn non-committer" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
-                        {{#if triedToSubmit}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn non-committer" {{action "submit"}}>Resubmit</div>
+                        {{#if (eq model.status "revise-and-resubmit")}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
