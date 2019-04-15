@@ -557,18 +557,22 @@ export default Ember.Component.extend({
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Fill in all description fields in the form on the left
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">This helps us validate the source and content of the standards.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardLengthIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Add at least 5 standards
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">If you have fewer than 5 total standards, they will not be approved.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardIndentationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Organize standards in outline form
+                          Indent at least 4 substandards
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">Please visually group your standards.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardNotationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Add an abbreviation on the right of each line
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">This is how you'll search for your standards in CSP once they are accepted.</li>
                       </ul>
                     </div>
                   {{/unless}}

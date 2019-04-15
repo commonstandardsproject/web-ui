@@ -173,7 +173,7 @@
 }
 
 .standard-set-editor-draft-box__status {
-  color: $hint;
+  color: $contrast-gray;
   font-size: 1rem;
   // font-weight: 600;
   // text-transform: uppercase;
@@ -195,13 +195,23 @@
 
 .standard-set-editor-draft-box__checklist {
   display: flex;
-  color: $hint;
+  color: $contrast-gray;
+  font-weight: 600;
   font-size: 1.2rem;
   align-self: flex-start;
   margin-right: 0.5rem;
   height: auto;
   list-style-type: none;
-  padding: 5px;
+  padding: 5px 5px 0 5px;
+  line-height: normal;
+  &.check-reason {
+    font-size: 0.95rem;
+    font-weight: 400;
+    margin-left: 25px;
+    color: $contrast-gray;
+    padding-top: 2px;
+    padding-bottom: 15px;
+  }
   &.is-valid {
     color: $teal;
   }
@@ -240,7 +250,7 @@
 .approval-btn {
   padding: 10px 18px;
   &.non-committer {
-    width: 24rem;
+    width: 29.5rem;
   }
 }
 
