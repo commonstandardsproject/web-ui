@@ -24,6 +24,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
+    "ember-auto-import": "^1.2.21",
     "ember-browserify": "^1.0.0",
     "ember-changeset-validations": "^2.1.0",
     "ember-cli": "^2.13.0",
@@ -52,8 +53,8 @@
     "ember-multiselect-checkboxes": "0.11.1",
     "ember-resolver": "^4.0.0",
     "ember-rl-dropdown": "^0.4.0",
-    "ember-source": "3.8.0",
     "ember-sortable": "1.8.0",
+    "ember-source": "3.8.0",
     "ember-storage": "2.0.0",
     "ember-truth-helpers": "2.1.0",
     "jsoneditor": "^4.2.0",
@@ -65,6 +66,8 @@
     "torii": "0.10.1"
   },
   "dependencies": {
+    "@sentry/browser": "^5.0.8",
+    "@sentry/integrations": "^5.0.8",
     "algoliasearch": "^3.7.0",
     "ember-changeset": "^2.0.0",
     "ember-zeroclipboard": "0.3.0",
