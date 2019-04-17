@@ -8,16 +8,16 @@ export default Ember.Component.extend({
   {{#sortable-item tagName="div" model=item group=group handle=".sortable-standard__handle" id=(join-words 'sortable-item-' item.id) }}
   <div class="sortable-standard sortable-standard-table" data-id={{item.id}}>
       <div class="sortable-standard__icons">
-        <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" {{action attrs.prepareMove on="mouseDown"}} data-hint="Move">
+        <div class="sortable-standard__move-up sortable-standard__handle sortable-standard__icon hint--top" aria-label="Drag" {{action attrs.prepareMove on="mouseDown"}} data-hint="Move">
           {{partial "icons/arrow-move"}}
         </div>
-        <div class="sortable-standard__outdent sortable-standard__icon hint--top" data-hint="Outdent" {{action attrs.outdent item}}>
+        <div class="sortable-standard__outdent sortable-standard__icon hint--top" aria-label="Outdent" data-hint="Outdent" {{action attrs.outdent item}}>
           {{partial "icons/arrow-left"}}
         </div>
-        <div class="sortable-standard__indent sortable-standard__icon hint--top" data-hint="Indent" {{action attrs.indent item}}>
+        <div class="sortable-standard__indent sortable-standard__icon hint--top" aria-label="Indent" data-hint="Indent" {{action attrs.indent item}}>
           {{partial "icons/arrow-right"}}
         </div>
-        <div class="sortable-standard__delete sortable-standard__icon hint--top" data-hint='Remove' {{action attrs.removeStandard item.id}}>
+        <div class="sortable-standard__delete sortable-standard__icon hint--top" aria-label="Delete" data-hint='Remove' {{action attrs.removeStandard item.id}}>
           {{partial "icons/ios7-trash-filled"}}
         </div>
       </div>
