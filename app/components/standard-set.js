@@ -67,13 +67,13 @@ export default Ember.Component.extend({
       "subject",
       this.get("jurisdiction"),
       _.chain(sets)
-        .pluck("subject")
+        .map("subject")
         .uniq()
         .value()
         .sort()
     )
     return _.chain(sets)
-      .pluck("subject")
+      .map("subject")
       .uniq()
       .value()
       .sort()
@@ -110,7 +110,7 @@ export default Ember.Component.extend({
     rpc["pullRequest:create"](
       { standardSetId: Ember.get(this, "id") },
       function(data) {
-        this.get("container")
+        Ember.getOwner(this)
           .lookup("router:main")
           .transitionTo("edit.pull-requests", data.data.id)
       }.bind(this),
@@ -160,7 +160,7 @@ export default Ember.Component.extend({
 
     removeSet() {
       analytics.track("Search - Remove Set")
-      this.sendAction("removeSet", this.get("id"))
+      this.attrs.removeSet(this.get("id"))
     },
 
     toggleLinkToSet() {

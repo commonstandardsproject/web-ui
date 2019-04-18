@@ -20,6 +20,7 @@ export default Ember.Component.extend({
 
   setupAutoSave: Ember.on("didInsertElement", function() {
     this.autoSave()
+    this.autoValidate()
   }),
 
   session: storageFor("persistedSession"),
@@ -32,6 +33,9 @@ export default Ember.Component.extend({
     Ember.run.later(
       this,
       function() {
+        if (this.isDestroyed || this.isDestroying) return
+        get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
+
         if (Ember.isNone(get(this, "model.id"))) return
         if (get(this, "isAutoSaving") === true) return
         this.validateThis()
@@ -48,6 +52,18 @@ export default Ember.Component.extend({
         )
       },
       10000
+    )
+  },
+
+  autoValidate() {
+    Ember.run.later(
+      this,
+      function() {
+        if (this.isDestroyed || this.isDestroying) return
+        get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
+        this.validateThis()
+      },
+      3000
     )
   },
 
@@ -352,8 +368,8 @@ export default Ember.Component.extend({
       {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
-          <div class="directions">
           {{#unless session.isCommitter}}
+            <div class="standard-set-editor-draft-box">
             <h2 class="standard-set-editor__subhead">Directions</h2>
             <p class="standard-set-editor__directions">
               First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
@@ -365,21 +381,21 @@ export default Ember.Component.extend({
 
             <h3 class="standard-set-editor__h3">How to do this</h3>
             <ul>
-              <li class="standard-set-editor__directions-list">Add a new line: click “Add Standard” or press the “Enter” if you're in a standard</li>
-              <li class="standard-set-editor__directions-list">Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key)</li>
-              <li class="standard-set-editor__directions-list">Move a standard: the drag icon on the right of each standard</li>
-              <li class="standard-set-editor__directions-list">Delete a standard: the trash can on the right of each standard (or CTRL + Delete)</li>
-              <li class="standard-set-editor__directions-list">If you want to come back and work on them later, click "Save". When you come back, click "Create/Edit Standards" on the homepage and then "Get Started".</li>
+              <li class="standard-set-editor__directions-list">Add a new line: click “Add Standard” or press the “Enter” if you're in a standard.</li>
+              <li class="standard-set-editor__directions-list">Indent or outdent: the in/out arrows on the right of each standard (or CTRL + Arrow Key).</li>
+              <li class="standard-set-editor__directions-list">Move a standard: the drag icon on the right of each standard.</li>
+              <li class="standard-set-editor__directions-list">Delete a standard: the trash can on the right of each standard (or CTRL + Delete).</li>
+              <li class="standard-set-editor__directions-list">Need to come back later?  Don't worry - your standards save automatically! When you come back, click "Create/Edit Standards" on the homepage and then "Get Started".</li>
             </ul>
 
             <h3 class="standard-set-editor__h3">When you’re done</h3>
             <ul>
               <li class="standard-set-editor__directions-list">Click "Submit". We’ll take action on your submission within a week (or sooner!).</li>
               <li class="standard-set-editor__directions-list">We’ll either approve your standards or send it back to you with a few comments for revision.</li>
-              <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission.</li>
+              <li class="standard-set-editor__directions-list">If you have any questions, add a comment to your submission below the standards portion.</li>
             </ul>
+          </div>
           {{/unless}}
-        </div>
 
           <div class="verification-container">
             <div class="col-sm-9">
@@ -496,7 +512,7 @@ export default Ember.Component.extend({
                     <label class="control-label col-sm-2">Education Levels</label>
                     <div class="col-sm-10">
                       {{#unless nullEducationLevels}}
-                        {{education-level-checkboxes value=model.standardSet.educationLevels focusOut=(action "validate")}}
+                        {{education-level-checkboxes value=model.standardSet.educationLevels mouseLeave=(action "validate")}}
                       {{/unless}}
                     </div>
                     {{#if triedToSubmit}}
@@ -540,20 +556,24 @@ export default Ember.Component.extend({
                       <ul><h3 class="standard-set-editor__list-heading">Did you remember to:</h3>
                         <li class="standard-set-editor-draft-box__checklist {{if this.descriptionIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Fill in all description fields
+                          Fill in all description fields in the form on the left
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">This helps us validate the source and content of the standards.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardLengthIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
                           Add at least 5 standards
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">If you have fewer than 5 total standards, they will not be approved.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardIndentationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Organize standards in outline form
+                          Indent at least 4 substandards
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">Please visually group your standards.</li>
                         <li class="standard-set-editor-draft-box__checklist {{if this.standardNotationIsValid 'is-valid'}}">
                           <span class="checkmark">{{partial "icons/ios-checkmark-circle-outline"}}</span>
-                          Add numbers/letters on the left of each line
+                          Add an abbreviation on the right of each line
                         </li>
+                        <li class="standard-set-editor-draft-box__checklist check-reason">This is how you'll search for your standards in CSP once they are accepted.</li>
                       </ul>
                     </div>
                   {{/unless}}
@@ -572,18 +592,18 @@ export default Ember.Component.extend({
                     <div class="standard-set-editor-draft-box__buttons">
                       <div class="btn-group">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
-                        {{#if triedToSubmit}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "submit"}}>Resubmit</div>
+                        {{#if (eq model.status "revise-and-resubmit")}}
+                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "revise"}}>Request Revision</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "revise"}}>Request Revision</div>
                           {{/if}}
                           {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default" {{action "approve"}}>Approve</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
                       </div>
@@ -649,9 +669,23 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/unless}}
-    {{#if (or (eq model.status "approved") (eq model.status "rejected"))}}
+    {{#if (eq model.status "approved")}}
       <div class="approved-standards">
-        <h3>Your standards can no longer be edited.</h3>
+        <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if (eq model.status "rejected")}}
+      <div class="approved-standards">
+        <h3>We're sorry, your standards were not accepted.</h3>
+        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
         <div>
           {{#link-to 'edit'}}
             <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>

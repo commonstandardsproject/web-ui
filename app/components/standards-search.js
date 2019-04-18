@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   isSearchVisible: Ember.computed("standardSetIds", function() {
     return (
       _.chain(this.get("standardSetIds"))
-        .filter(s => !_.contains(s, "blank"))
+        .filter(s => !_.includes(s, "blank"))
         .value().length > 0
     )
   }),
@@ -28,7 +28,7 @@ export default Ember.Component.extend({
         tagFilters: [this.get("standardSetIds")],
       })
       .then(data => {
-        this.set("results", _.pluck(data.hits, "id"))
+        this.set("results", _.map(data.hits, "id"))
       })
       .catch(function(err) {
         console.log("err", err)
@@ -62,7 +62,7 @@ export default Ember.Component.extend({
 
     <div class="search-panes">
       {{#each standardSetIds as |id|}}
-        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet="removeSet" results=results}}
+        {{standard-set id=id jurisdictions=jurisdictions selectSet="selectSet" class="standard-set" removeSet=(action "removeSet") results=results}}
       {{/each}}
       {{#if isSearchVisible}}
         <div class="add-search-pane-button hint--left" {{action this.attrs.addPane}} data-hint="Compare standards by adding a pane">
