@@ -1,6 +1,7 @@
 {
   "name": "web-ui",
   "scripts": {},
+
   "env": {
     "API_PREFIX": {
       "required": true
@@ -20,8 +21,8 @@
   "addons": [],
   "buildpacks": [
     {
-      "url": "https://github.com/tonycoco/heroku-buildpacks-ember-cli.git"
+      "url": "https://github.com/tonycoco/heroku-buildpack-ember-cli.git"
     }
   ],
-  "stack": "cedar-14"
+  "stack": "cedar-18"
 }
