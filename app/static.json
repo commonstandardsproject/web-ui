@@ -1,0 +1,13 @@
+{
+  "https_only": true,
+  "proxies": {
+    "/api/": {
+      "origin": "https://common-standards-api.herokuapp.com/"
+    }
+  },
+  "headers": {
+    "/**": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  }
+}
