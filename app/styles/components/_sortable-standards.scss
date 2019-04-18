@@ -8,24 +8,24 @@
   padding-bottom: 0rem;
   position: relative;
 
-  &.sortable-standard--depth-0 {
+  &.sortable-standard__column--depth-0 {
     padding-left: 1rem;
   }
 
-  &.sortable-standard--depth-0 .sortable-standard__outdent {
+  &.sortable-standard__column--depth-0 .sortable-standard__outdent {
     opacity: 0.4;
   }
 
-  &.sortable-standard--depth-1 {
+  &.sortable-standard__column--depth-1 {
     padding-left: 3rem;
   }
-  &.sortable-standard--depth-2 {
+  &.sortable-standard__column--depth-2 {
     padding-left: 5rem;
   }
-  &.sortable-standard--depth-3 {
+  &.sortable-standard__column--depth-3 {
     padding-left: 7rem;
   }
-  &.sortable-standard--depth-4 {
+  &.sortable-standard__column--depth-4 {
     padding-left: 9rem;
   }
   &:hover .sortable-standard__list-id {
@@ -38,6 +38,10 @@
   }
 }
 
+.sortable-standard-table {
+  display: flex;
+}
+
 .sortable-standard__wrapper {
   max-height: 1000px;
   transition: max-height 0.2s;
@@ -47,12 +51,12 @@
 }
 
 .sortable-standard__icons {
-  opacity: 0.1;
+  opacity: 0.3;
   display: flex;
   display: -webkit-flex;
   // left: -100px;
   align-items: center;
-  margin-left: 2rem;
+  margin-right: 2rem;
   transition: opacity 0.2s;
 }
 
@@ -88,6 +92,7 @@
 .sortable-standard__columns {
   display: flex;
   display: -webkit-flex;
+  border-bottom: none;
 }
 
 .sortable-standard__column--description {
@@ -137,7 +142,7 @@ $standard-indent: 14px;
   // padding-bottom: 1rem;
 }
 
-.sortable-standard--depth-0,
+.sortable-standard__column--depth-0,
 .searchable-standard--depth-0 {
   color: $teal;
   padding-left: $standard-indent;
@@ -153,7 +158,7 @@ $standard-indent: 14px;
   }
 }
 
-.sortable-standard--depth-1,
+.sortable-standard__column--depth-1,
 .searchable-standard--depth-1 {
   padding-left: $standard-indent * 1;
   color: $text;
@@ -165,7 +170,7 @@ $standard-indent: 14px;
   padding-top: 1rem;
 }
 
-.sortable-standard--depth-2,
+.sortable-standard__column--depth-2,
 .searchable-standard--depth-2 {
   font-weight: 400;
   color: $secondary-text;
@@ -190,7 +195,7 @@ $standard-indent: 14px;
     padding-top: 0.5rem;
   }
 }
-.sortable-standard--depth-4,
+.sortable-standard__column--depth-4,
 .searchable-standard--depth-4 {
   padding-left: $standard-indent * 4;
   padding-left: 40px;
@@ -220,7 +225,7 @@ $standard-indent: 14px;
 }
 
 .sortable-standard__statement-notation {
-  border-bottom: 1px solid $dividers;
+  border-bottom: 0.5px solid $dividers;
 }
 
 .sortable-standard__statement-notation,
@@ -314,6 +319,7 @@ $standard-indent: 14px;
   outline: none;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  margin-left: 4rem;
   &:empty:after {
     content: "Enter the standard (e.g. Divide numbers by 2)";
     color: $dividers;
@@ -326,6 +332,8 @@ $standard-indent: 14px;
   display: -webkit-flex;
   align-items: center;
   min-width: 20px;
+  // margin-left: 2rem;
+  // margin-right: 2rem;
 }
 
 .sortable-standard__column--statement-notation {
@@ -365,6 +373,6 @@ $standard-indent: 14px;
 .sortable-standard__icons.sortable-standard__column--header {
   margin-left: 0rem;
   padding-left: 0;
-  text-align: right;
+  text-align: left;
   opacity: 1;
 }

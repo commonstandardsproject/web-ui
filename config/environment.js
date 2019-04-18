@@ -1,10 +1,10 @@
-/* jshint node: true */
+"use strict"
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: "common-standards-ui",
-    environment: environment,
-    baseURL: "/",
+    environment,
+    rootURL: "/",
     locationType: "auto",
     EmberENV: {
       environment: environment,
@@ -37,12 +37,12 @@ module.exports = function(environment) {
     // Testem prefers this...
     ENV.baseURL = "/"
     ENV.locationType = "none"
+    ENV.APP.rootElement = "#ember-testing"
+    ENV.APP.autoboot = false
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false
     ENV.APP.LOG_VIEW_LOOKUPS = false
-
-    ENV.APP.rootElement = "#ember-testing"
   }
 
   if (environment === "production") {

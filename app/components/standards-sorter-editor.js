@@ -33,6 +33,7 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce("afterRender", function() {
       $("[data-id=" + standard.id + "] .sortable-standard__list-id").focus()
     })
+    this.validate()
     return standard
   },
 
@@ -41,6 +42,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Indent")
       Ember.set(standard, "depth", standard.depth + 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     outdent(standard) {
@@ -48,6 +50,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Outdent")
       Ember.set(standard, "depth", standard.depth - 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     // find node above
@@ -91,7 +94,7 @@ export default Ember.Component.extend({
           .reject(s => _.includes(itemsToMoveIds, get(s, "id")))
           .map(s => get(s, "id"))
           .indexOf(get(itemAbove, "id"))
-          .run()
+          .value()
       } else {
         itemAboveIndex = -1
       }
@@ -166,6 +169,7 @@ export default Ember.Component.extend({
           }
         }.bind(this)
       )
+      this.validate()
     },
     prepareMove(item) {
       // get offset
@@ -174,14 +178,10 @@ export default Ember.Component.extend({
       let relativePosition = offset.top - scrollTop
 
       // console.log('firstoffset', offset, scrollTop, offset.top-scrollTop)
-
-      _(get(this, "orderedStandards"))
+      _.chain(get(this, "orderedStandards"))
         .filter(s => get(s, "depth") > get(item, "depth"))
         .forEach(s => set(s, "isCollapsed", true))
-        .run()
-
-      // Sync so the sortable helper has the right data
-      Ember.run.sync()
+        .value()
 
       // Since we hid all the elements, we need to scroll to the right place on the screen.
       Ember.run.scheduleOnce("afterRender", this, function() {
@@ -199,6 +199,10 @@ export default Ember.Component.extend({
       {{#sortable-item tagName="div" group=group handle=".sortable-standard__handle"}}
       <div class="sortable-standard sortable-standard__header">
         <div class="sortable-standard__columns">
+          <div class="sortable-standard__icons sortable-standard__column--header">
+            <div>Actions</div>
+            <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
+          </div>
           <div class="sortable-standard__column--list-id sortable-standard__column--header">
             <div>Outline</div>
             <div class="sortable-standard__column--help-text">E.g. I, II, III or A, B, C, etc</div>
@@ -210,10 +214,6 @@ export default Ember.Component.extend({
           <div class="sortable-standard__column--statement-notation sortable-standard__column--header">
             <div>Abbreviation</div>
             <div class="sortable-standard__column--help-text">The shorthand identifier e.g. 1.NBT.4</div>
-          </div>
-          <div class="sortable-standard__icons sortable-standard__column--header">
-            <div>Actions</div>
-            <div class="sortable-standard__column--help-text">Move, Ident, Outdent, Delete</div>
           </div>
         </div>
       </div>

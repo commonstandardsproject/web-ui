@@ -77,7 +77,7 @@ export default Ember.Component.extend({
       rpc["pullRequest:create"](
         {},
         function(data) {
-          this.get("container")
+          Ember.getOwner(this)
             .lookup("router:main")
             .transitionTo("edit.pull-requests", data.data.id)
           Ember.set(this, "isCreatingPullRequest", false)
@@ -109,7 +109,7 @@ export default Ember.Component.extend({
         </p>
         <h3>How does this work?</h3>
         <p>
-          First, log in or sign up below. Then, add or edit standars using the easy interface. Each time someone submits a change to  the standards, we review it and then save a version. This way, if someone makes a mistake (or edits with the standards you spent hours adding), we can rollback the change. Educator rely on standards to be accurate, so we take the integrity of standards very seriously.
+          First, log in or sign up below. Then, add or edit standards using the easy interface. Each time someone submits a change to  the standards, we review it and then save a version. This way, if someone makes a mistake (or edits with the standards you spent hours adding), we can rollback the change. Educators rely on standards to be accurate, so we take the integrity of standards very seriously.
         </p>
         <h3>Who can use the standards?</h3>
         <p>

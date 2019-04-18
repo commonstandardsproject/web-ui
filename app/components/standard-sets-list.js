@@ -14,7 +14,7 @@ export default Ember.Component.extend({
         .replace("Pre-K", "-1")
         .replace("K", 0)
         .thru(v => Math.floor(v))
-        .run()
+        .value()
     }
 
     return _.chain(this.get("standardSets"))
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
           sets: _.sortBy(_.last(v), sortFn),
         }
       })
-      .run()
+      .value()
   }),
 
   actions: {
