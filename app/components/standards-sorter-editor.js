@@ -33,6 +33,7 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce("afterRender", function() {
       $("[data-id=" + standard.id + "] .sortable-standard__list-id").focus()
     })
+    this.validate()
     return standard
   },
 
@@ -41,6 +42,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Indent")
       Ember.set(standard, "depth", standard.depth + 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     outdent(standard) {
@@ -48,6 +50,7 @@ export default Ember.Component.extend({
       analytics.track("Editor - Outdent")
       Ember.set(standard, "depth", standard.depth - 1)
       this.notifyPropertyChange("standardsHash")
+      this.validate()
     },
 
     // find node above
@@ -91,7 +94,7 @@ export default Ember.Component.extend({
           .reject(s => _.includes(itemsToMoveIds, get(s, "id")))
           .map(s => get(s, "id"))
           .indexOf(get(itemAbove, "id"))
-          .run()
+          .value()
       } else {
         itemAboveIndex = -1
       }
@@ -166,6 +169,7 @@ export default Ember.Component.extend({
           }
         }.bind(this)
       )
+      this.validate()
     },
     prepareMove(item) {
       // get offset
@@ -178,7 +182,7 @@ export default Ember.Component.extend({
       _(get(this, "orderedStandards"))
         .filter(s => get(s, "depth") > get(item, "depth"))
         .forEach(s => set(s, "isCollapsed", true))
-        .run()
+        .value()
 
       // Sync so the sortable helper has the right data
       Ember.run.sync()

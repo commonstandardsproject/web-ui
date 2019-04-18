@@ -18,14 +18,14 @@ var StandardModel = {
             if (va.depth === val.depth) stop = true
             return stop === false && va.depth > val.depth
           })
-          .pluck("id")
-          .run()
+          .map("id")
+          .value()
 
         Ember.set(val, "ancestorIds", ancestorIds)
         Ember.set(val, "isCollapsed", false)
         return val
       })
-      .run()
+      .value()
   },
 }
 

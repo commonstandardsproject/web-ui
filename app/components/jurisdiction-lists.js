@@ -34,7 +34,14 @@ export default Ember.Component.extend({
         function(_data) {
           this.attrs.selectJurisdiction(_data.data.id, _data.data.title)
         }.bind(this),
-        function(err) {}
+        function(err) {
+          swal({
+            type: "error",
+            title: "We've run into an error creating the jurisdiction!",
+            text: "Contact support@commoncurriculum.com",
+          })
+          console.log(err)
+        }
       )
     },
   },
