@@ -7,7 +7,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://common-standards-api.herokuapp.com/"
+      "origin": "https://api.commonstandardsproject.com/api/"
     }
   },
   "headers": {
