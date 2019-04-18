@@ -1,5 +1,6 @@
 import Ember from "ember"
 import hbs from "htmlbars-inline-precompile"
+import _ from "npm:lodash"
 
 export default Ember.Component.extend({
   tagName: "div",
@@ -26,13 +27,13 @@ export default Ember.Component.extend({
   // Observers:
   willRender() {
     if (this.get("isUserTyping")) return
-    if (this.$() == undefined) return
+    if (this.$() === undefined) return
     var value = this.get("value") || ""
     this.$().html(value)
   },
 
   didInsertElement() {
-    if (this.$() == undefined) return
+    if (this.$() === undefined) return
     var value = this.get("value") || ""
     this.$().html(value)
   },
@@ -106,7 +107,9 @@ export default Ember.Component.extend({
   },
 
   keyUp: function(event) {
-    return this.set("value", this.$().text())
+    let text = this.$().text()
+    text = this.get("maxLength") ? _.truncate(text, { length: this.get("maxLength"), omission: "" }) : text
+    return this.set("value", text)
   },
 
   drop: function(event) {

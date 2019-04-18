@@ -29,7 +29,7 @@ export default Ember.Component.extend({
   },
 
   layout: hbs`
-  <form class="add-jurisdiction">
+  <form class="add-jurisdiction {{if showFormInFloatingBox 'in-floating-box'}}">
     {{#if errorMessage}}
       <div class="alert alert-danger">{{errorMessage}}</div>
     {{/if}}
