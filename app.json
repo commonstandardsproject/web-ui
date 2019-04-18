@@ -22,6 +22,9 @@
   "buildpacks": [
     {
       "url": "https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-static.git"
     }
   ],
   "stack": "heroku-18"

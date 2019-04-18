@@ -9,5 +9,6 @@
     "/**": {
       "Access-Control-Allow-Origin": "*"
     }
-  }
+  },
+  "root": "dist/"
 }
