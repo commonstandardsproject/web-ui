@@ -27,5 +27,5 @@
       "url": "https://github.com/heroku/heroku-buildpack-static.git"
     }
   ],
-  "stack": "cedar-14"
+  "stack": "heroku-18"
 }
