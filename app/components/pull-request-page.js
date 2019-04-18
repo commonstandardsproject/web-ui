@@ -15,6 +15,7 @@ export default Ember.Component.extend({
   PullRequestValidations,
   init() {
     this._super(...arguments)
+    this.triedToSubmit = false
   },
 
   setupAutoSave: Ember.on("didInsertElement", function() {
