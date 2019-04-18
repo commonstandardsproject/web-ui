@@ -1,6 +1,7 @@
 {
   "name": "web-ui",
   "scripts": {},
+
   "env": {
     "API_PREFIX": {
       "required": true
