@@ -20,7 +20,7 @@
   "addons": [],
   "buildpacks": [
     {
-      "url": "https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz"
+      "url": "https://github.com/tonycoco/heroku-buildpacks-ember-cli.git"
     }
   ],
   "stack": "cedar-14"
