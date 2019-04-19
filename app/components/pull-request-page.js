@@ -67,6 +67,21 @@ export default Ember.Component.extend({
     )
   },
 
+  visible: Ember.computed("model.status", "session.isCommitter", function() {
+    let committer = get(this, "session.isCommitter")
+    let status = get(this, "model.status")
+    console.log(status)
+    console.log(committer)
+
+    if ((status === "draft" || "revise-and-resubmit") && committer === null) {
+      return true
+    } else if ((status === "approved" || "rejected") && committer === true) {
+      return true
+    } else {
+      return false
+    }
+  }),
+
   reversedActivities: Ember.computed("model.activities.@each", function() {
     return _(get(this, "model.activities") || [])
       .reverse()
@@ -102,6 +117,7 @@ export default Ember.Component.extend({
     }
     return jurisdictionSubjects.sort()
   }),
+
   validateThis() {
     let validationMap = PullRequestValidations
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
@@ -365,7 +381,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
+      {{#if visible}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
@@ -668,34 +684,50 @@ export default Ember.Component.extend({
             selectJurisdiction=(action 'selectJurisdiction') }}
         {{/if}}
       </div>
+    {{/if}}
+    {{#unless session.isCommitter}}
+      {{#if (eq model.status "approved")}}
+        <div class="approved-standards">
+          <h3>Your standards have been approved!</h3>
+          <div>
+            {{#link-to 'edit' class='approved-standards-btn'}}
+              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+            {{/link-to}}
+            {{#link-to 'search' class='approved-standards-btn'}}
+              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+            {{/link-to}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if (eq model.status "approval-requested")}}
+        <div class="approved-standards">
+          <h3>Your standards have been submitted!</h3>
+          <p>We'll take a look and get back to you in the next week (if not sooner).</p>
+          <div>
+            {{#link-to 'edit'}}
+              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+            {{/link-to}}
+            {{#link-to 'search'}}
+              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+            {{/link-to}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if (eq model.status "rejected")}}
+        <div class="approved-standards">
+          <h3>We're sorry, your standards were not accepted.</h3>
+          <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+          <div>
+            {{#link-to 'edit'}}
+              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+            {{/link-to}}
+            {{#link-to 'search'}}
+              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+            {{/link-to}}
+          </div>
+        </div>
+      {{/if}}
     {{/unless}}
-    {{#if (eq model.status "approved")}}
-      <div class="approved-standards">
-        <h3>Your standards have been approved!</h3>
-        <div>
-          {{#link-to 'edit' class='approved-standards-btn'}}
-            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-          {{/link-to}}
-          {{#link-to 'search' class='approved-standards-btn'}}
-            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-          {{/link-to}}
-        </div>
-      </div>
-    {{/if}}
-    {{#if (eq model.status "rejected")}}
-      <div class="approved-standards">
-        <h3>We're sorry, your standards were not accepted.</h3>
-        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
-        <div>
-          {{#link-to 'edit'}}
-            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-          {{/link-to}}
-          {{#link-to 'search'}}
-            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-          {{/link-to}}
-        </div>
-      </div>
-    {{/if}}
 
     </div>
   `,
