@@ -70,8 +70,7 @@ export default Ember.Component.extend({
   visible: Ember.computed("model.status", "session.isCommitter", function() {
     let committer = get(this, "session.isCommitter")
     let status = get(this, "model.status")
-    console.log(status)
-    console.log(committer)
+
     if ((status === "draft" || "revise-and-resubmit") && committer === false) {
       return true
     } else if ((status === "approved" || "rejected") && committer === true) {
@@ -378,7 +377,6 @@ export default Ember.Component.extend({
 
   layout: hbs`
     {{partial "navbar"}}
-    {{log visible}}
 
     <div class="container">
       {{#if visible}}
