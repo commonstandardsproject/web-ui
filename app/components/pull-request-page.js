@@ -68,12 +68,12 @@ export default Ember.Component.extend({
   },
 
   isVisible: Ember.computed("model.status", "session.isCommitter", function() {
-    let committer = get(this, "session.isCommitter")
+    let isCommitter = get(this, "session.isCommitter")
     let status = get(this, "model.status")
 
-    if ((status === "draft" || "revise-and-resubmit") && committer !== true) {
+    if ((status === "draft" || "revise-and-resubmit") && isCommitter !== true) {
       return true
-    } else if ((status === "approved" || "rejected") && committer === true) {
+    } else if ((status === "approved" || "rejected") && isCommitter === true) {
       return true
     } else {
       return false
