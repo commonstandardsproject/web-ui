@@ -116,7 +116,6 @@ export default Ember.Component.extend({
     }
     return jurisdictionSubjects.sort()
   }),
-
   validateThis() {
     let validationMap = PullRequestValidations
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
@@ -721,8 +720,9 @@ export default Ember.Component.extend({
             <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
           {{/link-to}}
         </div>
+        </div>
       </div>
     {{/if}}
-    </div>
+</div>
   `,
 })
