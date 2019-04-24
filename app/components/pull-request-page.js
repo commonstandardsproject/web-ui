@@ -604,7 +604,6 @@ export default Ember.Component.extend({
                       </div>
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
-                      {{!-- <div class="approval-btns"> --}}
                         {{#if (eq model.status "draft")}}
                           <div class="standard-set-editor-draft-box__button approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
@@ -620,7 +619,6 @@ export default Ember.Component.extend({
                             <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
-                      {{!-- </div> --}}
                     </div>
 
                   </div>
