@@ -67,6 +67,22 @@ export default Ember.Component.extend({
     )
   },
 
+  showEditingInterface: Ember.computed("model.status", "session.isCommitter", function() {
+    let isCommitter = get(this, "session.isCommitter")
+    console.log(isCommitter)
+    let status = get(this, "model.status")
+    console.log(status)
+    if (isCommitter === true) {
+      return true
+    } else {
+      if (status === "draft" || status === "revise-and-resubmit") {
+        return true
+      } else {
+        return false
+      }
+    }
+  }),
+
   reversedActivities: Ember.computed("model.activities.@each", function() {
     return _(get(this, "model.activities") || [])
       .reverse()
@@ -365,11 +381,11 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
+      {{#if this.showEditingInterface}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
-            <div class="standard-set-editor-draft-box--directions">
+            <div class="standard-set-editor-draft-box --directions">
             <h2 class="standard-set-editor__subhead">Directions</h2>
             <p class="standard-set-editor__directions">
               First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
@@ -591,7 +607,7 @@ export default Ember.Component.extend({
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if (eq model.status "revise-and-resubmit")}}
                           <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
@@ -666,7 +682,7 @@ export default Ember.Component.extend({
             selectJurisdiction=(action 'selectJurisdiction') }}
         {{/if}}
       </div>
-    {{/unless}}
+    {{/if}}
     {{#if (eq model.status "approved")}}
       <div class="approved-standards">
         <h3>Your standards have been approved!</h3>
@@ -680,10 +696,10 @@ export default Ember.Component.extend({
         </div>
       </div>
     {{/if}}
-    {{#if (eq model.status "rejected")}}
+    {{#if (eq model.status "approval-requested")}}
       <div class="approved-standards">
-        <h3>We're sorry, your standards were not accepted.</h3>
-        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+        <h3>Your standards have been submitted!</h3>
+        <p>We'll take a look and get back to you in the next week (if not sooner).</p>
         <div>
           {{#link-to 'edit'}}
             <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
@@ -693,8 +709,21 @@ export default Ember.Component.extend({
           {{/link-to}}
         </div>
       </div>
+    </div>
+  {{/if}}
+  {{#if (eq model.status "rejected")}}
+    <div class="approved-standards">
+      <h3>We're sorry, your standards were not accepted.</h3>
+      <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+      <div>
+        {{#link-to 'edit'}}
+          <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+        {{/link-to}}
+        {{#link-to 'search'}}
+          <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+        {{/link-to}}
+      </div>
     {{/if}}
-
     </div>
   `,
 })
