@@ -67,19 +67,6 @@ export default Ember.Component.extend({
     )
   },
 
-  isVisible: Ember.computed("model.status", "session.isCommitter", function() {
-    let isCommitter = get(this, "session.isCommitter")
-    let status = get(this, "model.status")
-
-    if ((status === "draft" || "revise-and-resubmit") && isCommitter !== true) {
-      return true
-    } else if ((status === "approved" || "rejected") && isCommitter === true) {
-      return true
-    } else {
-      return false
-    }
-  }),
-
   reversedActivities: Ember.computed("model.activities.@each", function() {
     return _(get(this, "model.activities") || [])
       .reverse()
@@ -115,7 +102,6 @@ export default Ember.Component.extend({
     }
     return jurisdictionSubjects.sort()
   }),
-
   validateThis() {
     let validationMap = PullRequestValidations
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
@@ -379,7 +365,7 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#if isVisible}}
+      {{#unless (or (eq model.status "approved") (eq model.status "rejected"))}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
@@ -458,14 +444,14 @@ export default Ember.Component.extend({
                         {{#if showAddOrganizationForm}}
                           {{add-jurisdiction showFormInFloatingBox=true type="organization" humanizedType="Organization" toggleForm=(action 'toggleAddOrganizationForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddOrganizationForm"}}>
+                          <div class="standard-set-editor-draft-box__button btn admin-btn" {{action "toggleAddOrganizationForm"}}>
                             + ORGANIZATION
                           </div>
                         {{/if}}
                         {{#if showAddSchoolForm}}
                           {{add-jurisdiction showFormInFloatingBox=true type="school" humanizedType="School" toggleForm=(action 'toggleAddSchoolForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddSchoolForm"}}>
+                          <div class="standard-set-editor-draft-box__button btn admin-btn" {{action "toggleAddSchoolForm"}}>
                             + SCHOOL/DISTRICT
                           </div>
                         {{/if}}
@@ -604,23 +590,21 @@ export default Ember.Component.extend({
                       </div>
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
-                      <div class="btn-group">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if (eq model.status "revise-and-resubmit")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
+                          <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "revise"}}>Request Revision</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "revise"}}>Request Revision</div>
                           {{/if}}
                           {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "approve"}}>Approve</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
-                      </div>
                     </div>
 
                   </div>
@@ -682,50 +666,34 @@ export default Ember.Component.extend({
             selectJurisdiction=(action 'selectJurisdiction') }}
         {{/if}}
       </div>
-    {{/if}}
-    {{#unless session.isCommitter}}
-      {{#if (eq model.status "approved")}}
-        <div class="approved-standards">
-          <h3>Your standards have been approved!</h3>
-          <div>
-            {{#link-to 'edit' class='approved-standards-btn'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search' class='approved-standards-btn'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
-        </div>
-      {{/if}}
-      {{#if (eq model.status "approval-requested")}}
-        <div class="approved-standards">
-          <h3>Your standards have been submitted!</h3>
-          <p>We'll take a look and get back to you in the next week (if not sooner).</p>
-          <div>
-            {{#link-to 'edit'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
-        </div>
-      {{/if}}
-      {{#if (eq model.status "rejected")}}
-        <div class="approved-standards">
-          <h3>We're sorry, your standards were not accepted.</h3>
-          <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
-          <div>
-            {{#link-to 'edit'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
-        </div>
-      {{/if}}
     {{/unless}}
+    {{#if (eq model.status "approved")}}
+      <div class="approved-standards">
+        <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if (eq model.status "rejected")}}
+      <div class="approved-standards">
+        <h3>We're sorry, your standards were not accepted.</h3>
+        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+        <div>
+          {{#link-to 'edit'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
 
     </div>
   `,
