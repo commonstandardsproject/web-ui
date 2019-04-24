@@ -69,9 +69,7 @@ export default Ember.Component.extend({
 
   showEditingInterface: Ember.computed("model.status", "session.isCommitter", function() {
     let isCommitter = get(this, "session.isCommitter")
-    console.log(isCommitter)
     let status = get(this, "model.status")
-    console.log(status)
     if (isCommitter === true) {
       return true
     } else {
@@ -709,21 +707,21 @@ export default Ember.Component.extend({
           {{/link-to}}
         </div>
       </div>
-    </div>
-  {{/if}}
-  {{#if (eq model.status "rejected")}}
-    <div class="approved-standards">
-      <h3>We're sorry, your standards were not accepted.</h3>
-      <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
-      <div>
-        {{#link-to 'edit'}}
-          <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-        {{/link-to}}
-        {{#link-to 'search'}}
-          <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-        {{/link-to}}
+    {{/if}}
+    {{#if (eq model.status "rejected")}}
+      <div class="approved-standards">
+        <h3>We're sorry, your standards were not accepted.</h3>
+        <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+        <div>
+          {{#link-to 'edit'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
+        </div>
       </div>
     {{/if}}
-    </div>
+</div>
   `,
 })
