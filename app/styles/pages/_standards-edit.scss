@@ -149,6 +149,9 @@
   border: 1px solid $dividers;
   padding: 3rem;
   max-width: 40%;
+  &.directions {
+    max-width: 100%;
+  }
   .standard-set-editor__subhead {
     color: $secondary-text;
     margin-top: 0;

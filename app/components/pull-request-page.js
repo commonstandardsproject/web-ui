@@ -383,7 +383,7 @@ export default Ember.Component.extend({
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
-            <div class="standard-set-editor-draft-box">
+            <div class="standard-set-editor-draft-box directions">
             <h2 class="standard-set-editor__subhead">Directions</h2>
             <p class="standard-set-editor__directions">
               First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
