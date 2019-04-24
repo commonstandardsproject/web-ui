@@ -580,12 +580,12 @@ export default Ember.Component.extend({
                   <div>
                     <div class="row">
                       <div class="col-sm-12">
+                        {{#if model.statusComment}}
+                          <div class="standard-set-editor-draft-box__status-comment">{{htmlize model.statusComment}}</div>
+                        {{/if}}
                         {{#if session.isCommitter}}
                           <br>
                           {{textarea class="form-control" rows="3" value=statusComment placeholder="Comment to attach to the status change"}}
-                        {{/if}}
-                        {{#if model.statusComment}}
-                          <div class="standard-set-editor-draft-box__status-comment">{{htmlize model.statusComment}}</div>
                         {{/if}}
                       </div>
                     </div>
