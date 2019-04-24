@@ -458,14 +458,14 @@ export default Ember.Component.extend({
                         {{#if showAddOrganizationForm}}
                           {{add-jurisdiction showFormInFloatingBox=true type="organization" humanizedType="Organization" toggleForm=(action 'toggleAddOrganizationForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddOrganizationForm"}}>
+                          <div class="standard-set-editor-draft-box__button btn admin-btn" {{action "toggleAddOrganizationForm"}}>
                             + ORGANIZATION
                           </div>
                         {{/if}}
                         {{#if showAddSchoolForm}}
                           {{add-jurisdiction showFormInFloatingBox=true type="school" humanizedType="School" toggleForm=(action 'toggleAddSchoolForm') onSubmit=(action 'addJurisdiction')}}
                         {{else}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default admin-btn" {{action "toggleAddSchoolForm"}}>
+                          <div class="standard-set-editor-draft-box__button btn admin-btn" {{action "toggleAddSchoolForm"}}>
                             + SCHOOL/DISTRICT
                           </div>
                         {{/if}}
@@ -604,23 +604,23 @@ export default Ember.Component.extend({
                       </div>
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
-                      <div class="btn-group">
+                      {{!-- <div class="approval-btns"> --}}
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if (eq model.status "revise-and-resubmit")}}
-                          <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
+                          <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
                         {{/if}}
                         {{#if session.isCommitter}}
                           {{#if (eq model.status "approval-requested")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "revise"}}>Request Revision</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "revise"}}>Request Revision</div>
                           {{/if}}
                           {{#unless (eq model.status "approved")}}
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "reject"}}>Reject</div>
-                            <div class="standard-set-editor-draft-box__button btn-md btn btn-default approval-btn" {{action "approve"}}>Approve</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "reject"}}>Reject</div>
+                            <div class="standard-set-editor-draft-box__button btn approval-btn" {{action "approve"}}>Approve</div>
                           {{/unless}}
                         {{/if}}
-                      </div>
+                      {{!-- </div> --}}
                     </div>
 
                   </div>
