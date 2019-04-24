@@ -720,7 +720,6 @@ export default Ember.Component.extend({
             <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
           {{/link-to}}
         </div>
-        </div>
       </div>
     {{/if}}
 </div>
