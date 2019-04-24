@@ -112,13 +112,6 @@
   margin-left: 1rem;
 }
 
-.standard-set-editor__save-button {
-  background-color: $teal;
-  display: block;
-  width: 100%;
-  border-radius: 5px;
-}
-
 .standards-edit-h2 {
   color: $secondary-text;
   font-size: 2rem;
@@ -155,6 +148,7 @@
   background-color: $super-light;
   border: 1px solid $dividers;
   padding: 3rem;
+  max-width: 40%;
   .standard-set-editor__subhead {
     color: $secondary-text;
     margin-top: 0;
@@ -222,11 +216,18 @@
 
 .standard-set-editor-draft-box__buttons {
   padding: 30px 0 3px 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 @media (max-width: 750px) {
   .standard-set-editor-draft-box__buttons {
-    text-align: left;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: nowrap;
   }
 }
 
@@ -248,6 +249,7 @@
 }
 
 .approval-btn {
+  width: 100%;
   padding: 10px 18px;
   &.non-committer {
     width: 29.5rem;
@@ -258,7 +260,7 @@
   width: 125px;
   margin-left: 3px;
   font-size: 0.8rem;
-  padding-top: 8px;
+  padding: 8px;
 }
 
 .standard-set-editor-draft-box__status-comment {
@@ -266,6 +268,7 @@
   padding: 1rem 1.5rem;
   font-size: 1.2rem;
   background-color: white;
+
   &:before {
     content: "Our Thoughts:";
     display: block;
