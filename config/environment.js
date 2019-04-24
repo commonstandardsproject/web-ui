@@ -46,7 +46,7 @@ module.exports = function(environment) {
   }
 
   if (environment === "production") {
-    ENV.APP.apiBaseUrl = "https://commonstandardsproject.com/api/v1/"
+    ENV.APP.apiBaseUrl = "/api/v1/"
   }
 
   return ENV

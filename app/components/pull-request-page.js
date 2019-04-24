@@ -118,7 +118,6 @@ export default Ember.Component.extend({
     }
     return jurisdictionSubjects.sort()
   }),
-
   validateThis() {
     let validationMap = PullRequestValidations
     let changeset = new Changeset(get(this, "model"), lookUpValidator(validationMap), validationMap)
@@ -684,51 +683,47 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/if}}
-    {{!-- {{#if (eq this.showEditingInterface false)}} --}}
-      {{log "is visible" showEditingInterface}}
-      {{#if (eq model.status "approved")}}
-        <div class="approved-standards">
-          <h3>Your standards have been approved!</h3>
-          <div>
-            {{#link-to 'edit' class='approved-standards-btn'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search' class='approved-standards-btn'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
+    {{#if (eq model.status "approved")}}
+      <div class="approved-standards">
+        <h3>Your standards have been approved!</h3>
+        <div>
+          {{#link-to 'edit' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search' class='approved-standards-btn'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
         </div>
-      {{/if}}
-      {{#if (eq model.status "approval-requested")}}
-        <div class="approved-standards">
-          <h3>Your standards have been submitted!</h3>
-          <p>We'll take a look and get back to you in the next week (if not sooner).</p>
-          <div>
-            {{#link-to 'edit'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
+      </div>
+    {{/if}}
+    {{#if (eq model.status "approval-requested")}}
+      <div class="approved-standards">
+        <h3>Your standards have been submitted!</h3>
+        <p>We'll take a look and get back to you in the next week (if not sooner).</p>
+        <div>
+          {{#link-to 'edit'}}
+            <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+          {{/link-to}}
+          {{#link-to 'search'}}
+            <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+          {{/link-to}}
         </div>
-      {{/if}}
-      {{#if (eq model.status "rejected")}}
-        <div class="approved-standards">
-          <h3>We're sorry, your standards were not accepted.</h3>
-          <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
-          <div>
-            {{#link-to 'edit'}}
-              <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
-            {{/link-to}}
-            {{#link-to 'search'}}
-              <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
-            {{/link-to}}
-          </div>
-        </div>
-      {{/if}}
-    {{!-- {{/if}} --}}
-
+      </div>
+    </div>
+  {{/if}}
+  {{#if (eq model.status "rejected")}}
+    <div class="approved-standards">
+      <h3>We're sorry, your standards were not accepted.</h3>
+      <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
+      <div>
+        {{#link-to 'edit'}}
+          <div class="standard-set-editor-draft-box__button btn">Submit another set of standards</div>
+        {{/link-to}}
+        {{#link-to 'search'}}
+          <div class="standard-set-editor-draft-box__button btn">Search Standards</div>
+        {{/link-to}}
+      </div>
+    {{/if}}
     </div>
   `,
 })
