@@ -712,6 +712,7 @@ export default Ember.Component.extend({
         </div>
       {{/if}}
       {{#if (eq model.status "rejected")}}
+        {{log "I'm adding a log just to change shit"}}
         <div class="approved-standards">
           <h3>We're sorry, your standards were not accepted.</h3>
           <p>If you think this is a mistake, please email us at <a href="mailto:support@commoncurriculum.com">support@commoncurriculum.com.</a></p>
