@@ -67,16 +67,19 @@ export default Ember.Component.extend({
     )
   },
 
-  isVisible: Ember.computed("model.status", "session.isCommitter", function() {
+  showEditingInterface: Ember.computed("model.status", "session.isCommitter", function() {
     let isCommitter = get(this, "session.isCommitter")
+    console.log(isCommitter)
     let status = get(this, "model.status")
-
-    if ((status === "draft" || "revise-and-resubmit") && isCommitter !== true) {
-      return true
-    } else if ((status === "approved" || "rejected") && isCommitter === true) {
+    console.log(status)
+    if (isCommitter === true) {
       return true
     } else {
-      return false
+      if (status === "draft" || status === "revise-and-resubmit") {
+        return true
+      } else {
+        return false
+      }
     }
   }),
 
@@ -379,11 +382,11 @@ export default Ember.Component.extend({
     {{partial "navbar"}}
 
     <div class="container">
-      {{#if isVisible}}
+      {{#if this.showEditingInterface}}
       <div class="row" style="margin-top: 80px;">
         {{#if model.standardSet.jurisdiction.id}}
           {{#unless session.isCommitter}}
-            <div class="standard-set-editor-draft-box--directions">
+            <div class="standard-set-editor-draft-box --directions">
             <h2 class="standard-set-editor__subhead">Directions</h2>
             <p class="standard-set-editor__directions">
               First, thanks so much for helping improve the standards! We (and all the teachers that use these standards) really appreciate it.
@@ -605,7 +608,7 @@ export default Ember.Component.extend({
                     </div>
                     <div class="standard-set-editor-draft-box__buttons">
                         {{#if (eq model.status "draft")}}
-                          <div class="standard-set-editor-draft-box__button approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
+                          <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Submit</div>
                         {{/if}}
                         {{#if (eq model.status "revise-and-resubmit")}}
                           <div class="standard-set-editor-draft-box__button btn approval-btn {{if session.isCommitter false "non-committer"}}" {{action "submit"}}>Resubmit</div>
@@ -681,7 +684,8 @@ export default Ember.Component.extend({
         {{/if}}
       </div>
     {{/if}}
-    {{#unless session.isCommitter}}
+    {{!-- {{#if (eq this.showEditingInterface false)}} --}}
+      {{log "is visible" showEditingInterface}}
       {{#if (eq model.status "approved")}}
         <div class="approved-standards">
           <h3>Your standards have been approved!</h3>
@@ -723,7 +727,7 @@ export default Ember.Component.extend({
           </div>
         </div>
       {{/if}}
-    {{/unless}}
+    {{!-- {{/if}} --}}
 
     </div>
   `,
