@@ -450,7 +450,7 @@ export default Ember.Component.extend({
                         <div class="admin-form-group">
 
                         <select class="form-control" oninput={{action "selectJurisdictionFromDropdown" value="target.value"}}>
-                          <option selected>Select a Jurisdiction</option>
+                          <option selected>State, Organization, or School</option>
                           {{#each jurisdictions.content.list as |jurisdiction|}}
                             <option value="{{jurisdiction.id}}*{{jurisdiction.title}}" selected={{eq jurisdiction.id model.standardSet.jurisdiction.id}}>{{jurisdiction.title}}</option>
                           {{/each}}
