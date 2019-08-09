@@ -73,6 +73,7 @@ export default Ember.Component.extend({
       this.set("pane", pane)
     },
     createPullRequest() {
+      if (this.get("isCreatingPullRequest") === true) return;
       Ember.set(this, "isCreatingPullRequest", true)
       window.addEventListener("message", function(e){
         if (e && e.data && e.data.type && e.data.type === "endOfExplanation"){
