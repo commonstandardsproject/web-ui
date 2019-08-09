@@ -93,6 +93,7 @@ export default Ember.Component.extend({
         }
       }.bind(this))
       window.StonlyWidget.changeActiveExplanation(1302)   
+      window.StonlyWidget.open()
       window.StonlyWidget.openFullscreen()
 
     },
