@@ -76,6 +76,7 @@ export default Ember.Component.extend({
       Ember.set(this, "isCreatingPullRequest", true)
       window.addEventListener("message", function(e){
         if (e && e.data && e.data.type && e.data.type === "endOfExplanation"){
+          window.StonlyWidget.close()
           window.StonlyWidget.closeFullscreen()
           rpc["pullRequest:create"](
             {},
