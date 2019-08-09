@@ -74,19 +74,27 @@ export default Ember.Component.extend({
     },
     createPullRequest() {
       Ember.set(this, "isCreatingPullRequest", true)
-      rpc["pullRequest:create"](
-        {},
-        function(data) {
-          Ember.getOwner(this)
-            .lookup("router:main")
-            .transitionTo("edit.pull-requests", data.data.id)
-          Ember.set(this, "isCreatingPullRequest", false)
-        }.bind(this),
-        function(error) {
-          Ember.set(this, "isCreatingPullRequest", false)
-          console.error(error)
+      window.addEventListener("message", function(e){
+        if (e && e.data && e.data.type && e.data.type === "endOfExplanation"){
+          window.StonlyWidget.close()
+          window.StonlyWidget.closeFullscreen()
+          rpc["pullRequest:create"](
+            {},
+            function(data) {
+              Ember.getOwner(this)
+                .lookup("router:main")
+                .transitionTo("edit.pull-requests", data.data.id)
+              Ember.set(this, "isCreatingPullRequest", false)
+            }.bind(this),
+            function(error) {
+              Ember.set(this, "isCreatingPullRequest", false)
+              console.error(error)
+            }
+          )
         }
-      )
+      }.bind(this))
+      window.StonlyWidget.open(1302)
+
     },
   },
 
