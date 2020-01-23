@@ -195,10 +195,13 @@ export default Ember.Component.extend({
       let fileInput = $("#csv-upload")[0]
       let file = fileInput.files[0]
       Papa.parse(file, {
+        header: true,
         complete: results => {
-          _.map(results, result => {
+          _.map(results.data, result => {
             var position = _.get(_.last(this.get("orderedStandards")), "position", 0) + 1000
-            this.addStandard(result.depth, position, result.code, result.text)
+            var depth =
+              result.depth !== "" && result.depth !== null && result.depth !== undefined ? parseInt(result.depth) : null
+            this.addStandard(depth, position, result.code, result.text)
           })
         },
       })
