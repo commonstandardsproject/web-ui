@@ -630,7 +630,7 @@ export default Ember.Component.extend({
 
 
             <h2 class="standard-set-editor__subhead">Standards</h2>
-            {{standards-sorter-editor standardsHash=model.standardSet.standards validate=(action "validate")}}
+            {{standards-sorter-editor standardsHash=model.standardSet.standards validate=(action "validate") isCommitter=session.isCommitter }}
 
             <h2 class="standard-set-editor__subhead">Comments & Questions</h2>
             {{#if commentIsSaving}}

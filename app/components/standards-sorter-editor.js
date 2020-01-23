@@ -5,6 +5,7 @@ import diff from "npm:fast-json-patch"
 import _ from "npm:lodash"
 import listSorter from "../lib/positioned-list"
 import uuid from "npm:node-uuid"
+import Papa from "npm:papaparse"
 
 let get = Ember.get
 let set = Ember.set
@@ -14,7 +15,7 @@ export default Ember.Component.extend({
     return Standards.hashToArray(this.get("standardsHash"))
   }),
 
-  addStandard(depth, position) {
+  addStandard(depth, position, code, text) {
     analytics.track("Editor - Add Standard")
     var id = uuid
       .v4()
@@ -25,8 +26,8 @@ export default Ember.Component.extend({
       depth: depth,
       position: position,
       listId: "",
-      description: "",
-      statementNotation: "",
+      description: text || "",
+      statementNotation: code || "",
     }
     this.get("standardsHash")[id] = standard
     this.notifyPropertyChange("standardsHash")
@@ -189,6 +190,19 @@ export default Ember.Component.extend({
         $(window).scrollTop(newOffset.top - relativePosition)
       })
     },
+
+    uploadCSV(event) {
+      let fileInput = $("#csv-upload")[0]
+      let file = fileInput.files[0]
+      Papa.parse(file, {
+        complete(results) {
+          _.map(results, result => {
+            var position = _.get(_.last(this.get("orderedStandards")), "position", 0) + 1000
+            this.addStandard(result.depth, position, result.code, result.text)
+          })
+        },
+      })
+    },
   },
 
   layout: hbs`
@@ -239,6 +253,10 @@ export default Ember.Component.extend({
 
     <br>
     <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
+    {{#if isCommitter}}
+      <div class="btn btn-primary btn-block btn-lg" {{action "uploadCSV"}}>{{partial "icons/ios7-add"}} Upload CSV</div>
+      <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV"}}>
+    {{/if}}
 
   `,
 })
