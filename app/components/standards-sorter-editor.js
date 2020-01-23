@@ -254,8 +254,7 @@ export default Ember.Component.extend({
     <br>
     <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
     {{#if isCommitter}}
-      <div class="btn btn-primary btn-block btn-lg" {{action "uploadCSV"}}>{{partial "icons/ios7-add"}} Upload CSV</div>
-      <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV"}}>
+      <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV" target=this}}>
     {{/if}}
 
   `,
