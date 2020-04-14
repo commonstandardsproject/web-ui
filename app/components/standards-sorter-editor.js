@@ -206,6 +206,17 @@ export default Ember.Component.extend({
         },
       })
     },
+
+    swapNotation() {
+      let standards = get(this, "orderedStandards")
+      _.each(standards, standard => {
+        let newListId = standard.statementNotation
+        let newStatementNotation = standard.listId
+        set(standard, "listId", newListId)
+        set(standard, "statementNotation", newStatementNotation)
+      })
+      return true
+    },
   },
 
   layout: hbs`
@@ -257,6 +268,8 @@ export default Ember.Component.extend({
     <br>
     <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
     {{#if isCommitter}}
+      <div class="btn btn-primary btn-block btn-lg" {{action "swapNotation"}}>{{partial "icons/arrow-left"}} {{partial "icons/arrow-right"}}Swap Outline and Abbreviation </div>
+
       <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV" target=this}}>
     {{/if}}
 
