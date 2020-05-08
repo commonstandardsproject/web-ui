@@ -98,7 +98,7 @@ O7L4OQENOZ
     <div class="developers-grid__main">
       <h1>Welcome!</h1>
       <p>
-        Standards are hard and we're here to help. There are 50 states (and even more organizations) who produce standards. If you're like us, your customers will start asking to add their own standards. Creating an infrastructure to screen scrape 50 state websites and then updating them is overwhelming. Companies like ASN and Academic Benchmarks charge and arm and a leg for standards in formats that don't conform to conventional JSON or are organized in bizarre, teacher unfriendly ways. Further, you need to update the standards as the states update them. And, of course, let's not forget search. What's a developer to do?
+        Standards are hard and we're here to help. There are 50 states (and even more organizations) who produce standards. If you're like us, your customers will start asking to add their own standards. Creating an infrastructure to screen scrape 50 state websites and then updating them is overwhelming. Some companies charge and arm and a leg for standards in formats that don't conform to conventional JSON or are organized in bizarre, teacher unfriendly ways. Further, you need to update the standards as the states update them. And, of course, let's not forget search. What's a developer to do?
       </p>
       <p>
         Use the Common Standards Project, of course! Here, you can learn more about use our API and how to integrate instant standards search into your website. Reach out to me at scott (at) commoncurriculum dot com if you need more help!
