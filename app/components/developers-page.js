@@ -80,7 +80,7 @@ export default Ember.Component.extend({
 O7L4OQENOZ
 
 // Algolia API Key:
-{{session.algoliaApiKey}}</pre>
+{{#if session.algoliaApiKey}} {{session.algoliaApiKey}} {{else}} Contact us for a free search key. {{/if}}</pre>
         </div>
         {{#if originSuccess}}
           <div class="alert alert-success">Origins Updated!</div>
