@@ -10,47 +10,47 @@ export default Ember.Component.extend({
   authenticate: Ember.inject.service(),
   session: storageFor("persistedSession"),
 
-  isAuthenticated: Ember.computed("session.authenticatedAt", function() {
+  isAuthenticated: Ember.computed("session.authenticatedAt", function () {
     return Date.now() - this.get("session.authenticatedAt") < 3100000
   }),
 
-  pullRequests: Ember.computed("session.id", function() {
+  pullRequests: Ember.computed("session.id", function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("userPullRequests", this.get("session.id")),
     })
   }),
 
-  isAuthenticatedWatcher: Ember.observer("isAuthenticated", function() {
+  isAuthenticatedWatcher: Ember.observer("isAuthenticated", function () {
     if (this.get("isAuthenticated") === true) $(window).scrollTop(0)
   }),
 
-  jurisdictions: Ember.computed(function() {
+  jurisdictions: Ember.computed(function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("jurisdiction", "index", true),
     })
   }),
 
-  jurisdiction: Ember.computed("jurisdictionId", function() {
+  jurisdiction: Ember.computed("jurisdictionId", function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("jurisdiction", this.get("jurisdictionId")),
     })
   }),
 
-  standardSet: Ember.computed("standardSetId", function() {
+  standardSet: Ember.computed("standardSetId", function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("standardSet", this.get("standardSetId")),
     })
   }),
 
-  paneObserver: Ember.observer("pane", function() {
+  paneObserver: Ember.observer("pane", function () {
     $(window).scrollTop(0)
   }),
 
-  scrollOnStart: Ember.on("didInsertElement", function() {
+  scrollOnStart: Ember.on("didInsertElement", function () {
     $(window).scrollTop(0)
   }),
 
@@ -73,33 +73,33 @@ export default Ember.Component.extend({
       this.set("pane", pane)
     },
     createPullRequest() {
-      if (this.get("isCreatingPullRequest") === true) return;
+      if (this.get("isCreatingPullRequest") === true) return
       Ember.set(this, "isCreatingPullRequest", true)
-      window.addEventListener("message", function(e){
-        if (e && e.data && e.data.type && e.data.type === "endOfExplanation"){
-          if (this.get("isCreatingPullRequestAfterStonly") === true) return;
-          this.set("isCreatingPullRequestAfterStonly", true)
-          window.StonlyWidget.close()
-          window.StonlyWidget.closeFullscreen()
-          rpc["pullRequest:create"](
-            {},
-            function(data) {
-              Ember.getOwner(this)
-                .lookup("router:main")
-                .transitionTo("edit.pull-requests", data.data.id)
-              Ember.set(this, "isCreatingPullRequest", false)
-            }.bind(this),
-            function(error) {
-              Ember.set(this, "isCreatingPullRequest", false)
-              console.error(error)
-            }
-          )
-        }
-      }.bind(this))
-      window.StonlyWidget.changeActiveExplanation(1302)   
+      window.addEventListener(
+        "message",
+        function (e) {
+          if (e && e.data && e.data.type && e.data.type === "currentStep" && e.data.stepId === 552783626) {
+            if (this.get("isCreatingPullRequestAfterStonly") === true) return
+            this.set("isCreatingPullRequestAfterStonly", true)
+            window.StonlyWidget.close()
+            window.StonlyWidget.closeFullscreen()
+            rpc["pullRequest:create"](
+              {},
+              function (data) {
+                Ember.getOwner(this).lookup("router:main").transitionTo("edit.pull-requests", data.data.id)
+                Ember.set(this, "isCreatingPullRequest", false)
+              }.bind(this),
+              function (error) {
+                Ember.set(this, "isCreatingPullRequest", false)
+                console.error(error)
+              }
+            )
+          }
+        }.bind(this)
+      )
+      window.StonlyWidget.changeActiveExplanation(1302)
       window.StonlyWidget.open()
       window.StonlyWidget.openFullscreen()
-
     },
   },
 
