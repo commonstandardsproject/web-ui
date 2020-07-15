@@ -78,8 +78,6 @@ export default Ember.Component.extend({
       window.addEventListener(
         "message",
         function (e) {
-          console.log("our check", this.get("isCreatingPullRequest"))
-          console.log("stonly check", this.get("isCreatingPullRequestAfterStonly"))
           if (e && e.data && e.data.type && e.data.currentStepID === 9870) {
             if (this.get("isCreatingPullRequestAfterStonly") === true) return
             this.set("isCreatingPullRequestAfterStonly", true)
@@ -99,8 +97,6 @@ export default Ember.Component.extend({
           }
         }.bind(this)
       )
-       console.log("our check 1", this.get("isCreatingPullRequest"))
-       console.log("stonly check 1", this.get("isCreatingPullRequestAfterStonly"))
       window.StonlyWidget.changeActiveExplanation(1302)
       window.StonlyWidget.open()
       window.StonlyWidget.openFullscreen()
