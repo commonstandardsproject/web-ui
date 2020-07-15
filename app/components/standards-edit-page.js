@@ -78,7 +78,7 @@ export default Ember.Component.extend({
       window.addEventListener(
         "message",
         function (e) {
-          if (e && e.data && e.data.type && e.data.currentStepTitle === "All done!") {
+          if (e && e.data && e.data.type && e.data.currentStepID === 9870) {
             if (this.get("isCreatingPullRequestAfterStonly") === true) return
             this.set("isCreatingPullRequestAfterStonly", true)
             window.StonlyWidget.close()
