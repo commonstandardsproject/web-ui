@@ -75,7 +75,7 @@
     "fast-json-patch": "^0.5.2",
     "immutable": "^3.7.3",
     "lodash-fp": "^0.9.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "node-uuid": "^1.4.3",
     "rus-diff": "^1.1.0",
     "xtypejs": "^0.4.2"
