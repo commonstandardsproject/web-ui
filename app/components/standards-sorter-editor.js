@@ -270,6 +270,9 @@ export default Ember.Component.extend({
     {{#if isCommitter}}
       <div class="btn btn-primary btn-block btn-lg" {{action "swapNotation"}}>{{partial "icons/arrow-left"}} {{partial "icons/arrow-right"}}Swap Outline and Abbreviation </div>
 
+      <label for="csv-upload">
+        Upload a CSV with the standards. Columns must be named, "depth", "code", "text", "abbreviation" (all lowercase)
+      </label>
       <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV" target=this}}>
     {{/if}}
 
