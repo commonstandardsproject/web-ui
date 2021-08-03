@@ -15,7 +15,7 @@ export default Ember.Component.extend({
     return Standards.hashToArray(this.get("standardsHash"))
   }),
 
-  addStandard(depth, position, code, text) {
+  addStandard(depth, position, code, text, abbreviation) {
     analytics.track("Editor - Add Standard")
     var id = uuid
       .v4()
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
       id: id,
       depth: depth,
       position: position,
-      listId: "",
+      listId: abbreviation || "",
       description: text || "",
       statementNotation: code || "",
     }
@@ -201,7 +201,7 @@ export default Ember.Component.extend({
             var position = _.get(_.last(this.get("orderedStandards")), "position", 0) + 1000
             var depth =
               result.depth !== "" && result.depth !== null && result.depth !== undefined ? parseInt(result.depth) : null
-            this.addStandard(depth, position, result.code, result.text)
+            this.addStandard(depth, position, result.code, result.text, result.abbreviation)
           })
         },
       })
