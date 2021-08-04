@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments)
     this.triedToSubmit = false
-    this.lastSavedAt = new Date()
+    this.lastSavedAt = Date.now()
   },
 
   setupAutoSave: Ember.on("didInsertElement", function() {
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
         rpc["pullRequest:save"](
           get(this, "model"),
           () => {
-            set(this, "lastSavedAt", new Date())
+            set(this, "lastSavedAt", Date.now())
             Ember.run.later(this, () => Ember.set(this, "isAutoSaving", false), 500)
             this.autoSave()
           },
@@ -59,7 +59,7 @@ export default Ember.Component.extend({
   },
   
   secondsSinceLastSave: Ember.computed("lastSavedAt", function() {
-    let diff = new Date() - get(this, "lastSavedAt")
+    let diff = Date.now() - get(this, "lastSavedAt")
     diff = Math.floor(diff/1000)
     return diff
   }),
