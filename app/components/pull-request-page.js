@@ -56,9 +56,9 @@ export default Ember.Component.extend({
     )
   },
   
-  minutesSinceLastSave: Ember.computed("lastSavedAt", function() {
+  secondsSinceLastSave: Ember.computed("lastSavedAt", function() {
     let diff = new Date() - this.lastSavedAt
-    diff = Math.floor(diff/1000/60)
+    diff = Math.floor(diff/1000)
     return diff
   }),
 
@@ -555,7 +555,7 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
-                    <p>Last saved {{this.minutesSinceLastSave}} minutes ago.</p>
+                    <p>Last saved {{this.secondsSinceLastSave}} seconds ago.</p>
                     {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
