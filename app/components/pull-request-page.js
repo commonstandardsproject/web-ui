@@ -47,12 +47,15 @@ export default Ember.Component.extend({
             set(this, "lastSavedAt", new Date())
             Ember.run.later(this, () => Ember.set(this, "isAutoSaving", false), 500)
             this.autoSave()
+            set(this, "isSavingError", null)
           },
           () => {
             alert("Saving wasn't successful.")
             this.autoSave()
             set(this, "isAutoSaving", false)
+            set(this, "isSavingError", "We hit a problem trying to autosave your standards. Wait for this to go away before editing again.")
           }
+          
         )
       },
       10000
@@ -552,7 +555,8 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
-                    <p>Last saved {{moment-from-now this.lastSavedAt interval=1000}}.</p>
+                    
+                    <p {{action "save"}}>Last saved {{moment-from-now this.lastSavedAt interval=1000}}.</p>
                     {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
