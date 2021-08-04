@@ -50,6 +50,7 @@ export default Ember.Component.extend({
           },
           () => {
             alert("Saving wasn't successful.")
+            this.autoSave()
             set(this, "isAutoSaving", false)
           }
         )
