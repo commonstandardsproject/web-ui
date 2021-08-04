@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments)
     this.triedToSubmit = false
-    this.lastSavedAt = Date.now()
+    this.lastSavedAt = new Date()
   },
 
   setupAutoSave: Ember.on("didInsertElement", function() {
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
         rpc["pullRequest:save"](
           get(this, "model"),
           () => {
-            set(this, "lastSavedAt", Date.now())
+            set(this, "lastSavedAt", new Date())
             Ember.run.later(this, () => Ember.set(this, "isAutoSaving", false), 500)
             this.autoSave()
           },
@@ -57,12 +57,6 @@ export default Ember.Component.extend({
       10000
     )
   },
-  
-  secondsSinceLastSave: Ember.computed("lastSavedAt", function() {
-    let diff = Date.now() - get(this, "lastSavedAt")
-    diff = Math.floor(diff/1000)
-    return diff
-  }),
 
   autoValidate() {
     Ember.run.later(
@@ -557,7 +551,7 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
-                    <p>Last saved {{this.secondsSinceLastSave}} seconds ago.</p>
+                    <p>Last saved {{moment-from-now this.lastSavedAt}}.</p>
                     {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
