@@ -44,10 +44,12 @@ export default Ember.Component.extend({
         rpc["pullRequest:save"](
           get(this, "model"),
           () => {
+            set(this, "lastSavedAt", new Date())
             Ember.run.later(this, () => Ember.set(this, "isAutoSaving", false), 500)
             this.autoSave()
           },
           () => {
+            alert("Saving wasn't successful.")
             set(this, "isAutoSaving", false)
           }
         )
