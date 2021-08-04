@@ -546,8 +546,7 @@ export default Ember.Component.extend({
               </div>
             <div class="standard-set-editor-draft-box">
               {{#if isSavingError}}
-                <pre>{{isSavingError}}</pre>
-                <br>
+                <div class="alert alert-danger">{{isSavingError}}</div>
               {{/if}}
               {{#if isSaving}}
                 <div class="loading-ripple loading-ripple-md">{{partial "icons/ripple"}}</div>
