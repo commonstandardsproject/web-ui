@@ -217,6 +217,12 @@ export default Ember.Component.extend({
       })
       return true
     },
+    
+    deleteAllStandards() {
+      if (window.confirm("Are you sure you want to delete these?")){
+        set(this, "standardsHash", {})
+      }
+    }
   },
 
   layout: hbs`
@@ -273,7 +279,7 @@ export default Ember.Component.extend({
     {{/if}}
     
     <h3>Import standards with a CSV</h3>
-    <p>Instructions:</p>
+    <p>Instructions :</p>
     <ol>
       <li>Go to <a href="https://docs.google.com/spreadsheets/d/1GYMQo-coEePC-_ii6-429QTzOQveDuxj6Py1Gk6_4As/copy" target="_blank">this link and click "Make a copy"</a></li>
       <li>Enter your standards</li>
@@ -286,7 +292,9 @@ export default Ember.Component.extend({
       Upload CSV
     </label>
 
-
+    <div class="btn btn-danger btn-block btn-sm" {{action "deleteAllStandards"}} style="margin-top: 2rem;" >
+      Danger! Click here to delete all standards and start over!
+    </div>
 
   `,
 })
