@@ -552,7 +552,7 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
-                    <p>Last saved {{moment-from-now this.lastSavedAt}}.</p>
+                    <p>Last saved {{moment-from-now this.lastSavedAt interval=1000}}.</p>
                     {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
                       <div class="standard-set-editor-draft-box__status {{if (eq model.status 'draft') 'is-active'}}">Draft</div>
