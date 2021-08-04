@@ -267,14 +267,26 @@ export default Ember.Component.extend({
 
     <br>
     <div class="btn btn-primary btn-block btn-lg" {{action "addStandard"}}>{{partial "icons/ios7-add"}} Add a standard</div>
+
     {{#if isCommitter}}
       <div class="btn btn-primary btn-block btn-lg" {{action "swapNotation"}}>{{partial "icons/arrow-left"}} {{partial "icons/arrow-right"}}Swap Outline and Abbreviation </div>
-
-      <label for="csv-upload">
-        Upload a CSV with the standards. Columns must be named, "depth", "outline", "text", "code" (all lowercase)
-      </label>
-      <input id="csv-upload" class="btn btn-primary btn-block btn-lg" type="file" onchange={{action "uploadCSV" target=this}}>
     {{/if}}
+    
+    <h3>Import standards with a CSV</h3>
+    <p>Instructions:</p>
+    <ol>
+      <li>Go to <a href="https://docs.google.com/spreadsheets/d/1GYMQo-coEePC-_ii6-429QTzOQveDuxj6Py1Gk6_4As/copy" target="_blank">this link and click "Make a copy"</a></li>
+      <li>Enter your standards</li>
+      <li>When you're done, click "File" -> "Download" -> "Comma-separated values"</li>
+      <li>Click the button below and select the file</li>
+    </ol>
+    
+    <label for="csv-upload" class="btn btn-lg btn-primary">      
+      <input id="csv-upload" class="btn btn-primary btn-md" type="file" onchange={{action "uploadCSV" target=this}} style="display: none;">
+      Upload CSV
+    </label>
+
+
 
   `,
 })
