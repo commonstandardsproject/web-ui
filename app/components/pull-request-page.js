@@ -59,7 +59,7 @@ export default Ember.Component.extend({
   },
   
   secondsSinceLastSave: Ember.computed("lastSavedAt", function() {
-    let diff = new Date() - this.lastSavedAt
+    let diff = new Date() - get(this, "lastSavedAt")
     diff = Math.floor(diff/1000)
     return diff
   }),
