@@ -357,6 +357,10 @@ export default Ember.Component.extend({
       this.validateThis()
     },
 
+    setCspStatus(value) {
+      set(this, "model.standardSet.cspStatus.value", value)
+    },
+
     selectSubject(value) {
       if (value === "__CUSTOM__") {
         swal(
@@ -545,6 +549,26 @@ export default Ember.Component.extend({
                       </div>
                     {{/if}}
                   </div>
+                  {{#if session.isCommitter}}
+                    <div class="form-group">
+                      <label class="control-label col-sm-2">Is Visible or Hidden</label>
+                      <div class="col-sm-10">
+                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'visible') 'checked'}}">
+                          <label>
+                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'visible') input=(action "setCspStatus" "visible")}}
+                            Visible
+                          </label>
+                        </div>
+                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'hidden') 'checked'}}">
+                          <label>
+                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'hidden') input=(action "setCspStatus" "checked")}}
+                            Hidden
+                          </label>
+                        </div>
+                        {{input value=model.standardSet.cspStatus.notes type="text" class="form-control" placeholder="The reason for the change in visibility" }}
+                      </div>
+                    </div>
+                  {{/if}}
                 </div>
               </div>
             <div class="standard-set-editor-draft-box">
