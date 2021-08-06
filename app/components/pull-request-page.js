@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     this.lastSavedAt = new Date()
   },
 
-  setupAutoSave: Ember.on("didInsertElement", function() {
+  setupAutoSave: Ember.on("didInsertElement", function () {
     this.autoSave()
     this.autoValidate()
   }),
@@ -33,7 +33,7 @@ export default Ember.Component.extend({
   autoSave() {
     Ember.run.later(
       this,
-      function() {
+      function () {
         if (this.isDestroyed || this.isDestroying) return
         get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
 
@@ -53,9 +53,12 @@ export default Ember.Component.extend({
             alert("Saving wasn't successful.")
             this.autoSave()
             set(this, "isAutoSaving", false)
-            set(this, "isSavingError", "We hit a problem trying to autosave your standards. Wait for this to go away before editing again.")
+            set(
+              this,
+              "isSavingError",
+              "We hit a problem trying to autosave your standards. Wait for this to go away before editing again."
+            )
           }
-          
         )
       },
       10000
@@ -65,7 +68,7 @@ export default Ember.Component.extend({
   autoValidate() {
     Ember.run.later(
       this,
-      function() {
+      function () {
         if (this.isDestroyed || this.isDestroying) return
         get(this, "model.status") === "draft" ? set(this, "triedToSubmit", false) : set(this, "triedToSubmit", true)
         this.validateThis()
@@ -74,7 +77,7 @@ export default Ember.Component.extend({
     )
   },
 
-  showEditingInterface: Ember.computed("model.status", "session.isCommitter", function() {
+  showEditingInterface: Ember.computed("model.status", "session.isCommitter", function () {
     let isCommitter = get(this, "session.isCommitter")
     let status = get(this, "model.status")
     if (isCommitter === true) {
@@ -88,33 +91,33 @@ export default Ember.Component.extend({
     }
   }),
 
-  reversedActivities: Ember.computed("model.activities.@each", function() {
+  reversedActivities: Ember.computed("model.activities.@each", function () {
     return _(get(this, "model.activities") || [])
       .reverse()
       .value()
   }),
 
-  nullEducationLevels: Ember.computed("model.standardSet.educationLevels.@each", function() {
+  nullEducationLevels: Ember.computed("model.standardSet.educationLevels.@each", function () {
     return Ember.isNone(Ember.get(this, "model.standardSet.educationLevels"))
   }),
 
-  jurisdictions: Ember.computed("model.standardSet.jurisdiction.id", function() {
+  jurisdictions: Ember.computed("model.standardSet.jurisdiction.id", function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("jurisdiction", "index", true),
     })
   }),
 
-  jurisdiction: Ember.computed("model.standardSet.jurisdiction.id", function() {
+  jurisdiction: Ember.computed("model.standardSet.jurisdiction.id", function () {
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("jurisdiction", get(this, "model.standardSet.jurisdiction.id")),
     })
   }),
 
-  subjects: Ember.computed("jurisdiction.standardSets.@each.subject", "model.standardSet.subject", function() {
+  subjects: Ember.computed("jurisdiction.standardSets.@each.subject", "model.standardSet.subject", function () {
     let jurisdictionSubjects = _.uniq(
-      _.map(get(this, "jurisdiction.standardSets"), function(set) {
+      _.map(get(this, "jurisdiction.standardSets"), function (set) {
         return get(set, "subject")
       })
     ).sort()
@@ -147,14 +150,14 @@ export default Ember.Component.extend({
           "standardSet.jurisdiction.title",
         ]
 
-        let allErrorKeys = _.map(errorArray, error => error.key)
+        let allErrorKeys = _.map(errorArray, (error) => error.key)
 
         let descriptionIsValid = _.size(_.intersection(fieldsToDetermineValidate, allErrorKeys)) === 0
         set(this, "descriptionIsValid", descriptionIsValid)
 
         let formatValidateFields = ["indentation needed", "notation needed", "not enough standards"]
         let formattingErrors = _.chain(errorArray)
-          .map(error => error.validation)
+          .map((error) => error.validation)
           .flatten()
           .intersectionBy(formatValidateFields)
           .value()
@@ -182,11 +185,11 @@ export default Ember.Component.extend({
       set(this, "showAddOrganizationForm", false)
       rpc.addJurisdiction(
         data,
-        function(_data) {
+        function (_data) {
           set(this, "model.standardSet.jurisdiction.id", _data.data.id)
           set(this, "model.standardSet.jurisdiction.title", _data.data.title)
         }.bind(this),
-        function(err) {
+        function (err) {
           swal({
             type: "error",
             title: "We've run into an error creating the jurisdiction!",
@@ -206,17 +209,17 @@ export default Ember.Component.extend({
       set(this, "isAutoSaving", true)
       rpc["pullRequest:save"](
         get(this, "model"),
-        function() {
+        function () {
           Ember.run.later(
             this,
-            function() {
+            function () {
               set(this, "isAutoSaving", false)
               set(this, "isSavingError", null)
             },
             750
           )
         }.bind(this),
-        function(err) {
+        function (err) {
           set(
             this,
             "isSavingError",
@@ -234,7 +237,7 @@ export default Ember.Component.extend({
       rpc["pullRequest:addComment"](
         get(this, "model.id"),
         comment,
-        function(data) {
+        function (data) {
           set(this, "commentValue", "")
           set(this, "commentIsSaving", false)
           set(this, "model.activities", data.data.activities)
@@ -252,14 +255,14 @@ export default Ember.Component.extend({
         set(this, "isSaving", true)
         rpc["pullRequest:save"](
           get(this, "model"),
-          function() {
+          function () {
             rpc["pullRequest:submit"](
               get(this, "model.id"),
-              function(data) {
+              function (data) {
                 set(this, "isSaving", false)
                 set(this, "model", data.data)
               }.bind(this),
-              function(err) {
+              function (err) {
                 set(this, "savingError", err)
               }.bind(this)
             )
@@ -276,17 +279,17 @@ export default Ember.Component.extend({
       set(this, "isSaving", true)
       rpc["pullRequest:save"](
         get(this, "model"),
-        function() {
+        function () {
           rpc["pullRequest:changeStatus"](
             get(this, "model.id"),
             "revise-and-resubmit",
             get(this, "statusComment"),
-            function(data) {
+            function (data) {
               set(this, "isSaving", false)
               set(this, "statusComment", "")
               set(this, "model", data.data)
             }.bind(this),
-            function(err) {
+            function (err) {
               set(this, "savingError", err)
             }.bind(this)
           )
@@ -298,17 +301,17 @@ export default Ember.Component.extend({
       set(this, "isSaving", true)
       rpc["pullRequest:save"](
         get(this, "model"),
-        function() {
+        function () {
           rpc["pullRequest:changeStatus"](
             get(this, "model.id"),
             "rejected",
             get(this, "statusComment"),
-            function(data) {
+            function (data) {
               set(this, "isSaving", false)
               set(this, "statusComment", "")
               set(this, "model", data.data)
             }.bind(this),
-            function(err) {
+            function (err) {
               set(this, "savingError", err)
             }.bind(this)
           )
@@ -320,17 +323,17 @@ export default Ember.Component.extend({
       set(this, "isSaving", true)
       rpc["pullRequest:save"](
         get(this, "model"),
-        function() {
+        function () {
           rpc["pullRequest:changeStatus"](
             get(this, "model.id"),
             "approved",
             get(this, "statusComment"),
-            function(data) {
+            function (data) {
               set(this, "isSaving", false)
               set(this, "statusComment", "")
               set(this, "model", data.data)
             }.bind(this),
-            function(err) {
+            function (err) {
               set(this, "savingError", err)
             }.bind(this)
           )
@@ -365,7 +368,7 @@ export default Ember.Component.extend({
             animation: "slide-from-top",
             inputPlaceholder: "Write something",
           },
-          inputValue => {
+          (inputValue) => {
             if (inputValue === false) return false
             if (inputValue === "") {
               swal.showInputError("You need to write something!")
@@ -554,7 +557,7 @@ export default Ember.Component.extend({
                 <div class="row">
                   <div>
                     <h2 class="standard-set-editor__subhead">Status</h2>
-                    
+
                     <p {{action "save"}}>Last saved {{moment-from-now this.lastSavedAt interval=1000}}.</p>
                     {{!-- <a href="">Save</a> --}}
                     <div class="standard-set-editor-draft-box__statuses">
