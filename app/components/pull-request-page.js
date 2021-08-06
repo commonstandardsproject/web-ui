@@ -555,13 +555,13 @@ export default Ember.Component.extend({
                       <div class="col-sm-10">
                         <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'visible') 'checked'}}">
                           <label>
-                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'visible') input=(action "setCspStatus" "visible") value="visible"}}
+                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'visible') click=(action "setCspStatus" "visible") value="visible"}}
                             Visible
                           </label>
                         </div>
                         <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'hidden') 'checked'}}">
                           <label>
-                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'hidden') input=(action "setCspStatus" "checked") value="checked"}}
+                            {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'hidden') click=(action "setCspStatus" "checked") value="checked"}}
                             Hidden
                           </label>
                         </div>
