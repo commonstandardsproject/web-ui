@@ -359,6 +359,9 @@ export default Ember.Component.extend({
 
     setCspStatus(value) {
       console.log("set csp status", value, get(this, "model.standardSet.cspStatus.value"))
+      if (get(this, "model.standardSet.cspStatus") === undefined) {
+        set(this, "model.standardSet.cspStatus", {})
+      }
       set(this, "model.standardSet.cspStatus.value", value)
     },
 
