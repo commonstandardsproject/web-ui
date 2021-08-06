@@ -553,13 +553,13 @@ export default Ember.Component.extend({
                     <div class="form-group">
                       <label class="control-label col-sm-2">Is Visible or Hidden</label>
                       <div class="col-sm-10">
-                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'visible') 'checked'}}" click=(action "setCspStatus" "visible")>
+                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'visible') 'checked'}}" {{action "setCspStatus" "visible"}}>
                           <label>
                             {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'visible')  value="visible"}}
                             Visible
                           </label>
                         </div>
-                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'hidden') 'checked'}}" click=(action "setCspStatus" "checked")>
+                        <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'hidden') 'checked'}}" {{action "setCspStatus" "checked"}}>
                           <label>
                             {{input type="checkbox" checked=(eq model.standardSet.cspStatus.value 'hidden')  value="checked"}}
                             Hidden
