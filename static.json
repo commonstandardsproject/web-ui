@@ -7,7 +7,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://api.commonstandardsproject.com/api/"
+      "origin": "${API_URL}"
     }
   },
   "headers": {
