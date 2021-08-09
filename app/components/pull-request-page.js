@@ -252,7 +252,7 @@ export default Ember.Component.extend({
         swal("Make sure your email is filled out!")
         return false
       }
-      if (Ember.isEmpty(get(this, "errors"))) {
+      if (Ember.isEmpty(get(this, "errors")) || get(this, "session.isCommitter") === true) {
         set(this, "isSaving", true)
         rpc["pullRequest:save"](
           get(this, "model"),
