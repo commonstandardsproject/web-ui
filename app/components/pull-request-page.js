@@ -554,8 +554,8 @@ export default Ember.Component.extend({
                     {{/if}}
                   </div>
                   {{#if session.isCommitter}}
-                    <div class="form-group">
-                      <label class="control-label col-sm-2">Is Visible or Hidden</label>
+                    <div class="form-group" style="display: flex; align-items: center;">
+                      <label class="control-label col-sm-2">Visible by default?</label>
                       <div class="col-sm-10">
                         <div class="checkbox education-level-checkboxes__checkbox {{if (eq model.standardSet.cspStatus.value 'visible') 'checked'}}" {{action "setCspStatus" "visible"}}>
                           <label>
@@ -569,7 +569,7 @@ export default Ember.Component.extend({
                             Hidden
                           </label>
                         </div>
-                        {{input value=model.standardSet.cspStatus.notes type="text" class="form-control" placeholder="The reason for the change in visibility" }}
+                        {{input value=model.standardSet.cspStatus.notes type="text" class="form-control" placeholder="The reason for the change in visibility" style="padding-top: 7px;" }}
                       </div>
                     </div>
                   {{/if}}
