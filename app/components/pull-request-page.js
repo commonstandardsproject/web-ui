@@ -247,6 +247,7 @@ export default Ember.Component.extend({
 
     submit() {
       set(this, "triedToSubmit", true)
+      this.validateThis()
       if (Ember.isBlank(get(this, "model.submitterEmail")) || get(this, "model.submitterEmail") === "") {
         swal("Make sure your email is filled out!")
         return false
@@ -269,6 +270,7 @@ export default Ember.Component.extend({
           }.bind(this)
         )
       } else {
+        console.log("errors", get(this, "errors"))
         swal(
           "These standards aren't ready for submitting, yet! Make sure all the checkboxes are green and fix any errors."
         )
