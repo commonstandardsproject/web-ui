@@ -20,7 +20,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
         model._status.isFetching = true
         var url = models[modelName].url + "/" + id.replace("index", "")
         // If we're finding the list of standard sets in a jurisdiction, hide the hidden sets by default
-        if (modelName === "jurisdictions" && id !== "index") {
+        if (modelName === "jurisdiction" && id !== "index") {
           url = url + "?hideHiddenSets=true"
         }
         rpc["fetcherGet"](
