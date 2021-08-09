@@ -9,19 +9,23 @@ var requests = []
 var Fetcher = Ember.Object.extend(Ember.Evented, {
   find(modelName, id, fetch) {
     if (Ember.isNone(id)) {
-      return new Ember.RSVP.Promise(function(resolve, reject) {
+      return new Ember.RSVP.Promise(function (resolve, reject) {
         resolve(null)
       })
     }
     var model = store.local.find(modelName, id)
 
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
       if (shouldFetch(model._status) || fetch === true) {
         model._status.isFetching = true
         var url = models[modelName].url + "/" + id.replace("index", "")
+        // If we're finding the list of standard sets in a jurisdiction, hide the hidden sets by default
+        if (modelName === "jurisdictions" && id !== "index") {
+          url = url + "?hideHiddenSets=true"
+        }
         rpc["fetcherGet"](
           url,
-          function(_data) {
+          function (_data) {
             if (_data === undefined) return
             var data = _.clone(_data.data) || {}
             if (Ember.isArray(data)) {
@@ -37,7 +41,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
             store.server.add(modelName, id, data)
             resolve(data)
           }.bind(this),
-          function(err) {
+          function (err) {
             reject(err)
           }
         )
@@ -48,7 +52,7 @@ var Fetcher = Ember.Object.extend(Ember.Evented, {
   },
 })
 
-var shouldFetch = function(status) {
+var shouldFetch = function (status) {
   return status.inLocalStore !== true && status.isFetching !== true
 }
 
