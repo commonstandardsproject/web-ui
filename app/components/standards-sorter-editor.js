@@ -200,7 +200,7 @@ export default Ember.Component.extend({
           _.map(results.data, result => {
             var position = _.get(_.last(this.get("orderedStandards")), "position", 0) + 1000
             var depth =
-              result.depth !== "" && result.depth !== null && result.depth !== undefined ? parseInt(result.depth) : null
+              result.depth !== "" && result.depth !== null && result.depth !== undefined ? parseInt(result.depth) : 0
             this.addStandard(depth, position, result.code, result.text, result.outline)
           })
         },
