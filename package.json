@@ -61,7 +61,7 @@
     "loader.js": "^4.2.3",
     "lodash": "^4.17.11",
     "moment": "2.11.2",
-    "moment-timezone": "0.5.0",
+    "moment-timezone": "0.5.35",
     "papaparse": "5.1.1",
     "rus-diff": "^1.1.0",
     "torii": "0.10.1"
