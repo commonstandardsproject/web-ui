@@ -1,0 +1,28 @@
+{
+  "name": "spin.js",
+  "version": "2.0.2",
+  "main": "spin.js",
+  "dependencies": {},
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fgnass/spin.js.git"
+  },
+  "ignore": [
+    "Gruntfile.js",
+    "site",
+    "bower.json",
+    "component.json",
+    "package.json"
+  ],
+  "homepage": "https://github.com/fgnass/spin.js",
+  "_release": "2.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.2",
+    "commit": "89734a25ac9b1428806a024e079d93ce83977372"
+  },
+  "_source": "https://github.com/fgnass/spin.js.git",
+  "_target": "~2.0.2",
+  "_originalSource": "spin.js"
+}
