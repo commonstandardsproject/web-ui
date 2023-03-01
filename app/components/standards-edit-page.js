@@ -75,31 +75,18 @@ export default Ember.Component.extend({
     createPullRequest() {
       if (this.get("isCreatingPullRequest") === true) return
       Ember.set(this, "isCreatingPullRequest", true)
-      window.addEventListener(
-        "message",
-        function (e) {
-          if (e && e.data && e.data.type && e.data.type === "nextStepClicked" && e.data.nextStepId === 59139) {
-            if (this.get("isCreatingPullRequestAfterStonly") === true) return
-            this.set("isCreatingPullRequestAfterStonly", true)
-            window.StonlyWidget.close()
-            window.StonlyWidget.closeFullscreen()
-            rpc["pullRequest:create"](
-              {},
-              function (data) {
-                Ember.getOwner(this).lookup("router:main").transitionTo("edit.pull-requests", data.data.id)
-                Ember.set(this, "isCreatingPullRequest", false)
-              }.bind(this),
-              function (error) {
-                Ember.set(this, "isCreatingPullRequest", false)
-                console.error(error)
-              }
-            )
-          }
-        }.bind(this)
+      
+      rpc["pullRequest:create"](
+        {},
+        function (data) {
+          Ember.getOwner(this).lookup("router:main").transitionTo("edit.pull-requests", data.data.id)
+          Ember.set(this, "isCreatingPullRequest", false)
+        }.bind(this),
+        function (error) {
+          Ember.set(this, "isCreatingPullRequest", false)
+          console.error(error)
+        }
       )
-      window.StonlyWidget.changeActiveExplanation(1302)
-      window.StonlyWidget.open()
-      window.StonlyWidget.openFullscreen()
     },
   },
 
