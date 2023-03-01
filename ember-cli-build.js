@@ -2,7 +2,7 @@
 const EmberApp = require("ember-cli/lib/broccoli/ember-app")
 var nodeSass = require("node-sass")
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   var app = new EmberApp(defaults, {
     sassOptions: {
       implementation: nodeSass,
@@ -24,6 +24,8 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import("bower_components/auth0-lock/build/lock.js")
+  app.import("bower_components/jsoneditor/dist/jsoneditor.js")
+  app.import("bower_components/jsoneditor/dist/jsoneditor.css")
   app.import("vendor/sweetalert/sweetalert.css")
   app.import("vendor/sweetalert/sweetalert-dev.js")
   app.import("vendor/ember/ember-template-compiler.js")

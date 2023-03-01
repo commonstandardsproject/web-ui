@@ -1,6 +1,5 @@
 /* global JSONEditor */
 import Ember from "ember"
-import JSONEditor from "npm:jsoneditor"
 
 export default Ember.Component.extend({
   /**
@@ -18,7 +17,7 @@ export default Ember.Component.extend({
   _editor: undefined,
   /**
    */
-  editor: function() {
+  editor: function () {
     var self = this
     if (Ember.isEqual(self.get("_editor"), undefined)) {
       // Empty, create it.
@@ -46,7 +45,7 @@ export default Ember.Component.extend({
   /**
     Object with options.
     */
-  options: function() {
+  options: function () {
     var props = this.getProperties(["mode", "modes", "_change", "search", "history", "name", "indentation", "error"])
     // Rename
     props.change = props._change
@@ -73,7 +72,7 @@ export default Ember.Component.extend({
     Callback method, triggered
     on change of contents
     */
-  change: function() {
+  change: function () {
     console.log("JSON Editor changed!")
   },
 
@@ -82,7 +81,7 @@ export default Ember.Component.extend({
      Invoked with the error as first argument.
      The callback is only invoked for errors triggered by a users action.
     */
-  error: function(error) {
+  error: function (error) {
     console.error("An error occured: ", error)
   },
 
@@ -95,7 +94,7 @@ export default Ember.Component.extend({
     Change event handler.
     Triggers `change()` which is user defined.
     */
-  _change: function() {
+  _change: function () {
     var self = this.component
     var editor = self.get("editor")
     var json = editor.get()
@@ -140,7 +139,7 @@ export default Ember.Component.extend({
   /**
     Editor observer.
     */
-  editorDidChange: function() {
+  editorDidChange: function () {
     var self = this
     self.get("editor")
   }
@@ -150,7 +149,7 @@ export default Ember.Component.extend({
   /**
     JSON observer.
     */
-  jsonDidChange: function() {
+  jsonDidChange: function () {
     var self = this
     if (Ember.isEqual(self.get("_updating"), false)) {
       var editor = self.get("editor")
@@ -162,7 +161,7 @@ export default Ember.Component.extend({
   /**
     Mode observer.
     */
-  modeDidChange: function() {
+  modeDidChange: function () {
     var self = this
     var editor = self.get("editor")
     var mode = self.get("mode")
@@ -172,7 +171,7 @@ export default Ember.Component.extend({
   /**
     Name observer.
     */
-  nameDidChange: function() {
+  nameDidChange: function () {
     var self = this
     var editor = self.get("editor")
     var name = self.get("name")

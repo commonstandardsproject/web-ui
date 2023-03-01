@@ -57,7 +57,6 @@
     "ember-source": "3.8.0",
     "ember-storage": "2.0.0",
     "ember-truth-helpers": "2.1.0",
-    "jsoneditor": "^4.2.0",
     "loader.js": "^4.2.3",
     "lodash": "^4.17.11",
     "moment": "2.11.2",
