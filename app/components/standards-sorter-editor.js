@@ -355,8 +355,7 @@ export default Ember.Component.extend({
       Upload CSV
     </label>
 
-    <label for="csv-upload" class="btn btn-lg btn-primary">      
-      <input id="csv-upload" class="btn btn-primary btn-md" type="file" onchange={{action "downloadCSV" target=this}} style="display: none;">
+    <label for="csv-upload" class="btn btn-lg btn-primary" onchange={{action "downloadCSV" target=this}} >      
       Download CSV
     </label>
 
