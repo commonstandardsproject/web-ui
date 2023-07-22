@@ -266,6 +266,7 @@ export default Ember.Component.extend({
           code: standard.statementNotation
         }
       })
+      console.log(standards)
       const blob = new Blob(standards, { type: 'text/csv' });
       saveFile(blob, "standards")
     },
