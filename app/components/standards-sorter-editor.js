@@ -18,7 +18,7 @@ const saveFile = async (blob, suggestedName) => {
     (() => {
       try {
         return window.self === window.top;
-      } catch {
+      } catch (err) {
         return false;
       }
     })();
