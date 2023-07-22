@@ -356,7 +356,7 @@ export default Ember.Component.extend({
     </label>
 
     <label for="csv-download" class="btn btn-lg btn-primary">      
-      <input id="csv-download" class="btn btn-primary btn-md" onchange={{action "uploadCSV" target=this}} style="display: none;">
+      <input id="csv-download" class="btn btn-primary btn-md" onchange={{action "downloadCSV" target=this}} style="display: none;">
       Download CSV
     </label>
 
