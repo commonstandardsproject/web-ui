@@ -65,9 +65,9 @@ export default Ember.Component.extend({
     return Standards.hashToArray(this.get("standardsHash"))
   }),
 
-  addStandard(depth, position, code, text, listId) {
+  addStandard(depth, position, code, text, listId, _id) {
     analytics.track("Editor - Add Standard")
-    var id = uuid
+    var id = _id || uuid
       .v4()
       .replace(/-/g, "")
       .toUpperCase()
@@ -251,7 +251,7 @@ export default Ember.Component.extend({
             var position = _.get(_.last(this.get("orderedStandards")), "position", 0) + 1000
             var depth =
               result.depth !== "" && result.depth !== null && result.depth !== undefined ? parseInt(result.depth) : 0
-            this.addStandard(depth, position, result.code, result.text, result.outline)
+            this.addStandard(depth, position, result.code, result.text, result.outline, result.id)
           })
         },
       })
@@ -260,14 +260,17 @@ export default Ember.Component.extend({
     downloadCSV(event) {
       let standards = _.map(this.get("orderedStandards"), standard => {
         return {
+          id: standard.id,
           depth: standard.depth,
           outline: standard.listId,
-          text: standard.text,
+          text: standard.description,
           code: standard.statementNotation
         }
       })
+      let csv = Papa.unparse(standards)
       console.log(standards)
-      const blob = new Blob(standards, { type: 'text/csv' });
+      console.log(csv)
+      const blob = new Blob([csv], { type: 'text/csv' });
       saveFile(blob, "standards")
     },
 
