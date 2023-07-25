@@ -5,6 +5,57 @@ import _ from "npm:lodash"
 import Standards from "../models/standards"
 import hbs from "htmlbars-inline-precompile"
 import { storageFor } from "ember-local-storage"
+import Papa from "npm:papaparse"
+
+const saveFile = async (blob, suggestedName) => {
+  // Feature detection. The API needs to be supported
+  // and the app not run in an iframe.
+  const supportsFileSystemAccess =
+    'showSaveFilePicker' in window &&
+    (() => {
+      try {
+        return window.self === window.top;
+      } catch (err) {
+        return false;
+      }
+    })();
+  // If the File System Access API is supported…
+  if (supportsFileSystemAccess) {
+    try {
+      // Show the file save dialog.
+      const handle = await showSaveFilePicker({
+        suggestedName,
+      });
+      // Write the blob to the file.
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return;
+    } catch (err) {
+      // Fail silently if the user has simply canceled the dialog.
+      if (err.name !== 'AbortError') {
+        console.error(err.name, err.message);
+        return;
+      }
+    }
+  }
+  // Fallback if the File System Access API is not supported…
+  // Create the blob URL.
+  const blobURL = URL.createObjectURL(blob);
+  // Create the `<a download>` element and append it invisibly.
+  const a = document.createElement('a');
+  a.href = blobURL;
+  a.download = suggestedName;
+  a.style.display = 'none';
+  document.body.append(a);
+  // Programmatically click the element.
+  a.click();
+  // Revoke the blob URL and remove the element.
+  setTimeout(() => {
+    URL.revokeObjectURL(blobURL);
+    a.remove();
+  }, 1000);
+};
 
 export default Ember.Component.extend({
   pane: "standards",
@@ -158,6 +209,20 @@ export default Ember.Component.extend({
       }
     },
 
+    downloadSet() {
+      let standards = _.map(this.get("standards"), standard => {
+        return {
+          depth: standard.depth,
+          outline: standard.listId,
+          text: standard.description,
+          code: standard.statementNotation
+        }
+      })
+      let csv = Papa.unparse(standards)
+      const blob = new Blob([csv], { type: 'text/csv' });
+      saveFile(blob, this.get("currentJurisdiction") + " - " + this.get("currentSubject") + " - " + this.get("standardSet.title"))
+    },
+
     removeSet() {
       analytics.track("Search - Remove Set")
       this.attrs.removeSet(this.get("id"))
@@ -226,6 +291,9 @@ export default Ember.Component.extend({
           <div class="standard-set-pane__link hint--left" data-hint="Link to these standards" {{action 'toggleLinkToSet'}}>{{partial "icons/ios7-link"}}</div>
           <div class="standard-set-pane__edit hint--left" {{action "editSet"}} data-hint="Fix a typo in these standards">
             {{partial "icons/ios7-compose"}}
+          </div>
+          <div class="standard-set-pane__edit hint--left" {{action "downloadSet"}} data-hint="Download a CSV">
+            {{partial "icons/arrow-down"}}
           </div>
           <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
           <h1 class="standard-set-header__jurisdiction" {{action 'backToPane' 'jurisdictions'}}>{{currentJurisdiction}} {{partial "icons/chevron-right"}}</h1>
