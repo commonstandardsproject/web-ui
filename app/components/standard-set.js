@@ -292,7 +292,7 @@ export default Ember.Component.extend({
           <div class="standard-set-pane__edit hint--left" {{action "editSet"}} data-hint="Fix a typo in these standards">
             {{partial "icons/ios7-compose"}}
           </div>
-          <div class="standard-set-pane__edit hint--left" {{action "downloadSet"}} data-hint="Download a CSV">
+          <div class="standard-set-pane__download hint--left" {{action "downloadSet"}} data-hint="Download a CSV">
             {{partial "icons/arrow-down"}}
           </div>
           <div class="standard-set-pane__back" {{action 'backToPane' 'grade-levels'}}>&larr;</div>
