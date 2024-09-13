@@ -151,7 +151,7 @@ export default Ember.Component.extend({
     var standards = Standards.hashToArray(this.get("standardSet.standards"))
     var results = this.get("results")
     if (results !== null && results !== undefined) {
-      standards = _.filter(standards, s => _.include(results, s.id))
+      standards = _.filter(standards, s => _.includes(results, s.id))
     }
     return standards
   }),
