@@ -96,7 +96,7 @@ export default Ember.Component.extend({
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("standardSet", this.get("id")).then(datum => {
-        window.document.title = `${datum.jurisdiction.title} : ${datum.subject} : ${
+        window.document.title = `${datum.jurisdiction?.title} : ${datum.subject} : ${
           datum.title
         } - Common Standards Project`
         return datum
