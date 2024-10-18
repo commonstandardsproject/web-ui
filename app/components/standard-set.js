@@ -96,7 +96,8 @@ export default Ember.Component.extend({
     var ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin)
     return ObjectPromiseProxy.create({
       promise: Fetcher.find("standardSet", this.get("id")).then(datum => {
-        window.document.title = `${datum.jurisdiction.title} : ${datum.subject} : ${
+        const jurisTitle = datum.jurisdiction ? datum.jurisdiction.title: "Unknown"
+        window.document.title = `${jurisTitle} : ${datum.subject} : ${
           datum.title
         } - Common Standards Project`
         return datum
@@ -151,7 +152,7 @@ export default Ember.Component.extend({
     var standards = Standards.hashToArray(this.get("standardSet.standards"))
     var results = this.get("results")
     if (results !== null && results !== undefined) {
-      standards = _.filter(standards, s => _.include(results, s.id))
+      standards = _.filter(standards, s => _.includes(results, s.id))
     }
     return standards
   }),
